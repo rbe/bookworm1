@@ -17,9 +17,9 @@ public class BookwormMain {
     public static void main(String[] args) throws Exception {
         // Spring Filesystem Application Context
         final String[] filesystemConfigLocation = new String[]{
-                "bookworm-datasource.xml",
+                "conf/bookworm-datasource.xml",
                 "classpath:META-INF/spring-context.xml",
-                "bookworm-camel.xml"
+                "conf/bookworm-camel.xml"
         };
         final ApplicationContext applicationContext0 = new FileSystemXmlApplicationContext(filesystemConfigLocation);
         /*
