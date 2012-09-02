@@ -1,13 +1,21 @@
 package eu.artofcoding.wbh.bookworm;
 
+import eu.artofcoding.beetlejuice.api.GenericEntity;
+
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "books")
-public class BookEntity implements Serializable {
+@NamedQueries({
+        @NamedQuery(name = "findByStichwort", query = "SELECT o FROM BookEntity o WHERE o.suchwoerter LIKE :stichwort"),
+        @NamedQuery(name = "findByAutor", query = "SELECT o FROM BookEntity o WHERE o.autor LIKE :autor"),
+        @NamedQuery(name = "findByTitel", query = "SELECT o FROM BookEntity o WHERE o.titel LIKE :titel"),
+        @NamedQuery(name = "findByDatum", query = "SELECT o FROM BookEntity o WHERE o.einstelldatum LIKE :datum")
+})
+public class BookEntity implements GenericEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
 
     @Version
