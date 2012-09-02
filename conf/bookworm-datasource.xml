@@ -7,7 +7,7 @@
     -->
     <bean id="bookwormDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/wbh"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/bookworm"/>
         <property name="username" value="bookworm"/>
         <property name="password" value="bookworm"/>
     </bean>

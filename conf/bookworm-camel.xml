@@ -6,8 +6,7 @@
     <!--
         Camel.
     -->
-    <bean id="bookwormFileParser" class="eu.artofcoding.wbh.bookworm.BookwormFileParser">
-    </bean>
+    <bean id="bookwormFileParser" class="eu.artofcoding.wbh.bookworm.BookwormFileParser"/>
     <bean id="bookwormImportProcessor" class="eu.artofcoding.wbh.bookworm.BookwormImportProcessor">
         <property name="bookwormFileParser" ref="bookwormFileParser"/>
     </bean>
