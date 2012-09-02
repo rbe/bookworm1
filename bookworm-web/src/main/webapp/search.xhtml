@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+    <!-- base href="http://www.wbh-online.de" -->
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="robots" content="index, follow"/>
+    <meta name="keywords" content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
+    <meta name="description" content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
+    <meta name="generator" content="medienhof - Source Management"/>
+    <title>Katalogsuche - Westdeutsche Blindenhörbücherei - Münster</title>
+    <link href="http://www.wbh-online.de/templates/wbh/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <h:outputStylesheet library="css" name="template.css" target="head"/>
+    <h:outputStylesheet library="css" name="position.css" target="head" media="screen,projection"/>
+    <h:outputStylesheet library="css" name="layout.css" target="head" media="screen,projection"/>
+    <!--[if IE 6]>
+    <h:outputStylesheet library="css" name="ie6only.css" target="head"/>
+    <![endif]-->
+    <!--[if IE 7]>
+    <h:outputStylesheet library="css" name="ie7only.css" target="head"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <h:outputStylesheet library="css" name="ie8only.css" target="head"/>
+    <![endif]-->
+</h:head>
+<h:body style="font-size: 100%;">
+    <div id="head">
+        <p class="unsichtbar"><a name="top"></a><a href="#content" accesskey="2">zum Inhalt springen</a></p>
+    </div>
+    <div id="all">
+        <div id="logo">
+            <a title="Link zur Startseite" href="http://www.wbh-online.de/index.php"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="http://www.wbh-online.de/templates/wbh/images/logo_wbh.gif"/></a>
+        </div>
+        <div id="header">
+            <div class="moduletable">
+                <img src="http://www.wbh-online.de/components/com_gk2_photoslide/images/thumbm/649894header_start.jpg" alt="Westdeutsche Blindenhörbücherei e.V." style="z-index:0;"/>
+            </div>
+            <div id="topmenu">
+                <h3 class="unsichtbar">Top-Navigation</h3>
+                <div class="moduletable_topmenu">
+                    <ul id="mainlevel">
+                        <li><a href="http://www.wbh-online.de/startseite.html" class="mainlevel">Startseite</a></li>
+                        <li><a href="http://www.wbh-online.de/kataloge.html" class="mainlevel">Kataloge</a></li>
+                        <li>
+                            <a href="http://www.wbh-online.de/onlinebestellung.html" class="mainlevel">Onlinebestellung</a>
+                        </li>
+                        <li><a href="http://www.wbh-online.de/download.html" class="mainlevel">Download</a></li>
+                        <li><a href="http://www.wbh-online.de/kontakt.html" class="mainlevel">Kontakt</a></li>
+                        <li><a href="http://www.wbh-online.de/bhb-stiftung.html" class="mainlevel">BHB-Stiftung</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- end header -->
+        <div class="wrap">&nbsp;</div>
+        <div id="contentarea">
+            <div id="wrapperfull">
+                <div id="main">
+                    <h1 class="unsichtbar">
+                        <a name="content"></a>
+                        Inhalt
+                    </h1>
+                    <div class="blog">
+                        <div class="leading">
+                            <h2 class="contentheading">Katalog Suche</h2>
+                            <h:form name="katalogsuche">
+                                <p class="line15">
+                                    <label class="suchlabel_stichwort">nach Stichwort</label>
+                                    <h:inputText styleClass="input_stichwort" type="text" size="40" value="#{bookwormSearchBean.stichwort}" name="stichwortsuche" maxlength="30" style="width:30"/>
+                                    <h:commandButton class="submitbutton" type="submit" value="Suchen" action="#{bookwormSearchBean.search}"/>
+                                </p>
+                                <p class="line15">
+                                    <label class="suchlabel_autor">nach Autor</label>
+                                    <h:inputText styleClass="input_autor" type="text" size="40" value="#{bookwormSearchBean.autor}" name="autorsuche" maxlength="30" style="width:30"/>
+                                    <h:commandButton class="submitbutton" type="submit" value="Suchen" action="#{bookwormSearchBean.search}"/>
+                                </p>
+                                <p class="line15">
+                                    <label class="suchlabel_titel">nach Titel</label>
+                                    <h:inputText styleClass="input_titel" type="text" size="40" value="#{bookwormSearchBean.titel}" name="titelsuche" maxlength="30" style="width:30"/>
+                                    <h:commandButton class="submitbutton" type="submit" value="Suchen" action="#{bookwormSearchBean.search}"/>
+                                </p>
+                                <p class="line15">
+                                    <label class="suchlabel_datum">nach Datum</label>
+                                    <h:inputText styleClass="input_datum" type="text" size="40" value="#{bookwormSearchBean.datum}" name="datumsuche" maxlength="30" style="width:30"/>
+                                    <h:commandButton class="submitbutton" type="submit" value="Suchen" action="#{bookwormSearchBean.search}"/>
+                                </p>
+                            </h:form>
+                            <p class="line15">
+                                <br/><br/><br/><br/><br/>
+                                <b>Hinweise für bessere Suchergebnisse</b>:<br/>
+                                Die Suche findet alle Einträge, die Ihren Suchbegriff enthalten - auch als Wortbestandteil. Eine Suche nach »test« findet also auch »späteste«.<br/><br/><br/><br/><br/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- END main -->
+            </div>
+            <!-- END wrapper1 -->
+        </div>
+        <!-- contentarea -->
+        <div id="footer">
+            <h1 class="unsichtbar">
+                Fusszeile
+            </h1>
+            <p class="syndicate">
+            </p>
+            <div style="text-align: right;">
+                <span style="float: left;"><a href="#top" accesskey="1">zum&nbsp;Seitenanfang</a></span>
+                <span style="float: right;">© 2011 Westdeutsche Blindenhörbücherei e.V. | <a title="Impressum" href="http://www.wbh-online.de/impressum.html">Impressum</a></span>
+            </div>
+            <p></p>
+            <div class="wrap"></div>
+        </div>
+        <!-- footer -->
+    </div>
+    <!-- all -->
+    <!-- Piwik -->
+    <script type="text/javascript">
+        var pkBaseURL = (("https:" == document.location.protocol) ? "https://www.datapage.eu/piwiki/" : "http://www.datapage.eu/piwiki/");
+        document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script src="wbh-Dateien/piwik.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        try {
+            var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 11);
+            piwikTracker.trackPageView();
+            piwikTracker.enableLinkTracking();
+        } catch (err) {
+        }
+    </script>
+    <noscript><p><img src="http://www.datapage.eu/piwiki/piwik.php?idsite=11" style="border:0" alt=""/></p></noscript>
+    <!-- End Piwik Tag -->
+</h:body>
+</html>
