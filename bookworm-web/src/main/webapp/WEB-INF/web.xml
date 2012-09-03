@@ -64,4 +64,11 @@
             <name>SESSIONID</name>
         </cookie-config>
     </session-config>
+    <!--
+        Error Page
+    -->
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/search.xhtml</location>
+    </error-page>
 </web-app>
