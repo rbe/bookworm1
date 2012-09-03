@@ -17,6 +17,7 @@
     <h:outputStylesheet library="css" name="template.css" target="head"/>
     <h:outputStylesheet library="css" name="position.css" target="head" media="screen,projection"/>
     <h:outputStylesheet library="css" name="layout.css" target="head" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="http://www.wbh-online.de/app/search.css"/>
     <!--[if IE 6]>
     <h:outputStylesheet library="css" name="ie6only.css" target="head"/>
     <![endif]-->
@@ -74,24 +75,11 @@
                                     <h:commandLink action="#{bookwormSearchBean.gotoSearchPage}">Erneute Suche</h:commandLink>
                                 </p>
                                 <br/><br/><br/>
-                                <style type="text/css">
-                                    .tab {
-                                        width: 935px;
-                                        padding: 0;
-                                        cellspacing: 6;
-                                        margin: 0 20px 0 10px;
-                                        border: 1px solid grey;
-                                    }
-
-                                    .row {
-                                        vertical-align: top;
-                                        width: 22%;
-                                    }
-                                </style>
                                 <h:dataTable id="bookwormSearchResultTable"
                                              styleClass="tab" rowClasses="row"
                                              value="#{bookwormSearchBean.result.currentPage}" var="book"
-                                             offset="#{bookwormSearchBean.result.offset}" rows="#{bookwormSearchBean.result.pageSize}">
+                                             offset="#{bookwormSearchBean.result.offset}" rows="#{bookwormSearchBean.result.pageSize}"
+                                             cellpadding="0" cellspacing="0">
                                     <h:column>
                                         <f:facet name="header">
                                             Titelnummer
