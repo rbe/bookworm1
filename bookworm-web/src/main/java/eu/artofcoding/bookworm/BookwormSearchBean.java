@@ -11,6 +11,7 @@
 
 package eu.artofcoding.bookworm;
 
+import eu.artofcoding.beetlejuice.jpa.PaginateableSearch;
 import eu.artofcoding.wbh.bookworm.BookEntity;
 
 import javax.ejb.EJB;
