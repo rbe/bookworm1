@@ -35,7 +35,9 @@
         <version.org.apache.commons.io>2.4</version.org.apache.commons.io>
         <version.org.apache.commons.fileupload>1.2.2</version.org.apache.commons.fileupload>
         <version.eu.artofcoding.beetlejuice>1.0.0-SNAPSHOT</version.eu.artofcoding.beetlejuice>
+        <version.org.apache.maven.plugins.maven-war-plugin>2.2</version.org.apache.maven.plugins.maven-war-plugin>
     </properties>
+    <!-- Dependencies. -->
     <dependencies>
         <!--
             Java EE.
@@ -67,7 +69,7 @@
             <version>${version.org.hibernate-entitymanager}</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <!--
             JavaServer Faces
         -->
@@ -117,6 +119,7 @@
         </resources>
         <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
+            <!-- maven-compiler-plugin
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${version.org.apache.maven.plugins.maven-compiler-plugin}</version>
@@ -125,6 +128,18 @@
                     <target>${project.java.version}</target>
                     <verbose/>
                 </configuration>
+            </plugin>
+            -->
+            <!-- maven-war-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${version.org.apache.maven.plugins.maven-war-plugin}</version>
+                <!--
+                <configuration>
+                    <webappDirectory>/sample/servlet/container/deploy/directory</webappDirectory>
+                </configuration>
+                -->
             </plugin>
         </plugins>
     </build>

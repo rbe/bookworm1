@@ -9,6 +9,11 @@
     <groupId>eu.artofcoding.bookworm</groupId>
     <artifactId>bookworm</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <parent>
+        <groupId>eu.artofcoding</groupId>
+        <artifactId>aoc-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
     <!--
         Project Information.
     -->
@@ -40,9 +45,10 @@
         <module>bookworm-import</module>
         <module>bookworm-web</module>
     </modules>
+    <!-- Properties. -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.java.version>1.6</project.java.version>
+        <project.java.version>1.7</project.java.version>
         <version.org.apache.maven.plugins.maven-compiler-plugin>2.3.2</version.org.apache.maven.plugins.maven-compiler-plugin>
         <version.org.apache.maven.plugins.maven-jar-plugin>2.4</version.org.apache.maven.plugins.maven-jar-plugin>
         <version.org.apache.maven.plugins.maven-shade-plugin>1.7.1</version.org.apache.maven.plugins.maven-shade-plugin>
@@ -53,12 +59,42 @@
         <version.org.apache.camel.camel-core>2.10.0</version.org.apache.camel.camel-core>
         <version.org.springframework.spring-core>3.1.1.RELEASE</version.org.springframework.spring-core>
         <version.mysql.mysql-connector-java>5.1.21</version.mysql.mysql-connector-java>
+        <aoc.public.maven.repository>file:${project.parent.relativePath}/../../public.maven.repository/</aoc.public.maven.repository>
+        <aoc.private.maven.repository>file:${project.parent.relativePath}/../../private.maven.repository/</aoc.private.maven.repository>
     </properties>
     <repositories>
+        <!-- art of coding's Public Maven Repository (local) -->
+        <repository>
+            <id>public.maven.repository</id>
+            <name>Public Local Repository</name>
+            <url>${aoc.public.maven.repository}</url>
+        </repository>
+        <!-- art of coding's Public Maven Repository
+        <repository>
+            <id>aoc.public.maven.repository</id>
+            <name>art of coding's public.maven.repository on GitHub</name>
+            <url>https://raw.github.com/artofcoding/public.maven.repository/master</url>
+            <layout>default</layout>
+        </repository>
+        -->
+        <!-- art of coding's Private Maven Repository (local) -->
+        <repository>
+            <id>private.maven.repository</id>
+            <name>Private Local Repository</name>
+            <url>${aoc.private.maven.repository}</url>
+        </repository>
+        <!-- java.net -->
         <repository>
             <id>java.net</id>
             <url>http://download.java.net/maven/2</url>
         </repository>
+        <!-- Spring -->
+        <repository>
+            <id>spring-releases</id>
+            <name>Spring Maven RELEASE Repository</name>
+            <url>http://maven.springframework.org/release</url>
+        </repository>
+        <!-- JBoss -->
         <repository>
             <id>repository.jboss.org</id>
             <name>JBoss Repository</name>
@@ -67,9 +103,9 @@
     </repositories>
     <distributionManagement>
         <repository>
-            <id>public.maven.repository</id>
-            <name>Public Local Repository</name>
-            <url>file:../../public.maven.repository/</url>
+            <id>private.maven.repository</id>
+            <name>Private Local Repository</name>
+            <url>${aoc.private.maven.repository}</url>
         </repository>
     </distributionManagement>
 </project>

@@ -27,6 +27,7 @@
     <!-- Properties. -->
     <properties>
     </properties>
+    <!-- Dependencies. -->
     <dependencies>
         <!-- Logging -->
         <dependency>
@@ -106,6 +107,7 @@
         </resources>
         <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
+            <!-- maven-compiler-plugin -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${version.org.apache.maven.plugins.maven-compiler-plugin}</version>
@@ -115,6 +117,7 @@
                     <verbose/>
                 </configuration>
             </plugin>
+            <!-- maven-jar-plugin -->
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>${version.org.apache.maven.plugins.maven-jar-plugin}</version>
@@ -127,21 +130,26 @@
                     <finalName>${project.artifactId}-${project.version}</finalName>
                 </configuration>
             </plugin>
+            <!-- maven-assembly-plugin -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>${version.org.apache.maven.plugins.maven-shade-plugin}</version>
+                <!-- http://maven.apache.org/plugins/maven-assembly-plugin/assembly.html -->
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/dist.xml</descriptor>
+                    </descriptors>
+                    <finalName>bookworm-import-${project.version}</finalName>
+                </configuration>
                 <executions>
                     <execution>
+                        <id>make-assembly</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>shade</goal>
+                            <goal>single</goal>
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <finalName>uber-${project.artifactId}-${project.version}</finalName>
-                </configuration>
             </plugin>
         </plugins>
     </build>
