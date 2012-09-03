@@ -74,79 +74,113 @@
                                 </p>
                                 <p class="line15 nextdetail">
                                     <h:commandLink action="#{bookwormSearchBean.previousBook}" value="vorheriger Titel"/>
-                                    &nbsp;Titel Nr. <h:outputText value="#{bookwormSearchBean.result.selectedEntityTotalIndex + 1}"/>&nbsp;
+                                    &nbsp;Titel Nr.
+                                    <h:outputText value="#{bookwormSearchBean.result.selectedEntityTotalIndex + 1}"/>&nbsp;
                                     <h:commandLink action="#{bookwormSearchBean.nextBook}" value="nächster Titel"/><br/><br/>
                                 </p>
-                                <table class="detailtable" width="935" cellpadding="0" cellspacing="6" style="margin:0 20px 0 10px; border:1px solid grey;">
+                                <table class="detailtable" width="935" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td class="detaillabel" valign="top" width="200">Sachgebiet</td>
-                                        <td class="detailvalue" valign="top" width="600"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.sachgebiet}"/></td>
+                                        <td class="detailvalue" valign="top" width="600">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.sachgebiet}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Titelnummer</td>
-                                        <td class="detailvalue" valign="top"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.titelnummer}"/></td>
+                                        <td class="detailvalue" valign="top">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.titelnummer}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Einstelldatum</td>
-                                        <td class="detailvalue" valign="top"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.einstelldatum}"/></td>
+                                        <td class="detailvalue" valign="top">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.einstelldatum}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Autor</td>
-                                        <td class="detailvalue" valign="top"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.autor}"/></td>
+                                        <td class="detailvalue" valign="top">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.autor}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Titel</td>
-                                        <td class="detailvalue" valign="top"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.titel}"/></td>
+                                        <td class="detailvalue" valign="top">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.titel}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Untertitel</td>
-                                        <td class="detailvalue" valign="top"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.untertitel}"/></td>
+                                        <td class="detailvalue" valign="top">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.untertitel}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Erläuterungen</td>
-                                        <td class="detailvalue" valign="top"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.erlaeuterung}"/></td>
+                                        <td class="detailvalue" valign="top">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.erlaeuterung}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Produktionsjahr</td>
-                                        <td class="detailvalue" valign="top"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.prodJahr}"/></td>
+                                        <td class="detailvalue" valign="top">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.prodJahr}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Produktionsort</td>
-                                        <td class="detailvalue" valign="top"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.prodOrt}"/></td>
+                                        <td class="detailvalue" valign="top">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.prodOrt}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Spieldauer</td>
-                                        <td class="detailvalue" valign="top"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.spieldauer}"/></td>
+                                        <td class="detailvalue" valign="top">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.spieldauer}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Anzahl CD</td>
-                                        <td class="detailvalue" valign="top"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.anzahlCD}"/></td>
+                                        <td class="detailvalue" valign="top">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.anzahlCD}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Sprecher</td>
-                                        <td class="detailvalue" valign="top"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.sprecher1}"/></td>
+                                        <td class="detailvalue" valign="top">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.sprecher1}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Sprecher</td>
-                                        <td class="detailvalue" valign="top"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.sprecher2}"/></td>
+                                        <td class="detailvalue" valign="top">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.sprecher2}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Produktionsjahr</td>
-                                        <td class="detailvalue" valign="top"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.prodJahr}"/></td>
+                                        <td class="detailvalue" valign="top">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.prodJahr}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Verlag</td>
-                                        <td class="detailvalue" valign="top"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.verlag}"/></td>
+                                        <td class="detailvalue" valign="top">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.verlag}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Verlagsort</td>
-                                        <td class="detailvalue" valign="top"><h:outputText value="#{bookwormSearchBean.result.selectedEntity.verlagsort}"/></td>
+                                        <td class="detailvalue" valign="top">
+                                            <h:outputText value="#{bookwormSearchBean.result.selectedEntity.verlagsort}"/>
+                                        </td>
                                     </tr>
                                 </table>
                                 <br/><br/>
                                 <p class="line15 nextdetail">
                                     <h:commandLink action="#{bookwormSearchBean.previousBook}" value="vorheriger Titel"/>
-                                    &nbsp;Titel Nr. <h:outputText value="#{bookwormSearchBean.result.selectedEntityTotalIndex + 1}"/>&nbsp;
+                                    &nbsp;Titel Nr.
+                                    <h:outputText value="#{bookwormSearchBean.result.selectedEntityTotalIndex + 1}"/>&nbsp;
                                     <h:commandLink action="#{bookwormSearchBean.nextBook}" value="nächster Titel"/><br/><br/>
                                 </p>
                             </h:form>
@@ -174,21 +208,5 @@
         <!-- footer -->
     </div>
     <!-- all -->
-    <!-- Piwik -->
-    <script type="text/javascript">
-        var pkBaseURL = (("https:" == document.location.protocol) ? "https://www.datapage.eu/piwiki/" : "http://www.datapage.eu/piwiki/");
-        document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    <script src="wbh-Dateien/piwik.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        try {
-            var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 11);
-            piwikTracker.trackPageView();
-            piwikTracker.enableLinkTracking();
-        } catch (err) {
-        }
-    </script>
-    <noscript><p><img src="http://www.datapage.eu/piwiki/piwik.php?idsite=11" style="border:0" alt=""/></p></noscript>
-    <!-- End Piwik Tag -->
 </h:body>
 </html>

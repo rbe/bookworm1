@@ -108,7 +108,9 @@
                                     <f:facet name="footer">
                                         <h:panelGroup>
                                             <h:commandButton value="Zurück" action="#{bookwormSearchBean.previousPage}" disabled="#{!bookwormSearchBean.previousButtonEnabled}"/>
-                                            &nbsp;Seite <h:outputText value="#{bookwormSearchBean.result.currentPageIndex + 1}"/> von <h:outputText value="#{bookwormSearchBean.result.pageCount}"/>&nbsp;
+                                            &nbsp;Seite
+                                            <h:outputText value="#{bookwormSearchBean.result.currentPageIndex + 1}"/> von
+                                            <h:outputText value="#{bookwormSearchBean.result.pageCount}"/>&nbsp;
                                             <h:commandButton value="Weiter" action="#{bookwormSearchBean.nextPage}" disabled="#{!bookwormSearchBean.nextButtonEnabled}"/>
                                         </h:panelGroup>
                                     </f:facet>
@@ -139,21 +141,5 @@
         <!-- footer -->
     </div>
     <!-- all -->
-    <!-- Piwik -->
-    <script type="text/javascript">
-        var pkBaseURL = (("https:" == document.location.protocol) ? "https://www.datapage.eu/piwiki/" : "http://www.datapage.eu/piwiki/");
-        document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    <script src="wbh-Dateien/piwik.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        try {
-            var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 11);
-            piwikTracker.trackPageView();
-            piwikTracker.enableLinkTracking();
-        } catch (err) {
-        }
-    </script>
-    <noscript><p><img src="http://www.datapage.eu/piwiki/piwik.php?idsite=11" style="border:0" alt=""/></p></noscript>
-    <!-- End Piwik Tag -->
 </h:body>
 </html>
