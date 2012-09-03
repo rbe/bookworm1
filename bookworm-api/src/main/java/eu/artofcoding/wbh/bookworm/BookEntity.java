@@ -3,14 +3,16 @@ package eu.artofcoding.wbh.bookworm;
 import eu.artofcoding.beetlejuice.api.GenericEntity;
 
 import javax.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "books")
 @NamedQueries({
-        @NamedQuery(name = "findByStichwort", query = "SELECT o FROM BookEntity o WHERE o.suchwoerter LIKE :stichwort"),
+        @NamedQuery(name = "findByStichwort", query = "SELECT o FROM BookEntity o WHERE o.autor LIKE :autor OR o.titel LIKE :titel"),
         @NamedQuery(name = "findByAutor", query = "SELECT o FROM BookEntity o WHERE o.autor LIKE :autor"),
         @NamedQuery(name = "findByTitel", query = "SELECT o FROM BookEntity o WHERE o.titel LIKE :titel"),
-        @NamedQuery(name = "findByDatum", query = "SELECT o FROM BookEntity o WHERE o.einstelldatum LIKE :datum")
+        @NamedQuery(name = "findByDatum", query = "SELECT o FROM BookEntity o WHERE o.einstelldatum >= :einstelldatum")
 })
 public class BookEntity implements GenericEntity {
 
@@ -50,6 +52,35 @@ public class BookEntity implements GenericEntity {
     private String titelfamilie; // 40 wird nicht gebraucht
     private String einstelldatum; // .80
 
+    private static final Map<String, String> SACHGEBIETE = new HashMap<String, String>();
+
+    static {
+        SACHGEBIETE.put("A", "Klassiker der Weltliteratur");
+        SACHGEBIETE.put("B", "Erzählungen oder Novellen, Kurzgeschichten, Märchen und Sagen");
+        SACHGEBIETE.put("C", "Lyrik und Anthologien.");
+        SACHGEBIETE.put("D", "Literatur der Moderne und Problemliteratur");
+        SACHGEBIETE.put("E", "Unterhaltungsliteratur, wie z.B. Liebes- und Schicksalsromane.");
+        SACHGEBIETE.put("F", "Historische Romane.");
+        SACHGEBIETE.put("G", "Kriminal- und Agentenromane, Kriegserlebnisse und Abenteuererzählungen.");
+        SACHGEBIETE.put("H", "Humor und Satire");
+        SACHGEBIETE.put("I", "Science Fiction-Romane und phantastische Literatur");
+        SACHGEBIETE.put("J", "Biographien, Tagebücher und Briefe");
+        SACHGEBIETE.put("K", "Abhandlungen über Literatur, Musik und Kunst.");
+        SACHGEBIETE.put("L", "Philosophie, Psychologie, Religion, Theologie und sonstige religiöse Literatur, auch die der nichtchristlichen Religionen");
+        SACHGEBIETE.put("M", "Reiseführer, Reise-, Länder- und Städtebeschreibungen");
+        SACHGEBIETE.put("N", "Kulturgeschichte, Zeitgeschichte sowie Bücher über Archäologie.");
+        SACHGEBIETE.put("O", "Politik, Gesellschaft und Pädagogik");
+        SACHGEBIETE.put("P", "Wirtschaft und Recht.");
+        SACHGEBIETE.put("Q", "Naturwissenschaft, Medizin und Technik.");
+        SACHGEBIETE.put("R", "Tiergeschichten, Tierverhalten");
+        SACHGEBIETE.put("S", "Kinder- und Jugendliteratur");
+        SACHGEBIETE.put("T", "Hobbies (z.B. Kochbücher), praktische Bücher, Ratgeber, Weiterbildung");
+        SACHGEBIETE.put("U", "Einige Titel in englischer und französischer Sprache");
+        SACHGEBIETE.put("V", "Blindenwesen");
+        SACHGEBIETE.put("W", "Hörspiele, die von verschiedenen Rundfunkanstalten übernommen werden konnten, und Dramen");
+        SACHGEBIETE.put("X", "Stimme des Autors bzw. spezieller Rezitatoren");
+    }
+
     public Long getId() {
         return id;
     }
@@ -67,6 +98,9 @@ public class BookEntity implements GenericEntity {
     }
 
     public String getSachgebiet() {
+        if (null != sachgebiet) {
+            return SACHGEBIETE.get(sachgebiet);
+        }
         return sachgebiet;
     }
 
@@ -155,7 +189,16 @@ public class BookEntity implements GenericEntity {
     }
 
     public String getSpieldauer() {
-        return spieldauer;
+        String _spieldauer = null;
+        if (null != spieldauer) {
+            String[] parts = spieldauer.split(",");
+            if (!parts[1].equals("00")) {
+                _spieldauer = String.format("%s Stunden %s Minuten", parts[0], parts[1]);
+            } else {
+                _spieldauer = String.format("%s Stunden", parts[0]);
+            }
+        }
+        return _spieldauer;
     }
 
     public void setSpieldauer(String spieldauer) {
@@ -234,32 +277,5 @@ public class BookEntity implements GenericEntity {
                 ", einstelldatum='" + einstelldatum + '\'' +
                 '}';
     }
-/*
-    Jetzt kommen noch die einzelnen Sachgebiete aufgeschlüsselt:
-    A Klassiker der Weltliteratur
-    B Erzählungen oder Novellen, Kurzgeschichten, Märchen und Sagen
-    C Lyrik und Anthologien.
-    D Literatur der Moderne und Problemliteratur
-    E Unterhaltungsliteratur, wie z.B. Liebes- und Schicksalsromane.
-    F Historische Romane.
-    G Kriminal- und Agentenromane, Kriegserlebnisse und Abenteuererzählungen.
-    H Humor und Satire
-    I Science Fiction-Romane und phantastische Literatur
-    J Biographien, Tagebücher und Briefe
-    K Abhandlungen über Literatur, Musik und Kunst.
-    L Philosophie, Psychologie, Religion, Theologie und sonstige religiöse
-    L iteratur, auch die der nichtchristlichen Religionen
-    M Reiseführer, Reise-, Länder- und Städtebeschreibungen
-    N Kulturgeschichte, Zeitgeschichte sowie Bücher über Archäologie.
-    O Politik, Gesellschaft und Pädagogik
-    P Wirtschaft und Recht.
-    Q Naturwissenschaft, Medizin und Technik.
-    R Tiergeschichten, Tierverhalten
-    S Kinder- und Jugendliteratur
-    T Hobbies (z.B. Kochbücher), praktische Bücher, Ratgeber, Weiterbildung
-    U Einige Titel in englischer und französischer Sprache,
-    V Blindenwesen
-    W Hörspiele, die von verschiedenen Rundfunkanstalten übernommen werden konnten, und Dramen
-    X Stimme des Autors bzw. spezieller Rezitatoren
-    */
+
 }

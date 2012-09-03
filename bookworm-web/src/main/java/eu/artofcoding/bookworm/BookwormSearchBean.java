@@ -18,6 +18,9 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,7 +81,8 @@ public class BookwormSearchBean implements Serializable {
         Map<String, Object> parameters = new HashMap<String, Object>();
         if (null != stichwort && stichwort.length() > 0) {
             result.setSearchTerm(stichwort);
-            parameters.put("stichwort", "%" + stichwort + "%");
+            parameters.put("autor", "%" + stichwort + "%");
+            parameters.put("titel", "%" + stichwort + "%");
             namedQuery = "findByStichwort";
         } else if (null != autor && autor.length() > 0) {
             result.setSearchTerm(autor);
@@ -90,11 +94,19 @@ public class BookwormSearchBean implements Serializable {
             namedQuery = "findByTitel";
         } else if (null != datum && datum.length() > 0) {
             result.setSearchTerm(datum);
-            parameters.put("datum", "%" + datum + "%");
-            namedQuery = "findByDatum";
+            SimpleDateFormat sdfGer = new SimpleDateFormat("dd.MM.yyyy");
+            SimpleDateFormat sdfIso = new SimpleDateFormat("yyyyMMdd");
+            try {
+                Date _datum = sdfGer.parse(datum);
+                //parameters.put("einstelldatum", "%" + sdfIso.format(_datum) + "%");
+                parameters.put("einstelldatum", new java.sql.Date(_datum.getTime()));
+                namedQuery = "findByDatum";
+            } catch (ParseException e) {
+                // ignore
+            }
         }
         if (null != namedQuery) {
-            result.executeSearch(namedQuery, parameters);
+            result.executeSearch(namedQuery, parameters, "OR");
         }
         // Go to result page
         return "result.xhtml";
@@ -119,7 +131,7 @@ public class BookwormSearchBean implements Serializable {
     }
 
     public boolean isNextButtonEnabled() {
-        return result.hasNextPage();
+        return null != result && result.hasNextPage();
     }
 
     public String nextPage() {
@@ -128,7 +140,7 @@ public class BookwormSearchBean implements Serializable {
     }
 
     public boolean isPreviousButtonEnabled() {
-        return result.hasPreviousPage();
+        return null != result && result.hasPreviousPage();
     }
 
     public String previousPage() {
