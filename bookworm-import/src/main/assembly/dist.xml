@@ -20,6 +20,16 @@
                 <unpack>false</unpack>
             </binaries>
         </moduleSet>
+        <moduleSet>
+            <useAllReactorProjects>true</useAllReactorProjects>
+            <includes>
+                <include>eu.artofcoding.bookworm:bookworm-import</include>
+            </includes>
+            <binaries>
+                <outputDirectory>/</outputDirectory>
+                <unpack>false</unpack>
+            </binaries>
+        </moduleSet>
     </moduleSets>
     <fileSets>
         <fileSet>
