@@ -6,7 +6,7 @@
  * Alle Rechte vorbehalten. Nutzung unterliegt Lizenzbedingungen.
  * All rights reserved. Use is subject to license terms.
  *
- * rbe, 28.08.12 20:09
+ * rbe, 29.08.12 11:15
  */
 
 package eu.artofcoding.bookworm;
