@@ -6,7 +6,7 @@
  * Alle Rechte vorbehalten. Nutzung unterliegt Lizenzbedingungen.
  * All rights reserved. Use is subject to license terms.
  *
- * rbe, 29.08.12 11:14
+ * rbe, 04.09.12 12:14
  */
 
 package eu.artofcoding.bookworm;
@@ -95,11 +95,9 @@ public class BookwormSearchBean implements Serializable {
         } else if (null != datum && datum.length() > 0) {
             result.setSearchTerm(datum);
             SimpleDateFormat sdfGer = new SimpleDateFormat("dd.MM.yyyy");
-            SimpleDateFormat sdfIso = new SimpleDateFormat("yyyyMMdd");
             try {
                 Date _datum = sdfGer.parse(datum);
-                //parameters.put("einstelldatum", "%" + sdfIso.format(_datum) + "%");
-                parameters.put("einstelldatum", new java.sql.Date(_datum.getTime()));
+                parameters.put("einstelldatum", _datum);
                 namedQuery = "findByDatum";
             } catch (ParseException e) {
                 // ignore
@@ -126,6 +124,11 @@ public class BookwormSearchBean implements Serializable {
 
     //<editor-fold desc="Navigation">
     public String gotoSearchPage() {
+        // Reset state
+        stichwort = "";
+        autor = "";
+        titel = "";
+        datum = "";
         // Go to search page
         return "search.xhtml";
     }

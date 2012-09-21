@@ -1,9 +1,22 @@
+/*
+ * bookworm
+ * bookworm-import
+ * Copyright (C) 2011-2012 art of coding UG, http://www.art-of-coding.eu/
+ *
+ * Alle Rechte vorbehalten. Nutzung unterliegt Lizenzbedingungen.
+ * All rights reserved. Use is subject to license terms.
+ *
+ * rbe, 27.08.12 10:23
+ */
+
 package eu.artofcoding.wbh.bookworm;
 
 import java.io.*;
 import java.net.URI;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +44,8 @@ public class BookwormFileParser {
     };
 
     public List<BookEntity> parseFile(URI uri) throws IOException {
+        // Setup date parser
+        SimpleDateFormat sdfIso = new SimpleDateFormat("yyyyMMdd");
         // A line, terminated by CRLF
         File path = new File(uri);
         ByteBuffer buffer = ByteBuffer.allocate(4 * 1024 * 1024); // 4 MB buffer
@@ -100,7 +115,11 @@ public class BookwormFileParser {
                         bookEntity.setTitelfamilie(substring);
                         break;
                     case 34:
-                        bookEntity.setEinstelldatum(substring);
+                        try {
+                            bookEntity.setEinstelldatum(new java.sql.Date(sdfIso.parse(substring).getTime()));
+                        } catch (ParseException e) {
+                            // ignore
+                        }
                         break;
                 }
             }

@@ -1,3 +1,14 @@
+/*
+ * bookworm
+ * bookworm-api
+ * Copyright (C) 2011-2012 art of coding UG, http://www.art-of-coding.eu/
+ *
+ * Alle Rechte vorbehalten. Nutzung unterliegt Lizenzbedingungen.
+ * All rights reserved. Use is subject to license terms.
+ *
+ * rbe, 04.09.12 12:00
+ */
+
 package eu.artofcoding.wbh.bookworm;
 
 import eu.artofcoding.beetlejuice.api.GenericEntity;
@@ -50,7 +61,7 @@ public class BookEntity implements GenericEntity {
     private String suchwoerter; // 80
     private String anzahlCD; // 20
     private String titelfamilie; // 40 wird nicht gebraucht
-    private String einstelldatum; // .80
+    private java.sql.Date einstelldatum; // .80
 
     private static final Map<String, String> SACHGEBIETE = new HashMap<String, String>();
 
@@ -245,11 +256,11 @@ public class BookEntity implements GenericEntity {
         this.titelfamilie = titelfamilie;
     }
 
-    public String getEinstelldatum() {
+    public java.sql.Date getEinstelldatum() {
         return einstelldatum;
     }
 
-    public void setEinstelldatum(String einstelldatum) {
+    public void setEinstelldatum(java.sql.Date einstelldatum) {
         this.einstelldatum = einstelldatum;
     }
 
