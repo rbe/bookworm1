@@ -76,16 +76,17 @@
                                 <p class="line15">
                                     <label class="suchlabel_autor">nach Autor</label>
                                     <h:inputText styleClass="input_autor" type="text" size="40" value="#{bookwormSearchBean.autor}" name="autorsuche" maxlength="30" style="width:30"/>
-                                    <h:commandButton class="submitbutton" type="submit" value="Suchen" action="#{bookwormSearchBean.search}"/>
                                 </p>
                                 <p class="line15">
                                     <label class="suchlabel_titel">nach Titel</label>
                                     <h:inputText styleClass="input_titel" type="text" size="40" value="#{bookwormSearchBean.titel}" name="titelsuche" maxlength="30" style="width:30"/>
-                                    <h:commandButton class="submitbutton" type="submit" value="Suchen" action="#{bookwormSearchBean.search}"/>
                                 </p>
                                 <p class="line15">
                                     <label class="suchlabel_datum">nach Datum</label>
                                     <h:inputText styleClass="input_datum" type="text" size="40" value="#{bookwormSearchBean.datum}" name="datumsuche" maxlength="30" style="width:30"/>
+                                </p>
+                                <p class="line15">
+                                    <label>&nbsp;</label>
                                     <h:commandButton class="submitbutton" type="submit" value="Suchen" action="#{bookwormSearchBean.search}"/>
                                 </p>
                             </h:form>

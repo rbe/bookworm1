@@ -35,7 +35,7 @@ public class BookwormSearchBean implements Serializable {
     private String autor;
     private String titel;
     private String datum;
-    private PaginateableSearch<BookEntity> result;
+    private PaginateableSearch<BookEntity> paginateableSearch;
     //</editor-fold>
 
     //<editor-fold desc="Getter and Setter">
@@ -89,11 +89,11 @@ public class BookwormSearchBean implements Serializable {
             parameters.put("autor", "%" + autor + "%");
             namedQuery = "findByAutor";
         } else if (null != titel && titel.length() > 0) {
-            result.setSearchTerm(titel);
+                paginateableSearch.setSearchTerm(titel);
             parameters.put("titel", "%" + titel + "%");
             namedQuery = "findByTitel";
         } else if (null != datum && datum.length() > 0) {
-            result.setSearchTerm(datum);
+                paginateableSearch.setSearchTerm(datum);
             SimpleDateFormat sdfGer = new SimpleDateFormat("dd.MM.yyyy");
             try {
                 Date _datum = sdfGer.parse(datum);
@@ -104,18 +104,20 @@ public class BookwormSearchBean implements Serializable {
             }
         }
         if (null != namedQuery) {
-            result.executeSearch(namedQuery, parameters, "OR");
+                paginateableSearch.executeSearch(namedQuery, parameters); // , "OR"
+            }
+            */
         }
         // Go to result page
         return "result.xhtml";
     }
 
-    public PaginateableSearch getResult() {
-        return result;
+    public PaginateableSearch getPaginateableSearch() {
+        return paginateableSearch;
     }
 
     public String showDetail(Long id) {
-        if (null != result.selectEntityById(id)) {
+        if (null != paginateableSearch.selectEntityById(id)) {
             return "bookdetail.xhtml";
         }
         return null;
@@ -134,30 +136,30 @@ public class BookwormSearchBean implements Serializable {
     }
 
     public boolean isNextButtonEnabled() {
-        return null != result && result.hasNextPage();
+        return null != paginateableSearch && paginateableSearch.hasNextPage();
     }
 
     public String nextPage() {
-        result.gotoNextPage();
+        paginateableSearch.gotoNextPage();
         return null;
     }
 
     public boolean isPreviousButtonEnabled() {
-        return null != result && result.hasPreviousPage();
+        return null != paginateableSearch && paginateableSearch.hasPreviousPage();
     }
 
     public String previousPage() {
-        result.gotoPreviousPage();
+        paginateableSearch.gotoPreviousPage();
         return null;
     }
 
     public String nextBook() {
-        result.next();
+        paginateableSearch.next();
         return null;
     }
 
     public String previousBook() {
-        result.previous();
+        paginateableSearch.previous();
         return null;
     }
     //</editor-fold>
