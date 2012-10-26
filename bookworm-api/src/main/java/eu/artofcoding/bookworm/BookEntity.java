@@ -109,9 +109,11 @@ public class BookEntity implements GenericEntity {
     }
 
     public String getSachgebiet() {
+        /* rbe 2012-10-26 Auflösung Buchstabe -> Bedeutung vom Kunden nicht gewünscht
         if (null != sachgebiet) {
             return SACHGEBIETE.get(sachgebiet);
         }
+        */
         return sachgebiet;
     }
 
