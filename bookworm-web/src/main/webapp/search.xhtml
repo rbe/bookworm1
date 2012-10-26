@@ -3,29 +3,10 @@
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm">
 <h:head>
-    <!-- base href="http://www.wbh-online.de" -->
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <meta name="robots" content="index, follow"/>
-    <meta name="keywords" content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
-    <meta name="description" content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
-    <meta name="generator" content="medienhof - Source Management"/>
-    <title>Katalogsuche - Westdeutsche Blindenhörbücherei - Münster</title>
-    <link href="http://www.wbh-online.de/templates/wbh/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-    <h:outputStylesheet library="css" name="template.css" target="head"/>
-    <h:outputStylesheet library="css" name="position.css" target="head" media="screen,projection"/>
-    <h:outputStylesheet library="css" name="layout.css" target="head" media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="http://www.wbh-online.de/app/search.css"/>
-    <!--[if IE 6]>
-    <h:outputStylesheet library="css" name="ie6only.css" target="head"/>
-    <![endif]-->
-    <!--[if IE 7]>
-    <h:outputStylesheet library="css" name="ie7only.css" target="head"/>
-    <![endif]-->
-    <!--[if IE 8]>
-    <h:outputStylesheet library="css" name="ie8only.css" target="head"/>
-    <![endif]-->
+    <bookworm:head/>
 </h:head>
 <h:body style="font-size: 100%;">
     <div id="head">
@@ -67,29 +48,7 @@
                     <div class="blog">
                         <div class="leading">
                             <h2 class="contentheading">Katalog Suche</h2>
-                            <h:form name="katalogsuche">
-                                <p class="line15">
-                                    <label class="suchlabel_stichwort">nach Stichwort</label>
-                                    <h:inputText styleClass="input_stichwort" type="text" size="40" value="#{bookwormSearchBean.stichwort}" name="stichwortsuche" maxlength="30" style="width:30"/>
-                                    <h:commandButton class="submitbutton" type="submit" value="Suchen" action="#{bookwormSearchBean.search}"/>
-                                </p>
-                                <p class="line15">
-                                    <label class="suchlabel_autor">nach Autor</label>
-                                    <h:inputText styleClass="input_autor" type="text" size="40" value="#{bookwormSearchBean.autor}" name="autorsuche" maxlength="30" style="width:30"/>
-                                </p>
-                                <p class="line15">
-                                    <label class="suchlabel_titel">nach Titel</label>
-                                    <h:inputText styleClass="input_titel" type="text" size="40" value="#{bookwormSearchBean.titel}" name="titelsuche" maxlength="30" style="width:30"/>
-                                </p>
-                                <p class="line15">
-                                    <label class="suchlabel_datum">nach Datum</label>
-                                    <h:inputText styleClass="input_datum" type="text" size="40" value="#{bookwormSearchBean.datum}" name="datumsuche" maxlength="30" style="width:30"/>
-                                </p>
-                                <p class="line15">
-                                    <label>&nbsp;</label>
-                                    <h:commandButton class="submitbutton" type="submit" value="Suchen" action="#{bookwormSearchBean.search}"/>
-                                </p>
-                            </h:form>
+                            <bookworm:search-form/>
                             <p class="line15">
                                 <br/><br/><br/><br/><br/>
                                 <b>Hinweise für bessere Suchergebnisse</b>:<br/>
@@ -104,17 +63,7 @@
         </div>
         <!-- contentarea -->
         <div id="footer">
-            <h1 class="unsichtbar">
-                Fusszeile
-            </h1>
-            <p class="syndicate">
-            </p>
-            <div style="text-align: right;">
-                <span style="float: left;"><a href="#top" accesskey="1">zum&nbsp;Seitenanfang</a></span>
-                <span style="float: right;">© 2012 Westdeutsche Blindenhörbücherei e.V. | <a title="Impressum" href="http://www.wbh-online.de/impressum.html">Impressum</a></span>
-            </div>
-            <p></p>
-            <div class="wrap"></div>
+            <bookworm:footer/>
         </div>
         <!-- footer -->
     </div>

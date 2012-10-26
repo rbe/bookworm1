@@ -4,33 +4,15 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-        >
+      xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm" xmlns:c="http://java.sun.com/jstl/core">
 <h:head>
-    <!-- base href="http://www.wbh-online.de" -->
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <meta name="robots" content="index, follow"/>
-    <meta name="keywords" content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
-    <meta name="description" content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
-    <meta name="generator" content="medienhof - Source Management"/>
-    <title>Katalogsuche - Westdeutsche Blindenhörbücherei - Münster</title>
-    <link href="http://www.wbh-online.de/templates/wbh/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-    <h:outputStylesheet library="css" name="template.css" target="head"/>
-    <h:outputStylesheet library="css" name="position.css" target="head" media="screen,projection"/>
-    <h:outputStylesheet library="css" name="layout.css" target="head" media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="http://www.wbh-online.de/app/search.css"/>
-    <!--[if IE 6]>
-    <h:outputStylesheet library="css" name="ie6only.css" target="head"/>
-    <![endif]-->
-    <!--[if IE 7]>
-    <h:outputStylesheet library="css" name="ie7only.css" target="head"/>
-    <![endif]-->
-    <!--[if IE 8]>
-    <h:outputStylesheet library="css" name="ie8only.css" target="head"/>
-    <![endif]-->
+    <bookworm:head/>
 </h:head>
 <h:body>
     <div id="head">
-        <p class="unsichtbar"><a name="top"></a><a href="#content" accesskey="2">zum Inhalt springen</a></p>
+        <p class="unsichtbar">
+            <a name="top"></a><a href="#content" accesskey="2">zum Inhalt springen</a>
+        </p>
     </div>
     <div id="all">
         <div id="logo">
@@ -193,17 +175,7 @@
         </div>
         <!-- contentarea -->
         <div id="footer">
-            <h1 class="unsichtbar">
-                Fusszeile
-            </h1>
-            <p class="syndicate">
-            </p>
-            <div style="text-align: right;">
-                <span style="float: left;"><a href="#top" accesskey="1">zum&nbsp;Seitenanfang</a></span>
-                <span style="float: right;">© 2012 Westdeutsche Blindenhörbücherei e.V. | <a title="Impressum" href="http://www.wbh-online.de/impressum.html">Impressum</a></span>
-            </div>
-            <p></p>
-            <div class="wrap"></div>
+            <bookworm:footer/>
         </div>
         <!-- footer -->
     </div>
