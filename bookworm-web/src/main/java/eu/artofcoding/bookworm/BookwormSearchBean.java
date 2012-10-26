@@ -11,8 +11,8 @@
 
 package eu.artofcoding.bookworm;
 
-import eu.artofcoding.wbh.bookworm.BookEntity;
 import eu.artofcoding.beetlejuice.persistence.jpa.PaginateableSearch;
+import eu.artofcoding.bookworm.BookEntity;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
