@@ -9,7 +9,9 @@
  * rbe, 27.08.12 10:23
  */
 
-package eu.artofcoding.wbh.bookworm;
+package eu.artofcoding.bookworm;
+
+import eu.artofcoding.bookworm.BookEntity;
 
 import java.io.*;
 import java.net.URI;

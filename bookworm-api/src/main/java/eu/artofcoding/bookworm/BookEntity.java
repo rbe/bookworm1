@@ -9,7 +9,7 @@
  * rbe, 04.09.12 12:00
  */
 
-package eu.artofcoding.wbh.bookworm;
+package eu.artofcoding.bookworm;
 
 import eu.artofcoding.beetlejuice.api.GenericEntity;
 
@@ -20,7 +20,7 @@ import java.util.Map;
 @Entity
 @Table(name = "books")
 @NamedQueries({
-        @NamedQuery(name = "findByStichwort", query = "SELECT o FROM BookEntity o WHERE o.autor LIKE :autor OR o.titel LIKE :titel"),
+        //@NamedQuery(name = "findByStichwort", query = "SELECT o FROM BookEntity o WHERE o.autor LIKE :autor OR o.titel LIKE :titel OR o.untertitel LIKE :untertitel OR o.titelnummer = :titelnummer"),
         @NamedQuery(name = "findByAutor", query = "SELECT o FROM BookEntity o WHERE o.autor LIKE :autor"),
         @NamedQuery(name = "findByTitel", query = "SELECT o FROM BookEntity o WHERE o.titel LIKE :titel"),
         @NamedQuery(name = "findByDatum", query = "SELECT o FROM BookEntity o WHERE o.einstelldatum >= :einstelldatum")
