@@ -11,7 +11,7 @@
 
 package eu.artofcoding.bookworm;
 
-import eu.artofcoding.beetlejuice.api.GenericEntity;
+import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 
 import javax.persistence.*;
 import java.util.HashMap;

@@ -11,7 +11,7 @@
 
 package eu.artofcoding.bookworm;
 
-import eu.artofcoding.beetlejuice.persistence.jpa.GenericDAO;
+import eu.artofcoding.beetlejuice.persistence.GenericDAO;
 
 import javax.ejb.Stateless;
 
