@@ -85,8 +85,14 @@
                                         <f:facet name="header">
                                             Details
                                         </f:facet>
-                                        <h:commandLink action="#{bookwormSearchBean.showDetail(book.id)}" value="Detail">
-                                        </h:commandLink>
+                                        <h:commandLink action="#{bookwormSearchBean.showDetail(book.id)}" value="Detail"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            Warenkorb
+                                        </f:facet>
+                                        <h:commandLink rendered="#{!bookwormSearchBean.isEntityInBasket(book.id)}" action="#{bookwormSearchBean.addToBasket(book.id)}" value="Bestellen"/>
+                                        <h:commandLink rendered="#{bookwormSearchBean.isEntityInBasket(book.id)}" action="#{bookwormSearchBean.removeFromBasket(book.id)}">Nicht mehr bestellen</h:commandLink>
                                     </h:column>
                                     <f:facet name="footer">
                                         <h:panelGroup>

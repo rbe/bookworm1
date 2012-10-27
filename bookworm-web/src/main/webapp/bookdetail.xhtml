@@ -4,7 +4,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm" xmlns:c="http://java.sun.com/jstl/core">
+      xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm">
 <h:head>
     <bookworm:head/>
 </h:head>
@@ -52,6 +52,7 @@
                             <h2 class="contentheading">Detailinformationen</h2>
                             <h:form>
                                 <p class="line15 newsearch">
+                                    <h:commandLink action="result">Zurück zum Suchergebnis</h:commandLink>
                                     <h:commandLink action="#{bookwormSearchBean.gotoSearchPage}">Erneute Suche</h:commandLink>
                                 </p>
                                 <p class="line15 nextdetail">
@@ -59,6 +60,10 @@
                                     &nbsp;Titel Nr.
                                     <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntityTotalIndex + 1}"/>&nbsp;
                                     <h:commandLink action="#{bookwormSearchBean.nextBook}" value="nächster Titel"/><br/><br/>
+                                </p>
+                                <p class="line15 newsearch">
+                                    <h:commandLink rendered="#{!bookwormSearchBean.isSelectedEntityInBasket()}" action="#{bookwormSearchBean.addSelectedEntityToBasket()}">In den Warenkorb</h:commandLink>
+                                    <h:commandLink rendered="#{bookwormSearchBean.isSelectedEntityInBasket()}" action="#{bookwormSearchBean.removeSelectedEntityFromBasket()}">Aus dem Warenkorb entfernen</h:commandLink>
                                 </p>
                                 <table class="detailtable" width="935" cellpadding="0" cellspacing="0">
                                     <tr>
@@ -158,6 +163,10 @@
                                         </td>
                                     </tr>
                                 </table>
+                                <p class="line15 newsearch">
+                                    <h:commandLink rendered="#{!bookwormSearchBean.isSelectedEntityInBasket()}" action="#{bookwormSearchBean.addSelectedEntityToBasket()}">In den Warenkorb</h:commandLink>
+                                    <h:commandLink rendered="#{bookwormSearchBean.isSelectedEntityInBasket()}" action="#{bookwormSearchBean.removeSelectedEntityFromBasket()}">Aus dem Warenkorb entfernen</h:commandLink>
+                                </p>
                                 <br/><br/>
                                 <p class="line15 nextdetail">
                                     <h:commandLink action="#{bookwormSearchBean.previousBook}" value="vorheriger Titel"/>

@@ -11,8 +11,9 @@
 
 package eu.artofcoding.bookworm;
 
-import eu.artofcoding.beetlejuice.persistence.jpa.PaginateableSearch;
-import eu.artofcoding.bookworm.BookEntity;
+import eu.artofcoding.beetlejuice.api.BeetlejuiceConstant;
+import eu.artofcoding.beetlejuice.api.persistence.QueryParameter;
+import eu.artofcoding.beetlejuice.persistence.PaginateableSearch;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -20,9 +21,10 @@ import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Iterator;
+import java.util.List;
 
 @ManagedBean
 @SessionScoped
@@ -73,43 +75,97 @@ public class BookwormSearchBean implements Serializable {
     //</editor-fold>
 
     //<editor-fold desc="Searching">
-    public String search() {
-        // Create result object
-        result = new PaginateableSearch<BookEntity>(bookDAO);
-        // Query parameters
-        String namedQuery = null;
-        Map<String, Object> parameters = new HashMap<String, Object>();
+
+    /**
+     * Cleanup search terms. Each term must have a length of at least 'minLength' after trimming.
+     * @param terms     String array with terms.
+     * @param minLength Minimum length of search term.
+     * @return String array with terms having a length >= minLength.
+     */
+    private String[] cleanupSearchTerms(String[] terms, int minLength) {
+        List<String> cleanedTerms = new ArrayList<>(terms.length);
+        for (String t : terms) {
+            if (null != t && t.trim().length() >= minLength) {
+                cleanedTerms.add(t);
+            }
+        }
+        terms = cleanedTerms.toArray(new String[cleanedTerms.size()]);
+        return terms;
+    }
+
+    private List<QueryParameter> buildQueryParameter(Object input, String[] fields, String connector) {
+        List<QueryParameter> queryParameters = new ArrayList<QueryParameter>();
+        if (input instanceof String) {
+            // Split search term by space
+            String str = (String) input;
+            String[] terms = str.toLowerCase().split(BeetlejuiceConstant.SPACE);
+            // Cleanup: each term must have a length of at least 3
+            terms = cleanupSearchTerms(terms, 3);
+            if (terms.length > 0) {
+                // Build list of QueryParameters
+                for (String f : fields) {
+                    QueryParameter q = new QueryParameter(f, terms, BeetlejuiceConstant.LIKE, connector);
+                    queryParameters.add(q);
+                }
+            }
+        } else if (input instanceof java.util.Date) {
+            java.util.Date[] date = {(java.util.Date) input};
+            // Build list of QueryParameters
+            for (String f : fields) {
+                QueryParameter q = new QueryParameter(f, date, BeetlejuiceConstant.GREATER_EQUAL, connector);
+                queryParameters.add(q);
+            }
+        }
+        return queryParameters;
+    }
+
+    /**
+     * BOOKWORM-1 Variante 1.
+     * @return String Navigation case.
+     */
+    public String search1() {
+        paginateableSearch = new PaginateableSearch<BookEntity>(bookDAO);
+        List<QueryParameter> queryParameters;
         if (null != stichwort && stichwort.length() > 0) {
-            result.setSearchTerm(stichwort);
-            parameters.put("autor", "%" + stichwort + "%");
-            parameters.put("titel", "%" + stichwort + "%");
-            namedQuery = "findByStichwort";
-        } else if (null != autor && autor.length() > 0) {
-            result.setSearchTerm(autor);
-            parameters.put("autor", "%" + autor + "%");
-            namedQuery = "findByAutor";
-        } else if (null != titel && titel.length() > 0) {
-                paginateableSearch.setSearchTerm(titel);
-            parameters.put("titel", "%" + titel + "%");
-            namedQuery = "findByTitel";
-        } else if (null != datum && datum.length() > 0) {
-                paginateableSearch.setSearchTerm(datum);
+            String[] fields = {"autor", "titel", "untertitel", "erlaeuterung", "suchwoerter", "titelnummer"};
+            queryParameters = buildQueryParameter(stichwort, fields, BeetlejuiceConstant.OR);
+            if (null != queryParameters && queryParameters.size() > 0) {
+                // Execute search
+                paginateableSearch.executeSearch(queryParameters, BeetlejuiceConstant.OR);
+            }
+        }
+        // Go to next page
+        return determineNextPage();
+    }
+
+    /**
+     * BOOKWORM-1 Variante 2.
+     * @return String Navigation case.
+     */
+    public String search2() {
+        paginateableSearch = new PaginateableSearch<BookEntity>(bookDAO);
+        List<QueryParameter> queryParameters = new ArrayList<QueryParameter>();
+        if (null != autor && autor.length() > 0) {
+            queryParameters.addAll(buildQueryParameter(autor, new String[]{"autor"}, BeetlejuiceConstant.OR));
+        }
+        if (null != titel && titel.length() > 0) {
+            queryParameters.addAll(buildQueryParameter(titel, new String[]{"titel"}, BeetlejuiceConstant.OR));
+        }
+        if (null != datum && datum.length() > 0) {
             SimpleDateFormat sdfGer = new SimpleDateFormat("dd.MM.yyyy");
             try {
                 Date _datum = sdfGer.parse(datum);
-                parameters.put("einstelldatum", _datum);
-                namedQuery = "findByDatum";
+                queryParameters.addAll(buildQueryParameter(_datum, new String[]{"einstelldatum"}, BeetlejuiceConstant.OR));
             } catch (ParseException e) {
                 // ignore
             }
         }
-        if (null != namedQuery) {
-                paginateableSearch.executeSearch(namedQuery, parameters); // , "OR"
-            }
-            */
+        if (queryParameters.size() > 0) {
+            // Execute search
+            paginateableSearch.executeSearch(queryParameters, BeetlejuiceConstant.AND);
         }
-        // Go to result page
-        return "result.xhtml";
+        // Go to next page
+        return determineNextPage();
     }
 
     public PaginateableSearch getPaginateableSearch() {
@@ -122,9 +178,22 @@ public class BookwormSearchBean implements Serializable {
         }
         return null;
     }
+
+    //</editor-fold>
     //</editor-fold>
 
     //<editor-fold desc="Navigation">
+
+    private String determineNextPage() {
+        String nextPage = "improve-search-term.xhtml";
+        if (paginateableSearch.getTotalRowCount() > 100) {
+            nextPage = "too-many-results.xhtml";
+        } else if (paginateableSearch.getTotalRowCount() > 0) {
+            nextPage = "result.xhtml";
+        }
+        return nextPage;
+    }
+
     public String gotoSearchPage() {
         // Reset state
         stichwort = "";
@@ -162,6 +231,7 @@ public class BookwormSearchBean implements Serializable {
         paginateableSearch.previous();
         return null;
     }
+
     //</editor-fold>
 
 }
