@@ -30,14 +30,23 @@ import java.util.List;
 @SessionScoped
 public class BookwormSearchBean implements Serializable {
 
-    //<editor-fold desc="Fields">
+    //<editor-fold desc="Member">
+
     @EJB
     private BookDAO bookDAO;
+
     private String stichwort;
+
     private String autor;
+
     private String titel;
+
     private String datum;
+
     private PaginateableSearch<BookEntity> paginateableSearch;
+
+    private BasketEntity basket = new BasketEntity();
+
     //</editor-fold>
 
     //<editor-fold desc="Getter and Setter">
@@ -180,6 +189,65 @@ public class BookwormSearchBean implements Serializable {
     }
 
     //</editor-fold>
+
+    //<editor-fold desc="Basket">
+
+    public BasketEntity getBasket() {
+        return basket;
+    }
+    
+    public boolean isEntityInBasket(Long id) {
+        if (null != id) {
+            boolean inBasket = basket.isInBasket(id);
+            return inBasket;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isSelectedEntityInBasket() {
+        if (null != paginateableSearch && null != paginateableSearch.getSelectedEntity()) {
+            boolean inBasket = basket.isInBasket(paginateableSearch.getSelectedEntity().getId());
+            return inBasket;
+        } else {
+            return false;
+        }
+    }
+
+    public String addToBasket(Long id) {
+        if (null != id) {
+            BookEntity book = bookDAO.findById(id);
+            basket.getBooks().add(book);
+        }
+        return null;
+    }
+
+    public String removeFromBasket(Long id) {
+        if (null != id) {
+            for (Iterator<BookEntity> iterator = basket.getBooks().iterator(); iterator.hasNext(); ) {
+                BookEntity book = iterator.next();
+                if (book.getId().equals(id)) {
+                    iterator.remove();
+                }
+            }
+        }
+        return null;
+    }
+
+    public String addSelectedEntityToBasket() {
+        if (null != paginateableSearch && null != paginateableSearch.getSelectedEntity()) {
+          addToBasket(paginateableSearch.getSelectedEntity().getId());
+        }
+        return null;
+    }
+
+    public String removeSelectedEntityFromBasket() {
+        if (null != paginateableSearch && null != paginateableSearch.getSelectedEntity()) {
+            removeFromBasket(paginateableSearch.getSelectedEntity().getId());
+        }
+        return null;
+    }
+
     //</editor-fold>
 
     //<editor-fold desc="Navigation">
