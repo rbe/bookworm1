@@ -28,7 +28,7 @@ import java.util.List;
 
 @ManagedBean
 @SessionScoped
-public class BookwormSearchBean implements Serializable {
+public class BookwormBean implements Serializable {
 
     //<editor-fold desc="Member">
 

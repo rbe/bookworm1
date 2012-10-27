@@ -53,126 +53,126 @@
                             <h:form>
                                 <p class="line15 newsearch">
                                     <h:commandLink action="result">Zurück zum Suchergebnis</h:commandLink>
-                                    <h:commandLink action="#{bookwormSearchBean.gotoSearchPage}">Erneute Suche</h:commandLink>
+                                    <h:commandLink action="#{bookwormBean.gotoSearchPage}">Erneute Suche</h:commandLink>
                                 </p>
                                 <p class="line15 nextdetail">
-                                    <h:commandLink action="#{bookwormSearchBean.previousBook}" value="vorheriger Titel"/>
+                                    <h:commandLink action="#{bookwormBean.previousBook}" value="vorheriger Titel"/>
                                     &nbsp;Titel Nr.
-                                    <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntityTotalIndex + 1}"/>&nbsp;
-                                    <h:commandLink action="#{bookwormSearchBean.nextBook}" value="nächster Titel"/><br/><br/>
+                                    <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntityTotalIndex + 1}"/>&nbsp;
+                                    <h:commandLink action="#{bookwormBean.nextBook}" value="nächster Titel"/><br/><br/>
                                 </p>
                                 <p class="line15 newsearch">
-                                    <h:commandLink rendered="#{!bookwormSearchBean.isSelectedEntityInBasket()}" action="#{bookwormSearchBean.addSelectedEntityToBasket()}">In den Warenkorb</h:commandLink>
-                                    <h:commandLink rendered="#{bookwormSearchBean.isSelectedEntityInBasket()}" action="#{bookwormSearchBean.removeSelectedEntityFromBasket()}">Aus dem Warenkorb entfernen</h:commandLink>
+                                    <h:commandLink rendered="#{!bookwormBean.isSelectedEntityInBasket()}" action="#{bookwormBean.addSelectedEntityToBasket()}">In den Warenkorb</h:commandLink>
+                                    <h:commandLink rendered="#{bookwormBean.isSelectedEntityInBasket()}" action="#{bookwormBean.removeSelectedEntityFromBasket()}">Aus dem Warenkorb entfernen</h:commandLink>
                                 </p>
                                 <table class="detailtable" width="935" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td class="detaillabel" valign="top" width="200">Sachgebiet</td>
                                         <td class="detailvalue" valign="top" width="600">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.sachgebiet}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.sachgebiet}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Titelnummer</td>
                                         <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.titelnummer}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.titelnummer}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Einstelldatum</td>
                                         <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.einstelldatum}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.einstelldatum}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Autor</td>
                                         <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.autor}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.autor}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Titel</td>
                                         <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.titel}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.titel}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Untertitel</td>
                                         <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.untertitel}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.untertitel}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Erläuterungen</td>
                                         <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.erlaeuterung}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.erlaeuterung}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Produktionsjahr</td>
                                         <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.prodJahr}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.prodJahr}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Produktionsort</td>
                                         <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.prodOrt}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.prodOrt}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Spieldauer</td>
                                         <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.spieldauer}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.spieldauer}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Anzahl CD</td>
                                         <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.anzahlCD}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.anzahlCD}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Sprecher</td>
                                         <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.sprecher1}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.sprecher1}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Sprecher</td>
                                         <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.sprecher2}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.sprecher2}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Produktionsjahr</td>
                                         <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.prodJahr}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.prodJahr}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Verlag</td>
                                         <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.verlag}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.verlag}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detaillabel" valign="top">Verlagsort</td>
                                         <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntity.verlagsort}"/>
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntity.verlagsort}"/>
                                         </td>
                                     </tr>
                                 </table>
                                 <p class="line15 newsearch">
-                                    <h:commandLink rendered="#{!bookwormSearchBean.isSelectedEntityInBasket()}" action="#{bookwormSearchBean.addSelectedEntityToBasket()}">In den Warenkorb</h:commandLink>
-                                    <h:commandLink rendered="#{bookwormSearchBean.isSelectedEntityInBasket()}" action="#{bookwormSearchBean.removeSelectedEntityFromBasket()}">Aus dem Warenkorb entfernen</h:commandLink>
+                                    <h:commandLink rendered="#{!bookwormBean.isSelectedEntityInBasket()}" action="#{bookwormBean.addSelectedEntityToBasket()}">In den Warenkorb</h:commandLink>
+                                    <h:commandLink rendered="#{bookwormBean.isSelectedEntityInBasket()}" action="#{bookwormBean.removeSelectedEntityFromBasket()}">Aus dem Warenkorb entfernen</h:commandLink>
                                 </p>
                                 <br/><br/>
                                 <p class="line15 nextdetail">
-                                    <h:commandLink action="#{bookwormSearchBean.previousBook}" value="vorheriger Titel"/>
+                                    <h:commandLink action="#{bookwormBean.previousBook}" value="vorheriger Titel"/>
                                     &nbsp;Titel Nr.
-                                    <h:outputText value="#{bookwormSearchBean.paginateableSearch.selectedEntityTotalIndex + 1}"/>&nbsp;
-                                    <h:commandLink action="#{bookwormSearchBean.nextBook}" value="nächster Titel"/><br/><br/>
+                                    <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntityTotalIndex + 1}"/>&nbsp;
+                                    <h:commandLink action="#{bookwormBean.nextBook}" value="nächster Titel"/><br/><br/>
                                 </p>
                             </h:form>
                         </div>
