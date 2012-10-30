@@ -15,29 +15,7 @@
         </p>
     </div>
     <div id="all">
-        <div id="logo">
-            <a title="Link zur Startseite" href="http://www.wbh-online.de/index.php"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="http://www.wbh-online.de/templates/wbh/images/logo_wbh.gif"/></a>
-        </div>
-        <div id="header">
-            <div class="moduletable">
-                <img src="http://www.wbh-online.de/components/com_gk2_photoslide/images/thumbm/649894header_start.jpg" alt="Westdeutsche Blindenhörbücherei e.V." style="z-index:0;"/>
-            </div>
-            <div id="topmenu">
-                <h3 class="unsichtbar">Top-Navigation</h3>
-                <div class="moduletable_topmenu">
-                    <ul id="mainlevel">
-                        <li><a href="http://www.wbh-online.de/startseite.html" class="mainlevel">Startseite</a></li>
-                        <li><a href="http://www.wbh-online.de/kataloge.html" class="mainlevel">Kataloge</a></li>
-                        <li>
-                            <a href="http://www.wbh-online.de/onlinebestellung.html" class="mainlevel">Onlinebestellung</a>
-                        </li>
-                        <li><a href="http://www.wbh-online.de/download.html" class="mainlevel">Download</a></li>
-                        <li><a href="http://www.wbh-online.de/kontakt.html" class="mainlevel">Kontakt</a></li>
-                        <li><a href="http://www.wbh-online.de/bhb-stiftung.html" class="mainlevel">BHB-Stiftung</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <bookworm:logo-header/>
         <!-- end header -->
         <div class="wrap">&nbsp;</div>
         <div id="contentarea">
@@ -50,8 +28,10 @@
                     <div class="blog">
                         <div class="leading">
                             <h2 class="contentheading">Katalog Suche</h2>
+                            <bookworm:navigation/>
+                            <br/><br/>
                             <bookworm:search-form/>
-                            <p class="line15">
+                            <p class="line15 errortext">
                                 <br/>
                                 <b>Zu viele Suchergebnisse</b>:<br/>
                                 Bitte schränken Sie Ihre Suche ein!<br/>

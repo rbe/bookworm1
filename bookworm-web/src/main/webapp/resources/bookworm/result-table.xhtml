@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<!-- INTERFACE -->
+<cc:interface>
+</cc:interface>
+
+<!-- IMPLEMENTATION -->
+<cc:implementation>
+    <h:form>
+        <p class="line15 resulttext">
+            <h:outputText rendered="#{bookwormBean.paginateableSearch.totalRowCount > 0}" value="Ihre Suche nach #{bookwormBean.paginateableSearch.searchTerm} ergab #{bookwormBean.paginateableSearch.totalRowCount} Treffer."/><br/>
+            <h:outputText rendered="#{bookwormBean.paginateableSearch.totalRowCount == 0}" value="Ihre Suche nach #{bookwormBean.paginateableSearch.searchTerm} ergab keine Treffer."/><br/>
+        </p>
+        <h:dataTable id="bookwormSearchResultTable"
+                     rendered="#{bookwormBean.paginateableSearch.totalRowCount > 0}"
+                     styleClass="tab result-table" columnClasses="result-column1,result-column2,result-column3,result-column4,result-column5" rowClasses="row,result-row1,result-row2"
+                     cellpadding="0" cellspacing="0"
+                     value="#{bookwormBean.paginateableSearch.currentPage}" var="book"
+                     offset="#{bookwormBean.paginateableSearch.offset}" rows="#{bookwormBean.paginateableSearch.pageSize}">
+            <h:column headerClass="result-column-header">
+                <f:facet name="header">
+                    Titelnummer
+                </f:facet>
+                <h:outputText styleClass="result-column-content" value="#{book.titelnummer}"/>
+            </h:column>
+            <h:column headerClass="result-column-header">
+                <f:facet name="header">
+                    Autor
+                </f:facet>
+                <h:outputText styleClass="result-column-content" value="#{book.autor}"/>
+            </h:column>
+            <h:column headerClass="result-column-header">
+                <f:facet name="header">
+                    Titel
+                </f:facet>
+                <h:outputText styleClass="result-column-content" value="#{book.titel}"/>
+            </h:column>
+            <h:column headerClass="result-column-header">
+                <f:facet name="header">
+                    Details
+                </f:facet>
+                <h:commandLink action="#{bookwormBean.showDetail(book.id)}" value="Detail"/>
+            </h:column>
+            <h:column headerClass="result-column-header">
+                <f:facet name="header">
+                    Warenkorb
+                </f:facet>
+                <h:commandLink rendered="#{!bookwormBean.isEntityInBasket(book.id)}" styleClass="basket-order-link" action="#{bookwormBean.addToBasket(book.id)}" value="Bestellen"/>
+                <h:commandLink rendered="#{bookwormBean.isEntityInBasket(book.id)}" styleClass="basket-remove-link" action="#{bookwormBean.removeFromBasket(book.id)}">Nicht mehr bestellen</h:commandLink>
+            </h:column>
+            <f:facet name="footer">
+                <h:panelGroup>
+                    <h:commandButton value="Zurück" action="#{bookwormBean.previousPage}" disabled="#{!bookwormBean.previousButtonEnabled}"/>
+                    &nbsp;Seite
+                    <h:outputText value="#{bookwormBean.paginateableSearch.currentPageIndex + 1}"/> von
+                    <h:outputText value="#{bookwormBean.paginateableSearch.pageCount}"/>&nbsp;
+                    <h:commandButton value="Weiter" action="#{bookwormBean.nextPage}" disabled="#{!bookwormBean.nextButtonEnabled}"/>
+                </h:panelGroup>
+            </f:facet>
+        </h:dataTable>
+        <br/><br/><br/>
+    </h:form>
+</cc:implementation>
+
+</html>

@@ -4,7 +4,6 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm">
 <h:head>
     <bookworm:head/>
@@ -16,29 +15,7 @@
         </p>
     </div>
     <div id="all">
-        <div id="logo">
-            <a title="Link zur Startseite" href="http://www.wbh-online.de/index.php"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="http://www.wbh-online.de/templates/wbh/images/logo_wbh.gif"/></a>
-        </div>
-        <div id="header">
-            <div class="moduletable">
-                <img src="http://www.wbh-online.de/components/com_gk2_photoslide/images/thumbm/649894header_start.jpg" alt="Westdeutsche Blindenhörbücherei e.V." style="z-index:0;"/>
-            </div>
-            <div id="topmenu">
-                <h3 class="unsichtbar">Top-Navigation</h3>
-                <div class="moduletable_topmenu">
-                    <ul id="mainlevel">
-                        <li><a href="http://www.wbh-online.de/startseite.html" class="mainlevel">Startseite</a></li>
-                        <li><a href="http://www.wbh-online.de/kataloge.html" class="mainlevel">Kataloge</a></li>
-                        <li>
-                            <a href="http://www.wbh-online.de/onlinebestellung.html" class="mainlevel">Onlinebestellung</a>
-                        </li>
-                        <li><a href="http://www.wbh-online.de/download.html" class="mainlevel">Download</a></li>
-                        <li><a href="http://www.wbh-online.de/kontakt.html" class="mainlevel">Kontakt</a></li>
-                        <li><a href="http://www.wbh-online.de/bhb-stiftung.html" class="mainlevel">BHB-Stiftung</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <bookworm:logo-header/>
         <!-- end header -->
         <div class="wrap">&nbsp;</div>
         <div id="contentarea">
@@ -51,61 +28,9 @@
                     <div class="blog">
                         <div class="leading">
                             <h2 class="contentheading">Suchergebnisse</h2>
-                            <h:form>
-                                <p class="line15">
-                                    Ihre Suche nach
-                                    <h:outputText value="#{bookwormBean.paginateableSearch.searchTerm} ergab #{bookwormBean.paginateableSearch.totalRowCount} Treffer."/><br/>
-                                    <h:commandLink action="#{bookwormBean.gotoSearchPage}">Erneute Suche</h:commandLink>
-                                </p>
-                                <br/><br/><br/>
-                                <h:dataTable id="bookwormSearchResultTable"
-                                             styleClass="tab" rowClasses="row"
-                                             value="#{bookwormBean.paginateableSearch.currentPage}" var="book"
-                                             offset="#{bookwormBean.paginateableSearch.offset}" rows="#{bookwormBean.paginateableSearch.pageSize}"
-                                             cellpadding="0" cellspacing="0">
-                                    <h:column>
-                                        <f:facet name="header">
-                                            Titelnummer
-                                        </f:facet>
-                                        <h:outputText value="#{book.titelnummer}"/>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            Autor
-                                        </f:facet>
-                                        <h:outputText value="#{book.autor}"/>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            Titel
-                                        </f:facet>
-                                        <h:outputText value="#{book.titel}"/>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            Details
-                                        </f:facet>
-                                        <h:commandLink action="#{bookwormBean.showDetail(book.id)}" value="Detail"/>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            Warenkorb
-                                        </f:facet>
-                                        <h:commandLink rendered="#{!bookwormBean.isEntityInBasket(book.id)}" action="#{bookwormBean.addToBasket(book.id)}" value="Bestellen"/>
-                                        <h:commandLink rendered="#{bookwormBean.isEntityInBasket(book.id)}" action="#{bookwormBean.removeFromBasket(book.id)}">Nicht mehr bestellen</h:commandLink>
-                                    </h:column>
-                                    <f:facet name="footer">
-                                        <h:panelGroup>
-                                            <h:commandButton value="Zurück" action="#{bookwormBean.previousPage}" disabled="#{!bookwormBean.previousButtonEnabled}"/>
-                                            &nbsp;Seite
-                                            <h:outputText value="#{bookwormBean.paginateableSearch.currentPageIndex + 1}"/> von
-                                            <h:outputText value="#{bookwormBean.paginateableSearch.pageCount}"/>&nbsp;
-                                            <h:commandButton value="Weiter" action="#{bookwormBean.nextPage}" disabled="#{!bookwormBean.nextButtonEnabled}"/>
-                                        </h:panelGroup>
-                                    </f:facet>
-                                </h:dataTable>
-                                <br/><br/><br/>
-                            </h:form>
+                            <bookworm:navigation/>
+                            <br/><br/>
+                            <bookworm:result-table/>
                         </div>
                     </div>
                 </div>

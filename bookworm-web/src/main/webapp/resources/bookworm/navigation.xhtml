@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<!-- INTERFACE -->
+<cc:interface>
+</cc:interface>
+
+<!-- IMPLEMENTATION -->
+<cc:implementation>
+    <p class="line15 newsearch">
+        <h:form>
+            <!-- Ergebnis -->
+            <h:commandLink rendered="#{bookwormBean.displayBackToResultListLink()}" styleClass="nav-link" action="result">Zurück zum Suchergebnis</h:commandLink>
+            <!-- Suche -->
+            <h:commandLink rendered="#{bookwormBean.displaySearchAgainLink()}" styleClass="nav-link" action="#{bookwormBean.resetStateAndGotoSearchPage}">Erneute Suche</h:commandLink>
+            <h:commandLink rendered="#{bookwormBean.displaySearchLink()}" styleClass="nav-link" action="#{bookwormBean.resetStateAndGotoSearchPage}">Suche</h:commandLink>
+            <!-- Warenkorb -->
+            <h:commandLink rendered="#{bookwormBean.displayBasketLink()}" action="basket.xhtml"><h:outputText styleClass="basket-count" value="Warenkorb (#{bookwormBean.basket.itemCount()})"/></h:commandLink>
+            <h:outputText rendered="#{bookwormBean.displayEmptyBasketLink()}" styleClass="basket-count" value="Warenkorb (0)"/>
+        </h:form>
+    </p>
+</cc:implementation>
+
+</html>
