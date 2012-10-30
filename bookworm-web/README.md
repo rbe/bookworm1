@@ -1,10 +1,48 @@
 # bookworm-web
 
+## JavaServer Faces
+
+    <managed-bean>
+        <managed-bean-name>bookwormBean</managed-bean-name>
+        <managed-bean-class>eu.artofcoding.bookworm.BookwormBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>mailName</property-name>
+            <value>WBH Online Shop</value>
+        </managed-property>
+        <managed-property>
+            <property-name>mailUser</property-name>
+            <value>wbh@wbh-online.de</value>
+        </managed-property>
+        <managed-property>
+            <property-name>mailSubject</property-name>
+            <value>Ihre Bestellung bei der WBH</value>
+        </managed-property>
+    </managed-bean>
+
+## JBoss
+
+### SMTP Configuration
+
+    <subsystem xmlns="urn:jboss:domain:mail:1.0">
+        <mail-session jndi-name="java:/bookworm-smtp">
+            <smtp-server ssl="true" outbound-socket-binding-ref="bookworm-smtp">
+                <login name="wbh@wbh-online.de" password="xxx"/>
+            </smtp-server>
+        </mail-session>
+    </subsystem>
+
+    <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
+        <outbound-socket-binding name="bookworm-smtp">
+            <remote-destination host="mail2.1ci.net" port="25"/>
+        </outbound-socket-binding>
+    </socket-binding-group>
+
 ## Web Server
 
 ### Virtual Host Configuration 
 
-    <VirtualHost 78.47.242.146:80>
+    <VirtualHost *:80>
         ServerName www.wbh-online.de
         ServerAlias wbh-online.de
         ServerAdmin webmaster@goa.medienhof.de
@@ -27,9 +65,4 @@
                 RewriteRule result.xhtml http://127.0.2.3:8081/bookworm-web/result.xhtml [P,L]
                 RewriteRule bookdetail.xhtml http://127.0.2.3:8081/bookworm-web/bookdetail.xhtml [P,L]
         </IfModule>
-        ##ErrorLog /usr/home/cew/apache/log/www.wbh-online.de-error.log
-        ##CustomLog /usr/home/cew/apache/log/www.wbh-online.de-access.log combined
-        # Logs mit Logrotation t?glich 
-        ##ErrorLog  "|/usr/local/sbin/rotatelogs -f /usr/home/cew/apache/log/www.wbh-online.de-error.log-%Y-%m-%d.log 1209600"
-        ## CustomLog "|/usr/local/sbin/rotatelogs -f /usr/home/cew/apache/log/www.wbh-online.de-access.log-%Y-%m-%d.log 1209600" combined
     </VirtualHost>
