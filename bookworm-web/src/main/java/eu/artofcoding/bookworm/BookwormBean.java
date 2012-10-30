@@ -13,21 +13,28 @@ package eu.artofcoding.bookworm;
 
 import eu.artofcoding.beetlejuice.api.BeetlejuiceConstant;
 import eu.artofcoding.beetlejuice.api.persistence.QueryParameter;
+import eu.artofcoding.beetlejuice.email.Postman;
 import eu.artofcoding.beetlejuice.persistence.PaginateableSearch;
+import eu.artofcoding.beetlejuice.template.TemplateProcessor;
+import freemarker.template.ObjectWrapper;
+import freemarker.template.SimpleHash;
+import freemarker.template.TemplateException;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.servlet.ServletContext;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
-@ManagedBean
-@SessionScoped
 public class BookwormBean implements Serializable {
 
     //<editor-fold desc="Member">
@@ -47,9 +54,43 @@ public class BookwormBean implements Serializable {
 
     private BasketEntity basket = new BasketEntity();
 
+    @Inject
+    private TemplateProcessor templateProcessor;
+
+    @Resource(mappedName = "java:/bookworm-smtp")
+    private Session session;
+
+    @ManagedProperty(value = "WBH Online Shop")
+    private String mailName;
+    @ManagedProperty(value = "wbh@wbh-online.de")
+    private String mailUser;
+    @ManagedProperty(value = "Ihre Bestellung bei der WBH")
+    private String mailSubject;
+
     //</editor-fold>
 
+    @PostConstruct
+    public void initialize() {
+        // Initialize TemplateProcessor
+        ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        templateProcessor.addTemplateLoader(context, "/resources/bookworm");
+        templateProcessor.getConfiguration().setObjectWrapper(ObjectWrapper.BEANS_WRAPPER);
+    }
+
     //<editor-fold desc="Getter and Setter">
+
+    public void setMailName(String mailName) {
+        this.mailName = mailName;
+    }
+
+    public void setMailUser(String mailUser) {
+        this.mailUser = mailUser;
+    }
+
+    public void setMailSubject(String mailSubject) {
+        this.mailSubject = mailSubject;
+    }
+
     public String getStichwort() {
         return stichwort;
     }
@@ -81,6 +122,7 @@ public class BookwormBean implements Serializable {
     public void setDatum(String datum) {
         this.datum = datum;
     }
+
     //</editor-fold>
 
     //<editor-fold desc="Searching">
@@ -100,6 +142,20 @@ public class BookwormBean implements Serializable {
         }
         terms = cleanedTerms.toArray(new String[cleanedTerms.size()]);
         return terms;
+    }
+
+    private void setSearchTerm(String... terms) {
+        StringBuilder searchTerm = new StringBuilder();
+        for (int i = 0, fieldsLength = terms.length; i < fieldsLength; i++) {
+            String f = terms[i];
+            if (f.trim().length() > 0) {
+                searchTerm.append(f);
+            }
+            if (i < terms.length) {
+                searchTerm.append(" ");
+            }
+        }
+        paginateableSearch.setSearchTerm(searchTerm.toString());
     }
 
     private List<QueryParameter> buildQueryParameter(Object input, String[] fields, String connector) {
@@ -140,6 +196,7 @@ public class BookwormBean implements Serializable {
             queryParameters = buildQueryParameter(stichwort, fields, BeetlejuiceConstant.OR);
             if (null != queryParameters && queryParameters.size() > 0) {
                 // Execute search
+                setSearchTerm(stichwort);
                 paginateableSearch.executeSearch(queryParameters, BeetlejuiceConstant.OR);
             }
         }
@@ -171,6 +228,7 @@ public class BookwormBean implements Serializable {
         }
         if (queryParameters.size() > 0) {
             // Execute search
+            setSearchTerm(autor, titel, datum);
             paginateableSearch.executeSearch(queryParameters, BeetlejuiceConstant.AND);
         }
         // Go to next page
@@ -195,7 +253,7 @@ public class BookwormBean implements Serializable {
     public BasketEntity getBasket() {
         return basket;
     }
-    
+
     public boolean isEntityInBasket(Long id) {
         if (null != id) {
             boolean inBasket = basket.isInBasket(id);
@@ -236,7 +294,7 @@ public class BookwormBean implements Serializable {
 
     public String addSelectedEntityToBasket() {
         if (null != paginateableSearch && null != paginateableSearch.getSelectedEntity()) {
-          addToBasket(paginateableSearch.getSelectedEntity().getId());
+            addToBasket(paginateableSearch.getSelectedEntity().getId());
         }
         return null;
     }
@@ -246,6 +304,28 @@ public class BookwormBean implements Serializable {
             removeFromBasket(paginateableSearch.getSelectedEntity().getId());
         }
         return null;
+    }
+
+    public String placeOrder() throws IOException, TemplateException, MessagingException {
+        sendMail();
+        basket = new BasketEntity();
+        return "basket-thankyou";
+    }
+
+    private void sendMail() throws IOException, TemplateException, MessagingException {
+        // Data model for template
+        final SimpleHash root = new SimpleHash();
+        root.put("basket", basket);
+        root.put("bestelldatum", new Date());
+        // Render template depending on request locale
+        String body = templateProcessor.renderTemplateToString("order.html", Locale.GERMAN, root);
+        // Set recipient
+        Set<String> recipients = new HashSet<String>();
+        recipients.add(basket.getEmail());
+        recipients.add(mailUser);
+        // Send email
+        Postman postman = new Postman(session);
+        postman.sendHtmlMail(String.format("%s <%s>", mailName, mailUser), recipients, mailSubject, body);
     }
 
     //</editor-fold>
@@ -262,14 +342,16 @@ public class BookwormBean implements Serializable {
         return nextPage;
     }
 
-    public String gotoSearchPage() {
+    public String resetStateAndGotoSearchPage() {
         // Reset state
         stichwort = "";
         autor = "";
         titel = "";
         datum = "";
+        //
+        paginateableSearch = null;
         // Go to search page
-        return "search.xhtml";
+        return "search";
     }
 
     public boolean isNextButtonEnabled() {
@@ -298,6 +380,36 @@ public class BookwormBean implements Serializable {
     public String previousBook() {
         paginateableSearch.previous();
         return null;
+    }
+
+    public boolean displayBackToResultListLink() {
+        String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+        // !facesContext.viewRoot.viewId.equalsIgnoreCase('/result.xhtml') and bookwormBean.paginateableSearch != null
+        return !viewId.equals("/result.xhtml") && null != paginateableSearch;
+    }
+
+    public boolean displaySearchLink() {
+        String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+        // !facesContext.viewRoot.viewId.equalsIgnoreCase('/search.xhtml') and bookwormBean.paginateableSearch == null
+        return !viewId.equals("/search.xhtml") && null == paginateableSearch;
+    }
+
+    public boolean displaySearchAgainLink() {
+        String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+        // !facesContext.viewRoot.viewId.equalsIgnoreCase('/search.xhtml') and bookwormBean.paginateableSearch != null
+        return !viewId.equals("/search.xhtml") && null != paginateableSearch;
+    }
+
+    public boolean displayBasketLink() {
+        String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+        // !facesContext.viewRoot.viewId.equalsIgnoreCase('/basket.xhtml') and bookwormBean.basket.itemCount() > 0
+        return !viewId.startsWith("/basket") && basket.itemCount() > 0;
+    }
+
+    public boolean displayEmptyBasketLink() {
+        String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+        // !facesContext.viewRoot.viewId.equalsIgnoreCase('/basket.xhtml') and bookwormBean.basket.itemCount() == 0
+        return !viewId.startsWith("/basket") && basket.itemCount() == 0;
     }
 
     //</editor-fold>

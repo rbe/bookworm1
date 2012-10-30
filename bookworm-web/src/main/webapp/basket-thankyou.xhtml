@@ -4,6 +4,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm">
 <h:head>
     <bookworm:head/>
@@ -27,31 +28,10 @@
                     </h1>
                     <div class="blog">
                         <div class="leading">
-                            <h2 class="contentheading">Detailinformationen</h2>
+                            <h2 class="contentheading">Vielen Dank für Ihre Bestellung!</h2>
                             <bookworm:navigation/>
                             <br/><br/>
-                            <bookworm:basket-table readonly="false"/>
-                            <br/><br/>
-                            <h:form>
-                                <h:panelGrid rendered="#{bookwormBean.basket.itemCount() > 0}" 
-                                             columns="2"
-                                             columnClasses="basket-order-column1,basket-order-column2"
-                                             rowClasses="basket-order-row1,basket-order-row2">
-
-                                    <h:outputLabel for="name" value="Name"/>
-                                    <h:inputText id="name" value="#{bookwormBean.basket.name}"/>
-
-                                    <h:outputLabel for="hoerernummer" value="Hörernummer"/>
-                                    <h:inputText id="hoerernummer" value="#{bookwormBean.basket.hoerernummer}"/>
-
-                                    <h:outputLabel for="email" value="Email"/>
-                                    <h:inputText id="email" value="#{bookwormBean.basket.email}"/>
-
-                                    <h:outputLabel value=" "/>
-                                    <h:commandButton value="Bestellen" action="#{bookwormBean.placeOrder}"/>
-
-                                </h:panelGrid>
-                            </h:form>
+                            <bookworm:basket-table readonly="true"/>
                         </div>
                     </div>
                 </div>

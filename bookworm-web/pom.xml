@@ -94,6 +94,18 @@
             <artifactId>beetlejuice-web</artifactId>
             <version>${version.eu.artofcoding.beetlejuice}</version>
         </dependency>
+        <!-- Beetlejuice Template -->
+        <dependency>
+            <groupId>eu.artofcoding.beetlejuice</groupId>
+            <artifactId>beetlejuice-template</artifactId>
+            <version>${version.eu.artofcoding.beetlejuice}</version>
+        </dependency>
+        <!-- Beetlejuice Email -->
+        <dependency>
+            <groupId>eu.artofcoding.beetlejuice</groupId>
+            <artifactId>beetlejuice-email</artifactId>
+            <version>${version.eu.artofcoding.beetlejuice}</version>
+        </dependency>
         <!--
             Bookworm
         -->

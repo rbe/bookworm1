@@ -68,6 +68,10 @@ public class BasketEntity implements GenericEntity {
         return books;
     }
 
+    public int itemCount() {
+        return getBooks().size();
+    }
+
     public boolean isInBasket(Long id) {
         boolean b = false;
         for (BookEntity book : getBooks()) {
