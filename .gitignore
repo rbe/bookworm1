@@ -17,3 +17,6 @@ target/
 
 # oXygen XML Editor #
 *.xpr
+
+# JRebel #
+rebel.xml
