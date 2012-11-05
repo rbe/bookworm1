@@ -14,12 +14,22 @@
 <cc:implementation>
     <h:form>
         <p class="line15 resulttext">
-            <h:outputText rendered="#{bookwormBean.paginateableSearch.totalRowCount > 0}" value="Ihre Suche nach #{bookwormBean.paginateableSearch.searchTerm} ergab #{bookwormBean.paginateableSearch.totalRowCount} Treffer."/><br/>
-            <h:outputText rendered="#{bookwormBean.paginateableSearch.totalRowCount == 0}" value="Ihre Suche nach #{bookwormBean.paginateableSearch.searchTerm} ergab keine Treffer."/><br/>
+            Ihre Suche nach
+            <span class="suchbegriff">
+                <h:outputText value="#{bookwormBean.paginateableSearch.searchTerm}"/>
+            </span>
+            ergab
+            <span class="suchtreffer">
+                <h:outputText rendered="#{bookwormBean.paginateableSearch.totalRowCount > 0}" value="#{bookwormBean.paginateableSearch.totalRowCount}"/>
+                <h:outputText rendered="#{bookwormBean.paginateableSearch.totalRowCount == 0}" value="keine"/>
+            </span>
+            Treffer
         </p>
         <h:dataTable id="bookwormSearchResultTable"
                      rendered="#{bookwormBean.paginateableSearch.totalRowCount > 0}"
-                     styleClass="tab result-table" columnClasses="result-column1,result-column2,result-column3,result-column4,result-column5" rowClasses="row,result-row1,result-row2"
+                     styleClass="tab result-table"
+                     columnClasses="result-column1,result-column2,result-column3,result-column4,result-column5"
+                     rowClasses="result-row1,result-row2"
                      cellpadding="0" cellspacing="0"
                      value="#{bookwormBean.paginateableSearch.currentPage}" var="book"
                      offset="#{bookwormBean.paginateableSearch.offset}" rows="#{bookwormBean.paginateableSearch.pageSize}">

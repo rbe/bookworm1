@@ -12,27 +12,29 @@
 <!-- IMPLEMENTATION -->
 <cc:implementation>
     <h:form name="katalogsuche">
-        <p class="line15 search-stichwort">
-            <label class="suchlabel_stichwort">nach Stichwort</label>
-            <h:inputText styleClass="input_stichwort" type="text" size="40" value="#{bookwormBean.stichwort}" name="stichwortsuche" maxlength="30" style="width:30"/>
-            <h:commandButton class="submitbutton search-stichwort-button" type="submit" value="Suchen" action="#{bookwormBean.search1}"/>
-        </p>
-        <p class="line15 search-autor">
-            <label class="suchlabel_autor">nach Autor</label>
-            <h:inputText styleClass="input_autor" type="text" size="40" value="#{bookwormBean.autor}" name="autorsuche" maxlength="30" style="width:30"/>
-        </p>
-        <p class="line15 search-titel">
-            <label class="suchlabel_titel">nach Titel</label>
-            <h:inputText styleClass="input_titel" type="text" size="40" value="#{bookwormBean.titel}" name="titelsuche" maxlength="30" style="width:30"/>
-        </p>
-        <p class="line15 search-datum">
-            <label class="suchlabel_datum">nach Datum</label>
-            <h:inputText styleClass="input_datum" type="text" size="40" value="#{bookwormBean.datum}" name="datumsuche" maxlength="30" style="width:30"/>
-        </p>
-        <p class="line15 search-detail-button">
-            <label>&nbsp;</label>
-            <h:commandButton class="submitbutton" type="submit" value="Suchen" action="#{bookwormBean.search2}"/>
-        </p>
+        <div class="multisearch">
+            <div class="search-stichwort">
+                <label class="suchlabel_stichwort">nach Stichwort</label>
+                <h:inputText styleClass="input_stichwort" type="text" size="40" value="#{bookwormBean.stichwort}" name="stichwortsuche" maxlength="30" style="width:30"/>
+                <h:commandButton class="submitbutton search-stichwort-button" type="submit" value="Suchen" action="#{bookwormBean.search1}"/>
+            </div>
+            <div class="search-autor">
+                <label class="suchlabel_autor">nach Autor</label>
+                <h:inputText styleClass="input_autor" type="text" size="40" value="#{bookwormBean.autor}" name="autorsuche" maxlength="30" style="width:30"/>
+            </div>
+            <div class="search-titel">
+                <label class="suchlabel_titel">nach Titel</label>
+                <h:inputText styleClass="input_titel" type="text" size="40" value="#{bookwormBean.titel}" name="titelsuche" maxlength="30" style="width:30"/>
+            </div>
+            <div class="search-datum">
+                <label class="suchlabel_datum">nach Datum</label>
+                <h:inputText styleClass="input_datum" type="text" size="40" value="#{bookwormBean.datum}" name="datumsuche" maxlength="30" style="width:30"/>
+            </div>
+            <div class="search-detail-button">
+                <label>&nbsp;</label>
+                <h:commandButton class="submitbutton" type="submit" value="Suchen" action="#{bookwormBean.search2}"/>
+            </div>
+        </div>
     </h:form>
 </cc:implementation>
 

@@ -11,18 +11,26 @@
 
 <!-- IMPLEMENTATION -->
 <cc:implementation>
-    <p class="line15 newsearch">
+    <div class="search_basket">
         <h:form>
             <!-- Ergebnis -->
-            <h:commandLink rendered="#{bookwormBean.displayBackToResultListLink()}" styleClass="nav-link" action="result">Zurück zum Suchergebnis</h:commandLink>
+            <h:commandLink rendered="#{bookwormBean.displayBackToResultListLink()}" styleClass="nav-link-resultlist" action="result">Zurück zum Suchergebnis</h:commandLink>
             <!-- Suche -->
-            <h:commandLink rendered="#{bookwormBean.displaySearchAgainLink()}" styleClass="nav-link" action="#{bookwormBean.resetStateAndGotoSearchPage}">Erneute Suche</h:commandLink>
-            <h:commandLink rendered="#{bookwormBean.displaySearchLink()}" styleClass="nav-link" action="#{bookwormBean.resetStateAndGotoSearchPage}">Suche</h:commandLink>
+            <div class="newsearch_basket">
+                <h:commandLink rendered="#{bookwormBean.displaySearchAgainLink()}" styleClass="nav-link-newsearch" action="#{bookwormBean.resetStateAndGotoSearchPage}">Erneute Suche</h:commandLink>
+                <h:commandLink rendered="#{bookwormBean.displaySearchLink()}" styleClass="nav-link-search" action="#{bookwormBean.resetStateAndGotoSearchPage}">Suche</h:commandLink>
+            </div>
             <!-- Warenkorb -->
-            <h:commandLink rendered="#{bookwormBean.displayBasketLink()}" action="basket.xhtml"><h:outputText styleClass="basket-count" value="Warenkorb (#{bookwormBean.basket.itemCount()})"/></h:commandLink>
-            <h:outputText rendered="#{bookwormBean.displayEmptyBasketLink()}" styleClass="basket-count" value="Warenkorb (0)"/>
+            <h:commandLink rendered="#{bookwormBean.displayBasketLink()}" action="basket.xhtml">
+                <div class="basket-count">
+                    <h:outputText value="Warenkorb (#{bookwormBean.basket.itemCount()})"/>
+                </div>
+            </h:commandLink>
+            <div class="basket-count">
+                <h:outputText rendered="#{bookwormBean.displayEmptyBasketLink()}" value="Warenkorb (0)"/>
+            </div>
         </h:form>
-    </p>
+    </div>
 </cc:implementation>
 
 </html>
