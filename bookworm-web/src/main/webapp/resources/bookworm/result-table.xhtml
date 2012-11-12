@@ -60,8 +60,8 @@
                 <f:facet name="header">
                     Warenkorb
                 </f:facet>
-                <h:commandLink rendered="#{!bookwormBean.isEntityInBasket(book.id)}" styleClass="basket-order-link" action="#{bookwormBean.addToBasket(book.id)}" value="Bestellen"/>
-                <h:commandLink rendered="#{bookwormBean.isEntityInBasket(book.id)}" styleClass="basket-remove-link" action="#{bookwormBean.removeFromBasket(book.id)}">Nicht mehr bestellen</h:commandLink>
+                <h:commandLink rendered="#{!bookwormBean.isEntityInBasket(book.id)}" styleClass="basket-order-link" action="#{bookwormBean.addToBasket(book.id)}" value="In den Warenkorb"/>
+                <h:commandLink rendered="#{bookwormBean.isEntityInBasket(book.id)}" styleClass="basket-remove-link" action="#{bookwormBean.removeFromBasket(book.id)}" value="Nicht mehr bestellen"/>
             </h:column>
             <f:facet name="footer">
                 <h:panelGroup>
