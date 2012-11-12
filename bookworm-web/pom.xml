@@ -123,7 +123,7 @@
                 <directory>src/main/resources</directory>
             </resource>
         </resources>
-        <finalName>${project.artifactId}</finalName>
+        <!-- finalName>${project.artifactId}</finalName-->
         <plugins>
             <!-- maven-compiler-plugin -->
             <plugin>
@@ -147,5 +147,6 @@
                 -->
             </plugin>
         </plugins>
+        <finalName>bookworm</finalName>
     </build>
 </project>
