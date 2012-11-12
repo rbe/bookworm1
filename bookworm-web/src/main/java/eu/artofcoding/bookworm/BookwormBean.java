@@ -11,8 +11,9 @@
 
 package eu.artofcoding.bookworm;
 
-import eu.artofcoding.beetlejuice.api.BeetlejuiceConstant;
+import eu.artofcoding.beetlejuice.api.persistence.QueryConfiguration;
 import eu.artofcoding.beetlejuice.api.persistence.QueryParameter;
+import eu.artofcoding.beetlejuice.api.persistence.QueryVariant;
 import eu.artofcoding.beetlejuice.email.Postman;
 import eu.artofcoding.beetlejuice.persistence.PaginateableSearch;
 import eu.artofcoding.beetlejuice.template.TemplateProcessor;
@@ -35,6 +36,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static eu.artofcoding.beetlejuice.api.BeetlejuiceConstant.*;
+
 public class BookwormBean implements Serializable {
 
     //<editor-fold desc="Member">
@@ -49,6 +52,8 @@ public class BookwormBean implements Serializable {
     private Integer maxSearchResults;
 
     private String stichwort;
+
+    private String sachgebiet;
 
     private String autor;
 
@@ -115,6 +120,14 @@ public class BookwormBean implements Serializable {
         this.stichwort = stichwort;
     }
 
+    public String getSachgebiet() {
+        return sachgebiet;
+    }
+
+    public void setSachgebiet(String sachgebiet) {
+        this.sachgebiet = sachgebiet;
+    }
+
     public String getAutor() {
         return autor;
     }
@@ -171,29 +184,38 @@ public class BookwormBean implements Serializable {
                 searchTerm.append(" ");
             }
         }
-        paginateableSearch.setSearchTerm(searchTerm.toString());
+        if (null != searchTerm) {
+            paginateableSearch.setSearchTerm(searchTerm.toString());
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
-    private List<QueryParameter> buildQueryParameter(Object input, String[] fields, String connector) {
+    private List<QueryParameter> buildQueryParameter(Object input, String[] fields, String connector, boolean checkLength, boolean isNotNull) {
         List<QueryParameter> queryParameters = new ArrayList<QueryParameter>();
         if (input instanceof String) {
             // Split search term by space
             String str = (String) input;
-            String[] terms = str.toLowerCase().split(BeetlejuiceConstant.SPACE);
-            // Cleanup: each term must have a length of at least 3
-            terms = cleanupSearchTerms(terms, 3);
+            String[] terms = str.toLowerCase().split(SPACE);
+            if (checkLength) {
+                // Cleanup: each term must have a length of at least 3
+                terms = cleanupSearchTerms(terms, 3);
+            }
             if (terms.length > 0) {
                 // Build list of QueryParameters
                 for (String f : fields) {
-                    QueryParameter q = new QueryParameter(f, terms, BeetlejuiceConstant.LIKE, connector);
+                    QueryParameter q = new QueryParameter(f, terms, LIKE, connector);
                     queryParameters.add(q);
+                    if (isNotNull) {
+                        q.setAddIsNotNull(true);
+                    }
                 }
             }
         } else if (input instanceof java.util.Date) {
             java.util.Date[] date = {(java.util.Date) input};
             // Build list of QueryParameters
             for (String f : fields) {
-                QueryParameter q = new QueryParameter(f, date, BeetlejuiceConstant.GREATER_EQUAL, connector);
+                QueryParameter q = new QueryParameter(f, date, GREATER_EQUAL, connector);
                 queryParameters.add(q);
             }
         }
@@ -201,19 +223,43 @@ public class BookwormBean implements Serializable {
     }
 
     /**
+     * BOOKWORM-1 Variante 1 oder 2?
+     * @return String Navigation case.
+     */
+    public String search() {
+        String nextPage = "oops";
+        try {
+            if (null != stichwort && stichwort.length() > 0) {
+                nextPage = search1();
+            } else {
+                nextPage = search2();
+            }
+        } catch (Exception e) {
+            paginateableSearch = null;
+            e.printStackTrace();
+        }
+        return nextPage;
+    }
+
+    /**
      * BOOKWORM-1 Variante 1.
      * @return String Navigation case.
      */
     public String search1() {
-        paginateableSearch = new PaginateableSearch<BookEntity>(bookDAO);
         List<QueryParameter> queryParameters;
         if (null != stichwort && stichwort.length() > 0) {
-            String[] fields = {"autor", "titel", "untertitel", "erlaeuterung", "suchwoerter", "titelnummer"};
-            queryParameters = buildQueryParameter(stichwort, fields, BeetlejuiceConstant.OR);
-            if (null != queryParameters && queryParameters.size() > 0) {
+            String[] fields1 = {"sachgebiet", "autor", "titel", "untertitel", "erlaeuterung", "suchwoerter", "titelnummer"};
+            queryParameters = buildQueryParameter(stichwort, fields1, OR, true, false);
+            if (queryParameters.size() > 0) {
+                paginateableSearch = new PaginateableSearch<BookEntity>(bookDAO);
                 // Execute search
                 setSearchTerm(stichwort);
-                paginateableSearch.executeSearch(queryParameters, BeetlejuiceConstant.OR);
+                QueryConfiguration queryConfiguration = new QueryConfiguration();
+                queryConfiguration.setQueryVariant(QueryVariant.Variant2);
+                queryConfiguration.setQueryParameters(queryParameters);
+                queryConfiguration.setTableName("books");
+                queryConfiguration.setNativeQuery(true);
+                paginateableSearch.executeSearch(queryConfiguration, AND, new String[]{"o.autor", "o.titel"});
             }
         }
         // Go to next page
@@ -225,27 +271,33 @@ public class BookwormBean implements Serializable {
      * @return String Navigation case.
      */
     public String search2() {
-        paginateableSearch = new PaginateableSearch<BookEntity>(bookDAO);
         List<QueryParameter> queryParameters = new ArrayList<QueryParameter>();
+        if (null != sachgebiet && sachgebiet.length() > 0) {
+            queryParameters.addAll(buildQueryParameter(sachgebiet, new String[]{"sachgebiet"}, OR, false, false));
+        }
         if (null != autor && autor.length() > 0) {
-            queryParameters.addAll(buildQueryParameter(autor, new String[]{"autor"}, BeetlejuiceConstant.OR));
+            queryParameters.addAll(buildQueryParameter(autor, new String[]{"autor"}, OR, true, false));
         }
         if (null != titel && titel.length() > 0) {
-            queryParameters.addAll(buildQueryParameter(titel, new String[]{"titel"}, BeetlejuiceConstant.OR));
+            queryParameters.addAll(buildQueryParameter(titel, new String[]{"titel"}, OR, true, false));
         }
         if (null != datum && datum.length() > 0) {
             SimpleDateFormat sdfGer = new SimpleDateFormat("dd.MM.yyyy");
             try {
                 Date _datum = sdfGer.parse(datum);
-                queryParameters.addAll(buildQueryParameter(_datum, new String[]{"einstelldatum"}, BeetlejuiceConstant.OR));
+                queryParameters.addAll(buildQueryParameter(_datum, new String[]{"einstelldatum"}, OR, true, false));
             } catch (ParseException e) {
                 // ignore
             }
         }
         if (queryParameters.size() > 0) {
+            paginateableSearch = new PaginateableSearch<BookEntity>(bookDAO);
             // Execute search
-            setSearchTerm(autor, titel, datum);
-            paginateableSearch.executeSearch(queryParameters, BeetlejuiceConstant.AND);
+            setSearchTerm(sachgebiet, autor, titel, datum);
+            QueryConfiguration queryConfiguration = new QueryConfiguration();
+            queryConfiguration.setQueryVariant(QueryVariant.Variant1);
+            queryConfiguration.setQueryParameters(queryParameters);
+            paginateableSearch.executeSearch(queryConfiguration, AND, new String[]{"autor", "titel"});
         }
         // Go to next page
         return determineNextPage();
@@ -360,6 +412,7 @@ public class BookwormBean implements Serializable {
 
     public String resetStateAndGotoSearchPage() {
         // Reset state
+        sachgebiet = "";
         stichwort = "";
         autor = "";
         titel = "";
