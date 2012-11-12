@@ -42,6 +42,12 @@ public class BookwormBean implements Serializable {
     @EJB
     private BookDAO bookDAO;
 
+    /**
+     * Maximum count of search results, > will redirect to page too-many-results.xhtml.
+     */
+    @ManagedProperty(value = "500")
+    private Integer maxSearchResults;
+
     private String stichwort;
 
     private String autor;
@@ -62,8 +68,10 @@ public class BookwormBean implements Serializable {
 
     @ManagedProperty(value = "WBH Online Shop")
     private String mailName;
+
     @ManagedProperty(value = "wbh@wbh-online.de")
     private String mailUser;
+
     @ManagedProperty(value = "Ihre Bestellung bei der WBH")
     private String mailSubject;
 
@@ -78,6 +86,14 @@ public class BookwormBean implements Serializable {
     }
 
     //<editor-fold desc="Getter and Setter">
+
+    public Integer getMaxSearchResults() {
+        return maxSearchResults;
+    }
+
+    public void setMaxSearchResults(Integer maxSearchResults) {
+        this.maxSearchResults = maxSearchResults;
+    }
 
     public void setMailName(String mailName) {
         this.mailName = mailName;
