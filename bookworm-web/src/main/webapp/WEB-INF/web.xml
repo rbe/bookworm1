@@ -58,6 +58,9 @@
         <url-pattern>*.xhtml</url-pattern>
         <url-pattern>*.faces</url-pattern>
     </servlet-mapping>
+    <!--
+        Session.
+    -->
     <session-config>
         <session-timeout>60</session-timeout>
         <cookie-config>
