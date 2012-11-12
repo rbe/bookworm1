@@ -12,7 +12,7 @@
 
 <!-- IMPLEMENTATION -->
 <cc:implementation>
-    <h:form>
+    <h:form rendered="#{bookwormBean.paginateableSearch.totalRowCount > 0}">
         <p class="line15 resulttext">
             Ihre Suche nach
             <span class="suchbegriff">
@@ -26,7 +26,6 @@
             Treffer
         </p>
         <h:dataTable id="bookwormSearchResultTable"
-                     rendered="#{bookwormBean.paginateableSearch.totalRowCount > 0}"
                      styleClass="tab result-table"
                      columnClasses="result-column1,result-column2,result-column3,result-column4,result-column5"
                      rowClasses="result-row1,result-row2"
