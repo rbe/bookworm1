@@ -28,6 +28,11 @@
         <managed-bean-class>eu.artofcoding.bookworm.BookwormBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
+            <property-name>maxSearchResults</property-name>
+            <property-class>java.lang.Integer</property-class>
+            <value>0</value>
+        </managed-property>
+        <managed-property>
             <property-name>mailName</property-name>
             <value>WBH Online Shop</value>
         </managed-property>

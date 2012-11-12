@@ -334,7 +334,7 @@ public class BookwormBean implements Serializable {
 
     private String determineNextPage() {
         String nextPage = "improve-search-term.xhtml";
-        if (paginateableSearch.getTotalRowCount() > 100) {
+        if (maxSearchResults > 0 && paginateableSearch.getTotalRowCount() > maxSearchResults) {
             nextPage = "too-many-results.xhtml";
         } else if (paginateableSearch.getTotalRowCount() > 0) {
             nextPage = "result.xhtml";
