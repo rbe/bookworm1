@@ -9,7 +9,7 @@
  * rbe, 04.09.12 12:00
  */
 
-package eu.artofcoding.bookworm;
+package eu.artofcoding.bookworm.api;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 
@@ -109,11 +109,9 @@ public class BookEntity implements GenericEntity {
     }
 
     public String getSachgebiet() {
-        /* rbe 2012-10-26 Auflösung Buchstabe -> Bedeutung vom Kunden nicht gewünscht
         if (null != sachgebiet) {
             return SACHGEBIETE.get(sachgebiet);
         }
-        */
         return sachgebiet;
     }
 

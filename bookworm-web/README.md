@@ -4,7 +4,7 @@
 
     <managed-bean>
         <managed-bean-name>bookwormBean</managed-bean-name>
-        <managed-bean-class>eu.artofcoding.bookworm.BookwormBean</managed-bean-class>
+        <managed-bean-class>eu.artofcoding.bookworm.web.BookwormBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>mailName</property-name>

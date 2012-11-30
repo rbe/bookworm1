@@ -9,9 +9,10 @@
  * rbe, 29.08.12 11:15
  */
 
-package eu.artofcoding.bookworm;
+package eu.artofcoding.bookworm.web;
 
 import eu.artofcoding.beetlejuice.persistence.GenericDAO;
+import eu.artofcoding.bookworm.api.BookEntity;
 
 import javax.ejb.Stateless;
 

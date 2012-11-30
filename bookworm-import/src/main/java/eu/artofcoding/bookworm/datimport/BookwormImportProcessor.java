@@ -9,9 +9,9 @@
  * rbe, 27.08.12 10:23
  */
 
-package eu.artofcoding.bookworm;
+package eu.artofcoding.bookworm.datimport;
 
-import eu.artofcoding.bookworm.BookEntity;
+import eu.artofcoding.bookworm.api.BookEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;

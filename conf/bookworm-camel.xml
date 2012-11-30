@@ -6,8 +6,8 @@
     <!--
         Camel.
     -->
-    <bean id="bookwormFileParser" class="eu.artofcoding.bookworm.BookwormFileParser"/>
-    <bean id="bookwormImportProcessor" class="eu.artofcoding.bookworm.BookwormImportProcessor">
+    <bean id="bookwormFileParser" class="eu.artofcoding.bookworm.datimport.BookwormFileParser"/>
+    <bean id="bookwormImportProcessor" class="eu.artofcoding.bookworm.datimport.BookwormImportProcessor">
         <property name="bookwormFileParser" ref="bookwormFileParser"/>
     </bean>
     <camelContext xmlns="http://camel.apache.org/schema/spring"

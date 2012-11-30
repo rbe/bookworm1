@@ -9,13 +9,12 @@
  * rbe, 27.08.12 10:23
  */
 
-package eu.artofcoding.bookworm;
+package eu.artofcoding.bookworm.datimport;
 
-import eu.artofcoding.bookworm.BookEntity;
+import eu.artofcoding.bookworm.api.BookEntity;
 
 import java.io.*;
 import java.net.URI;
-import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,11 +24,11 @@ import java.util.List;
 public class BookwormFileParser {
 
     private static int[] pos = {
-            0, 3,       // pos#0, A
-            4, 8,       // pos#2, 12467
-            9, 87,      // pos#4, Abaelard, Petrus
-            88, 207,    // pos#6, Die Leidensgeschichte und der Briefwechsel mit Heloisa.
-            208, 327,   // pos#8, Erzählungen.
+            0, 3,       // pos# 0, A
+            4, 8,       // pos# 2, 12467
+            9, 87,      // pos# 4, Abaelard, Petrus
+            88, 207,    // pos# 6, Die Leidensgeschichte und der Briefwechsel mit Heloisa.
+            208, 327,   // pos# 8, Erzählungen.
             328, 727,   // pos#10,
             728, 747,   // pos#12, Heidelberg
             748, 779,   // pos#14, Lambert Schneider
@@ -50,10 +49,10 @@ public class BookwormFileParser {
         SimpleDateFormat sdfIso = new SimpleDateFormat("yyyyMMdd");
         // A line, terminated by CRLF
         File path = new File(uri);
-        ByteBuffer buffer = ByteBuffer.allocate(4 * 1024 * 1024); // 4 MB buffer
+        //ByteBuffer buffer = ByteBuffer.allocate(4 * 1024 * 1024); // 4 MB buffer
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(path), Charset.forName("ISO-8859-15")));
         String line = null;
-        int lineCount = 0;
+        //int lineCount = 0;
         List<BookEntity> bookEntities = new ArrayList<BookEntity>();
         BookEntity bookEntity;
         while (null != (line = reader.readLine()) && line.length() > 1) {

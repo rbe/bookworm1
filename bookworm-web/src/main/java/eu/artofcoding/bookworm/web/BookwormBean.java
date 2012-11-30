@@ -9,14 +9,17 @@
  * rbe, 04.09.12 12:14
  */
 
-package eu.artofcoding.bookworm;
+package eu.artofcoding.bookworm.web;
 
 import eu.artofcoding.beetlejuice.api.persistence.QueryConfiguration;
 import eu.artofcoding.beetlejuice.api.persistence.QueryParameter;
 import eu.artofcoding.beetlejuice.api.persistence.QueryVariant;
 import eu.artofcoding.beetlejuice.email.Postman;
+import eu.artofcoding.beetlejuice.email.cdi.QPostman;
 import eu.artofcoding.beetlejuice.persistence.PaginateableSearch;
 import eu.artofcoding.beetlejuice.template.TemplateProcessor;
+import eu.artofcoding.bookworm.api.BasketEntity;
+import eu.artofcoding.bookworm.api.BookEntity;
 import freemarker.template.ObjectWrapper;
 import freemarker.template.SimpleHash;
 import freemarker.template.TemplateException;
@@ -29,6 +32,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.Session;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.Serializable;
@@ -37,10 +42,14 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static eu.artofcoding.beetlejuice.api.BeetlejuiceConstant.*;
+import static eu.artofcoding.beetlejuice.email.cdi.TransportType.SSL_TLS;
 
 public class BookwormBean implements Serializable {
 
     //<editor-fold desc="Member">
+    
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @EJB
     private BookDAO bookDAO;
@@ -67,6 +76,9 @@ public class BookwormBean implements Serializable {
 
     @Inject
     private TemplateProcessor templateProcessor;
+    
+    @Inject @QPostman(transportType = SSL_TLS)
+    private Postman postman;
 
     @Resource(mappedName = "java:/bookworm-smtp")
     private Session session;
@@ -84,6 +96,8 @@ public class BookwormBean implements Serializable {
 
     @PostConstruct
     public void initialize() {
+        // DAO
+        bookDAO.setEntityManager(entityManager);
         // Initialize TemplateProcessor
         ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         templateProcessor.addTemplateLoader(context, "/resources/bookworm");
@@ -279,7 +293,7 @@ public class BookwormBean implements Serializable {
             queryParameters.addAll(buildQueryParameter(autor, new String[]{"autor"}, OR, true, false));
         }
         if (null != titel && titel.length() > 0) {
-            queryParameters.addAll(buildQueryParameter(titel, new String[]{"titel"}, OR, true, false));
+            queryParameters.addAll(buildQueryParameter(titel, new String[]{"titel"}, AND, true, false));
         }
         if (null != datum && datum.length() > 0) {
             SimpleDateFormat sdfGer = new SimpleDateFormat("dd.MM.yyyy");
@@ -297,7 +311,7 @@ public class BookwormBean implements Serializable {
             QueryConfiguration queryConfiguration = new QueryConfiguration();
             queryConfiguration.setQueryVariant(QueryVariant.Variant1);
             queryConfiguration.setQueryParameters(queryParameters);
-            paginateableSearch.executeSearch(queryConfiguration, AND, new String[]{"autor", "titel"});
+            paginateableSearch.executeSearch(queryConfiguration, AND, new String[]{"o.autor", "o.titel"});
         }
         // Go to next page
         return determineNextPage();
@@ -392,7 +406,7 @@ public class BookwormBean implements Serializable {
         recipients.add(basket.getEmail());
         recipients.add(mailUser);
         // Send email
-        Postman postman = new Postman(session);
+        postman.setSession(session);
         postman.sendHtmlMail(String.format("%s <%s>", mailName, mailUser), recipients, mailSubject, body);
     }
 

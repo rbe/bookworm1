@@ -9,7 +9,7 @@
  * rbe, 29.08.12 10:01
  */
 
-package eu.artofcoding.bookworm;
+package eu.artofcoding.bookworm.datimport;
 
 import org.apache.camel.spring.SpringCamelContext;
 import org.springframework.context.ApplicationContext;

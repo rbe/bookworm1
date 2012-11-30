@@ -129,7 +129,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>eu.artofcoding.bookworm.BookwormMain</mainClass>
+                            <mainClass>eu.artofcoding.bookworm.datimport.BookwormMain</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>

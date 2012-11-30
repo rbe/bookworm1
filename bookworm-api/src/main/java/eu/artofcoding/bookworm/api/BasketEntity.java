@@ -9,7 +9,7 @@
  * rbe, 26.10.12 16:18
  */
 
-package eu.artofcoding.bookworm;
+package eu.artofcoding.bookworm.api;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 
