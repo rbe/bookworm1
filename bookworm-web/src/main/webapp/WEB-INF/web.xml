@@ -76,6 +76,6 @@
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/search.xhtml</location>
+        <location>/oops.xhtml</location>
     </error-page>
 </web-app>
