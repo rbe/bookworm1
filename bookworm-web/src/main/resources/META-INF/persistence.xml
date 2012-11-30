@@ -4,7 +4,7 @@
     <persistence-unit name="bookwormPU">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <jta-data-source>java:jboss/datasources/bookwormDatasource</jta-data-source>
-        <class>eu.artofcoding.bookworm.BookEntity</class>
+        <class>eu.artofcoding.bookworm.api.BookEntity</class>
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.show_sql" value="false"/>
