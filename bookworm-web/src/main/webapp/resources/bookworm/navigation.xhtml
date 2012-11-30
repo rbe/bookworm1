@@ -20,14 +20,14 @@
                 <h:commandLink rendered="#{bookwormBean.displaySearchAgainLink()}" styleClass="nav-link-newsearch" action="#{bookwormBean.resetStateAndGotoSearchPage}">Erneute Suche</h:commandLink>
                 <h:commandLink rendered="#{bookwormBean.displaySearchLink()}" styleClass="nav-link-search" action="#{bookwormBean.resetStateAndGotoSearchPage}">Suche</h:commandLink>
             </div>
-            <!-- Warenkorb -->
+            <!-- Merkliste -->
             <h:commandLink rendered="#{bookwormBean.displayBasketLink()}" action="basket.xhtml">
                 <div class="basket-count">
-                    <h:outputText value="Warenkorb (#{bookwormBean.basket.itemCount()})"/>
+                    <h:outputText value="Merkliste (#{bookwormBean.basket.itemCount()})"/>
                 </div>
             </h:commandLink>
             <div class="basket-count">
-                <h:outputText rendered="#{bookwormBean.displayEmptyBasketLink()}" value="Warenkorb (0)"/>
+                <h:outputText rendered="#{bookwormBean.displayEmptyBasketLink()}" value="Merkliste (0)"/>
             </div>
         </h:form>
     </div>

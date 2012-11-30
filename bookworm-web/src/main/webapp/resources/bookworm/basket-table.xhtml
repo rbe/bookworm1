@@ -1,65 +1,67 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
 
-<!-- INTERFACE -->
-<cc:interface>
-    <cc:attribute name="readonly" required="false" type="java.lang.Boolean" default="false"/>
-</cc:interface>
+<ui:component>
 
-<!-- IMPLEMENTATION -->
-<cc:implementation>
-    <h:form>
-        <p class="line15 baskettext">
-            <h:outputText rendered="#{bookwormBean.basket.itemCount() == 0}" value="Ihr Warenkorb ist leer."/>
-            <h:outputText rendered="#{bookwormBean.basket.itemCount() == 1}" value="Ihr Warenkorb enthält #{bookwormBean.basket.itemCount()} Hörbuch."/>
-            <h:outputText rendered="#{bookwormBean.basket.itemCount() > 1}" value="Ihr Warenkorb enthält #{bookwormBean.basket.itemCount()} Hörbücher."/>
-        </p>
-        <br/><br/>
-        <h:dataTable id="bookwormBasketTable"
-                     rendered="#{bookwormBean.basket.itemCount() > 0}"
-                     styleClass="tab basket-table"
-                     columnClasses="basket-column1,basket-column2,basket-column3,basket-column4,basket-column5"
-                     rowClasses="row basket-row1,row basket-row2"
-                     cellpadding="0" cellspacing="0"
-                     value="#{bookwormBean.basket.books}" var="book">
-            <h:column headerClass="basket-column-header">
-                <f:facet name="header">
-                    Titelnummer
-                </f:facet>
-                <h:outputText styleClass="basket-column-content" value="#{book.titelnummer}"/>
-            </h:column>
-            <h:column headerClass="basket-column-header">
-                <f:facet name="header">
-                    Autor
-                </f:facet>
-                <h:outputText styleClass="basket-column-content" value="#{book.autor}"/>
-            </h:column>
-            <h:column headerClass="basket-column-header">
-                <f:facet name="header">
-                    Titel
-                </f:facet>
-                <h:outputText styleClass="basket-column-content" value="#{book.titel}"/>
-            </h:column>
-            <h:column headerClass="basket-column-header">
-                <f:facet name="header">
-                    Details
-                </f:facet>
-                <h:commandLink action="#{bookwormBean.showDetail(book.id)}" value="Detail"/>
-            </h:column>
-            <h:column headerClass="basket-column-header" rendered="#{!cc.attrs.readonly}">
-                <f:facet name="header">
-                    Warenkorb
-                </f:facet>
-                <h:commandLink rendered="#{!bookwormBean.isEntityInBasket(book.id)}" action="#{bookwormBean.addToBasket(book.id)}" value="Bestellen"/>
-                <h:commandLink rendered="#{bookwormBean.isEntityInBasket(book.id)}" action="#{bookwormBean.removeFromBasket(book.id)}">Nicht mehr bestellen</h:commandLink>
-            </h:column>
-        </h:dataTable>
-    </h:form>
-</cc:implementation>
+    <cc:interface>
+        <cc:attribute name="readonly" required="false" type="java.lang.Boolean" default="false"/>
+    </cc:interface>
+
+    <cc:implementation>
+        <h:form>
+            <p class="line15 baskettext">
+                <h:outputText rendered="#{bookwormBean.basket.itemCount() == 0}" value="Ihre Merkliste ist leer."/>
+                <h:outputText rendered="#{bookwormBean.basket.itemCount() == 1}" value="Ihre Merkliste enthält #{bookwormBean.basket.itemCount()} Hörbuch."/>
+                <h:outputText rendered="#{bookwormBean.basket.itemCount() > 1}" value="Ihre Merkliste enthält #{bookwormBean.basket.itemCount()} Hörbücher."/>
+            </p>
+            <br/><br/>
+            <h:dataTable id="bookwormBasketTable"
+                         rendered="#{bookwormBean.basket.itemCount() > 0}"
+                         styleClass="tab basket-table"
+                         columnClasses="basket-column1,basket-column2,basket-column3,basket-column4,basket-column5"
+                         rowClasses="row basket-row1,row basket-row2"
+                         cellpadding="0" cellspacing="0"
+                         value="#{bookwormBean.basket.books}" var="book">
+                <h:column headerClass="basket-column-header">
+                    <f:facet name="header">
+                        Titelnummer
+                    </f:facet>
+                    <h:outputText styleClass="basket-column-content" value="#{book.titelnummer}"/>
+                </h:column>
+                <h:column headerClass="basket-column-header">
+                    <f:facet name="header">
+                        Autor
+                    </f:facet>
+                    <h:outputText styleClass="basket-column-content" value="#{book.autor}"/>
+                </h:column>
+                <h:column headerClass="basket-column-header">
+                    <f:facet name="header">
+                        Titel
+                    </f:facet>
+                    <h:outputText styleClass="basket-column-content" value="#{book.titel}"/>
+                </h:column>
+                <h:column headerClass="basket-column-header">
+                    <f:facet name="header">
+                        Details
+                    </f:facet>
+                    <h:commandLink action="#{bookwormBean.showDetail(book.id)}" value="Detail"/>
+                </h:column>
+                <h:column headerClass="basket-column-header" rendered="#{!cc.attrs.readonly}">
+                    <f:facet name="header">
+                        Merkliste
+                    </f:facet>
+                    <h:commandLink rendered="#{!bookwormBean.isEntityInBasket(book.id)}" action="#{bookwormBean.addToBasket(book.id)}" value="Bestellen"/>
+                    <h:commandLink rendered="#{bookwormBean.isEntityInBasket(book.id)}" action="#{bookwormBean.removeFromBasket(book.id)}">Nicht mehr bestellen</h:commandLink>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </cc:implementation>
+
+</ui:component>
 
 </html>

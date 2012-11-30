@@ -12,14 +12,16 @@
 <!-- IMPLEMENTATION -->
 <cc:implementation>
     <div class="itemtobasket">
-        <h:commandLink rendered="#{!bookwormBean.isSelectedEntityInBasket()}" action="#{bookwormBean.addSelectedEntityToBasket()}">In den Warenkorb</h:commandLink>
-        <h:commandLink rendered="#{bookwormBean.isSelectedEntityInBasket()}" action="#{bookwormBean.removeSelectedEntityFromBasket()}">Aus dem Warenkorb entfernen</h:commandLink>
+        <h:commandLink rendered="#{!bookwormBean.isSelectedEntityInBasket()}" action="#{bookwormBean.addSelectedEntityToBasket()}">In die Merkliste</h:commandLink>
+        <h:commandLink rendered="#{bookwormBean.isSelectedEntityInBasket()}" action="#{bookwormBean.removeSelectedEntityFromBasket()}">Aus der Merkliste entfernen</h:commandLink>
     </div>
     <div class="nextdetail">
         <h:commandLink action="#{bookwormBean.previousBook}" value="vorheriger Titel"/>
         &nbsp;Titel Nr.
-        <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntityTotalIndex + 1}"/>&nbsp;
-        <h:commandLink action="#{bookwormBean.nextBook}" value="nächster Titel"/><br/><br/>
+        <h:outputText value="#{bookwormBean.paginateableSearch.selectedEntityTotalIndex + 1}"/>
+        &nbsp;
+        <h:commandLink action="#{bookwormBean.nextBook}" value="nächster Titel"/>
+        <br/><br/>
     </div>
 </cc:implementation>
 
