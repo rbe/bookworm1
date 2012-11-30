@@ -49,6 +49,10 @@
             <directory>${project.basedir}/../conf</directory>
             <outputDirectory>conf</outputDirectory>
         </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/../bin</directory>
+            <outputDirectory>bin</outputDirectory>
+        </fileSet>
     </fileSets>
     <dependencySets>
         <dependencySet>
