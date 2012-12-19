@@ -1,20 +1,16 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <body>
-
-<p>
-    Hallo ${basket.name},<br/>
-    <br/>
-    wir haben am ${bestelldatum?date} folgende Bestellung über
-    <#if basket.books?size = 1>
-        1 Hörbuch
-    </#if>
-    <#if basket.books?size gt 1>
-        ${basket.books?size} Hörbücher
-    </#if>
-    erhalten:
-</p>
-
+Hallo ${basket.name},<br/>
+<br/>
+wir haben am ${bestelldatum?date} folgende Bestellung über
+<#if basket.books?size = 1>
+    1 Hörbuch
+</#if>
+<#if basket.books?size gt 1>
+    ${basket.books?size} Hörbücher
+</#if>
+erhalten:
 <table>
     <thead>
     <tr>
@@ -33,7 +29,6 @@
     </#list>
     </tbody>
 </table>
-
 <p>
     Die von Ihnen angegebenen Kontakt-Email lautet ${basket.email}.<br/>
     Ihre Hörernummer lautet ${basket.hoerernummer}.
@@ -42,6 +37,5 @@
     Freundliche Grüße,<br/>
     Ihre WBH
 </p>
-
 </body>
 </html>
