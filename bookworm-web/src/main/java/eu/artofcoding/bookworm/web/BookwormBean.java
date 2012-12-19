@@ -20,6 +20,7 @@ import eu.artofcoding.beetlejuice.persistence.PaginateableSearch;
 import eu.artofcoding.beetlejuice.template.TemplateProcessor;
 import eu.artofcoding.bookworm.api.BasketEntity;
 import eu.artofcoding.bookworm.api.BookEntity;
+import eu.artofcoding.bookworm.api.Sachgebiet;
 import freemarker.template.ObjectWrapper;
 import freemarker.template.SimpleHash;
 import freemarker.template.TemplateException;
@@ -172,6 +173,10 @@ public class BookwormBean implements Serializable {
     //</editor-fold>
 
     //<editor-fold desc="Searching">
+
+    public Sachgebiet[] getSachgebiete() {
+        return BookEntity.SACHGEBIET.toArray(new Sachgebiet[BookEntity.SACHGEBIET.size()]);
+    }
 
     /**
      * Cleanup search terms. Each term must have a length of at least 'minLength' after trimming.

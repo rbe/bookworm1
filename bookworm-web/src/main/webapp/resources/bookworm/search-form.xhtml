@@ -1,15 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://java.sun.com/jsf/composite"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
 
-<!-- INTERFACE -->
 <cc:interface>
 </cc:interface>
 
-<!-- IMPLEMENTATION -->
 <cc:implementation>
     <h:form name="katalogsuche">
         <div class="multisearch">
@@ -20,7 +18,12 @@
             </div>
             <div class="search-sachgebiet">
                 <label class="suchlabel_sachgebiet">nach Sachgebiet</label>
-                <h:inputText styleClass="input_sachgebiet" type="text" size="40" value="#{bookwormBean.sachgebiet}" name="sachgebietsuche" maxlength="30" style="width:30"/>
+                <!-- JAVASERVERFACES-1591 -->
+                <h:selectOneMenu id="sachgebiet" styleClass="input_sachgebiet" type="text" name="sachgebietsuche" value="#{bookwormBean.sachgebiet}">
+                    <f:selectItem itemLabel="-- keine Auswahl --" itemValue=""/>
+                    <f:selectItems value="#{bookwormBean.sachgebiete}" var="s"
+                                   itemLabel="#{s.toString()}" itemValue="#{s.name}"/>
+                </h:selectOneMenu>
             </div>
             <div class="search-autor">
                 <label class="suchlabel_autor">nach Autor</label>
