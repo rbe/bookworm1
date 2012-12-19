@@ -14,7 +14,9 @@ package eu.artofcoding.bookworm.api;
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -35,9 +37,11 @@ public class BookEntity implements GenericEntity {
     public Long version;
 
     private String sachgebiet;
+
     private String titelnummer; // 6 0 (nummerisch)
 
     private String autor; // 79
+
     private String titel; // 120
 
     private String untertitel; // 120
@@ -46,50 +50,56 @@ public class BookEntity implements GenericEntity {
     private String erlaeuterung; // 400
 
     private String verlagsort; // 20
+
     private String verlag; // 30
 
     private String druckjahr; // 40
 
     private String sprecher1; // 150
+
     private String sprecher2; // 250
 
     private String spieldauer; // 52 Stunde, Minuten
 
     private String prodOrt; // 20
+
     private String prodJahr; // 40
 
     private String suchwoerter; // 80
+
     private String anzahlCD; // 20
+
     private String titelfamilie; // 40 wird nicht gebraucht
+
     private java.sql.Date einstelldatum; // .80
 
-    private static final Map<String, String> SACHGEBIETE = new HashMap<String, String>();
+    public static final List<Sachgebiet> SACHGEBIET = new ArrayList<Sachgebiet>();
 
     static {
-        SACHGEBIETE.put("A", "Klassiker der Weltliteratur");
-        SACHGEBIETE.put("B", "Erzählungen oder Novellen, Kurzgeschichten, Märchen und Sagen");
-        SACHGEBIETE.put("C", "Lyrik und Anthologien.");
-        SACHGEBIETE.put("D", "Literatur der Moderne und Problemliteratur");
-        SACHGEBIETE.put("E", "Unterhaltungsliteratur, wie z.B. Liebes- und Schicksalsromane.");
-        SACHGEBIETE.put("F", "Historische Romane.");
-        SACHGEBIETE.put("G", "Kriminal- und Agentenromane, Kriegserlebnisse und Abenteuererzählungen.");
-        SACHGEBIETE.put("H", "Humor und Satire");
-        SACHGEBIETE.put("I", "Science Fiction-Romane und phantastische Literatur");
-        SACHGEBIETE.put("J", "Biographien, Tagebücher und Briefe");
-        SACHGEBIETE.put("K", "Abhandlungen über Literatur, Musik und Kunst.");
-        SACHGEBIETE.put("L", "Philosophie, Psychologie, Religion, Theologie und sonstige religiöse Literatur, auch die der nichtchristlichen Religionen");
-        SACHGEBIETE.put("M", "Reiseführer, Reise-, Länder- und Städtebeschreibungen");
-        SACHGEBIETE.put("N", "Kulturgeschichte, Zeitgeschichte sowie Bücher über Archäologie.");
-        SACHGEBIETE.put("O", "Politik, Gesellschaft und Pädagogik");
-        SACHGEBIETE.put("P", "Wirtschaft und Recht.");
-        SACHGEBIETE.put("Q", "Naturwissenschaft, Medizin und Technik.");
-        SACHGEBIETE.put("R", "Tiergeschichten, Tierverhalten");
-        SACHGEBIETE.put("S", "Kinder- und Jugendliteratur");
-        SACHGEBIETE.put("T", "Hobbies (z.B. Kochbücher), praktische Bücher, Ratgeber, Weiterbildung");
-        SACHGEBIETE.put("U", "Einige Titel in englischer und französischer Sprache");
-        SACHGEBIETE.put("V", "Blindenwesen");
-        SACHGEBIETE.put("W", "Hörspiele, die von verschiedenen Rundfunkanstalten übernommen werden konnten, und Dramen");
-        SACHGEBIETE.put("X", "Stimme des Autors bzw. spezieller Rezitatoren");
+        SACHGEBIET.add(new Sachgebiet("A", "Klassiker der Weltliteratur"));
+        SACHGEBIET.add(new Sachgebiet("B", "Erzählungen oder Novellen, Kurzgeschichten, Märchen und Sagen"));
+        SACHGEBIET.add(new Sachgebiet("C", "Lyrik und Anthologien"));
+        SACHGEBIET.add(new Sachgebiet("D", "Literatur der Moderne und Problemliteratur"));
+        SACHGEBIET.add(new Sachgebiet("E", "Unterhaltungsliteratur – Schicksalsromane – Liebesromane"));
+        SACHGEBIET.add(new Sachgebiet("F", "Historische Romane"));
+        SACHGEBIET.add(new Sachgebiet("G", "Kriminal-, Agenten-, Abenteuerromane, Kriegserlebnisse, Western"));
+        SACHGEBIET.add(new Sachgebiet("H", "Humor und Satire"));
+        SACHGEBIET.add(new Sachgebiet("I", "Science Fiction - Phantastische Literatur"));
+        SACHGEBIET.add(new Sachgebiet("J", "Biographien – Erinnerungen – Tagebücher – Briefe"));
+        SACHGEBIET.add(new Sachgebiet("K", "Literatur – Musik – Kunst"));
+        SACHGEBIET.add(new Sachgebiet("L", "Philosophie – Psychologie – Religion – Religiöse Literatur"));
+        SACHGEBIET.add(new Sachgebiet("M", "Städte – Länder – Völker – Reisen – Expeditionen"));
+        SACHGEBIET.add(new Sachgebiet("N", "Geschichte – Zeitgeschichte – Kulturgeschichte – Archäologie"));
+        SACHGEBIET.add(new Sachgebiet("O", "Politik - Gesellschaft - Pädagogik"));
+        SACHGEBIET.add(new Sachgebiet("P", "Recht - Wirtschaft"));
+        SACHGEBIET.add(new Sachgebiet("Q", "Naturwissenschaft - Medizin - Technik"));
+        SACHGEBIET.add(new Sachgebiet("R", "Tiergeschichten - Tierverhalten"));
+        SACHGEBIET.add(new Sachgebiet("S", "Kinder- und Jugendbücher"));
+        SACHGEBIET.add(new Sachgebiet("T", "Hobbys- Praktische Bücher – Ratgeber – Weiterbildung"));
+        SACHGEBIET.add(new Sachgebiet("U", "Fremdsprachige Bücher"));
+        SACHGEBIET.add(new Sachgebiet("V", "Blindenwesen"));
+        SACHGEBIET.add(new Sachgebiet("W", "Hörspiele – Dramen"));
+        SACHGEBIET.add(new Sachgebiet("X", "Stimme des Autors"));
     }
 
     public Long getId() {
@@ -110,7 +120,11 @@ public class BookEntity implements GenericEntity {
 
     public String getSachgebiet() {
         if (null != sachgebiet) {
-            return SACHGEBIETE.get(sachgebiet);
+            for (Sachgebiet s : SACHGEBIET) {
+                if (sachgebiet.equals(s.getName())) {
+                    return s.getDescription();
+                }
+            }
         }
         return sachgebiet;
     }
