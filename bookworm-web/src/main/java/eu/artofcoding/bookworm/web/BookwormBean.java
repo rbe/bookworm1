@@ -199,7 +199,7 @@ public class BookwormBean implements Serializable {
         StringBuilder searchTerm = new StringBuilder();
         for (int i = 0, fieldsLength = terms.length; i < fieldsLength; i++) {
             String f = terms[i];
-            if (f.trim().length() > 0) {
+            if (null != f && f.length() > 0 && f.trim().length() > 0) {
                 searchTerm.append(f);
             }
             if (i < terms.length) {
