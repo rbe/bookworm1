@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN"
+        "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+    <!--
+        Send mails.
+    -->
+    <mail-resource enabled="true" debug="false"
+                   object-type="user"
+                   jndi-name="mail/bookworm"
+                   host="mail.1ci.net"
+                   user="wbh@wbh-online.de"
+                   from="wbh@wbh-online.de"
+                   store-protocol="imaps"
+                   store-protocol-class="com.sun.mail.imap.IMAPSSLStore"
+                   transport-protocol="smtps"
+                   transport-protocol-class="com.sun.mail.smtp.SMTPSSLStore">
+        <property name="mail-smtps-auth" value="true"/>
+        <property name="mail-smtps-password" value="J"/>
+    </mail-resource>
+    <!--
+        Access database.
+    -->
+    <!-- MySQL -->
+    <jdbc-connection-pool name="jdbc/bookworm-pool"
+                          res-type="javax.sql.ConnectionPoolDataSource"
+                          datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource"
+                          pool-resize-quantity="1" max-pool-size="5" steady-pool-size="0"
+                          statement-timeout-in-seconds="5">
+        <property name="serverName" value="localhost"/>
+        <property name="portNumber" value="3306"/>
+        <property name="dataBaseName" value="bookworm"/>
+        <property name="User" value="bookworm"/>
+        <property name="Password" value="bookworm"/>
+        <property name="connectionAttributes" value=""/>
+        <property name="driverType" value="4"/>
+    </jdbc-connection-pool>
+    <jdbc-resource jndi-name="jdbc/bookworm" pool-name="jdbc/bookworm-pool"/>
+    <!-- JavaDB -->
+    <!--
+    <jdbc-connection-pool name="jdbc/test-pool"
+                          res-type="javax.sql.DataSource"
+                          datasource-classname="org.apache.derby.jdbc.ClientDataSource"
+                          pool-resize-quantity="1" max-pool-size="5" steady-pool-size="0"
+                          statement-timeout-in-seconds="5" >
+        <property name="serverName" value="localhost" />
+        <property name="portNumber" value="1527" />
+        <property name="dataBaseName" value="sun-appserv-samples" />
+        <property name="User" value="APP" />
+        <property name="Password" value="APP" />
+        <property name="connectionAttributes" value=";create=true" />
+        <property name="driverType" value="4" />
+    </jdbc-connection-pool>
+    <jdbc-resource jndi-name="jdbc/test-ds" pool-name="jdbc/test-pool" />
+    -->
+</resources>
