@@ -51,7 +51,7 @@ public class BookwormBean implements Serializable {
     private static final Logger logger = Logger.getLogger(BookwormBean.class.getName());
 
     //<editor-fold desc="Member">
-    
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -80,8 +80,9 @@ public class BookwormBean implements Serializable {
 
     @Inject
     private TemplateProcessor templateProcessor;
-    
-    @Inject @QPostman(transportType = SSL_TLS)
+
+    @Inject
+    @QPostman(transportType = SSL_TLS)
     private Postman postman;
 
     @Resource(lookup = "java:/mail/bookworm")
