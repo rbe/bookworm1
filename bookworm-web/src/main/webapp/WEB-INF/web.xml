@@ -42,7 +42,7 @@
     </filter>
     <filter-mapping>
         <filter-name>Encoding Filter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
     <!--
         Servlets.
