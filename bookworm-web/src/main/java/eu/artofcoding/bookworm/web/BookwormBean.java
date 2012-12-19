@@ -40,11 +40,14 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Logger;
 
 import static eu.artofcoding.beetlejuice.api.BeetlejuiceConstant.*;
 import static eu.artofcoding.beetlejuice.email.cdi.TransportType.SSL_TLS;
 
 public class BookwormBean implements Serializable {
+
+    private static final Logger logger = Logger.getLogger(BookwormBean.class.getName());
 
     //<editor-fold desc="Member">
     
