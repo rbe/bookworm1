@@ -298,7 +298,7 @@ public class BookwormBean implements Serializable {
             queryParameters.addAll(buildQueryParameter(sachgebiet, new String[]{"sachgebiet"}, OR, false, false));
         }
         if (null != autor && autor.length() > 0) {
-            queryParameters.addAll(buildQueryParameter(autor, new String[]{"autor"}, OR, true, false));
+            queryParameters.addAll(buildQueryParameter(autor, new String[]{"autor"}, AND, true, false));
         }
         if (null != titel && titel.length() > 0) {
             queryParameters.addAll(buildQueryParameter(titel, new String[]{"titel"}, AND, true, false));
