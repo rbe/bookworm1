@@ -1,9 +1,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <body>
-Hallo ${basket.name},<br/>
+${basket.hoerernummer} ${basket.name}<br/>
 <br/>
-wir haben am ${bestelldatum?date} folgende Bestellung über
+Wir haben am ${bestelldatum?date} folgende Bestellung über
 <#if basket.books?size = 1>
     1 Hörbuch
 </#if>
@@ -31,7 +31,6 @@ erhalten:
 </table>
 <p>
     Die von Ihnen angegebenen Kontakt-Email lautet ${basket.email}.<br/>
-    Ihre Hörernummer lautet ${basket.hoerernummer}.
 </p>
 <p>
     Freundliche Grüße,<br/>
