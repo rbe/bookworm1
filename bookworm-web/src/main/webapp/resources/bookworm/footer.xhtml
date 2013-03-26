@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:cc="http://java.sun.com/jsf/composite">
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:o="http://omnifaces.org/functions">
 
 <cc:interface>
 </cc:interface>
@@ -14,7 +16,7 @@
     </p>
     <div style="text-align: right;">
         <span style="float: left;"><a href="#top" accesskey="1">zum&nbsp;Seitenanfang</a></span>
-        <span style="float: right;">&copy; 2013 Westdeutsche Blindenhörbücherei e.V. | <a title="Impressum" href="http://www.wbh-online.de/impressum.html">Impressum</a></span>
+        <span style="float: right;">&copy; <h:outputText value="#{o:formatDate(now, 'yyyy')}"/> Westdeutsche Blindenhörbücherei e.V. | <a title="Impressum" href="http://www.wbh-online.de/impressum.html">Impressum</a></span>
     </div>
     <p></p>
     <div class="wrap"></div>
