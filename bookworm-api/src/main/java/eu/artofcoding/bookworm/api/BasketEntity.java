@@ -45,6 +45,16 @@ public class BasketEntity implements GenericEntity {
     @Column(length = 150)
     private String email;
 
+    @Basic
+    @Column(length = 1000)
+    private String bemerkung;
+
+    @Basic
+    private Boolean bestellkarteMischen;
+
+    @Basic
+    private Boolean alteBestellkarteLoeschen;
+
     public Long getId() {
         return id;
     }
@@ -109,6 +119,30 @@ public class BasketEntity implements GenericEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getBemerkung() {
+        return bemerkung;
+    }
+
+    public void setBemerkung(String bemerkung) {
+        this.bemerkung = bemerkung;
+    }
+
+    public Boolean getBestellkarteMischen() {
+        return bestellkarteMischen;
+    }
+
+    public void setBestellkarteMischen(Boolean bestellkarteMischen) {
+        this.bestellkarteMischen = bestellkarteMischen;
+    }
+
+    public Boolean getAlteBestellkarteLoeschen() {
+        return alteBestellkarteLoeschen;
+    }
+
+    public void setAlteBestellkarteLoeschen(Boolean alteBestellkarteLoeschen) {
+        this.alteBestellkarteLoeschen = alteBestellkarteLoeschen;
     }
 
 }

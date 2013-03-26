@@ -31,6 +31,18 @@ erhalten:
 </table>
 <p>
     Die von Ihnen angegebenen Kontakt-Email lautet ${basket.email}.<br/>
+<#if basket.bemerkung??>
+    <br/>
+    Ihre Bemerkung:<br/>
+    ${basket.bemerkung}<br/>
+    <br/>
+</#if>
+<#if basket.bestellkarteMischen>
+    Ihre Bestellkarte wird gemischt!<br/>
+</#if>
+<#if basket.alteBestellkarteLoeschen>
+    Ihre alte Bestellkarte wird gelöscht.<br/>
+</#if>
 </p>
 <p>
     Freundliche Grüße,<br/>
