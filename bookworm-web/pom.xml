@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <!--
-        POM.
+        POM
     -->
     <groupId>eu.artofcoding.bookworm</groupId>
     <artifactId>bookworm-web</artifactId>
@@ -16,15 +16,15 @@
         <relativePath>..</relativePath>
     </parent>
     <!--
-        Project Information.
+        Project Information
     -->
     <name>Bookworm Web</name>
     <url>http://www.art-of-coding.eu/bookworm/web/</url>
     <!--
-        Build Settings.
+        Build Settings
     -->
     <packaging>war</packaging>
-    <!-- Properties. -->
+    <!-- Properties -->
     <properties>
         <!-- JavaServer Faces -->
         <version.javax.faces-api>2.1</version.javax.faces-api>
@@ -33,10 +33,10 @@
         <version.org.apache.commons.io>2.4</version.org.apache.commons.io>
         <version.org.apache.commons.fileupload>1.2.2</version.org.apache.commons.fileupload>
     </properties>
-    <!-- Dependencies. -->
+    <!-- Dependencies -->
     <dependencies>
         <!--
-            Java EE.
+            Java EE
         -->
         <dependency>
             <groupId>javax</groupId>
