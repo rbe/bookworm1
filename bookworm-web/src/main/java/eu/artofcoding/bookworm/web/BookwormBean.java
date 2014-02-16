@@ -85,7 +85,7 @@ public class BookwormBean implements Serializable {
     @QPostman(transportType = SSL_TLS)
     private Postman postman;
 
-    @Resource(lookup = "java:/mail/bookworm")
+    @Resource(lookup = "mail/bookworm")
     private Session session;
 
     @ManagedProperty(value = "WBH Online Shop")

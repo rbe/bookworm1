@@ -1,0 +1,9 @@
+<jboss-web xmlns="http://www.jboss.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-web_7_1.xsd"
+    version="7.1">
+    <context-root>/bookworm-web</context-root>
+    <resource-ref>
+        <res-ref-name>mail/bookworm</res-ref-name>
+        <jndi-name>java:/mail/bookworm</jndi-name>
+    </resource-ref>
+</jboss-web>
