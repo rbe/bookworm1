@@ -6,7 +6,6 @@ VERSION=1.0.0-SNAPSHOT
 #export JAVA_HOME
 #PATH=$JAVA_HOME/bin:$PATH
 #export PATH
-
 export JAVA_VERSION=1.7
 
 nohup java -jar bookworm-import-$VERSION.jar > bookworm-import-nohup.log 2>&1 &
