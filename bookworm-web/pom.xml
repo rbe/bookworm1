@@ -3,67 +3,68 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <!--
-        POM
-    -->
-    <groupId>eu.artofcoding.bookworm</groupId>
-    <artifactId>bookworm-web</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
     <parent>
         <groupId>eu.artofcoding.bookworm</groupId>
         <artifactId>bookworm</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
-    <!--
-        Project Information
-    -->
+    <artifactId>bookworm-web</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <name>Bookworm Web</name>
     <url>http://www.art-of-coding.eu/bookworm/web/</url>
-    <!--
-        Build Settings
-    -->
     <packaging>war</packaging>
-    <!-- Properties -->
-    <properties>
-        <!-- JavaServer Faces -->
-        <version.javax.faces-api>2.1</version.javax.faces-api>
-        <version.org.omnifaces>1.3</version.org.omnifaces>
-        <version.org.primefaces>3.4</version.org.primefaces>
-        <version.org.apache.commons.io>2.4</version.org.apache.commons.io>
-        <version.org.apache.commons.fileupload>1.2.2</version.org.apache.commons.fileupload>
-    </properties>
-    <!-- Dependencies -->
     <dependencies>
-        <!--
-            Java EE
-        -->
+        <!-- Bookworm API -->
+        <dependency>
+            <groupId>eu.artofcoding.bookworm</groupId>
+            <artifactId>bookworm-api</artifactId>
+        </dependency>
+        <!-- Beetlejuice API -->
+        <dependency>
+            <groupId>eu.artofcoding.beetlejuice</groupId>
+            <artifactId>beetlejuice-api</artifactId>
+        </dependency>
+        <!-- Beetlejuice Persistence -->
+        <dependency>
+            <groupId>eu.artofcoding.beetlejuice</groupId>
+            <artifactId>beetlejuice-persistence</artifactId>
+        </dependency>
+        <!-- Beetlejuice Web -->
+        <dependency>
+            <groupId>eu.artofcoding.beetlejuice</groupId>
+            <artifactId>beetlejuice-web</artifactId>
+        </dependency>
+        <!-- Beetlejuice Template -->
+        <dependency>
+            <groupId>eu.artofcoding.beetlejuice</groupId>
+            <artifactId>beetlejuice-template</artifactId>
+        </dependency>
+        <!-- Beetlejuice Email -->
+        <dependency>
+            <groupId>eu.artofcoding.beetlejuice</groupId>
+            <artifactId>beetlejuice-email</artifactId>
+        </dependency>
+        <!-- Java EE -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>${version.javax.javaee-api}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>${version.javax.enterprise.cdi-api}</version>
             <scope>provided</scope>
         </dependency>
         <!--
             JPA
         -->
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${version.org.hibernate.hibernate-core}</version>
-            <scope>provided</scope>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>${version.org.hibernate.hibernate-entitymanager}</version>
-            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <!--
             JavaServer Faces
@@ -71,56 +72,35 @@
         <dependency>
             <groupId>javax.faces</groupId>
             <artifactId>javax.faces-api</artifactId>
-            <version>${version.javax.faces-api}</version>
+            <version>2.1</version>
             <scope>provided</scope>
         </dependency>
         <!-- OmniFaces -->
         <dependency>
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
-            <version>${version.org.omnifaces}</version>
+            <version>1.3</version>
         </dependency>
-        <!-- Primefaces -->
+        <!-- PrimeFaces -->
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>${version.org.primefaces}</version>
+            <version>3.4</version>
         </dependency>
-        <!--
-            Beetlejuice
-        -->
-        <!-- Beetlejuice Persistence -->
         <dependency>
-            <groupId>eu.artofcoding.beetlejuice</groupId>
-            <artifactId>beetlejuice-persistence</artifactId>
-            <version>${version.eu.artofcoding.beetlejuice}</version>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3</version>
         </dependency>
-        <!-- Beetlejuice Web -->
+        <!-- Freemarker -->
         <dependency>
-            <groupId>eu.artofcoding.beetlejuice</groupId>
-            <artifactId>beetlejuice-web</artifactId>
-            <version>${version.eu.artofcoding.beetlejuice}</version>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
         </dependency>
-        <!-- Beetlejuice Template -->
+        <!-- JavaMail -->
         <dependency>
-            <groupId>eu.artofcoding.beetlejuice</groupId>
-            <artifactId>beetlejuice-template</artifactId>
-            <version>${version.eu.artofcoding.beetlejuice}</version>
-        </dependency>
-        <!-- Beetlejuice Email -->
-        <dependency>
-            <groupId>eu.artofcoding.beetlejuice</groupId>
-            <artifactId>beetlejuice-email</artifactId>
-            <version>${version.eu.artofcoding.beetlejuice}</version>
-        </dependency>
-        <!--
-            Bookworm
-        -->
-        <!-- Bookworm API -->
-        <dependency>
-            <groupId>eu.artofcoding.bookworm</groupId>
-            <artifactId>bookworm-api</artifactId>
-            <version>${project.version}</version>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -130,7 +110,6 @@
                 <directory>src/main/resources</directory>
             </resource>
         </resources>
-        <!-- finalName>${project.artifactId}</finalName-->
         <plugins>
             <!-- maven-compiler-plugin -->
             <plugin>
@@ -147,11 +126,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.org.apache.maven.plugins.maven-war-plugin}</version>
-                <!--
-                <configuration>
-                    <webappDirectory>/sample/servlet/container/deploy/directory</webappDirectory>
-                </configuration>
-                -->
             </plugin>
         </plugins>
         <finalName>bookworm</finalName>
