@@ -68,7 +68,7 @@
         </cookie-config>
     </session-config>
     <!--
-        Error Page
+        Error Pages.
     -->
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>

@@ -48,7 +48,7 @@ import static eu.artofcoding.beetlejuice.email.cdi.TransportType.SSL_TLS;
 
 public class BookwormBean implements Serializable {
 
-    private static final Logger logger = Logger.getLogger(BookwormBean.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(BookwormBean.class.getName());
 
     //<editor-fold desc="Member">
 
