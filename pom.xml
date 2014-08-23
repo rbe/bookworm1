@@ -216,7 +216,7 @@
                     <verbose/>
                 </configuration>
             </plugin>
-            <!-- maven-compiler-plugin -->
+            <!-- maven-javadoc-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
