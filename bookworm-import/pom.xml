@@ -5,50 +5,33 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>eu.artofcoding.bookworm</groupId>
-        <artifactId>bookworm</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <artifactId>eu.artofcoding.bookworm</artifactId>
+        <version>LOCALBUILD</version>
         <relativePath>..</relativePath>
     </parent>
-    <artifactId>bookworm-import</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <name>Bookworm Import</name>
-    <url>http://www.art-of-coding.eu/bookworm/import/</url>
+    <artifactId>eu.artofcoding.bookworm.import</artifactId>
     <packaging>jar</packaging>
     <dependencies>
         <!-- Bookworm API -->
         <dependency>
             <groupId>eu.artofcoding.bookworm</groupId>
-            <artifactId>bookworm-api</artifactId>
+            <artifactId>eu.artofcoding.bookworm.api</artifactId>
         </dependency>
-        <!-- Logging -->
-        <!--
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-    </dependency>
-        -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- Spring -->
-        <!--
-                <dependency>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                </dependency>
-        -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
         <!-- Spring AOP dependency -->
         <!--
-                <dependency>
-                    <groupId>cglib</groupId>
-                    <artifactId>cglib</artifactId>
-                </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+        </dependency>
         -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -88,18 +71,9 @@
     </dependencies>
     <build>
         <plugins>
-            <!-- maven-compiler-plugin -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.org.apache.maven.plugins.maven-compiler-plugin}</version>
-                <configuration>
-                    <source>${project.java.version}</source>
-                    <target>${project.java.version}</target>
-                    <verbose/>
-                </configuration>
-            </plugin>
             <!-- maven-jar-plugin -->
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>${version.org.apache.maven.plugins.maven-jar-plugin}</version>
                 <configuration>
@@ -110,12 +84,11 @@
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
                     </archive>
-                    <finalName>${project.artifactId}-${project.version}</finalName>
                 </configuration>
             </plugin>
             <!-- maven-assembly-plugin -->
             <plugin>
-                <!-- http://maven.apache.org/plugins/maven-assembly-plugin/assembly.html -->
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>${version.org.apache.maven.plugins.maven-assembly-plugin}</version>
                 <dependencies>
@@ -136,7 +109,6 @@
                             <descriptors>
                                 <descriptor>src/main/assembly/dist.xml</descriptor>
                             </descriptors>
-                            <finalName>bookworm-import-${project.version}</finalName>
                         </configuration>
                     </execution>
                 </executions>

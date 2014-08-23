@@ -5,20 +5,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>eu.artofcoding.bookworm</groupId>
-        <artifactId>bookworm</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <artifactId>eu.artofcoding.bookworm</artifactId>
+        <version>LOCALBUILD</version>
         <relativePath>..</relativePath>
     </parent>
-    <artifactId>bookworm-api</artifactId>
-    <name>Bookworm API</name>
-    <url>http://www.art-of-coding.eu/bookworm/import/</url>
-    <version>1.0.0-SNAPSHOT</version>
+    <artifactId>eu.artofcoding.bookworm.api</artifactId>
     <packaging>jar</packaging>
     <dependencies>
         <!-- Beetlejuice API -->
         <dependency>
             <groupId>eu.artofcoding.beetlejuice</groupId>
-            <artifactId>beetlejuice-api</artifactId>
+            <artifactId>eu.artofcoding.beetlejuice.api</artifactId>
         </dependency>
         <!-- Java EE -->
         <dependency>
@@ -27,33 +24,4 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
-        <finalName>${project.artifactId}-${project.version}</finalName>
-        <plugins>
-            <!-- maven-compiler-plugin -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.org.apache.maven.plugins.maven-compiler-plugin}</version>
-                <configuration>
-                    <source>${project.java.version}</source>
-                    <target>${project.java.version}</target>
-                    <verbose/>
-                </configuration>
-            </plugin>
-            <!-- maven-jar-plugin -->
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>${version.org.apache.maven.plugins.maven-jar-plugin}</version>
-                <configuration>
-                    <finalName>${project.artifactId}-${project.version}</finalName>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

@@ -5,45 +5,42 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>eu.artofcoding.bookworm</groupId>
-        <artifactId>bookworm</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <artifactId>eu.artofcoding.bookworm</artifactId>
+        <version>LOCALBUILD</version>
         <relativePath>..</relativePath>
     </parent>
-    <artifactId>bookworm-web</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <name>Bookworm Web</name>
-    <url>http://www.art-of-coding.eu/bookworm/web/</url>
+    <artifactId>eu.artofcoding.bookworm.web</artifactId>
     <packaging>war</packaging>
     <dependencies>
         <!-- Bookworm API -->
         <dependency>
             <groupId>eu.artofcoding.bookworm</groupId>
-            <artifactId>bookworm-api</artifactId>
+            <artifactId>eu.artofcoding.bookworm.api</artifactId>
         </dependency>
         <!-- Beetlejuice API -->
         <dependency>
             <groupId>eu.artofcoding.beetlejuice</groupId>
-            <artifactId>beetlejuice-api</artifactId>
+            <artifactId>eu.artofcoding.beetlejuice.api</artifactId>
         </dependency>
         <!-- Beetlejuice Persistence -->
         <dependency>
             <groupId>eu.artofcoding.beetlejuice</groupId>
-            <artifactId>beetlejuice-persistence</artifactId>
+            <artifactId>eu.artofcoding.beetlejuice.persistence</artifactId>
         </dependency>
         <!-- Beetlejuice Web -->
         <dependency>
             <groupId>eu.artofcoding.beetlejuice</groupId>
-            <artifactId>beetlejuice-web</artifactId>
+            <artifactId>eu.artofcoding.beetlejuice.web</artifactId>
         </dependency>
         <!-- Beetlejuice Template -->
         <dependency>
             <groupId>eu.artofcoding.beetlejuice</groupId>
-            <artifactId>beetlejuice-template</artifactId>
+            <artifactId>eu.artofcoding.beetlejuice.template</artifactId>
         </dependency>
         <!-- Beetlejuice Email -->
         <dependency>
             <groupId>eu.artofcoding.beetlejuice</groupId>
-            <artifactId>beetlejuice-email</artifactId>
+            <artifactId>eu.artofcoding.beetlejuice.email</artifactId>
         </dependency>
         <!-- Java EE -->
         <dependency>
@@ -103,31 +100,4 @@
             <artifactId>javax.mail-api</artifactId>
         </dependency>
     </dependencies>
-    <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
-        <plugins>
-            <!-- maven-compiler-plugin -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.org.apache.maven.plugins.maven-compiler-plugin}</version>
-                <configuration>
-                    <source>${project.java.version}</source>
-                    <target>${project.java.version}</target>
-                    <verbose/>
-                </configuration>
-            </plugin>
-            <!-- maven-war-plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>${version.org.apache.maven.plugins.maven-war-plugin}</version>
-            </plugin>
-        </plugins>
-        <finalName>bookworm</finalName>
-    </build>
 </project>
