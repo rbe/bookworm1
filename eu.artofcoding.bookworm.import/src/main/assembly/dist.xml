@@ -13,7 +13,7 @@
         <moduleSet>
             <useAllReactorProjects>true</useAllReactorProjects>
             <includes>
-                <include>eu.artofcoding.bookworm:bookworm-api</include>
+                <include>eu.artofcoding.bookworm:eu.artofcoding.bookworm.api</include>
             </includes>
             <binaries>
                 <outputDirectory>lib</outputDirectory>
@@ -23,7 +23,7 @@
         <moduleSet>
             <useAllReactorProjects>true</useAllReactorProjects>
             <includes>
-                <include>eu.artofcoding.bookworm:bookworm-import</include>
+                <include>eu.artofcoding.bookworm:eu.artofcoding.bookworm.import</include>
             </includes>
             <binaries>
                 <outputDirectory>/</outputDirectory>
