@@ -61,7 +61,7 @@
                     Merkliste
                 </f:facet>
                 <h:commandLink rendered="#{!bookwormBean.isEntityInBasket(book.id)}" styleClass="basket-order-link" action="#{bookwormBean.addToBasket(book.id)}" value="In die Merkliste"/>
-                <h:commandLink rendered="#{bookwormBean.isEntityInBasket(book.id)}" styleClass="basket-remove-link" action="#{bookwormBean.removeFromBasket(book.id)}" value="Nicht mehr bestellen"/>
+                <h:commandLink rendered="#{bookwormBean.isEntityInBasket(book.id)}" styleClass="basket-remove-link" action="#{bookwormBean.removeFromBasket(book.id)}" value="Aus der Merkliste entfernen"/>
             </h:column>
             <f:facet name="footer">
                 <h:panelGroup>

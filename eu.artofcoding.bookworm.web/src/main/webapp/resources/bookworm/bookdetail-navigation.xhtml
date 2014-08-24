@@ -10,7 +10,7 @@
 <cc:implementation>
     <div class="itemtobasket">
         <h:commandLink rendered="#{!bookwormBean.isSelectedEntityInBasket()}" action="#{bookwormBean.addSelectedEntityToBasket()}">In die Merkliste</h:commandLink>
-        <h:commandLink rendered="#{bookwormBean.isSelectedEntityInBasket()}" action="#{bookwormBean.removeSelectedEntityFromBasket()}">Aus der Merkliste entfernen</h:commandLink>
+        <h:commandLink rendered="#{bookwormBean.isSelectedEntityInBasket()}" action="#{bookwormBean.removeSelectedEntityFromBasket()}">Aus Merkliste entfernen</h:commandLink>
     </div>
     <div class="nextdetail">
         <h:commandLink action="#{bookwormBean.previousBook}" value="vorheriger Titel"/>

@@ -56,7 +56,7 @@
                         Merkliste
                     </f:facet>
                     <h:commandLink rendered="#{!bookwormBean.isEntityInBasket(book.id)}" action="#{bookwormBean.addToBasket(book.id)}" value="Bestellen"/>
-                    <h:commandLink rendered="#{bookwormBean.isEntityInBasket(book.id)}" action="#{bookwormBean.removeFromBasket(book.id)}">Nicht mehr bestellen</h:commandLink>
+                    <h:commandLink rendered="#{bookwormBean.isEntityInBasket(book.id)}" action="#{bookwormBean.removeFromBasket(book.id)}">Aus Merkliste entfernen</h:commandLink>
                 </h:column>
             </h:dataTable>
         </h:form>
