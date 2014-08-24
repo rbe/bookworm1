@@ -26,7 +26,7 @@
 
     <subsystem xmlns="urn:jboss:domain:datasources:1.0">
         <datasources>
-            <datasource jta="true" jndi-name="java:jboss/datasources/bookwormDatasource" pool-name="bookwormDatasourcePool" enabled="true" use-java-context="true" use-ccm="true">
+            <datasource jta="true" jndi-name="java:jdbc/bookworm" pool-name="bookwormDatasourcePool" enabled="true" use-java-context="true" use-ccm="true">
                 <connection-url>jdbc:mysql://localhost:3306/bookworm</connection-url>
                 <driver>com.mysql</driver>
                 <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
@@ -55,7 +55,7 @@
 ### SMTP Configuration
 
     <subsystem xmlns="urn:jboss:domain:mail:1.0">
-        <mail-session jndi-name="java:/bookworm-smtp">
+        <mail-session jndi-name="java:/mail/bookworm">
             <smtp-server ssl="true" outbound-socket-binding-ref="bookworm-smtp">
                 <login name="wbh@wbh-online.de" password="xxx"/>
             </smtp-server>

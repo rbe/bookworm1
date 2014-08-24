@@ -28,6 +28,7 @@ import freemarker.template.TemplateException;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -41,11 +42,13 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static eu.artofcoding.beetlejuice.api.BeetlejuiceConstant.*;
 import static eu.artofcoding.beetlejuice.email.cdi.TransportType.SSL_TLS;
 
+@SessionScoped
 public class BookwormBean implements Serializable {
 
     private static final Logger LOGGER = Logger.getLogger(BookwormBean.class.getName());
@@ -259,7 +262,7 @@ public class BookwormBean implements Serializable {
             }
         } catch (Exception e) {
             paginateableSearch = null;
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "", e);
         }
         return nextPage;
     }
@@ -274,7 +277,7 @@ public class BookwormBean implements Serializable {
             String[] fields1 = {"sachgebiet", "autor", "titel", "untertitel", "erlaeuterung", "suchwoerter", "titelnummer"};
             queryParameters = buildQueryParameter(stichwort, fields1, OR, true, false);
             if (queryParameters.size() > 0) {
-                paginateableSearch = new PaginateableSearch<BookEntity>(bookDAO);
+                paginateableSearch = new PaginateableSearch<>(bookDAO);
                 // Execute search
                 setSearchTerm(stichwort);
                 QueryConfiguration queryConfiguration = new QueryConfiguration();
