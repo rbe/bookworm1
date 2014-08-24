@@ -3,19 +3,6 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
               version="2.0">
-    <!--
-        Factories.
-    -->
-    <!--
-    <factory>
-        <exception-handler-factory>
-            eu.artofcoding.odisee.console.OdiseeConsoleExceptionHandlerFactory
-        </exception-handler-factory>
-    </factory>
-    -->
-    <!--
-        Managed Beans.
-    -->
     <!-- Language -->
     <managed-bean>
         <managed-bean-name>language</managed-bean-name>
@@ -45,9 +32,4 @@
             <value>Ihre Bestellung bei der WBH</value>
         </managed-property>
     </managed-bean>
-    <!--
-        Application.
-    -->
-    <application>
-    </application>
 </faces-config>
