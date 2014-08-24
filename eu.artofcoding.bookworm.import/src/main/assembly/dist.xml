@@ -47,7 +47,7 @@
         </fileSet>
         <fileSet>
             <directory>../conf</directory>
-            <outputDirectory>conf</outputDirectory>
+            <outputDirectory>example/conf</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>../bin</directory>
