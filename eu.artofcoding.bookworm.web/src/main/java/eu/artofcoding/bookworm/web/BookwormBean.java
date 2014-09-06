@@ -81,6 +81,8 @@ public class BookwormBean implements Serializable {
 
     private BasketEntity basket = new BasketEntity();
 
+    private BasketEntity orderedBasket;
+
     @Inject
     private TemplateProcessor templateProcessor;
 
@@ -210,15 +212,11 @@ public class BookwormBean implements Serializable {
                 searchTerm.append(" ");
             }
         }
-        if (null != searchTerm) {
-            paginateableSearch.setSearchTerm(searchTerm.toString());
-        } else {
-            throw new IllegalStateException();
-        }
+        paginateableSearch.setSearchTerm(searchTerm.toString());
     }
 
     private List<QueryParameter> buildQueryParameter(Object input, String[] fields, String connector, boolean checkLength, boolean isNotNull) {
-        List<QueryParameter> queryParameters = new ArrayList<QueryParameter>();
+        List<QueryParameter> queryParameters = new ArrayList<>();
         if (input instanceof String) {
             // Split search term by space
             String str = (String) input;
@@ -277,6 +275,7 @@ public class BookwormBean implements Serializable {
             String[] fields1 = {"sachgebiet", "autor", "titel", "untertitel", "erlaeuterung", "suchwoerter", "titelnummer"};
             queryParameters = buildQueryParameter(stichwort, fields1, OR, true, false);
             if (queryParameters.size() > 0) {
+                //bookDAO.setEntityManager(entityManager);
                 paginateableSearch = new PaginateableSearch<>(bookDAO);
                 // Execute search
                 setSearchTerm(stichwort);
@@ -297,7 +296,7 @@ public class BookwormBean implements Serializable {
      * @return String Navigation case.
      */
     public String search2() {
-        List<QueryParameter> queryParameters = new ArrayList<QueryParameter>();
+        List<QueryParameter> queryParameters = new ArrayList<>();
         if (null != sachgebiet && sachgebiet.length() > 0) {
             queryParameters.addAll(buildQueryParameter(sachgebiet, new String[]{"sachgebiet"}, OR, false, false));
         }
@@ -317,7 +316,7 @@ public class BookwormBean implements Serializable {
             }
         }
         if (queryParameters.size() > 0) {
-            paginateableSearch = new PaginateableSearch<BookEntity>(bookDAO);
+            paginateableSearch = new PaginateableSearch<>(bookDAO);
             // Execute search
             setSearchTerm(sachgebiet, autor, titel, datum);
             QueryConfiguration queryConfiguration = new QueryConfiguration();
@@ -348,6 +347,10 @@ public class BookwormBean implements Serializable {
         return basket;
     }
 
+    public BasketEntity getOrderedBasket() {
+        return orderedBasket;
+    }
+
     public boolean isEntityInBasket(Long id) {
         if (null != id) {
             boolean inBasket = basket.isInBasket(id);
@@ -359,7 +362,8 @@ public class BookwormBean implements Serializable {
 
     public boolean isSelectedEntityInBasket() {
         if (null != paginateableSearch && null != paginateableSearch.getSelectedEntity()) {
-            boolean inBasket = basket.isInBasket(paginateableSearch.getSelectedEntity().getId());
+            final Long id = paginateableSearch.getSelectedEntity().getId();
+            boolean inBasket = basket.isInBasket(id);
             return inBasket;
         } else {
             return false;
@@ -402,6 +406,7 @@ public class BookwormBean implements Serializable {
 
     public String placeOrder() throws IOException, TemplateException, MessagingException {
         sendMail();
+        orderedBasket = basket;
         basket = new BasketEntity();
         return "basket-thankyou";
     }
@@ -414,12 +419,13 @@ public class BookwormBean implements Serializable {
         // Render template depending on request locale
         String body = templateProcessor.renderTemplateToString("order.html", Locale.GERMAN, root);
         // Set recipient
-        Set<String> recipients = new HashSet<String>();
+        Set<String> recipients = new HashSet<>();
         recipients.add(basket.getEmail());
         recipients.add(mailUser);
         // Send email
         postman.setSession(session);
-        postman.sendHtmlMail(String.format("%s <%s>", mailName, mailUser), recipients, mailSubject, body);
+        final String fromAddress = String.format("%s <%s>", mailName, mailUser);
+        postman.sendHtmlMail(fromAddress, recipients, mailSubject, body);
     }
 
     //</editor-fold>

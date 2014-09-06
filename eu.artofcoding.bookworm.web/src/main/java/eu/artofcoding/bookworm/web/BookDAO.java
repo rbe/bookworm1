@@ -14,13 +14,21 @@ package eu.artofcoding.bookworm.web;
 import eu.artofcoding.beetlejuice.persistence.GenericDAO;
 import eu.artofcoding.bookworm.api.BookEntity;
 
-import javax.ejb.Stateless;
+import javax.annotation.PreDestroy;
+import javax.ejb.Stateful;
+import java.io.Serializable;
 
-@Stateless
-public class BookDAO extends GenericDAO<BookEntity> {
+@Stateful
+public class BookDAO extends GenericDAO<BookEntity> implements Serializable {
 
     public BookDAO() {
         super(BookEntity.class);
+        System.out.println(this + ": <init>");
+    }
+
+    @PreDestroy
+    private void preDestroy() {
+        System.out.println(this + ": preDestroy");
     }
 
 }
