@@ -1,6 +1,0 @@
-<glassfish-web-app>
-    <resource-ref>
-        <res-ref-name>mail/bookworm</res-ref-name>
-        <jndi-name>java:/mail/bookworm</jndi-name>
-    </resource-ref>
-</glassfish-web-app>
