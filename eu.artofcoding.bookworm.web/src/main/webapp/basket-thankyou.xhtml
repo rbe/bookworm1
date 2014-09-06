@@ -26,9 +26,10 @@
                     <div class="blog">
                         <div class="leading">
                             <h2 class="contentheading">Vielen Dank für Ihre Bestellung!</h2>
-                            <bookworm:navigation/>
                             <br/><br/>
-                            <bookworm:basket-table readonly="true"/>
+                            <h:outputText styleClass="line15 baskettext" value="Ihre Bestellung wurde erfolgreich &uuml;bermittelt!"/>
+                            <br/><br/>
+                            <bookworm:basket-table basket="#{bookwormBean.orderedBasket}" readonly="true"/>
                         </div>
                     </div>
                 </div>
