@@ -2,6 +2,8 @@
 
 ## JavaServer Faces
 
+faces-context.xml
+
     <managed-bean>
         <managed-bean-name>bookwormBean</managed-bean-name>
         <managed-bean-class>eu.artofcoding.bookworm.web.BookwormBean</managed-bean-class>
@@ -24,49 +26,14 @@
 
 ### Datasource Configuration
 
-    <subsystem xmlns="urn:jboss:domain:datasources:1.0">
-        <datasources>
-            <datasource jta="true" jndi-name="java:jdbc/bookworm" pool-name="bookwormDatasourcePool" enabled="true" use-java-context="true" use-ccm="true">
-                <connection-url>jdbc:mysql://localhost:3306/bookworm</connection-url>
-                <driver>com.mysql</driver>
-                <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
-                <pool>
-                    <min-pool-size>10</min-pool-size>
-                    <max-pool-size>100</max-pool-size>
-                    <prefill>true</prefill>
-                </pool>
-                <security>
-                    <user-name>bookworm</user-name>
-                    <password>bookworm</password>
-                </security>
-                <statement>
-                    <prepared-statement-cache-size>32</prepared-statement-cache-size>
-                    <share-prepared-statements>true</share-prepared-statements>
-                </statement>
-            </datasource>
-            <drivers>
-                <driver name="com.mysql" module="com.mysql">
-                    <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
-                </driver>
-            </drivers>
-        </datasources>
-    </subsystem>
+    /subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql,driver-class-name=com.mysql.jdbc.Driver)
+    /subsystem=datasources/data-source=bookwormDS:add(jndi-name="java:/jdbc/bookworm", enabled=true, use-ccm=false, driver-name=mysql, connection-url=jdbc:mysql://localhost:3306/bookworm, user-name=bookworm, password=bookworm, min-pool-size=5, max-pool-size=15)
 
 ### SMTP Configuration
 
-    <subsystem xmlns="urn:jboss:domain:mail:1.0">
-        <mail-session jndi-name="java:/mail/bookworm">
-            <smtp-server ssl="true" outbound-socket-binding-ref="bookworm-smtp">
-                <login name="wbh@wbh-online.de" password="xxx"/>
-            </smtp-server>
-        </mail-session>
-    </subsystem>
-
-    <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
-        <outbound-socket-binding name="bookworm-smtp">
-            <remote-destination host="mail2.1ci.net" port="25"/>
-        </outbound-socket-binding>
-    </socket-binding-group>
+    /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=bookworm-smtp:add(host=mx.1ci.net,port=465)
+    /subsystem=mail/mail-session=bookworm-mail:add(jndi-name="java:/mail/bookworm")
+    /subsystem=mail/mail-session=bookworm-mail/server=smtp:add(outbound-socket-binding-ref=bookworm-smtp, ssl=true, username=mail@example.com, password=xxx)
 
 ## Web Server
 
@@ -83,12 +50,14 @@
             Order allow,deny
             allow from all
         </Directory>
-        <IfModule mod_rewrite.c>
-            RewriteEngine On
-            Options FollowSymLinks
-            RewriteRule /bookworm-web/(.*) http://127.0.2.3:8081/bookworm-web/$1 [P,L]
-            RewriteRule search.xhtml http://127.0.2.3:8081/bookworm-web/search.xhtml [P,L]
-            RewriteRule result.xhtml http://127.0.2.3:8081/bookworm-web/result.xhtml [P,L]
-            RewriteRule bookdetail.xhtml http://127.0.2.3:8081/bookworm-web/bookdetail.xhtml [P,L]
+        <IfModule mod_proxy.c>
+            ProxyRequests Off
+            ProxyTimeout 10
+            <Proxy *>
+                Order deny,allow
+                Allow from all
+            </Proxy>
+            ProxyPass /bookworm/ ajp://127.0.0.1:8009/bookworm/ timeout=1800
+            ProxyPassReverse /bookworm/ ajp://127.0.0.1:8009/bookworm/ timeout=1800
         </IfModule>
     </VirtualHost>
