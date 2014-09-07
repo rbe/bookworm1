@@ -1,9 +1,6 @@
 # IntelliJ #
 *.iml
 .idea/
-atlassian-ide-plugin.xml
-/lib/
-bookworm-import/lib/
 
 # Compiler #
 *.class
@@ -20,3 +17,5 @@ target/
 
 # JRebel #
 rebel.xml
+
+thirdparty
