@@ -22,10 +22,25 @@ faces-context.xml
         </managed-property>
     </managed-bean>
 
-## JBoss
+## WildFly
+
+### Undertow
+
+AJP socket-bindung: create
+
+    /socket-binding-group=standard-sockets/socket-binding=ajp:add(port=8009)
+
+or modify
+
+    /socket-binding-group=standard-sockets/socket-binding=ajp:write-attribute(name=port,value=8009)
+
+Create new AJP connector
+
+    /subsystem=undertow/server=default-server/ajp-listener=myListener:add(socket-binding=ajp, scheme=http, enabled=true)
 
 ### Datasource Configuration
 
+    module add --name=com.mysql --resources=/opt/install/mysql-connector-java-5.1.32-bin.jar --dependencies=javax.api,javax.transaction.api
     /subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql,driver-class-name=com.mysql.jdbc.Driver)
     /subsystem=datasources/data-source=bookwormDS:add(jndi-name="java:/jdbc/bookworm", enabled=true, use-ccm=false, driver-name=mysql, connection-url=jdbc:mysql://localhost:3306/bookworm, user-name=bookworm, password=bookworm, min-pool-size=5, max-pool-size=15)
 
@@ -40,24 +55,17 @@ faces-context.xml
 ### Virtual Host Configuration 
 
     <VirtualHost *:80>
-        ServerName www.wbh-online.de
-        ServerAlias wbh-online.de
-        ServerAdmin webmaster@wbh-online.de
-        DocumentRoot /usr/home/cew/apache/sites/wbh-online.de/www/
-        <Directory /usr/home/cew/apache/sites/wbh-online.de/www>
-            Options Indexes FollowSymLinks MultiViews
-            AllowOverride All
-            Order allow,deny
-            allow from all
-        </Directory>
+        ...
         <IfModule mod_proxy.c>
             ProxyRequests Off
-            ProxyTimeout 10
             <Proxy *>
                 Order deny,allow
                 Allow from all
             </Proxy>
-            ProxyPass /bookworm/ ajp://127.0.0.1:8009/bookworm/ timeout=1800
-            ProxyPassReverse /bookworm/ ajp://127.0.0.1:8009/bookworm/ timeout=1800
+            ProxyPass        /bookworm/      ajp://127.0.0.1:8009/bookworm/ timeout=1800
+            ProxyPassReverse /bookworm/      ajp://127.0.0.1:8009/bookworm/ timeout=1800
+            ProxyPass        /bookworm-test/ ajp://127.0.0.1:8019/bookworm/ timeout=1800
+            ProxyPassReverse /bookworm-test/ ajp://127.0.0.1:8019/bookworm/ timeout=1800
         </IfModule>
+        ...
     </VirtualHost>
