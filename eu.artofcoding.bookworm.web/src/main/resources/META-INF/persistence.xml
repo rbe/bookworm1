@@ -4,10 +4,6 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
     <persistence-unit name="bookwormPU" transaction-type="JTA">
-        <!-- GlassFish -->
-        <!--
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        -->
         <!-- JBoss -->
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <jta-data-source>jdbc/bookworm</jta-data-source>
