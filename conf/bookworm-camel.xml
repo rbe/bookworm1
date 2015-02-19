@@ -6,9 +6,9 @@
     <!--
         Camel.
     -->
-    <bean id="bookwormFileParser" class="eu.artofcoding.bookworm.datimport.BookwormFileParser"/>
-    <bean id="bookwormImportProcessor" class="eu.artofcoding.bookworm.datimport.BookwormImportProcessor">
-        <property name="bookwormFileParser" ref="bookwormFileParser"/>
+    <bean id="bookFileParser" class="eu.artofcoding.bookworm.bookimport.BookFileParser"/>
+    <bean id="bookImportProcessor" class="eu.artofcoding.bookworm.bookimport.BookImportProcessor">
+        <property name="bookFileParser" ref="bookFileParser"/>
     </bean>
     <camelContext xmlns="http://camel.apache.org/schema/spring"
                   id="bookwormCamelContext"
@@ -19,7 +19,7 @@
         <!-- Incoming file -->
         <route id="incomingFile" autoStartup="true">
             <from uri="file://temp/data?move=../done&amp;moveFailed=../error"/>
-            <bean ref="bookwormImportProcessor" method="importFile"/>
+            <bean ref="bookImportProcessor" method="importFile"/>
         </route>
     </camelContext>
 </beans>
