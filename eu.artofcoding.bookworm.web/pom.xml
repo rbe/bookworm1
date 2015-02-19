@@ -11,6 +11,9 @@
     </parent>
     <artifactId>eu.artofcoding.bookworm.web</artifactId>
     <packaging>war</packaging>
+    <properties>
+        <wildfly_home>${project.basedir}/../thirdparty/wildfly-8.1.0.Final</wildfly_home>
+    </properties>
     <dependencies>
         <!-- Bookworm API -->
         <dependency>
@@ -91,8 +94,9 @@
         </dependency>
     </dependencies>
     <profiles>
+        <!-- wildfly -->
         <profile>
-            <id>wildlfy</id>
+            <id>wildlfy8x-configuration-local</id>
             <build>
                 <plugins>
                     <plugin>
@@ -100,7 +104,7 @@
                         <artifactId>wildfly-maven-plugin</artifactId>
                         <version>1.0.2.Final</version>
                         <configuration>
-                            <jboss-home>${env.HOME}/app/wildfly-8.1.0.Final</jboss-home>
+                            <jboss-home>${wildfly_home}</jboss-home>
                         </configuration>
                         <executions>
                             <execution>
@@ -217,6 +221,84 @@
                                 <phase>install</phase>
                                 <goals>
                                     <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- cargo-wildfly8x-local -->
+        <profile>
+            <id>cargo-wildfly8x-local</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <version>1.4.9</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.codehaus.cargo</groupId>
+                                <artifactId>simple-war</artifactId>
+                                <version>1.4.9</version>
+                                <type>war</type>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <!--<configuration>
+                                <type>runtime</type>
+                                <properties>
+                                    <cargo.hostname>localhost</cargo.hostname>
+                                    <cargo.jboss.management-native.port>19999</cargo.jboss.management-native.port>
+                                </properties>
+                            </configuration>-->
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>cargo-setup</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>install</goal>
+                                </goals>
+                                <configuration>
+                                    <container>
+                                        <containerId>wildfly8x</containerId>
+                                        <home>${wildfly_home}</home>
+                                        <zipUrlInstaller>
+                                            <url>http://download.jboss.org/wildfly/8.1.0.Final/wildfly-8.1.0.Final.zip</url>
+                                            <downloadDir>${project.basedir}/../thirdparty</downloadDir>
+                                            <extractDir>${project.basedir}/../thirdparty</extractDir>
+                                        </zipUrlInstaller>
+                                    </container>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>cargo-start</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                                <configuration>
+                                    <deployables>
+                                        <deployable>
+                                            <groupId>eu.artofcoding.bookworm</groupId>
+                                            <artifactId>eu.artofcoding.bookworm.web</artifactId>
+                                            <type>war</type>
+                                            <properties>
+                                                <context>bookworm</context>
+                                            </properties>
+                                            <pingURL>http://localhost:8080/bookworm/search.xhtml</pingURL>
+                                            <pingTimeout>2000</pingTimeout>
+                                        </deployable>
+                                    </deployables>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>cargo-stop</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
                                 </goals>
                             </execution>
                         </executions>
