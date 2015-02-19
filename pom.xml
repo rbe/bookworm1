@@ -22,7 +22,8 @@
     <modules>
         <module>eu.artofcoding.bookworm.api</module>
         <module>eu.artofcoding.bookworm.mock</module>
-        <module>eu.artofcoding.bookworm.import</module>
+        <module>eu.artofcoding.bookworm.bookimport</module>
+        <module>eu.artofcoding.bookworm.hoererimport</module>
         <module>eu.artofcoding.bookworm.web</module>
     </modules>
     <properties>

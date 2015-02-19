@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BKRXSTP>
+  <ROWS>
+    <row>
+      <count>1</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>1291</BEXTIT>
+      <BEXDAT>20140610</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>2</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>18299</BEXTIT>
+      <BEXDAT>20140610</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>3</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>4937</BEXTIT>
+      <BEXDAT>20140610</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>4</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>11256</BEXTIT>
+      <BEXDAT>20140623</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>5</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>11255</BEXTIT>
+      <BEXDAT>20140623</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>6</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>7099</BEXTIT>
+      <BEXDAT>201400702</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>7</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>6615</BEXTIT>
+      <BEXDAT>201400702</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>8</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>4737</BEXTIT>
+      <BEXDAT>20140730</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>9</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>4800</BEXTIT>
+      <BEXDAT>20140806</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+<row>
+      <count>10</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>13924</BEXTIT>
+      <BEXDAT>201400826</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+    </row>
+<row>
+      <count>11</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>4389</BEXTIT>
+      <BEXDAT>20140903</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>12</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>13189</BEXTIT>
+      <BEXDAT>20140903</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>13</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>18297</BEXTIT>
+      <BEXDAT>20140903</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>14</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>7363</BEXTIT>
+      <BEXDAT>20140903</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>15</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>10241</BEXTIT>
+      <BEXDAT>20140919</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>16</count>
+      <BEXLNR>1</BEXLNR>
+      <BEXTIT>11749</BEXTIT>
+      <BEXDAT>20141027</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>17</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>22330</BEXTIT>
+      <BEXDAT>20100118</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>18</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>19016</BEXTIT>
+      <BEXDAT>20100125</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>19</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>19882</BEXTIT>
+      <BEXDAT>20100125</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>20</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>22330</BEXTIT>
+      <BEXDAT>20100118</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>21</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>21894</BEXTIT>
+      <BEXDAT>20100219</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>22</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>22387</BEXTIT>
+      <BEXDAT>20100310</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>23</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>22976</BEXTIT>
+      <BEXDAT>20100316</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>24</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>22977</BEXTIT>
+      <BEXDAT>20100331</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>25</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>24372</BEXTIT>
+      <BEXDAT>20100414</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>26</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>24373</BEXTIT>
+      <BEXDAT>20100414</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>27</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>24374</BEXTIT>
+      <BEXDAT>20100420</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>28</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>3101</BEXTIT>
+      <BEXDAT>20100427</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>29</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>3856</BEXTIT>
+      <BEXDAT>20100504</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>30</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>1342</BEXTIT>
+      <BEXDAT>20100512</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>31</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>24375</BEXTIT>
+      <BEXDAT>20100520</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>32</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>24376</BEXTIT>
+      <BEXDAT>20100616</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>33</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>22649</BEXTIT>
+      <BEXDAT>20100621</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>34</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>24377</BEXTIT>
+      <BEXDAT>20100628</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>35</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>15594</BEXTIT>
+      <BEXDAT>20100714</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>36</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>23219</BEXTIT>
+      <BEXDAT>20100726</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>37</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>6412</BEXTIT>
+      <BEXDAT>20100803</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>38</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>14212</BEXTIT>
+      <BEXDAT>20100813</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>39</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>14212</BEXTIT>
+      <BEXDAT>20100813</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>40</count>
+      <BEXLNR>2</BEXLNR>
+      <BEXTIT>22867</BEXTIT>
+      <BEXDAT>20100819</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>41</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>9912</BEXTIT>
+      <BEXDAT>20150105</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>42</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>28034</BEXTIT>
+      <BEXDAT>20150107</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>43</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>28348</BEXTIT>
+      <BEXDAT>20150107</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>44</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>27652</BEXTIT>
+      <BEXDAT>20150109</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>45</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>28169</BEXTIT>
+      <BEXDAT>20150112</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>46</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>27284</BEXTIT>
+      <BEXDAT>20150114</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>47</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>16843</BEXTIT>
+      <BEXDAT>20150115</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>48</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>28348</BEXTIT>
+      <BEXDAT>20150119</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>49</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>27969</BEXTIT>
+      <BEXDAT>20150119</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>50</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>27568</BEXTIT>
+      <BEXDAT>20150126</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>51</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>6895</BEXTIT>
+      <BEXDAT>20150126</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>52</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>4801</BEXTIT>
+      <BEXDAT>20150128</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>53</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>28043</BEXTIT>
+      <BEXDAT>20150128</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>54</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>4580</BEXTIT>
+      <BEXDAT>20150128</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>55</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>27149</BEXTIT>
+      <BEXDAT>20150202</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>56</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>27448</BEXTIT>
+      <BEXDAT>20150204</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>57</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>27431</BEXTIT>
+      <BEXDAT>20150206</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+<row>
+      <count>58</count>
+      <BEXLNR>5</BEXLNR>
+      <BEXTIT>17732</BEXTIT>
+      <BEXDAT>20150206</BEXDAT>
+      <BEXKZ>D</BEXKZ>
+    </row>
+  </ROWS>
+</BKRXSTP>
