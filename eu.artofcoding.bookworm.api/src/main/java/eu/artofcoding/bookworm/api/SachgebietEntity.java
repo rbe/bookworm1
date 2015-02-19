@@ -1,25 +1,22 @@
 /*
- * bookworm
- * bookworm-api
- * Copyright (C) 2011-2012 art of coding UG, http://www.art-of-coding.eu/
+ * Bookworm
  *
+ * Copyright (C) 2011-2015 art of coding UG, http://www.art-of-coding.eu
  * Alle Rechte vorbehalten. Nutzung unterliegt Lizenzbedingungen.
  * All rights reserved. Use is subject to license terms.
- *
- * rbe, 04.12.12 11:10
  */
 
 package eu.artofcoding.bookworm.api;
 
 import java.io.Serializable;
 
-public class Sachgebiet implements Serializable {
+public class SachgebietEntity implements Serializable {
 
     private String name;
 
     private String description;
 
-    public Sachgebiet(String name, String description) {
+    public SachgebietEntity(String name, String description) {
         this.name = name;
         this.description = description;
     }
