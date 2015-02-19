@@ -1,12 +1,9 @@
 /*
- * bookworm
- * bookworm-api
- * Copyright (C) 2011-2012 art of coding UG, http://www.art-of-coding.eu/
+ * Bookworm
  *
+ * Copyright (C) 2011-2015 art of coding UG, http://www.art-of-coding.eu
  * Alle Rechte vorbehalten. Nutzung unterliegt Lizenzbedingungen.
  * All rights reserved. Use is subject to license terms.
- *
- * rbe, 26.10.12 16:18
  */
 
 package eu.artofcoding.bookworm.api;
