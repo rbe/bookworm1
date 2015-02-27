@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomee>
+    <Resource id="bookwormDatasource" type="javax.sql.DataSource">
+        JdbcDriver = com.mysql.jdbc.Driver
+        JdbcUrl = jdbc:mysql://localhost:3306/bookworm
+        UserName = bookworm
+        Password = bookworm
+        JtaManaged = true
+    </Resource>
+    <Resource id="bookwormMail" type="javax.mail.Session">
+        mail.transport.protocol = smtp
+        mail.smtp.socketFactory.class = javax.net.ssl.SSLSocketFactory
+        mail.smtp.socketFactory.fallback = false
+        mail.smtp.host = mx.1ci.net
+        mail.smtp.port = 465
+        mail.smtp.auth = true
+        mail.smtp.user = someuser
+        password = mypassword
+        mail.from = Bla
+    </Resource>
+</tomee>
