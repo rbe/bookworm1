@@ -12,11 +12,6 @@
     <artifactId>eu.artofcoding.bookworm.mock</artifactId>
     <packaging>jar</packaging>
     <dependencies>
-        <!-- JavaMail -->
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.icegreen</groupId>
             <artifactId>greenmail</artifactId>

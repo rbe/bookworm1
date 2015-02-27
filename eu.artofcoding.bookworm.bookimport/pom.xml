@@ -1,12 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!--
-  ~ Bookworm
-  ~
-  ~ Copyright (C) 2011-2015 art of coding UG, http://www.art-of-coding.eu
-  ~ Alle Rechte vorbehalten. Nutzung unterliegt Lizenzbedingungen.
-  ~ All rights reserved. Use is subject to license terms.
-  -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -19,6 +11,11 @@
     </parent>
     <artifactId>eu.artofcoding.bookworm.bookimport</artifactId>
     <packaging>jar</packaging>
+    <properties>
+        <version.org.springframework>3.2.4.RELEASE</version.org.springframework>
+        <version.org.apache.camel>2.12.2</version.org.apache.camel>
+        <version.org.hibernate>4.1.8.Final</version.org.hibernate>
+    </properties>
     <dependencies>
         <!-- Bookworm API -->
         <dependency>
@@ -28,11 +25,13 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
+
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+            <version>${version.org.springframework}</version>
         </dependency>
         <!-- Spring AOP dependency -->
         <!--
@@ -44,31 +43,37 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
+            <version>${version.org.springframework}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
+            <version>${version.org.springframework}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
+            <version>${version.org.springframework}</version>
         </dependency>
         <!-- JPA -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <version>1.0.1.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
+            <version>${version.org.hibernate}</version>
             <scope>runtime</scope>
         </dependency>
         <!-- Camel -->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring</artifactId>
+            <version>${version.org.apache.camel}</version>
         </dependency>
         <!-- Database -->
         <dependency>
