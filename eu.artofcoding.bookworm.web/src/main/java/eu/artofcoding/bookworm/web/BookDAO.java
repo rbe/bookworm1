@@ -11,10 +11,10 @@ package eu.artofcoding.bookworm.web;
 import eu.artofcoding.beetlejuice.persistence.GenericDAO;
 import eu.artofcoding.bookworm.api.BookEntity;
 
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import java.io.Serializable;
 
-@Stateful
+@Stateless
 public class BookDAO extends GenericDAO<BookEntity> implements Serializable {
 
     public BookDAO() {
