@@ -43,6 +43,14 @@ public class AktuelleBestellkarte implements SqlStatementCapable {
     @Temporal(value = TemporalType.DATE)
     private Date datumStand;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Date getDatumStand() {
         return datumStand;
     }

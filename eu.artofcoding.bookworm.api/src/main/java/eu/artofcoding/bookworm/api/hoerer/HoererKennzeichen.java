@@ -31,6 +31,14 @@ public class HoererKennzeichen implements SqlStatementCapable {
     @Column
     private String email;
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
     public String getEmail() {
         return email;
     }

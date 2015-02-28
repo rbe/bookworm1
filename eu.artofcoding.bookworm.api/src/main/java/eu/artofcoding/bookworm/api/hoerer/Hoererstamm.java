@@ -71,6 +71,14 @@ public class Hoererstamm implements SqlStatementCapable {
     @Column
     private String email;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getAnrede() {
         return anrede;
     }
