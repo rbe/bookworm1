@@ -7,21 +7,15 @@
  */
 package eu.artofcoding.bookworm.hoererimport;
 
-import eu.artofcoding.bookworm.hoererimport.bkp.BkstpImport;
-import eu.artofcoding.bookworm.hoererimport.hoekz.HoekzstpImport;
-import eu.artofcoding.bookworm.hoererimport.hoerstp.HoerstpImport;
-
-import javax.xml.stream.XMLStreamException;
-import java.io.IOException;
-import java.net.URISyntaxException;
+import eu.artofcoding.bookworm.hoererimport.as400xml.BkrxstpImport;
 
 public class HoererBuchImport {
 
-    public static void main(String[] args) throws XMLStreamException, IOException, URISyntaxException {
-        HoerstpImport.hoerstpToSql();
+    public static void main(String[] args) throws Exception {
+        /*HoerstpImport.hoerstpToSql();
         HoekzstpImport.hoekzstpToSql();
-        BkstpImport.bkstpToSql();
+        BkstpImport.bkstpToSql();*/
+        BkrxstpImport.bkrxstpToSql();
     }
 
 }
-

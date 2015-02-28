@@ -29,13 +29,6 @@ public class BookwormMain {
                 "conf/bookworm-camel.xml"
         };
         final ApplicationContext applicationContext0 = new FileSystemXmlApplicationContext(filesystemConfigLocation);
-        /*
-        // Spring Classpath XML Application Context
-        final String[] xmlConfigLocation = new String[]{
-                "META-INF/bookworm-spring-context.xml"
-        };
-        final ApplicationContext applicationContext1 = new ClassPathXmlApplicationContext(xmlConfigLocation, applicationContext0);
-        */
         // Get Camel context
         final SpringCamelContext camel = (SpringCamelContext) applicationContext0.getBean("bookwormCamelContext");
         // Stop Camel when JVM shuts down

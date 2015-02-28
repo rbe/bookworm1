@@ -6,7 +6,7 @@
     <persistence-unit name="bookwormPU" transaction-type="JTA">
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
         <jta-data-source>bookwormDatasource</jta-data-source>
-        <class>eu.artofcoding.bookworm.api.BookEntity</class>
+        <class>eu.artofcoding.bookworm.api.book.BookEntity</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <!--
@@ -17,7 +17,7 @@
             <property name="openjpa.jdbc.DBDictionary" value="mysql"/>
             <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
             <property name="openjpa.DynamicEnhancementAgent" value="false"/>
-            <property name="openjpa.Log" value="DefaultLevel=WARN, Runtime=INFO, Tool=INFO, SQL=TRACE"/>
+            <property name="openjpa.Log" value="DefaultLevel=WARN, Runtime=INFO, Tool=INFO, SQL=INFO"/>
             <property name="openjpa.DetachState" value="loaded(DetachedStateField=true)"/>
             <property name="openjpa.Compatibility" value="IgnoreDetachedStateFieldForProxySerialization=true"/>
             <property name="openjpa.jdbc.MappingDefaults"

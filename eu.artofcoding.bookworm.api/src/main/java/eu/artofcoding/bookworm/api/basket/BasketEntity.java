@@ -6,9 +6,10 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.api;
+package eu.artofcoding.bookworm.api.basket;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
+import eu.artofcoding.bookworm.api.book.BookEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;

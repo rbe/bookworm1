@@ -8,7 +8,7 @@
 
 package eu.artofcoding.bookworm.bookimport;
 
-import eu.artofcoding.bookworm.api.BookEntity;
+import eu.artofcoding.bookworm.api.book.BookEntity;
 
 import java.io.*;
 import java.net.URI;

@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.api;
+package eu.artofcoding.bookworm.api.book;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 
