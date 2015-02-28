@@ -3,9 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
-    <!--
-        Camel.
-    -->
     <bean id="bookFileParser" class="eu.artofcoding.bookworm.bookimport.BookFileParser"/>
     <bean id="bookImportProcessor" class="eu.artofcoding.bookworm.bookimport.BookImportProcessor">
         <property name="bookFileParser" ref="bookFileParser"/>
@@ -13,10 +10,6 @@
     <camelContext xmlns="http://camel.apache.org/schema/spring"
                   id="bookwormCamelContext"
                   trace="false">
-        <!--
-            Routes.
-        -->
-        <!-- Incoming file -->
         <route id="incomingFile" autoStartup="true">
             <from uri="file://temp/data?move=../done&amp;moveFailed=../error"/>
             <bean ref="bookImportProcessor" method="importFile"/>

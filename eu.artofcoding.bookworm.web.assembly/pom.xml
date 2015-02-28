@@ -8,7 +8,7 @@
         <artifactId>eu.artofcoding.bookworm</artifactId>
         <version>LOCALBUILD</version>
     </parent>
-    <artifactId>eu.artofcoding.bookworm.assembly</artifactId>
+    <artifactId>eu.artofcoding.bookworm.web.assembly</artifactId>
     <packaging>jar</packaging>
     <properties>
         <tomee.version>1.7.1</tomee.version>

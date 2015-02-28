@@ -12,8 +12,8 @@
     <artifactId>eu.artofcoding.bookworm.bookimport</artifactId>
     <packaging>jar</packaging>
     <properties>
-        <version.org.springframework>3.2.4.RELEASE</version.org.springframework>
-        <version.org.apache.camel>2.12.2</version.org.apache.camel>
+        <version.org.springframework>4.1.5.RELEASE</version.org.springframework>
+        <version.org.apache.camel>2.14.1</version.org.apache.camel>
         <version.org.hibernate>4.1.8.Final</version.org.hibernate>
     </properties>
     <dependencies>
@@ -25,7 +25,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -33,13 +32,6 @@
             <artifactId>spring-context</artifactId>
             <version>${version.org.springframework}</version>
         </dependency>
-        <!-- Spring AOP dependency -->
-        <!--
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-        </dependency>
-        -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
@@ -88,7 +80,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>${version.org.apache.maven.plugins.maven-jar-plugin}</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -98,33 +89,6 @@
                         </manifest>
                     </archive>
                 </configuration>
-            </plugin>
-            <!-- maven-assembly-plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>${version.org.apache.maven.plugins.maven-assembly-plugin}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.27</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>src/main/assembly/dist.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

@@ -26,7 +26,7 @@ faces-context.xml
 
 ### Undertow
 
-AJP socket-bindung: create
+AJP socket-binding: create
 
     /socket-binding-group=standard-sockets/socket-binding=ajp:add(port=8009)
 

@@ -9,5 +9,11 @@
         <version>LOCALBUILD</version>
     </parent>
     <artifactId>eu.artofcoding.bookworm.hoererimport</artifactId>
-    <version>LOCALBUILD</version>
+    <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>eu.artofcoding.bookworm</groupId>
+            <artifactId>eu.artofcoding.bookworm.api</artifactId>
+        </dependency>
+    </dependencies>
 </project>

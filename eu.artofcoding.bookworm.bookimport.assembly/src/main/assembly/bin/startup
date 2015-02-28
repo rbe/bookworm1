@@ -1,0 +1,5 @@
+#!/bin/bash
+
+nohup java -jar eu.artofcoding.bookworm.bookimport.jar > eu.artofcoding.bookworm.bookimport-nohup.log 2>&1 &
+
+exit 0
