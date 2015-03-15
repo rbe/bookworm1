@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:o="http://omnifaces.org/ui">
+<head>
+    <meta charset="utf-8"/>
+    <title>WBH Hörerdaten</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <o:conditionalComment if="lte IE 9">
+        <link href="js/html5shiv.js" rel="stylesheet" type="text/css"/>
+    </o:conditionalComment>
+</head>
+<body>
+<div class="header">
+    <div class="app">
+        <div class="label">
+            Hörbuchausleihe
+        </div>
+        <div class="logo">
+            <img src="img/header-start.jpg"/>
+        </div>
+    </div>
+    <div class="menu"></div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12"><br/></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Hörernummer:</div>
+        <div class="col-lg-9">#{hoerbuchAusleihe.hoererBuchstamm.hoerernummer}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Nachname:</div>
+        <div class="col-lg-9">#{hoerbuchAusleihe.hoerer.nachname}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Vorname:</div>
+        <div class="col-lg-9">#{hoerbuchAusleihe.hoerer.vorname}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">-----------------------------------------</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">Hörbuchausleihe:</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">-----------------------------------------</div>
+    </div>
+    <ui:repeat value="#{hoerbuchAusleihe.hoererBuchstamm.belastungen}" var="belastung" varStatus="status">
+        <h:outputFormat rendered="#{status.last}">
+            <div class="row">
+                <div class="col-lg-12">Hinweis: Es folgt der letzte Datensatz</div>
+            </div>
+        </h:outputFormat>
+        <div class="row">
+            <div class="col-lg-2">Box-Nummer: #{belastung.boxnummer}</div>
+            <div class="col-lg-3">Datum: #{belastung.datum}</div>
+            <h:panelGroup rendered="#{null != belastung.book}">
+                <div class="col-lg-7">#{belastung.book.titel}, #{belastung.book.autor}, #{belastung.book.spieldauer}</div>
+            </h:panelGroup>
+        </div>
+    </ui:repeat>
+    <div class="row">
+        <div class="col-lg-12">-----------------------------------------</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Hinweise:</div>
+        <div class="col-lg-9">
+            Sie haben Fragen oder Anmerkungen zu dieser Seite, dann schicken Sie uns eine EMail an
+            <a href="mailto:wbh@wbh-online.de">wbh@wbh-online.de</a><br/>
+        </div>
+    </div>
+</div>
+</body>
+</html>

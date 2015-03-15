@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm/catalog">
+<h:head>
+    <bookworm:head/>
+</h:head>
+<h:body style="font-size: 100%;">
+    <div id="head">
+        <p class="unsichtbar">
+            <a name="top"></a><a href="#content" accesskey="2">zum Inhalt springen</a>
+        </p>
+    </div>
+    <div id="all">
+        <bookworm:logo-header/>
+        <!-- end header -->
+        <div class="wrap">&nbsp;</div>
+        <div id="contentarea">
+            <div id="wrapperfull">
+                <div id="main">
+                    <h1 class="unsichtbar">
+                        <a name="content"></a>
+                        Inhalt
+                    </h1>
+                    <div class="blog">
+                        <div class="leading">
+                            <h2 class="contentheading">Katalog Suche</h2>
+                            <bookworm:navigation/>
+                            <br/><br/>
+                            <bookworm:search-form/>
+                            <p class="line15 errortext">
+                                <br/>
+                                <b>Leider nichts gefunden</b>:<br/>
+                                Es wurde nichts zu Ihrer Suche gefunden oder Sie haben zu wenig eingegeben.<br/>
+                                Bitte geben Sie Suchbegriffe mit mindestens 3 Zeichen ein!<br/>
+                                <br/>
+                                <b>Hinweise für bessere Suchergebnisse</b>:<br/>
+                                Die Suche findet alle Einträge, die Ihren Suchbegriff enthalten - auch als Wortbestandteil. Eine Suche nach »test« findet also auch »späteste«.<br/><br/><br/><br/><br/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- END main -->
+            </div>
+            <!-- END wrapper1 -->
+        </div>
+        <!-- contentarea -->
+        <div id="footer">
+            <bookworm:footer/>
+        </div>
+        <!-- footer -->
+    </div>
+    <!-- all -->
+</h:body>
+</html>

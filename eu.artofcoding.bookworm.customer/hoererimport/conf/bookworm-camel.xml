@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+                           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.14.1.xsd">
+    <!-- BKRXSTP -->
+    <bean id="bkrxstpXmlRowProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.BkrxstpXmlRowProcessor"/>
+    <bean id="bkrxstpImportProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.HoererImportProcessor">
+        <property name="xmlRowProcessor" ref="bkrxstpXmlRowProcessor"/>
+    </bean>
+    <!-- BKSTP -->
+    <bean id="bkstpXmlRowProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.BkstpXmlRowProcessor"/>
+    <bean id="bkstpImportProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.HoererImportProcessor">
+        <property name="xmlRowProcessor" ref="bkstpXmlRowProcessor"/>
+    </bean>
+    <!-- HOEBSTP -->
+    <bean id="hoebstpXmlRowProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.HoebstpXmlRowProcessor"/>
+    <bean id="hoebstpImportProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.HoererImportProcessor">
+        <property name="xmlRowProcessor" ref="hoebstpXmlRowProcessor"/>
+    </bean>
+    <!-- HOEKZSTP -->
+    <bean id="hoekzstpXmlRowProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.HoekzstpXmlRowProcessor"/>
+    <bean id="hoekzstpImportProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.HoererImportProcessor">
+        <property name="xmlRowProcessor" ref="hoekzstpXmlRowProcessor"/>
+    </bean>
+    <!-- HOERSTP -->
+    <bean id="hoerstpXmlRowProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.HoerstpXmlRowProcessor"/>
+    <bean id="hoerstpImportProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.HoererImportProcessor">
+        <property name="xmlRowProcessor" ref="hoerstpXmlRowProcessor"/>
+    </bean>
+    <camelContext xmlns="http://camel.apache.org/schema/spring"
+                  id="bookwormHoererImport"
+                  trace="false">
+        <!--<route id="fetchFromFtp" autoStartup="true">
+            <from uri="ftp://ftp97769-rowicom@wbh-muenster.de?password=seidel&amp;binary=true&amp;ftpClient.dataTimeout=30000"/>
+            <log loggingLevel="INFO" message="Got ${file:name}"/>
+        </route>-->
+        <!-- BKRXSTP -->
+        <route id="bkrxstpImport" autoStartup="true">
+            <from uri="file://temp/data?include=BKRXSTP_Archiv.xml&amp;move=../done&amp;moveFailed=../error"/>
+            <bean ref="bkrxstpImportProcessor" method="importFile"/>
+        </route>
+        <!-- BKSTP -->
+        <route id="bkstpImport" autoStartup="true">
+            <from uri="file://temp/data?include=BKSTP_Bestellkarten_StD.xml&amp;move=../done&amp;moveFailed=../error"/>
+            <bean ref="bkstpImportProcessor" method="importFile"/>
+        </route>
+        <!-- HOEBSTP -->
+        <route id="hoebstpImport" autoStartup="true">
+            <from uri="file://temp/data?include=HOEBSTP_Bestellkarten_StD.xml&amp;move=../done&amp;moveFailed=../error"/>
+            <bean ref="hoebstpImportProcessor" method="importFile"/>
+        </route>
+        <!-- HOEKZSTP -->
+        <route id="hoekzstpImport" autoStartup="true">
+            <from uri="file://temp/data?include=HOEKZSTP_Hörer_Kennzeichen.xml&amp;move=../done&amp;moveFailed=../error"/>
+            <bean ref="hoekzstpImportProcessor" method="importFile"/>
+        </route>
+        <!-- HOERSTP -->
+        <route id="hoerstpImport" autoStartup="true">
+            <from uri="file://temp/data?include=HOERSTP_Hoererstammdatei.xml&amp;move=../done&amp;moveFailed=../error"/>
+            <bean ref="hoerstpImportProcessor" method="importFile"/>
+        </route>
+    </camelContext>
+</beans>

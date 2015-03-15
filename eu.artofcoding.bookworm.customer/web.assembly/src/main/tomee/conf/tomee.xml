@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomee>
+    <Resource id="bookwormDatasource" type="javax.sql.DataSource">
+        JdbcDriver = com.mysql.jdbc.Driver
+        JdbcUrl = jdbc:mysql://localhost:3306/bookworm
+        UserName = bookworm
+        Password = bookworm
+        JtaManaged = true
+    </Resource>
+</tomee>

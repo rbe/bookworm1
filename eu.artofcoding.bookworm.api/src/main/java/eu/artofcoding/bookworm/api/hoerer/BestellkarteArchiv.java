@@ -8,7 +8,8 @@
 
 package eu.artofcoding.bookworm.api.hoerer;
 
-import eu.artofcoding.bookworm.api.persistence.SqlStatementCapable;
+import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
+import eu.artofcoding.bookworm.api.SqlStatementCapable;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,36 +18,59 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-public class BestellkarteArchiv implements SqlStatementCapable {
+public class BestellkarteArchiv implements GenericEntity, SqlStatementCapable {
 
     private static final SimpleDateFormat ISO_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
+
+    @Version
+    private Long version;
 
     @Basic
     @Column
+    @NotNull
     private String hoerernummer;
 
     @Basic
     @Column
+    @NotNull
+    private String titelnummer;
+
+    @Basic
+    @Column
+    @NotNull
     @Temporal(TemporalType.DATE)
     private Date ausleihdatum;
 
-    @Basic @Column
-    private String titelnummer;
+    @Basic
+    @Column
+    private String kennzeichen;
 
-    public Integer getId() {
+    @Override
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public Long getVersion() {
+        return null;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     public Date getAusleihdatum() {
@@ -73,9 +97,17 @@ public class BestellkarteArchiv implements SqlStatementCapable {
         this.titelnummer = titelnummer;
     }
 
+    public String getKennzeichen() {
+        return kennzeichen;
+    }
+
+    public void setKennzeichen(String kennzeichen) {
+        this.kennzeichen = kennzeichen;
+    }
+
     @Override
     public String toInsertStatement() {
-        return "";
+        throw new UnsupportedOperationException();
     }
 
 }

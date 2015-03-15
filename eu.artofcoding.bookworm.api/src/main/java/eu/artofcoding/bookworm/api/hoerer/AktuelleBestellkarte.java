@@ -8,47 +8,62 @@
 
 package eu.artofcoding.bookworm.api.hoerer;
 
-import eu.artofcoding.bookworm.api.persistence.SqlStatementCapable;
+import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
+import eu.artofcoding.bookworm.api.SqlStatementCapable;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 @Entity
-public class AktuelleBestellkarte implements SqlStatementCapable {
+public class AktuelleBestellkarte implements GenericEntity, SqlStatementCapable {
 
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+    @Version
+    private Long version;
+
     @Id
-    @GeneratedValue
-    private Integer id;
+    @Column
+    @Size(min = 1, max = 5)
+    @NotNull
+    private String hoerernummer;
+
+    // TODO List<Book>
+    @Column
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> titelnummer;
 
     @Basic
     @Column
-    private String hoerernummer;
-
-    @ElementCollection
-    private List<String> titelnummern = new LinkedList<>();
-
-    @Basic
+    @NotNull
     @Temporal(value = TemporalType.DATE)
     private Date datumStand;
 
-    public Integer getId() {
-        return id;
+    @Override
+    public Long getId() {
+        throw new UnsupportedOperationException();
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    @Override
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     public Date getDatumStand() {
@@ -67,16 +82,20 @@ public class AktuelleBestellkarte implements SqlStatementCapable {
         this.hoerernummer = hoerernummer;
     }
 
-    public List<String> getTitelnummern() {
-        return titelnummern;
+    public List<String> getTitelnummer() {
+        if (null == titelnummer) {
+            titelnummer = new LinkedList<>();
+        }
+        return titelnummer;
     }
 
-    public void setTitelnummern(List<String> titelnummern) {
-        this.titelnummern = titelnummern;
+    public void setTitelnummer(List<String> titelnummern) {
+        this.titelnummer = titelnummern;
     }
 
     public void addTitelnummer(int index, String titelnummer) {
-        titelnummern.add(index, titelnummer);
+        getTitelnummer()
+                .add(index, titelnummer);
     }
 
     @Override
@@ -86,9 +105,9 @@ public class AktuelleBestellkarte implements SqlStatementCapable {
             s = String.format("'%s'", simpleDateFormat.format(datumStand));
         }
         final StringBuilder stringBuilder = new StringBuilder();
-        final int titelnummernMaxIndex = titelnummern.size() - 1;
-        for (int idx = 0; idx < titelnummern.size(); idx++) {
-            final String t = titelnummern.get(idx);
+        final int titelnummernMaxIndex = titelnummer.size() - 1;
+        for (int idx = 0; idx < titelnummer.size(); idx++) {
+            final String t = titelnummer.get(idx);
             final boolean hasContent = null != t && !t.isEmpty();
             if (hasContent) {
                 final boolean idxIsWithinRange = idx > 0 && idx < titelnummernMaxIndex;

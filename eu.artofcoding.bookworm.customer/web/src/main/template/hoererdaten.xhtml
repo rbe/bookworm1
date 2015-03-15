@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:o="http://omnifaces.org/ui">
+<head>
+    <meta charset="utf-8"/>
+    <title>WBH Hörerdaten</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <o:conditionalComment if="lte IE 9">
+        <link href="js/html5shiv.js" rel="stylesheet" type="text/css"/>
+    </o:conditionalComment>
+</head>
+<body>
+<div class="header">
+    <div class="app">
+        <div class="label">
+            Hörerdaten
+        </div>
+        <div class="logo">
+            <img src="img/header-start.jpg"/>
+        </div>
+    </div>
+    <div class="menu"></div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12"><br/></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Hörernummer:</div>
+        <div class="col-lg-9">#{hoererdaten.hoerer.hoerernummer}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Nachname:</div>
+        <div class="col-lg-9">#{hoererdaten.hoerer.nachname}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Nachnamenszusatz:</div>
+        <div class="col-lg-9">#{hoererdaten.hoerer.name2}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Vorname:</div>
+        <div class="col-lg-9">#{hoererdaten.hoerer.vorname}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Geburtstdatum:</div>
+        <div class="col-lg-9">#{hoererdaten.hoerer.geburtsdatum}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Adresszusatz:</div>
+        <div class="col-lg-9"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Mengenindex:</div>
+        <div class="col-lg-9">#{hoererdaten.hoererBuch.mengenindex}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Strasse:</div>
+        <div class="col-lg-9">#{hoererdaten.hoerer.strasse}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">PLZ:</div>
+        <div class="col-lg-9">#{hoererdaten.hoerer.plz}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Ort:</div>
+        <div class="col-lg-9">#{hoererdaten.hoerer.ort}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Land:</div>
+        <div class="col-lg-9">#{hoererdaten.hoerer.land}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Emailadresse:</div>
+        <div class="col-lg-9">#{hoererdaten.hoererKennzeichen.email}</div>
+    </div>
+    <!-- Sperrtermin nur anzeigen, wenn sperrTerminVon gesetzt ist -->
+    <h:outputFormat rendered="#{!hoererdaten.hoererBuch.sperrTerminVon}">
+        <div class="row">
+            <div class="col-lg-3">SperrTermin von:</div>
+            <div class="col-lg-9">Sie haben aktuell keinen Sperrtermin angegeben</div>
+        </div>
+    </h:outputFormat>
+    <h:outputFormat rendered="#{hoererdaten.hoererBuch.sperrTerminVon}">
+        <div class="row">
+            <div class="col-lg-3">SperrTermin von:</div>
+            <div class="col-lg-9">#{hoererdaten.hoererBuch.sperrTerminVon}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">SperrTermin bis:</div>
+            <div class="col-lg-9">#{hoererdaten.hoererBuch.sperrTerminBis}</div>
+        </div>
+    </h:outputFormat>
+    <!-- Urlaub nur anzeigen, wenn urlaubKennzeichen gesetzt ist -->
+    <h:outputFormat rendered="#{!hoererdaten.hoerer.urlaubKennzeichen}">
+        <div class="row">
+            <div class="col-lg-3">Urlaubsadresse:</div>
+            <div class="col-lg-9">Sie haben aktuell keine Urlaubsadresse hinterlegt</div>
+        </div>
+    </h:outputFormat>
+    <h:outputFormat rendered="#{hoererdaten.hoerer.urlaubKennzeichen}">
+        <div class="row">
+            <div class="col-lg-12">Urlaubsadresse:</div>
+            <div class="col-lg-9"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">Namenszusatz:</div>
+            <div class="col-lg-9">#{hoererdaten.hoerer.urlaubName2}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">Adresszusatz:</div>
+            <div class="col-lg-9"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">Strasse:</div>
+            <div class="col-lg-9">#{hoererdaten.hoerer.urlaubStrasse}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">PLZ:</div>
+            <div class="col-lg-9">#{hoererdaten.hoerer.urlaubPlz}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">Ort:</div>
+            <div class="col-lg-9">#{hoererdaten.hoerer.urlaubOrt}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">Land:</div>
+            <div class="col-lg-9">#{hoererdaten.hoerer.urlaubLand}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">Urlaub von:</div>
+            <div class="col-lg-9">#{hoererdaten.hoerer.urlaubVon}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">Urlaub bis:</div>
+            <div class="col-lg-9">#{hoererdaten.hoerer.urlaubBis}</div>
+        </div>
+    </h:outputFormat>
+    <div class="row">
+        <div class="col-lg-12">----------------------------------------</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Letzte Rückbuchung:</div>
+        <div class="col-lg-9">#{hoererdaten.hoererBuch.rueckbuchungsdatum}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Offene Bestellungen auf der Bestellkarte:</div>
+        <div class="col-lg-9">#{hoererdaten.aktuelleBestellkarte.titelnummer.size()}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">Hinweise:</div>
+        <div class="col-lg-9">
+            Sie haben Fragen oder Anmerkungen zu dieser Seite, dann schicken Sie uns eine EMail an
+            <a href="mailto:wbh@wbh-online.de">wbh@wbh-online.de</a><br/><br/>
+            1* - Mengen Index: Menge der gleichzeitig ausgeliehenen Hörbücher<br/>
+            2* - SperrTermin: Belieferung mit Hörbüchern in diesem Zeitraum gesperrt
+        </div>
+    </div>
+</div>
+</body>
+</html>
