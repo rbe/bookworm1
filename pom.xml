@@ -60,11 +60,6 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>eu.artofcoding.beetlejuice</groupId>
-                <artifactId>eu.artofcoding.beetlejuice.web.jsf</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>eu.artofcoding.bookworm</groupId>
                 <artifactId>eu.artofcoding.bookworm.mock</artifactId>
                 <version>${project.version}</version>
@@ -77,25 +72,26 @@
                 <artifactId>eu.artofcoding.beetlejuice.api</artifactId>
                 <version>${version.eu.artofcoding.beetlejuice}</version>
             </dependency>
-            <!-- Beetlejuice Persistence -->
             <dependency>
                 <groupId>eu.artofcoding.beetlejuice</groupId>
                 <artifactId>eu.artofcoding.beetlejuice.persistence</artifactId>
                 <version>${version.eu.artofcoding.beetlejuice}</version>
             </dependency>
-            <!-- Beetlejuice Web -->
             <dependency>
                 <groupId>eu.artofcoding.beetlejuice</groupId>
                 <artifactId>eu.artofcoding.beetlejuice.web</artifactId>
                 <version>${version.eu.artofcoding.beetlejuice}</version>
             </dependency>
-            <!-- Beetlejuice Template -->
+            <dependency>
+                <groupId>eu.artofcoding.beetlejuice</groupId>
+                <artifactId>eu.artofcoding.beetlejuice.web.jsf</artifactId>
+                <version>${version.eu.artofcoding.beetlejuice}</version>
+            </dependency>
             <dependency>
                 <groupId>eu.artofcoding.beetlejuice</groupId>
                 <artifactId>eu.artofcoding.beetlejuice.template</artifactId>
                 <version>${version.eu.artofcoding.beetlejuice}</version>
             </dependency>
-            <!-- Beetlejuice Email -->
             <dependency>
                 <groupId>eu.artofcoding.beetlejuice</groupId>
                 <artifactId>eu.artofcoding.beetlejuice.email</artifactId>
