@@ -6,5 +6,9 @@
         UserName = bookworm
         Password = bookworm
         JtaManaged = true
+        connectionProperties = [autoReconnect=true,autoReconnectForPools=true]
+        testOnBorrow = true
+        validationQuery = SELECT 1
+        validationInterval = 30000
     </Resource>
 </tomee>
