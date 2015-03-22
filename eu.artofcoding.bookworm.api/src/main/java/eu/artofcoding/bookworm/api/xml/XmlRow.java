@@ -23,4 +23,13 @@ public final class XmlRow {
         return xmlDatas;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (XmlData xmlData : xmlDatas) {
+            builder.append(xmlData.toString());
+        }
+        return String.format("XmlRow{xmlDatas=%s}", builder.toString());
+    }
+
 }

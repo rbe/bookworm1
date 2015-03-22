@@ -24,11 +24,11 @@ public class BestellkarteArchivDAO extends GenericDAO<BestellkarteArchiv> implem
         super(BestellkarteArchiv.class);
     }
 
-    public BestellkarteArchiv findByHoerernummer(final String hoerernummer) {
+    public List<BestellkarteArchiv> findByHoerernummer(final String hoerernummer) {
         final Map<String, Object> map = new HashMap<>();
         map.put("hoerernummer", hoerernummer);
         final List<BestellkarteArchiv> bestellkarteArchiv = dynamicFindWith(map, "");
-        return bestellkarteArchiv.get(0);
+        return bestellkarteArchiv;
     }
 
 }

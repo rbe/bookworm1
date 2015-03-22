@@ -28,7 +28,7 @@ public class HoererstammDAO extends GenericDAO<Hoererstamm> implements Serializa
         final Map<String, Object> map = new HashMap<>();
         map.put("hoerernummer", hoerernummer);
         final List<Hoererstamm> hoererstamm = dynamicFindWith(map, "");
-        return hoererstamm.get(0);
+        return hoererstamm.size() > 0 ? hoererstamm.get(0) : new Hoererstamm();
     }
 
 }

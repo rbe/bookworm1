@@ -15,8 +15,11 @@ import eu.artofcoding.bookworm.api.xml.XmlRowProcessor;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import java.util.logging.Logger;
 
 public final class XmlRowParser {
+
+    private static final Logger LOGGER = Logger.getLogger(XmlRowParser.class.toString());
 
     private final XmlRowProcessor xmlRowProcessor;
 
@@ -77,7 +80,11 @@ public final class XmlRowParser {
                 final boolean startElement = XMLStreamConstants.START_ELEMENT == event;
                 if (startElement && reader.getLocalName().equals("row")) {
                     final XmlRow xmlRow = processRow(reader);
-                    xmlRowProcessor.xmlRowToEntity(xmlRow);
+                    try {
+                        xmlRowProcessor.xmlRowToEntity(xmlRow);
+                    } catch (Exception e) {
+                        LOGGER.warning(String.format("Cannot process row %s: %s", xmlRow, e.getMessage()));
+                    }
                 }
             }
         } catch (XMLStreamException e) {

@@ -9,24 +9,22 @@
 package eu.artofcoding.bookworm.api.hoerer;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
-import eu.artofcoding.bookworm.api.SqlStatementCapable;
+import eu.artofcoding.bookworm.api.book.Book;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-public class BestellkarteArchiv implements GenericEntity, SqlStatementCapable {
-
-    private static final SimpleDateFormat ISO_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+public class BestellkarteArchiv implements GenericEntity {
 
     @Id
     @GeneratedValue
@@ -40,10 +38,9 @@ public class BestellkarteArchiv implements GenericEntity, SqlStatementCapable {
     @NotNull
     private String hoerernummer;
 
-    @Basic
-    @Column
+    @OneToOne
     @NotNull
-    private String titelnummer;
+    private Book buch;
 
     @Basic
     @Column
@@ -66,7 +63,7 @@ public class BestellkarteArchiv implements GenericEntity, SqlStatementCapable {
 
     @Override
     public Long getVersion() {
-        return null;
+        return version;
     }
 
     public void setVersion(Long version) {
@@ -89,12 +86,12 @@ public class BestellkarteArchiv implements GenericEntity, SqlStatementCapable {
         this.hoerernummer = hoerernummer;
     }
 
-    public String getTitelnummer() {
-        return titelnummer;
+    public Book getBuch() {
+        return buch;
     }
 
-    public void setTitelnummer(String titelnummer) {
-        this.titelnummer = titelnummer;
+    public void setBuch(Book titelnummer) {
+        this.buch = titelnummer;
     }
 
     public String getKennzeichen() {
@@ -103,11 +100,6 @@ public class BestellkarteArchiv implements GenericEntity, SqlStatementCapable {
 
     public void setKennzeichen(String kennzeichen) {
         this.kennzeichen = kennzeichen;
-    }
-
-    @Override
-    public String toInsertStatement() {
-        throw new UnsupportedOperationException();
     }
 
 }

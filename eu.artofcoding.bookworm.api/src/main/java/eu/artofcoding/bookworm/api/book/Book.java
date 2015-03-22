@@ -10,8 +10,18 @@ package eu.artofcoding.bookworm.api.book;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Version;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,50 +34,6 @@ import java.util.List;
         @NamedQuery(name = "findByDatum", query = "SELECT o FROM Book o WHERE o.einstelldatum >= :einstelldatum")
 })
 public class Book implements GenericEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long id;
-
-    @Version
-    public Long version;
-
-    private String sachgebiet;
-
-    private String titelnummer; // 6 0 (nummerisch)
-
-    private String autor; // 79
-
-    private String titel; // 120
-
-    private String untertitel; // 120
-
-    @Column(length = 400)
-    private String erlaeuterung; // 400
-
-    private String verlagsort; // 20
-
-    private String verlag; // 30
-
-    private String druckjahr; // 40
-
-    private String sprecher1; // 150
-
-    private String sprecher2; // 250
-
-    private String spieldauer; // 52 Stunde, Minuten
-
-    private String prodOrt; // 20
-
-    private String prodJahr; // 40
-
-    private String suchwoerter; // 80
-
-    private String anzahlCD; // 20
-
-    private String titelfamilie; // 40 wird nicht gebraucht
-
-    private java.sql.Date einstelldatum; // .80
 
     public static final List<Sachgebiet> SACHGEBIET_ENTITY = new ArrayList<>();
 
@@ -97,6 +63,86 @@ public class Book implements GenericEntity {
         SACHGEBIET_ENTITY.add(new Sachgebiet("W", "Hörspiele – Dramen"));
         SACHGEBIET_ENTITY.add(new Sachgebiet("X", "Stimme des Autors"));
     }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long id;
+
+    @Version
+    public Long version;
+
+    @Basic
+    @Column
+    private String sachgebiet;
+
+    @Basic
+    @Column(unique = true)
+    private String titelnummer; // 6 0 (nummerisch)
+
+    @Basic
+    @Column
+    private String autor; // 79
+
+    @Basic
+    @Column
+    private String titel; // 120
+
+    @Basic
+    @Column
+    private String untertitel; // 120
+
+    @Basic
+    @Column(length = 400)
+    private String erlaeuterung; // 400
+
+    @Basic
+    @Column
+    private String verlagsort; // 20
+
+    @Basic
+    @Column
+    private String verlag; // 30
+
+    @Basic
+    @Column
+    private String druckjahr; // 40
+
+    @Basic
+    @Column
+    private String sprecher1; // 150
+
+    @Basic
+    @Column
+    private String sprecher2; // 250
+
+    @Basic
+    @Column
+    private String spieldauer; // 52 Stunde, Minuten
+
+    @Basic
+    @Column
+    private String prodOrt; // 20
+
+    @Basic
+    @Column
+    private String prodJahr; // 40
+
+    @Basic
+    @Column
+    private String suchwoerter; // 80
+
+    @Basic
+    @Column
+    private String anzahlCD; // 20
+
+    @Basic
+    @Column
+    private String titelfamilie; // 40 wird nicht gebraucht
+
+    @Basic
+    @Column
+    private
+    Date einstelldatum; // .80
 
     public Long getId() {
         return id;
@@ -266,11 +312,11 @@ public class Book implements GenericEntity {
         this.titelfamilie = titelfamilie;
     }
 
-    public java.sql.Date getEinstelldatum() {
+    public Date getEinstelldatum() {
         return einstelldatum;
     }
 
-    public void setEinstelldatum(java.sql.Date einstelldatum) {
+    public void setEinstelldatum(Date einstelldatum) {
         this.einstelldatum = einstelldatum;
     }
 

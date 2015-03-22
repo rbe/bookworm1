@@ -2,7 +2,8 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:o="http://omnifaces.org/ui">
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions">
 <head>
     <meta charset="utf-8"/>
     <title>WBH Hörerdaten</title>
@@ -49,7 +50,7 @@
     </div>
     <div class="row">
         <div class="col-lg-3">Geburtstdatum:</div>
-        <div class="col-lg-9">#{hoererdaten.hoerer.geburtsdatum}</div>
+        <div class="col-lg-9">#{of.formatDate(hoererdaten.hoerer.geburtsdatum, 'dd.MM.yyyy')}</div>
     </div>
     <div class="row">
         <div class="col-lg-3">Adresszusatz:</div>
@@ -89,11 +90,11 @@
     <h:outputFormat rendered="#{hoererdaten.hoererBuch.sperrTerminVon}">
         <div class="row">
             <div class="col-lg-3">SperrTermin von:</div>
-            <div class="col-lg-9">#{hoererdaten.hoererBuch.sperrTerminVon}</div>
+            <div class="col-lg-9">#{of:formatDate(hoererdaten.hoererBuch.sperrTerminVon, 'dd.MM.yyyy')}</div>
         </div>
         <div class="row">
             <div class="col-lg-3">SperrTermin bis:</div>
-            <div class="col-lg-9">#{hoererdaten.hoererBuch.sperrTerminBis}</div>
+            <div class="col-lg-9">#{of:formatDate(hoererdaten.hoererBuch.sperrTerminBis, 'dd.MM.yyyy')}</div>
         </div>
     </h:outputFormat>
     <!-- Urlaub nur anzeigen, wenn urlaubKennzeichen gesetzt ist -->
@@ -134,11 +135,11 @@
         </div>
         <div class="row">
             <div class="col-lg-3">Urlaub von:</div>
-            <div class="col-lg-9">#{hoererdaten.hoerer.urlaubVon}</div>
+            <div class="col-lg-9">#{of:formatDate(hoererdaten.hoerer.urlaubVon, 'dd.MM.yyyy')}</div>
         </div>
         <div class="row">
             <div class="col-lg-3">Urlaub bis:</div>
-            <div class="col-lg-9">#{hoererdaten.hoerer.urlaubBis}</div>
+            <div class="col-lg-9">#{of:formatDate(hoererdaten.hoerer.urlaubBis, 'dd.MM.yyyy')}</div>
         </div>
     </h:outputFormat>
     <div class="row">
@@ -146,11 +147,11 @@
     </div>
     <div class="row">
         <div class="col-lg-3">Letzte Rückbuchung:</div>
-        <div class="col-lg-9">#{hoererdaten.hoererBuch.rueckbuchungsdatum}</div>
+        <div class="col-lg-9">#{of:formatDate(hoererdaten.hoererBuch.rueckbuchungsdatum, 'dd.MM.yyyy')}</div>
     </div>
     <div class="row">
         <div class="col-lg-3">Offene Bestellungen auf der Bestellkarte:</div>
-        <div class="col-lg-9">#{hoererdaten.aktuelleBestellkarte.titelnummer.size()}</div>
+        <div class="col-lg-9"><h:outputLink value="bestellkarte.xhtml?hnr=#{request.getParameter('hnr')}">#{hoererdaten.aktuelleBestellkarteCount}</h:outputLink></div>
     </div>
     <div class="row">
         <div class="col-lg-3">Hinweise:</div>

@@ -9,28 +9,29 @@
 package eu.artofcoding.bookworm.api.hoerer;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
-import eu.artofcoding.bookworm.api.SqlStatementCapable;
+import eu.artofcoding.bookworm.api.book.Book;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 @Entity
-public class AktuelleBestellkarte implements GenericEntity, SqlStatementCapable {
+public class AktuelleBestellkarte implements GenericEntity {
 
-    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    @Basic
+    @Column
+    private Long id;
 
     @Version
     private Long version;
@@ -41,20 +42,21 @@ public class AktuelleBestellkarte implements GenericEntity, SqlStatementCapable 
     @NotNull
     private String hoerernummer;
 
-    // TODO List<Book>
-    @Column
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> titelnummer;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Book> books;
 
     @Basic
     @Column
-    @NotNull
     @Temporal(value = TemporalType.DATE)
     private Date datumStand;
 
     @Override
     public Long getId() {
-        throw new UnsupportedOperationException();
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
@@ -82,46 +84,19 @@ public class AktuelleBestellkarte implements GenericEntity, SqlStatementCapable 
         this.hoerernummer = hoerernummer;
     }
 
-    public List<String> getTitelnummer() {
-        if (null == titelnummer) {
-            titelnummer = new LinkedList<>();
+    public List<Book> getBooks() {
+        if (null == books) {
+            books = new LinkedList<>();
         }
-        return titelnummer;
+        return books;
     }
 
-    public void setTitelnummer(List<String> titelnummern) {
-        this.titelnummer = titelnummern;
+    public void setBooks(List<Book> buch) {
+        this.books = buch;
     }
 
-    public void addTitelnummer(int index, String titelnummer) {
-        getTitelnummer()
-                .add(index, titelnummer);
-    }
-
-    @Override
-    public String toInsertStatement() {
-        String s = "null";
-        if (null != datumStand) {
-            s = String.format("'%s'", simpleDateFormat.format(datumStand));
-        }
-        final StringBuilder stringBuilder = new StringBuilder();
-        final int titelnummernMaxIndex = titelnummer.size() - 1;
-        for (int idx = 0; idx < titelnummer.size(); idx++) {
-            final String t = titelnummer.get(idx);
-            final boolean hasContent = null != t && !t.isEmpty();
-            if (hasContent) {
-                final boolean idxIsWithinRange = idx > 0 && idx < titelnummernMaxIndex;
-                if (idxIsWithinRange) {
-                    stringBuilder.append(",");
-                }
-                stringBuilder.append(t);
-            } else {
-                break;
-            }
-        }
-        return String.format("INSERT INTO hoererstamm_aktuelle_bestellkarte" +
-                " (hoerernummer, titelnummern, datumStand)" +
-                " VALUES ('%s', '%s', %s);", hoerernummer, stringBuilder.toString(), s);
+    public void addBook(Book book) {
+        getBooks().add(book);
     }
 
 }

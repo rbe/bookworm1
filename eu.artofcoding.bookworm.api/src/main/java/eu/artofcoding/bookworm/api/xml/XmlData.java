@@ -32,7 +32,6 @@ public final class XmlData {
 
     public String getTagContent() {
         return tagContent;
-
     }
 
     public void setTagContent(String tagContent) {
@@ -54,6 +53,11 @@ public final class XmlData {
         int result = tagName.hashCode();
         result = 31 * result + tagContent.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("XmlData{tagContent='%s', tagName='%s'}", tagContent, tagName);
     }
 
 }

@@ -9,13 +9,9 @@
 package eu.artofcoding.bookworm.customer.web;
 
 import eu.artofcoding.bookworm.api.hoerer.AktuelleBestellkarte;
-import eu.artofcoding.bookworm.api.hoerer.HoererBuchstamm;
-import eu.artofcoding.bookworm.api.hoerer.HoererKennzeichen;
 import eu.artofcoding.bookworm.api.hoerer.Hoererstamm;
 import eu.artofcoding.bookworm.customer.web.jsf.FacesHelper;
 import eu.artofcoding.bookworm.customer.web.persistence.AktuelleBestellkarteDAO;
-import eu.artofcoding.bookworm.customer.web.persistence.HoererBuchstammDAO;
-import eu.artofcoding.bookworm.customer.web.persistence.HoererKennzeichenDAO;
 import eu.artofcoding.bookworm.customer.web.persistence.HoererstammDAO;
 
 import javax.annotation.PostConstruct;
@@ -29,9 +25,9 @@ import java.util.logging.Logger;
 
 @Named
 @SessionScoped
-public class Hoererdaten implements Serializable {
+public class Bestellkarte implements Serializable {
 
-    private static final Logger LOGGER = Logger.getLogger(Hoererdaten.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Bestellkarte.class.getName());
 
     //<editor-fold desc="Member">
 
@@ -42,19 +38,9 @@ public class Hoererdaten implements Serializable {
     private HoererstammDAO hoererstammDAO;
 
     @EJB
-    private HoererBuchstammDAO hoererBuchstammDAO;
-
-    @EJB
-    private HoererKennzeichenDAO hoererKennzeichenDAO;
-
-    @EJB
     private AktuelleBestellkarteDAO aktuelleBestellkarteDAO;
 
     private Hoererstamm hoerer;
-
-    private HoererBuchstamm hoererBuch;
-
-    private HoererKennzeichen hoererKennzeichen;
 
     private AktuelleBestellkarte aktuelleBestellkarte;
 
@@ -65,10 +51,6 @@ public class Hoererdaten implements Serializable {
         hoererstammDAO.setEntityManager(entityManager);
         final String hoerernummer = FacesHelper.getRequestValue("hnr");
         hoerer = hoererstammDAO.findByHoerernummer(hoerernummer);
-        hoererBuchstammDAO.setEntityManager(entityManager);
-        hoererBuch = hoererBuchstammDAO.findByHoerernummer(hoerernummer);
-        hoererKennzeichenDAO.setEntityManager(entityManager);
-        hoererKennzeichen = hoererKennzeichenDAO.findByHoerernummer(hoerernummer);
         aktuelleBestellkarteDAO.setEntityManager(entityManager);
         aktuelleBestellkarte = aktuelleBestellkarteDAO.findByHoerernummer(hoerernummer);
     }
@@ -77,20 +59,8 @@ public class Hoererdaten implements Serializable {
         return hoerer;
     }
 
-    public HoererBuchstamm getHoererBuch() {
-        return hoererBuch;
-    }
-
-    public HoererKennzeichen getHoererKennzeichen() {
-        return hoererKennzeichen;
-    }
-
     public AktuelleBestellkarte getAktuelleBestellkarte() {
         return aktuelleBestellkarte;
-    }
-
-    public int getAktuelleBestellkarteCount() {
-        return null != aktuelleBestellkarte.getBooks() ? aktuelleBestellkarte.getBooks().size() : -1;
     }
 
 }
