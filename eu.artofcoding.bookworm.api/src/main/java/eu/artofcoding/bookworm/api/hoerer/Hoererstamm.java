@@ -9,24 +9,29 @@
 package eu.artofcoding.bookworm.api.hoerer;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
-import eu.artofcoding.bookworm.api.SqlStatementCapable;
+import eu.artofcoding.bookworm.api.crypt.CryptorEntityListener;
+import eu.artofcoding.bookworm.api.crypt.TransparentCrypt;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-public class Hoererstamm implements GenericEntity, SqlStatementCapable {
-
-    private static final SimpleDateFormat ISO_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+@EntityListeners({CryptorEntityListener.class})
+@NamedQueries({
+        @NamedQuery(name = "Hoererstamm.findByHoerernummer", query = "SELECT o FROM Hoererstamm o WHERE o.hoerernummer = :hoerernummer")
+})
+public class Hoererstamm implements GenericEntity {
 
     @Id
     @GeneratedValue
@@ -47,37 +52,44 @@ public class Hoererstamm implements GenericEntity, SqlStatementCapable {
 
     @Basic
     @Column(nullable = false)
-    @Size(min = 1, max = 20)
+    //@Size(min = 1, max = 20)
+    @TransparentCrypt
     private String vorname;
 
     @Basic
     @Column(nullable = false)
-    @Size(min = 1, max = 30)
+    //@Size(min = 1, max = 30)
+    @TransparentCrypt
     private String nachname;
 
     @Basic
     @Column
-    @Size(min = 1, max = 30)
+    //@Size(min = 1, max = 30)
+    @TransparentCrypt
     private String name2;
 
     @Basic
     @Column(nullable = false)
-    @Size(min = 1, max = 30)
+    //@Size(min = 1, max = 30)
+    @TransparentCrypt
     private String strasse;
 
     @Basic
     @Column(nullable = true)
-    @Size(min = 0, max = 4)
+    //@Size(min = 0, max = 4)
+    @TransparentCrypt
     private String land;
 
     @Basic
     @Column(nullable = false)
-    @Size(min = 1, max = 9)
+    //@Size(min = 1, max = 9)
+    @TransparentCrypt
     private String plz;
 
     @Basic
     @Column(nullable = false)
-    @Size(min = 1, max = 20)
+    ////@Size(min = 1, max = 20)
+    @TransparentCrypt
     private String ort;
 
     @Basic
@@ -92,27 +104,32 @@ public class Hoererstamm implements GenericEntity, SqlStatementCapable {
 
     @Basic
     @Column(nullable = true)
-    @Size(min = 1, max = 30)
+    //@Size(min = 1, max = 30)
+    @TransparentCrypt
     private String urlaubName2;
 
     @Basic
     @Column(nullable = true)
-    @Size(min = 1, max = 30)
+    ///@Size(min = 1, max = 30)
+    @TransparentCrypt
     private String urlaubStrasse;
 
     @Basic
     @Column(nullable = true)
-    @Size(min = 0, max = 4)
+    //@Size(min = 0, max = 4)
+    @TransparentCrypt
     private String urlaubLand;
 
     @Basic
     @Column(nullable = true)
-    @Size(min = 1, max = 9)
+    //@Size(min = 1, max = 9)
+    @TransparentCrypt
     private String urlaubPlz;
 
     @Basic
     @Column(nullable = true)
-    @Size(min = 1, max = 20)
+    //@Size(min = 1, max = 20)
+    @TransparentCrypt
     private String urlaubOrt;
 
     @Basic
@@ -122,7 +139,8 @@ public class Hoererstamm implements GenericEntity, SqlStatementCapable {
 
     @Basic
     @Column
-    @Size(min = 1, max = 20)
+    //@Size(min = 1, max = 20)
+    @TransparentCrypt
     private String telefonnummer;
 
     @Basic
@@ -298,17 +316,6 @@ public class Hoererstamm implements GenericEntity, SqlStatementCapable {
 
     public void setVorname(String vorname) {
         this.vorname = vorname;
-    }
-
-    @Override
-    public String toInsertStatement() {
-        String g = "null";
-        if (null != geburtsdatum) {
-            g = String.format("'%s'", ISO_DATE_FORMAT.format(geburtsdatum));
-        }
-        return String.format("INSERT INTO hoererstamm" +
-                " (hoerernummer, anrede, vorname, nachname, name2, geburtsdatum, strasse, plz, ort, telefonnummer)" +
-                " VALUES ('%s', '%s', '%s', '%s', '%s', %s, '%s', '%s', '%s', '%s');", hoerernummer, anrede, vorname, nachname, name2, g, strasse, plz, ort, telefonnummer);
     }
 
 }

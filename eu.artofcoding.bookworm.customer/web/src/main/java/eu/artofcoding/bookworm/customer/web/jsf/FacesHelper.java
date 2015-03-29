@@ -11,13 +11,11 @@ package eu.artofcoding.bookworm.customer.web.jsf;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * Created by rbe on 15.03.15.
- */
-public class FacesHelper {
+public final class FacesHelper {
 
     public static String getRequestValue(final String requestParameter) {
         final HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         return req.getParameter(requestParameter);
     }
+
 }

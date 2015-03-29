@@ -9,19 +9,27 @@
 package eu.artofcoding.bookworm.api.hoerer;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
-import eu.artofcoding.bookworm.api.SqlStatementCapable;
+import eu.artofcoding.bookworm.api.crypt.CryptorEntityListener;
+import eu.artofcoding.bookworm.api.crypt.TransparentCrypt;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class HoererKennzeichen implements GenericEntity, SqlStatementCapable {
+@EntityListeners({CryptorEntityListener.class})
+@NamedQueries({
+        @NamedQuery(name = "HoererKennzeichen.findByHoerernummer", query = "SELECT o FROM HoererKennzeichen o WHERE o.hoerernummer = :hoerernummer")
+})
+public class HoererKennzeichen implements GenericEntity {
 
     @Id
     @GeneratedValue
@@ -39,6 +47,7 @@ public class HoererKennzeichen implements GenericEntity, SqlStatementCapable {
     @Basic
     @Column
     @Size(min = 0, max = 80)
+    @TransparentCrypt
     private String email;
 
     @Override
@@ -72,13 +81,6 @@ public class HoererKennzeichen implements GenericEntity, SqlStatementCapable {
 
     public void setHoerernummer(String hoerernummer) {
         this.hoerernummer = hoerernummer;
-    }
-
-    @Override
-    public String toInsertStatement() {
-        return String.format("UPDATE hoerer" +
-                " SET email = '%s'" +
-                " WHERE hoerernummer = '%s';", email, hoerernummer);
     }
 
 }

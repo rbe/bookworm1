@@ -10,6 +10,7 @@ package eu.artofcoding.bookworm.customer.hoererimport.as400xml;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 import eu.artofcoding.bookworm.api.xml.XmlRowProcessor;
+import org.jasypt.encryption.StringEncryptor;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,10 +24,29 @@ import java.util.logging.Logger;
 
 public abstract class AbstractXmlRowProcessor implements XmlRowProcessor {
 
-    protected static final Logger LOGGER = Logger.getLogger(AbstractXmlRowProcessor.class.toString());
+    private static final Logger LOGGER = Logger.getLogger(AbstractXmlRowProcessor.class.toString());
 
     @PersistenceContext
     protected EntityManager entityManager;
+
+    private StringEncryptor stringEncryptor;
+
+    public void setStringEncryptor(StringEncryptor stringEncryptor) {
+        this.stringEncryptor = stringEncryptor;
+    }
+
+    private <T extends GenericEntity> String buildErrorMessage(final Iterator<ConstraintViolation<T>> iterator) {
+        final StringBuilder errorMessages = new StringBuilder();
+        while (iterator.hasNext()) {
+            final ConstraintViolation constraintViolation = iterator.next();
+            errorMessages.append("'").append(constraintViolation.getPropertyPath().toString()).append("' ");
+            errorMessages.append(constraintViolation.getMessage());
+            if (iterator.hasNext()) {
+                errorMessages.append(", ");
+            }
+        }
+        return errorMessages.toString();
+    }
 
     protected <T extends GenericEntity> Set<ConstraintViolation<T>> validate(final T entity) {
         final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -41,17 +61,11 @@ public abstract class AbstractXmlRowProcessor implements XmlRowProcessor {
             entityManager.merge(entity);
             entityManager.flush();
         } else {
-            final StringBuilder errorMessages = new StringBuilder();
             final Iterator<ConstraintViolation<T>> iterator = violations.iterator();
-            while (iterator.hasNext()) {
-                final ConstraintViolation constraintViolation = iterator.next();
-                errorMessages.append("'").append(constraintViolation.getPropertyPath().toString()).append("' ");
-                errorMessages.append(constraintViolation.getMessage());
-                if (iterator.hasNext()) {
-                    errorMessages.append(", ");
-                }
+            if (iterator.hasNext()) {
+                final String errorMessages = buildErrorMessage(iterator);
+                LOGGER.warning(String.format("There are %d validation errors for %s: %s", violations.size(), entity.getClass().getSimpleName(), errorMessages));
             }
-            LOGGER.warning(String.format("There are %d validation errors for %s: %s", violations.size(), entity.getClass().getSimpleName(), errorMessages.toString()));
         }
     }
 

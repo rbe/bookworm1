@@ -16,6 +16,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,7 +29,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Entity
-public class AktuelleBestellkarte implements GenericEntity {
+@NamedQueries({
+        @NamedQuery(name = "Bestellkarte.countByHoerernummer", query = "SELECT COUNT(o.books) FROM Bestellkarte o WHERE o.hoerernummer = :hoerernummer"),
+        @NamedQuery(name = "Bestellkarte.findByHoerernummer", query = "SELECT o FROM Bestellkarte o WHERE o.hoerernummer = :hoerernummer"),
+        @NamedQuery(name = "Bestellkarte.findBooksByTitel", query = "SELECT b FROM Bestellkarte o INNER JOIN o.books b WHERE b.titel LIKE :titel")
+})
+public class Bestellkarte implements GenericEntity {
 
     @Basic
     @Column

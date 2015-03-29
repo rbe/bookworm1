@@ -26,6 +26,8 @@ public class SqlStatement {
 
     private static final SimpleDateFormat ISO_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
 
+    private static final SimpleDateFormat GERMAN_DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
+
     private SqlStatement() {
         throw new AssertionError();
     }
@@ -61,6 +63,16 @@ public class SqlStatement {
     public static synchronized Date parseIsoDate(final String s) {
         try {
             final Date g = ISO_DATE_FORMAT.parse(s);
+            return g;
+        } catch (ParseException e) {
+            // ignore
+            return null;
+        }
+    }
+
+    public static synchronized Date parseGermanDate(final String s) {
+        try {
+            final Date g = GERMAN_DATE_FORMAT.parse(s);
             return g;
         } catch (ParseException e) {
             // ignore

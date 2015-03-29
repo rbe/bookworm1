@@ -9,10 +9,17 @@
 package eu.artofcoding.bookworm.customer.web.persistence;
 
 import eu.artofcoding.beetlejuice.persistence.GenericDAO;
+import eu.artofcoding.bookworm.api.hoerer.Belastung;
 import eu.artofcoding.bookworm.api.hoerer.HoererBuchstamm;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TemporalType;
+import javax.persistence.TypedQuery;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,15 +27,35 @@ import java.util.Map;
 @Stateless
 public class HoererBuchstammDAO extends GenericDAO<HoererBuchstamm> implements Serializable {
 
+    @PersistenceContext
+    private EntityManager em;
+
     public HoererBuchstammDAO() {
         super(HoererBuchstamm.class);
+    }
+
+    @PostConstruct
+    private void postConstruct() {
+        setEntityManager(em);
     }
 
     public HoererBuchstamm findByHoerernummer(final String hoerernummer) {
         final Map<String, Object> map = new HashMap<>();
         map.put("hoerernummer", hoerernummer);
-        final List<HoererBuchstamm> hoererBuchstamm = dynamicFindWith(map, "");
-        return hoererBuchstamm.get(0);
+        return findOne("HoererBuchstamm.findByHoerernummer", map);
+    }
+
+    public List<Belastung> findBelastungenBooksByTitleOrDatum(final String hoerernummer, final String titel, final Date datum) {
+        TypedQuery<Belastung> namedQuery;
+        if (null == datum) {
+            namedQuery = entityManager.createNamedQuery("HoererBuchstamm.findBelastungenByHoerernummerAndBookTitel", Belastung.class);
+        } else {
+            namedQuery = entityManager.createNamedQuery("HoererBuchstamm.findBelastungenByHoerernummerAndBookTitelAndDatum", Belastung.class);
+            namedQuery.setParameter("datum", datum, TemporalType.DATE);
+        }
+        namedQuery.setParameter("hoerernummer", hoerernummer);
+        namedQuery.setParameter("titel", titel);
+        return namedQuery.getResultList();
     }
 
 }

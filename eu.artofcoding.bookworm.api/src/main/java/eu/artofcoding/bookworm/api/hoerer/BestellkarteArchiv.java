@@ -16,6 +16,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,6 +26,12 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "BestellkarteArchiv.countByHoerernummer", query = "SELECT COUNT(o) FROM BestellkarteArchiv o WHERE o.hoerernummer = :hoerernummer"),
+        @NamedQuery(name = "BestellkarteArchiv.findByHoerernummerOrderByAusleihdatum", query = "SELECT o FROM BestellkarteArchiv o WHERE o.hoerernummer = :hoerernummer ORDER BY o.ausleihdatum DESC"),
+        @NamedQuery(name = "BestellkarteArchiv.findByHoerernummerAndTitelOrderByAusleihdatum", query = "SELECT o FROM BestellkarteArchiv o WHERE o.hoerernummer = :hoerernummer AND o.buch.titel LIKE :titel ORDER BY o.ausleihdatum DESC"),
+        @NamedQuery(name = "BestellkarteArchiv.findByHoerernummerAndTitelAndAusleihdatumOrderByAusleihdatum", query = "SELECT o FROM BestellkarteArchiv o WHERE o.hoerernummer = :hoerernummer AND o.buch.titel LIKE :titel AND o.ausleihdatum >= :datum ORDER BY o.ausleihdatum DESC")
+})
 public class BestellkarteArchiv implements GenericEntity {
 
     @Id

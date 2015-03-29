@@ -10,15 +10,17 @@ package eu.artofcoding.bookworm.customer.hoererimport.as400xml;
 
 import eu.artofcoding.bookworm.api.book.Book;
 import eu.artofcoding.bookworm.api.helper.SqlStatement;
-import eu.artofcoding.bookworm.api.hoerer.Belastung;
 import eu.artofcoding.bookworm.api.hoerer.HoererBuchstamm;
 import eu.artofcoding.bookworm.api.xml.XmlData;
 import eu.artofcoding.bookworm.api.xml.XmlRow;
 import eu.artofcoding.bookworm.customer.hoererimport.Strings;
 
 import javax.persistence.NoResultException;
+import java.util.logging.Logger;
 
 public class HoebstpXmlRowProcessor extends AbstractXmlRowProcessor {
+
+    private static final Logger LOGGER = Logger.getLogger(HoebstpXmlRowProcessor.class.getName());
 
     @Override
     public void xmlRowToEntity(final XmlRow xmlRow) {
@@ -81,10 +83,9 @@ public class HoebstpXmlRowProcessor extends AbstractXmlRowProcessor {
                         final int stellenBoxnummer = 3;
                         final String titelnummer = tagContent.substring(0, tagContent.length() - stellenBoxnummer);
                         final String boxnummer = tagContent.substring(tagContent.length() - stellenBoxnummer);
-                        final Belastung belastung = hoererBuchstamm.addBelastung(index, titelnummer, boxnummer);
                         try {
                             final Book book = (Book) entityManager.createNamedQuery("Book.findByTitelnummer").setParameter("titelnummer", titelnummer).getSingleResult();
-                            belastung.setBook(book);
+                            hoererBuchstamm.addBelastung(index, book, boxnummer);
                         } catch (NoResultException e) {
                             LOGGER.warning(String.format("No book with titelnummer %s found", titelnummer));
                         }

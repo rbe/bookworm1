@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <!-- base href="http://www.wbh-online.de" -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="robots" content="index, follow"/>
+    <meta name="keywords" content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
+    <meta name="description" content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
+    <meta name="generator" content="medienhof - Source Management"/>
+    <title>WBH Hörbuchausleihe - Westdeutsche Blindenhörbücherei - Münster</title>
+    <link href="http://www.wbh-online.de/templates/wbh/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <o:conditionalComment if="lte IE 9">
+        <link href="js/html5shiv.js" rel="stylesheet" type="text/css"/>
+    </o:conditionalComment>
+</h:head>
+<h:body>
+    <div id="head">
+        <p class="unsichtbar">
+            <a name="top"></a>
+            <a href="#content" accesskey="2">zum Inhalt springen</a>
+        </p>
+    </div>
+    <div id="all">
+        <div id="logo">
+            <img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="http://www.wbh-online.de/templates/wbh/images/logo_wbh.gif"/>
+        </div>
+        <div id="header">
+            <div id="slider">
+                <img src="http://www.wbh-online.de/templates/wbh/images/header-start.jpg" alt="Westdeutsche Blindenhörbücherei e.V." style="z-index:0;"/>
+            </div>
+            <div id="topmenu">
+                <h3 class="unsichtbar">Top-Navigation</h3>
+                <div class="topmenu">
+                    <ul>
+                        <li><a href="http://www.wbh-online.de/">Startseite WBH</a></li>
+                        <li><a class="spacer" href="#"></a></li>
+                        <li><a href="hoererdaten.xhtml">Meine Daten</a></li>
+                        <li><a class="active" href="hoererbuchausleihe.xhtml">Meine Ausleihe</a></li>
+                        <li><a href="hoererbucharchiv.xhtml">Mein Archiv</a></li>
+                        <li><a href="hoererbestellkarte.xhtml">Meine Bestellkarte</a></li>
+                    </ul>
+                </div>
+        </div>
+    </div>
+        <!-- end header -->
+        <div class="clr"></div>
+        <div id="contentarea">
+            <div id="main">
+                <div class="header">
+                    <h1 class="unsichtbar">
+                        <a name="content"></a>
+                        Inhalt
+                    </h1>
+                </div>
+                <div class="container">
+                    <div class="row firstrow">
+                        <div class="col-lg-7"><h1>Hörbuchausleihe</h1></div>
+                        <div class="col-lg-5">
+                            <div class="row data">
+                                <div class="col-lg-4">Hörernummer:</div>
+                                <div class="col-lg-8 hint right">#{hoererBuchausleihe.hoerernummer}</div>
+                            </div>
+                            <div class="row data">
+                                <div class="col-lg-4">Nachname:</div>
+                                <div class="col-lg-8 hint right">#{hoererBuchausleihe.nachname}</div>
+                            </div>
+                            <div class="row data">
+                                <div class="col-lg-4">Vorname:</div>
+                                <div class="col-lg-8 hint right">#{hoererBuchausleihe.vorname}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <h:form>
+                        <div class="row searchrow">
+                            <!-- <div class="col-lg-7"><h3>Bestellarchiv</h3></div> -->
+                            <div class="col-lg-7">
+                                <div class="row data">
+                                    <div class="col-lg-2">Suchtitel:</div>
+                                    <div class="col-lg-10">
+                                        <h:inputText class="searchtitle" value="#{hoererBuchausleihe.searchTitle}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="row data">
+                                    <div class="col-lg-3">Startdatum:</div>
+                                    <div class="col-lg-9 right">
+                                        <h:inputText class="searchdate" value="#{hoererBuchausleihe.searchDate}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-1">
+                                <div class="row data">
+                                    <div class="col-lg-12">
+                                        <h:commandButton actionListener="#{hoererBuchausleihe.search}" value="Suchen">
+                                            <f:ajax execute="@form" render="archivTabelle"/>
+                                        </h:commandButton>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h:panelGroup id="archivTabelle" layout="block" styleClass="row">
+                            <div class="col-lg-12">
+                                <table class="table table-striped">
+                                    <tbody>
+                                    <tr>
+                                        <th>X</th>
+                                        <th>Box-Nummer</th>
+                                        <th>Datum</th>
+                                        <th>Titel/Autor/Dauer</th>
+                                    </tr>
+                                    <ui:repeat value="#{hoererBuchausleihe.belastungen}" var="belastung" varStatus="status">
+                                        <h:outputFormat rendered="#{status.last}">
+                                            <tr>
+                                                <td colspan="4" class="lastrow">Hinweis: Es folgt der letzte Datensatz</td>
+                                            </tr>
+                                        </h:outputFormat>
+                                        <tr>
+                                            <td>leer?</td>
+                                            <td>#{belastung.boxnummer}</td>
+                                            <td>#{of:formatDate(belastung.datum, 'dd.MM.yyyy')}</td>
+                                            <td>
+                                                <h:panelGroup rendered="#{null != belastung.book}">
+                                                    <table>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td width="120">
+                                                                <span style="font-weight: bold;">Titel:</span>
+                                                            </td>
+                                                            <td>#{belastung.book.titel}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><span style="font-weight: bold;">Autor:</span></td>
+                                                            <td>#{belastung.book.autor}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><span style="font-weight: bold;">Dauer:</span></td>
+                                                            <td>#{belastung.book.spieldauer}</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </h:panelGroup>
+                                            </td>
+                                        </tr>
+                                    </ui:repeat>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </h:panelGroup>
+                    </h:form>
+                    <div class="row footer">
+                        <div class="col-lg-2 hint">Hinweis:</div>
+                        <div class="col-lg-8">
+                            Sie haben Fragen oder Anmerkungen zu dieser Seite?<br/>
+                            Dann schicken Sie uns eine Email an <a href="mailto:wbh@wbh-online.de">wbh@wbh-online.de</a>
+                            <br/><br/>&#169; 2015 Westdeutsche Blindenhörbücherei e.V. |
+                            <a href="/impressum.html" title="Impressum">Impressum</a>
+                        </div>
+                        <div class="col-lg-2 top">
+                            <a href="#top" accesskey="1">zum Seitenanfang</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>

@@ -46,11 +46,6 @@ public class Belastung implements GenericEntity {
     @Basic
     @Column
     @NotNull
-    private String titelnummer;
-
-    @Basic
-    @Column
-    @NotNull
     private String boxnummer;
 
     @OneToOne
@@ -98,14 +93,6 @@ public class Belastung implements GenericEntity {
         this.boxnummer = boxnummer;
     }
 
-    public String getTitelnummer() {
-        return titelnummer;
-    }
-
-    public void setTitelnummer(String titelnummer) {
-        this.titelnummer = titelnummer;
-    }
-
     public Book getBook() {
         return book;
     }
@@ -122,7 +109,7 @@ public class Belastung implements GenericEntity {
         if (belastungIndex != belastung.belastungIndex) return false;
         if (!boxnummer.equals(belastung.boxnummer)) return false;
         if (!datum.equals(belastung.datum)) return false;
-        if (!titelnummer.equals(belastung.titelnummer)) return false;
+        if (!book.getTitelnummer().equals(belastung.getBook().getTitelnummer())) return false;
         return true;
     }
 
@@ -130,7 +117,7 @@ public class Belastung implements GenericEntity {
     public int hashCode() {
         int result = belastungIndex;
         result = 31 * result + datum.hashCode();
-        result = 31 * result + titelnummer.hashCode();
+        result = 31 * result + book.hashCode();
         result = 31 * result + boxnummer.hashCode();
         return result;
     }

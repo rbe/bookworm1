@@ -11,7 +11,7 @@
     <!-- FaceletsResourceResolver -->
     <context-param>
         <param-name>javax.faces.FACELETS_RESOURCE_RESOLVER</param-name>
-        <param-value>eu.artofcoding.bookworm.customer.web.jsf.FaceletsResourceResolver</param-value>
+        <param-value>eu.artofcoding.bookworm.customer.web.jsf.FilesystemResourceResolver</param-value>
     </context-param>
     <!-- Time in seconds that facelets should be checked for changes since last request. A value of -1 disables refresh checking. -->
     <context-param>
@@ -64,7 +64,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
     <!--
@@ -81,7 +80,7 @@
     -->
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-        <location>/search.xhtml</location>
+        <location>/hoererdaten.xhtml</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>

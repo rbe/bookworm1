@@ -11,24 +11,33 @@ package eu.artofcoding.bookworm.customer.web.persistence;
 import eu.artofcoding.beetlejuice.persistence.GenericDAO;
 import eu.artofcoding.bookworm.api.hoerer.HoererKennzeichen;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Stateless
 public class HoererKennzeichenDAO extends GenericDAO<HoererKennzeichen> implements Serializable {
 
+    @PersistenceContext
+    private EntityManager em;
+
     public HoererKennzeichenDAO() {
         super(HoererKennzeichen.class);
+    }
+
+    @PostConstruct
+    private void postConstruct() {
+        setEntityManager(em);
     }
 
     public HoererKennzeichen findByHoerernummer(final String hoerernummer) {
         final Map<String, Object> map = new HashMap<>();
         map.put("hoerernummer", hoerernummer);
-        final List<HoererKennzeichen> hoererkennzeichen = dynamicFindWith(map, "");
-        return hoererkennzeichen.get(0);
+        return findOne("HoererKennzeichen.findByHoerernummer", map);
     }
 
 }

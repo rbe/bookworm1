@@ -9,6 +9,7 @@
 package eu.artofcoding.bookworm.api.hoerer;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
+import eu.artofcoding.bookworm.api.book.Book;
 import eu.artofcoding.bookworm.api.book.Sachgebiet;
 
 import javax.persistence.Basic;
@@ -18,6 +19,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,6 +34,11 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "HoererBuchstamm.findByHoerernummer", query = "SELECT o FROM HoererBuchstamm o WHERE o.hoerernummer = :hoerernummer"),
+        @NamedQuery(name = "HoererBuchstamm.findBelastungenByHoerernummerAndBookTitel", query = "SELECT b FROM HoererBuchstamm o INNER JOIN o.belastungen b WHERE o.hoerernummer = :hoerernummer AND b.book.titel LIKE :titel"),
+        @NamedQuery(name = "HoererBuchstamm.findBelastungenByHoerernummerAndBookTitelAndDatum", query = "SELECT b FROM HoererBuchstamm o INNER JOIN o.belastungen b WHERE o.hoerernummer = :hoerernummer AND (b.book.titel LIKE :titel AND b.datum >= :datum)")
+})
 public class HoererBuchstamm implements GenericEntity {
 
     @Id
@@ -210,10 +218,10 @@ public class HoererBuchstamm implements GenericEntity {
         this.belastungen = belastungen;
     }
 
-    public Belastung addBelastung(final int index, final String titelnummer, final String boxnummer) {
+    public Belastung addBelastung(final int index, final Book book, final String boxnummer) {
         final Belastung belastung = new Belastung();
         belastung.setBelastungIndex(index);
-        belastung.setTitelnummer(titelnummer);
+        belastung.setBook(book);
         belastung.setBoxnummer(boxnummer);
         belastungen.add(belastung);
         return belastung;

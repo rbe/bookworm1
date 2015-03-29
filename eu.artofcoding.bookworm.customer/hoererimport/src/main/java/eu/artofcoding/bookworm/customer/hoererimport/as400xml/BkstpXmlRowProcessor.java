@@ -9,33 +9,36 @@
 package eu.artofcoding.bookworm.customer.hoererimport.as400xml;
 
 import eu.artofcoding.bookworm.api.book.Book;
-import eu.artofcoding.bookworm.api.hoerer.AktuelleBestellkarte;
+import eu.artofcoding.bookworm.api.helper.SqlStatement;
+import eu.artofcoding.bookworm.api.hoerer.Bestellkarte;
 import eu.artofcoding.bookworm.api.xml.XmlData;
 import eu.artofcoding.bookworm.api.xml.XmlRow;
-import eu.artofcoding.bookworm.api.helper.SqlStatement;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.Date;
+import java.util.logging.Logger;
 
 public class BkstpXmlRowProcessor extends AbstractXmlRowProcessor {
+
+    private static final Logger LOGGER = Logger.getLogger(BkstpXmlRowProcessor.class.getName());
 
     @Override
     public void xmlRowToEntity(final XmlRow xmlRow) {
         final Query findBookByTitelnummer = entityManager.createNamedQuery("Book.findByTitelnummer");
-        final AktuelleBestellkarte aktuelleBestellkarte = new AktuelleBestellkarte();
+        final Bestellkarte bestellkarte = new Bestellkarte();
         for (final XmlData xmlData : xmlRow.getXmlDatas()) {
             final String tagContent = xmlData.getTagContent();
             switch (xmlData.getTagName()) {
                 case "BKHNR":
-                    aktuelleBestellkarte.setHoerernummer(tagContent);
+                    bestellkarte.setHoerernummer(tagContent);
                     break;
                 case "BKPDAT":
                     final Date datumStand = SqlStatement.parseIsoDate(tagContent);
                     if (null == datumStand) {
                         LOGGER.warning(String.format("Could not parse date %s for XmlRow %s", tagContent, xmlRow));
                     } else {
-                        aktuelleBestellkarte.setDatumStand(datumStand);
+                        bestellkarte.setDatumStand(datumStand);
                     }
                     break;
                 default:
@@ -48,7 +51,7 @@ public class BkstpXmlRowProcessor extends AbstractXmlRowProcessor {
                         if (!tagContent.equals("0")) {
                             try {
                                 final Book book = (Book) findBookByTitelnummer.setParameter("titelnummer", tagContent).getSingleResult();
-                                aktuelleBestellkarte.addBook(book);
+                                bestellkarte.addBook(book);
                             } catch (NoResultException e) {
                                 LOGGER.warning(String.format("Book titelnummer=%s not found for XmlRow %s", tagContent, xmlRow));
                             }
@@ -57,7 +60,7 @@ public class BkstpXmlRowProcessor extends AbstractXmlRowProcessor {
                     break;
             }
         }
-        validateAndMerge(aktuelleBestellkarte);
+        validateAndMerge(bestellkarte);
     }
 
 }

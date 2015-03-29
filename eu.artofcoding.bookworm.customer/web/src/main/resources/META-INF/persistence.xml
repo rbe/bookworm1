@@ -9,7 +9,7 @@
         <class>eu.artofcoding.bookworm.api.hoerer.Hoererstamm</class>
         <class>eu.artofcoding.bookworm.api.hoerer.HoererBuchstamm</class>
         <class>eu.artofcoding.bookworm.api.hoerer.HoererKennzeichen</class>
-        <class>eu.artofcoding.bookworm.api.hoerer.AktuelleBestellkarte</class>
+        <class>eu.artofcoding.bookworm.api.hoerer.Bestellkarte</class>
         <class>eu.artofcoding.bookworm.api.hoerer.BestellkarteArchiv</class>
         <class>eu.artofcoding.bookworm.api.hoerer.Belastung</class>
         <class>eu.artofcoding.bookworm.api.book.Book</class>
