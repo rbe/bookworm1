@@ -16,7 +16,7 @@ import java.util.Date;
 
 @Named
 @RequestScoped
-public class HoererDaten extends AbstractHoererBean {
+public class Hoererdaten extends AbstractHoererBean {
 
     public Hoererstamm getHoerer() {
         return hoererSession.getMyData().getHoererstamm();
