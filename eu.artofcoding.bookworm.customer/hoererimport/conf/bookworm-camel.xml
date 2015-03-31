@@ -41,45 +41,51 @@
     <camelContext xmlns="http://camel.apache.org/schema/spring"
                   id="bookwormHoererImport"
                   trace="false">
-        <!--
-        <route id="fetchFromFtp" autoStartup="true">
-            <from uri="ftp://ftp97769-rowicom@wbh-muenster.de?password=seidel&amp;binary=true&amp;ftpClient.dataTimeout=30000"/>
-            <log loggingLevel="INFO" message="Got ${file:name}"/>
-        </route>
-        -->
+        <propertyPlaceholder id="properties" location="META-INF/my.properties"/>
         <!-- BKRXSTP -->
-        <route id="bkrxstpImport" autoStartup="true">
-            <from uri="file://temp/data?include=BKRXSTP_Archiv.xml&amp;move=../done&amp;moveFailed=../error"/>
+        <route id="bkrxstpFetchFromFtp" autoStartup="true">
+            <from uri="{{hoererimport.BKRXSTP.url}}"/>
+            <log loggingLevel="INFO" message="Got ${file:name}"/>
+            <to uri="direct:BKRXSTP"/>
             <to uri="sql:truncate table BestellkarteArchiv?dataSource=bookwormDataSource"/>
             <bean ref="bkrxstpImportProcessor" method="importFile"/>
+            <log loggingLevel="INFO" message="Done ${file:name}"/>
         </route>
         <!-- BKSTP -->
-        <route id="bkstpImport" autoStartup="true">
-            <from uri="file://temp/data?include=BKSTP_Bestellkarten_StD.xml&amp;move=../done&amp;moveFailed=../error"/>
+        <route id="bkstpFetchFromFtp" autoStartup="true">
+            <from uri="{{hoererimport.BKSTP.url}}"/>
+            <log loggingLevel="INFO" message="Got ${file:name}"/>
             <to uri="sql:truncate table Bestellkarte_books?dataSource=bookwormDataSource"/>
             <to uri="sql:delete from Bestellkarte?dataSource=bookwormDataSource"/>
             <bean ref="bkstpImportProcessor" method="importFile"/>
+            <log loggingLevel="INFO" message="Done ${file:name}"/>
         </route>
         <!-- HOEBSTP -->
-        <route id="hoebstpImport" autoStartup="true">
-            <from uri="file://temp/data?include=HOEBSTP_Bestellkarten_StD.xml&amp;move=../done&amp;moveFailed=../error"/>
+        <route id="hoebstpFetchFromFtp" autoStartup="true">
+            <from uri="{{hoererimport.HOEBSTP.url}}"/>
+            <log loggingLevel="INFO" message="Got ${file:name}"/>
             <to uri="sql:delete from Belastung?dataSource=bookwormDataSource"/>
             <to uri="sql:truncate table HoererBuchstamm_Belastung?dataSource=bookwormDataSource"/>
             <to uri="sql:truncate table HoererBuchstamm_Sachgebiet?dataSource=bookwormDataSource"/>
             <to uri="sql:delete from HoererBuchstamm?dataSource=bookwormDataSource"/>
             <bean ref="hoebstpImportProcessor" method="importFile"/>
+            <log loggingLevel="INFO" message="Done ${file:name}"/>
         </route>
         <!-- HOEKZSTP -->
         <route id="hoekzstpImport" autoStartup="true">
-            <from uri="file://temp/data?include=HOEKZSTP_Hörer_Kennzeichen.xml&amp;move=../done&amp;moveFailed=../error"/>
+            <from uri="{{hoererimport.HOEKZSTP.url}}"/>
+            <log loggingLevel="INFO" message="Got ${file:name}"/>
             <to uri="sql:truncate table HoererKennzeichen?dataSource=bookwormDataSource"/>
             <bean ref="hoekzstpImportProcessor" method="importFile"/>
+            <log loggingLevel="INFO" message="Done ${file:name}"/>
         </route>
         <!-- HOERSTP -->
         <route id="hoerstpImport" autoStartup="true">
-            <from uri="file://temp/data?include=HOERSTP_Hoererstammdatei.xml&amp;move=../done&amp;moveFailed=../error"/>
+            <from uri="{{hoererimport.HOERSTP.url}}"/>
+            <log loggingLevel="INFO" message="Got ${file:name}"/>
             <to uri="sql:truncate table Hoererstamm?dataSource=bookwormDataSource"/>
             <bean ref="hoerstpImportProcessor" method="importFile"/>
+            <log loggingLevel="INFO" message="Done ${file:name}"/>
         </route>
     </camelContext>
 </beans>
