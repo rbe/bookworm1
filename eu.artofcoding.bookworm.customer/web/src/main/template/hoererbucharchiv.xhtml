@@ -14,7 +14,7 @@
     <meta name="description" content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
     <meta name="generator" content="medienhof - Source Management"/>
     <title>WBH Hörbucharchiv - Westdeutsche Blindenhörbücherei - Münster</title>
-    <link href="http://www.wbh-online.de/templates/wbh/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link href="/templates/wbh/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>
     <link rel="stylesheet" href="css/style.css" type="text/css"/>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -31,17 +31,17 @@
     </div>
     <div id="all">
         <div id="logo">
-            <img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="http://www.wbh-online.de/templates/wbh/images/logo_wbh.gif"/>
+            <img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="/templates/wbh/images/logo_wbh.gif"/>
         </div>
         <div id="header">
             <div id="slider">
-                <img src="http://www.wbh-online.de/templates/wbh/images/header-start.jpg" alt="Westdeutsche Blindenhörbücherei e.V." style="z-index:0;"/>
+                <img src="/templates/wbh/images/header-start.jpg" alt="Westdeutsche Blindenhörbücherei e.V." style="z-index:0;"/>
             </div>
             <div id="topmenu">
                 <h3 class="unsichtbar">Top-Navigation</h3>
                 <div class="topmenu">
                     <ul>
-                        <li><a href="http://www.wbh-online.de/">Startseite WBH</a></li>
+                        <li><a href="/">Startseite WBH</a></li>
                         <li><a class="spacer" href="#"></a></li>
                         <li><a href="hoererdaten.xhtml">Meine Daten</a></li>
                         <li><a href="hoererbuchausleihe.xhtml">Meine Ausleihe</a></li>
@@ -113,21 +113,36 @@
                                 <table class="table table-striped">
                                     <tbody>
                                     <tr>
-                                        <th>X</th>
                                         <th>Titel-Nr.</th>
-                                        <th>Buchtitel und Autor</th>
+                                        <th>Buchtitel/Autor</th>
                                         <th>Ausleihdatum</th>
                                     </tr>
                                     <ui:repeat value="#{hoererBucharchiv.bestellkarte}" var="k" varStatus="status">
                                         <h:outputFormat rendered="#{status.last}">
                                             <tr>
-                                                <td colspan="4" class="lastrow">Hinweis: Es folgt der letzte Datensatz</td>
+                                                <td colspan="3" class="lastrow">Hinweis: Es folgt der letzte Datensatz</td>
                                             </tr>
                                         </h:outputFormat>
                                         <tr>
-                                            <td>leer?</td>
-                                            <td>#{k.buch.titelnummer}</td>
-                                            <td>#{k.buch.titel} von #{k.buch.autor}</td>
+											<td>#{k.buch.titelnummer}</td>
+											<td>
+                                                <table>
+                                                    <tbody>
+														<tr>
+															<td width="120">
+																<span style="font-weight: bold;">Buchtitel:</span>
+															</td>
+															<td>#{k.buch.titel}</td>
+														</tr>
+														<tr>
+															<td>
+																<span style="font-weight: bold;">Autor:</span>
+															</td>
+															<td>von #{k.buch.autor}</td>
+														</tr>
+													</tbody>
+                                                </table>
+                                            </td>
                                             <td>#{of:formatDate(k.ausleihdatum, 'dd.MM.yyyy')}</td>
                                         </tr>
                                     </ui:repeat>
