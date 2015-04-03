@@ -1,0 +1,32 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          bookworm-import
+# Required-Start:    $local_fs $remote_fs $network $syslog
+# Required-Stop:     $local_fs $remote_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start/Stop bookworm-import
+### END INIT INFO
+# chkconfig: 35 92 1
+
+## Include some script files in order to set and export environmental variables
+## as well as add the appropriate executables to $PATH.
+[ -r /etc/profile.d/java.sh ] && . /etc/profile.d/java.sh
+
+BOOKWORM_HOME=/home/wbh/${project.artifactId}-${project.version}
+
+case "$1" in
+    start)
+        echo "Starting bookworm-customer-web..."
+        sudo -u wbh $BOOKWORM_HOME/apache-tomee/bin/startup.sh 2>/var/log/bookworm-hoererimport.log 1>&2 &
+    ;;
+    stop)
+        echo "Stopping bookworm-customer-web..."
+        sudo -u wbh
+    ;;
+    *)
+        echo "Usage: $0 { start | stop }"; exit 1;
+    ;;
+esac
+
+exit 0

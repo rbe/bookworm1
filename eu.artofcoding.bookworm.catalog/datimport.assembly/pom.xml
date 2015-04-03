@@ -28,7 +28,7 @@
             </resource>
         </resources>
         <plugins>
-            <!-- maven-resource-plugin -->
+            <!-- maven-resources-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>

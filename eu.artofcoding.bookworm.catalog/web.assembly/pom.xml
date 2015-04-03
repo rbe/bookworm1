@@ -49,6 +49,7 @@
             </resource>
         </resources>
         <plugins>
+            <!-- maven-jar-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -56,6 +57,7 @@
                     <skipIfEmpty>true</skipIfEmpty>
                 </configuration>
             </plugin>
+            <!-- maven-resources-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -69,6 +71,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- tomee-maven-plugin -->
             <plugin>
                 <groupId>org.apache.openejb.maven</groupId>
                 <artifactId>tomee-maven-plugin</artifactId>
@@ -130,6 +133,7 @@
                     -->
                 </executions>
             </plugin>
+            <!-- maven-failsafe-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>

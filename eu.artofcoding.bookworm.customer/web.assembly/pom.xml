@@ -14,6 +14,7 @@
         <tomee.version>1.7.1</tomee.version>
         <tomee.classifier>plume</tomee.classifier>
         <tomee-maven-plugin.version>1.5.2</tomee-maven-plugin.version>
+        <assembly.root>${project.artifactId}-${project.version}</assembly.root>
     </properties>
     <dependencies>
         <!-- Third Party -->
@@ -37,12 +38,18 @@
     <build>
         <resources>
             <resource>
+                <directory>src/main/resources/init.d</directory>
+                <filtering>true</filtering>
+                <targetPath>init.d</targetPath>
+            </resource>
+            <resource>
                 <directory>src/main/resources/tomee</directory>
                 <filtering>true</filtering>
                 <targetPath>tomee-resources</targetPath>
             </resource>
         </resources>
         <plugins>
+            <!-- maven-jar-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -50,6 +57,7 @@
                     <skipIfEmpty>true</skipIfEmpty>
                 </configuration>
             </plugin>
+            <!-- maven-resources-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -63,6 +71,39 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- maven-antrun-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>mkdir-tomee</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${project.build.directory}/apache-tomee-dist"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>unzip-tomee-dist</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <unzip src="${project.build.directory}/apache-tomee-dist/${project.artifactId}-${project.version}.zip" dest="${project.build.directory}/apache-tomee-dist-unzip"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- tomee-maven-plugin -->
             <plugin>
                 <groupId>org.apache.openejb.maven</groupId>
                 <artifactId>tomee-maven-plugin</artifactId>
@@ -89,6 +130,7 @@
                             <webapps>
                                 <webapp>eu.artofcoding.bookworm:eu.artofcoding.bookworm.customer.web:${project.version}:war</webapp>
                             </webapps>
+                            <zipFile>${project.build.directory}/apache-tomee-dist/${project.build.finalName}.zip</zipFile>
                         </configuration>
                     </execution>
                     <execution>
@@ -124,6 +166,7 @@
                     -->
                 </executions>
             </plugin>
+            <!-- maven-failsafe-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -146,6 +189,25 @@
                             <includes>
                                 <include>**/*ITSuite.java</include>
                             </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- maven-assembly-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/customer-web.xml</descriptor>
+                            </descriptors>
                         </configuration>
                     </execution>
                 </executions>

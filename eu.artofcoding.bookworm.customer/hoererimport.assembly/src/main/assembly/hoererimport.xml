@@ -9,7 +9,7 @@
     <fileSets>
         <fileSet>
             <directory>${project.basedir}</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>${assembly.root}</outputDirectory>
             <includes>
                 <include>README*</include>
                 <include>LICENSE*</include>
