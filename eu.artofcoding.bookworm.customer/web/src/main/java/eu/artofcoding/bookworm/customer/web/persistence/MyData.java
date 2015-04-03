@@ -10,8 +10,8 @@ package eu.artofcoding.bookworm.customer.web.persistence;
 
 import eu.artofcoding.bookworm.api.book.Book;
 import eu.artofcoding.bookworm.api.book.Sachgebiet;
-import eu.artofcoding.bookworm.api.hoerer.Bestellkarte;
 import eu.artofcoding.bookworm.api.hoerer.Belastung;
+import eu.artofcoding.bookworm.api.hoerer.Bestellkarte;
 import eu.artofcoding.bookworm.api.hoerer.BestellkarteArchiv;
 import eu.artofcoding.bookworm.api.hoerer.HoererBuchstamm;
 import eu.artofcoding.bookworm.api.hoerer.HoererKennzeichen;
@@ -234,7 +234,7 @@ public class MyData implements Serializable {
         return bestellkarte;
     }
 
-    public List<Book> findAktuelleBestellkarteBooksByTitel(String titel) {
+    public List<Book> findAktuelleBestellkarteBooksByTitel(final String titel) {
         return bestellkarteDAO.findBookByTitel(titel);
     }
 
@@ -245,12 +245,12 @@ public class MyData implements Serializable {
         return bestellkarteArchiv;
     }
 
-    public List<BestellkarteArchiv> findBestellkarteArchivByTitelOrDatum(String title, Date datum) {
+    public List<BestellkarteArchiv> findBestellkarteArchivByTitelOrDatum(final String title, final Date datum) {
         bestellkarteArchiv = bestellkarteArchivDAO.findByTitleOrDatum(hoerernummer, title, datum);
         return bestellkarteArchiv;
     }
 
-    public List<Belastung> findBelastungenBooksByTitleOrDatum(String titel, Date datum) {
+    public List<Belastung> findBelastungenBooksByTitleOrDatum(final String titel, final Date datum) {
         return hoererBuchstammDAO.findBelastungenBooksByTitleOrDatum(hoerernummer, titel, datum);
     }
 

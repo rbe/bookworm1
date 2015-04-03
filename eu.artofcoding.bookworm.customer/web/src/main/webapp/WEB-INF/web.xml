@@ -80,7 +80,7 @@
     -->
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-        <location>/hoererdaten.xhtml</location>
+        <location>/viewexpired.xhtml</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>

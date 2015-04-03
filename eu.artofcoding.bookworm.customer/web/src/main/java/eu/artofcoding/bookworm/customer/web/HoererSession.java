@@ -25,7 +25,10 @@ public class HoererSession implements Serializable {
     @PostConstruct
     private void postConstruct() {
         final String hoerernummer = FacesHelper.getRequestValue("hnr");
-        myData.init(hoerernummer);
+        final boolean hasHoerernummer = null != hoerernummer && !hoerernummer.isEmpty();
+        if (hasHoerernummer) {
+            myData.init(hoerernummer);
+        }
     }
 
     public MyData getMyData() {

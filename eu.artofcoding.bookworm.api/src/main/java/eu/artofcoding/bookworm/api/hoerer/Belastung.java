@@ -20,7 +20,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -39,13 +38,13 @@ public class Belastung implements GenericEntity {
 
     @Basic
     @Column
-    @NotNull
+    //@NotNull
     @Temporal(TemporalType.DATE)
     private Date datum;
 
     @Basic
     @Column
-    @NotNull
+    //@NotNull
     private String boxnummer;
 
     @OneToOne
@@ -116,9 +115,13 @@ public class Belastung implements GenericEntity {
     @Override
     public int hashCode() {
         int result = belastungIndex;
-        result = 31 * result + datum.hashCode();
+        if (null != datum) {
+            result = 31 * result + datum.hashCode();
+        }
         result = 31 * result + book.hashCode();
-        result = 31 * result + boxnummer.hashCode();
+        if (null != boxnummer) {
+            result = 31 * result + boxnummer.hashCode();
+        }
         return result;
     }
 

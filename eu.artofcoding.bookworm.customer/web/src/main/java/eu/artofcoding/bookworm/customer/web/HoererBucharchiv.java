@@ -23,18 +23,6 @@ public class HoererBucharchiv extends AbstractHoererBean {
 
     private List<BestellkarteArchiv> bestellkarteArchiv;
 
-    public String getHoerernummer() {
-        return hoererSession.getMyData().getHoerernummer();
-    }
-
-    public String getVorname() {
-        return hoererSession.getMyData().getVorname();
-    }
-
-    public String getNachname() {
-        return hoererSession.getMyData().getNachname();
-    }
-
     public List<BestellkarteArchiv> getBestellkarte() {
         if (null == bestellkarteArchiv) {
             bestellkarteArchiv = hoererSession.getMyData().getBestellkarteArchiv();

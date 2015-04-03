@@ -7,9 +7,6 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <properties>
-                <aoc.basedir>${user.home}/project</aoc.basedir>
-            </properties>
             <repositories>
                 <repository>
                     <id>ci-artofcoding-maven</id>

@@ -53,7 +53,7 @@ public class BkstpXmlRowProcessor extends AbstractXmlRowProcessor {
                                 final Book book = (Book) findBookByTitelnummer.setParameter("titelnummer", tagContent).getSingleResult();
                                 bestellkarte.addBook(book);
                             } catch (NoResultException e) {
-                                LOGGER.warning(String.format("Book titelnummer=%s not found for XmlRow %s", tagContent, xmlRow));
+                                //LOGGER.warning(String.format("Book titelnummer=%s not found for XmlRow %s", tagContent, xmlRow));
                             }
                         }
                     }

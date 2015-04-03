@@ -10,7 +10,6 @@ package eu.artofcoding.bookworm.customer.hoererimport.as400xml;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 import eu.artofcoding.bookworm.api.xml.XmlRowProcessor;
-import org.jasypt.encryption.StringEncryptor;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,12 +28,6 @@ public abstract class AbstractXmlRowProcessor implements XmlRowProcessor {
     @PersistenceContext
     protected EntityManager entityManager;
 
-    private StringEncryptor stringEncryptor;
-
-    public void setStringEncryptor(StringEncryptor stringEncryptor) {
-        this.stringEncryptor = stringEncryptor;
-    }
-
     private <T extends GenericEntity> String buildErrorMessage(final Iterator<ConstraintViolation<T>> iterator) {
         final StringBuilder errorMessages = new StringBuilder();
         while (iterator.hasNext()) {
@@ -51,14 +44,13 @@ public abstract class AbstractXmlRowProcessor implements XmlRowProcessor {
     protected <T extends GenericEntity> Set<ConstraintViolation<T>> validate(final T entity) {
         final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         final Validator validator = factory.getValidator();
-        final Set<ConstraintViolation<T>> errors = validator.validate(entity);
-        return errors;
+        return validator.validate(entity);
     }
 
     protected <T extends GenericEntity> void validateAndMerge(final T entity) {
         final Set<ConstraintViolation<T>> violations = validate(entity);
         if (violations.size() == 0) {
-            entityManager.merge(entity);
+            T mergedEntity = entityManager.merge(entity);
             entityManager.flush();
         } else {
             final Iterator<ConstraintViolation<T>> iterator = violations.iterator();

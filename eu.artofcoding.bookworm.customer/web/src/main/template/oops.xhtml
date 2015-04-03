@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="ui/wbh-customer.xhtml">
+    <ui:define name="topmenu">
+        <div class="topmenu">
+            <ul>
+                <li><a href="/">Startseite WBH</a></li>
+                <li><a class="spacer" href="#"></a></li>
+                <li><a href="hoererdaten.xhtml">Meine Daten</a></li>
+                <li><a href="hoererbuchausleihe.xhtml">Meine Ausleihe</a></li>
+                <li><a href="hoererbucharchiv.xhtml">Mein Archiv</a></li>
+                <li><a href="hoererbestellkarte.xhtml">Meine Bestellkarte</a></li>
+            </ul>
+        </div>
+    </ui:define>
+    <ui:define name="container">
+        <div class="container">
+            <div class="row firstrow hoererdaten ">
+                <div class="col-lg-12"><h1>Keine aktive Sitzung</h1></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">Leider ist etwas falsch gelaufen, bitte wenden Sie sich an den Support.</div>
+            </div>
+        </div>
+        <div class="row footer">
+            <div class="col-lg-2 hint">Hinweis:</div>
+            <div class="col-lg-8">
+                Sie haben Fragen oder Anmerkungen zu dieser Seite?<br/>
+                Dann schicken Sie uns eine Email an <a href="mailto:wbh@wbh-online.de">wbh@wbh-online.de</a>
+                <br/><br/>&#169; 2015 Westdeutsche Blindenhörbücherei e.V. |
+                <a href="/impressum.html" title="Impressum">Impressum</a>
+            </div>
+            <div class="col-lg-2 top">
+                <a href="#top" accesskey="1">zum Seitenanfang</a>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

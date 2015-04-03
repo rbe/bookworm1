@@ -23,18 +23,6 @@ public class HoererBuchausleihe extends AbstractHoererBean {
 
     private List<Belastung> belastungen;
 
-    public String getHoerernummer() {
-        return hoererSession.getMyData().getHoerernummer();
-    }
-
-    public String getVorname() {
-        return hoererSession.getMyData().getVorname();
-    }
-
-    public String getNachname() {
-        return hoererSession.getMyData().getNachname();
-    }
-
     public List<Belastung> getBelastungen() {
         if (null == belastungen) {
             belastungen = hoererSession.getMyData().getBelastungen();

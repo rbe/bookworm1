@@ -35,7 +35,7 @@
         </div>
         <div id="header">
             <div id="slider">
-                <img src="/templates/wbh/images/header-start.jpg" alt="Westdeutsche Blindenhörbücherei e.V." style="z-index:0;"/>
+                <img width="974px" height="237px" src="/templates/wbh/images/header-start.jpg" alt="Westdeutsche Blindenhörbücherei e.V." style="z-index:0;"/>
             </div>
             <div id="topmenu">
                 <h3 class="unsichtbar">Top-Navigation</h3>
@@ -124,23 +124,23 @@
                                             </tr>
                                         </h:outputFormat>
                                         <tr>
-											<td>#{k.buch.titelnummer}</td>
-											<td>
+                                            <td>#{k.buch.titelnummer}</td>
+                                            <td>
                                                 <table>
                                                     <tbody>
-														<tr>
-															<td width="120">
-																<span style="font-weight: bold;">Buchtitel:</span>
-															</td>
-															<td>#{k.buch.titel}</td>
-														</tr>
-														<tr>
-															<td>
-																<span style="font-weight: bold;">Autor:</span>
-															</td>
-															<td>von #{k.buch.autor}</td>
-														</tr>
-													</tbody>
+                                                    <tr>
+                                                        <td width="120">
+                                                            <span style="font-weight: bold;">Buchtitel:</span>
+                                                        </td>
+                                                        <td>#{k.buch.titel}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span style="font-weight: bold;">Autor:</span>
+                                                        </td>
+                                                        <td>von #{k.buch.autor}</td>
+                                                    </tr>
+                                                    </tbody>
                                                 </table>
                                             </td>
                                             <td>#{of:formatDate(k.ausleihdatum, 'dd.MM.yyyy')}</td>

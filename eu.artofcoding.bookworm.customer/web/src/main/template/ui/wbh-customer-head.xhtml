@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <div id="head">
+        <p class="unsichtbar">
+            <a name="top"></a>
+            <a href="#content" accesskey="2">zum Inhalt springen</a>
+        </p>
+    </div>
+    <div id="all">
+        <div id="logo">
+            <img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="/templates/wbh/images/logo_wbh.gif"/>
+        </div>
+        <div id="header">
+            <div id="slider">
+                <img width="974px" height="237px" src="/templates/wbh/images/header-start.jpg" alt="Westdeutsche Blindenhörbücherei e.V." style="z-index:0;"/>
+            </div>
+            <div id="topmenu">
+                <h3 class="unsichtbar">Top-Navigation</h3>
+                <ui:insert name="topmenu">
+                    <div class="topmenu">
+                        <ul>
+                            <li><a href="/">Startseite WBH</a></li>
+                            <li><a class="spacer" href="#"></a></li>
+                            <li><a href="hoererdaten.xhtml">Meine Daten</a></li>
+                            <li><a href="hoererbuchausleihe.xhtml">Meine Ausleihe</a></li>
+                            <li><a href="hoererbucharchiv.xhtml">Mein Archiv</a></li>
+                            <li><a href="hoererbestellkarte.xhtml">Meine Bestellkarte</a></li>
+                        </ul>
+                    </div>
+                </ui:insert>
+            </div>
+        </div>
+        <div class="clr"></div>
+</html>

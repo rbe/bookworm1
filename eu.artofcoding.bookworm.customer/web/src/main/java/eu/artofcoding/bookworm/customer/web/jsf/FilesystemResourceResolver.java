@@ -29,7 +29,13 @@ public final class FilesystemResourceResolver extends ResourceResolver {
         URL url = parent.resolveUrl(path);
         if (url == null && null != WebFilesystem.BASE_PATH) {
             try {
-                url = new File(WebFilesystem.BASE_PATH, path).toURI().toURL();
+                final File file = new File(WebFilesystem.BASE_PATH, path);
+                url = file.toURI().toURL();
+                if (file.exists()) {
+                    LOGGER.fine("Found resource " + url);
+                } else {
+                    LOGGER.severe("Cannot find resource " + url);
+                }
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }

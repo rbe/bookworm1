@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.io.File;
 import java.util.List;
 
 public class BookImportProcessor implements CamelFileProcessor {
@@ -29,7 +28,7 @@ public class BookImportProcessor implements CamelFileProcessor {
     }
 
     @Transactional
-    public void importFile(final File file) throws Exception {
+    public void importFile(final String body) throws Exception {
         // Check state
         if (null == bookFileParser || null == em) {
             throw new IllegalStateException("No file parser or no entity manager");
@@ -37,7 +36,7 @@ public class BookImportProcessor implements CamelFileProcessor {
         // Truncate table
         em.createNativeQuery("TRUNCATE TABLE books").executeUpdate();
         // Insert data
-        final List<Book> bookEntities = bookFileParser.parseFile(file.toURI());
+        final List<Book> bookEntities = bookFileParser.parse(body);
         for (Book b : bookEntities) {
             em.persist(b);
         }

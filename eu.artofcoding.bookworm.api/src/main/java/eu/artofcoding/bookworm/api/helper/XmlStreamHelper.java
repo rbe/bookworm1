@@ -14,7 +14,9 @@ import javax.xml.stream.XMLStreamReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 public class XmlStreamHelper {
@@ -30,6 +32,18 @@ public class XmlStreamHelper {
             final InputStream inputStream = Files.newInputStream(xmlFile.toPath(), StandardOpenOption.READ);
             return factory.createXMLStreamReader(inputStream);
         } catch (IOException | XMLStreamException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static XMLStreamReader makeXMLStreamReaderFromResource(final Path xmlPath) {
+        return makeXMLStreamReaderFromResource(xmlPath.toFile());
+    }
+
+    public static XMLStreamReader makeXMLStreamReaderFromResource(final String xml) {
+        try {
+            return factory.createXMLStreamReader(new StringReader(xml));
+        } catch (XMLStreamException e) {
             throw new RuntimeException(e);
         }
     }

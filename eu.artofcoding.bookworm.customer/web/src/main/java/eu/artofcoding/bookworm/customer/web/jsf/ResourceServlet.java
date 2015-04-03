@@ -17,9 +17,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
+import java.util.logging.Logger;
 
-@WebServlet(urlPatterns = {"*.css", "/css/*", "/js/*", "/img/*", "/fonts/*"})
+@WebServlet(urlPatterns = {"/css/*", "/js/*", "/img/*", "/fonts/*"})
 public final class ResourceServlet extends HttpServlet {
+
+    private static final Logger LOGGER = Logger.getLogger(ResourceServlet.class.toString());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,16 +33,19 @@ public final class ResourceServlet extends HttpServlet {
         }
         final boolean hasRequestedResource = requestedResource != null;
         if (!hasRequestedResource) {
+            LOGGER.severe("No requested resource: " + requestedResource);
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         } else {
             final String decodeResourceName = URLDecoder.decode(requestedResource, "UTF-8");
             final File resource = new File(WebFilesystem.BASE_PATH, decodeResourceName);
             final boolean resourceReadable = resource.exists() && resource.canRead();
             if (!resourceReadable) {
+                LOGGER.severe("Requested resource is not readable: " + resource.getAbsolutePath());
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
             } else {
                 final String contentType = getServletContext().getMimeType(resource.getName());
                 final boolean contentTypeAllowed = contentType != null && (contentType.startsWith("text") || contentType.startsWith("image"));
+                LOGGER.fine("Requested resource " + resource.getAbsolutePath() + " has allowed mime type (" + contentType + "): " + contentTypeAllowed);
                 if (!contentTypeAllowed) {
                     response.sendError(HttpServletResponse.SC_NOT_FOUND);
                 } else {

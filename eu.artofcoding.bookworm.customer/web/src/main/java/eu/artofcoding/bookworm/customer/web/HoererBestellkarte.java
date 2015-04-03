@@ -25,18 +25,6 @@ public class HoererBestellkarte extends AbstractHoererBean {
 
     private List<Book> books;
 
-    public String getHoerernummer() {
-        return hoererSession.getMyData().getHoerernummer();
-    }
-
-    public String getVorname() {
-        return hoererSession.getMyData().getVorname();
-    }
-
-    public String getNachname() {
-        return hoererSession.getMyData().getNachname();
-    }
-
     public Date getDatumStand() {
         return getBestellkarte().getDatumStand();
     }

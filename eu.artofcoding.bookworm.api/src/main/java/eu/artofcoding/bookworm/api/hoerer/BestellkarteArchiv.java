@@ -22,7 +22,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -43,16 +42,16 @@ public class BestellkarteArchiv implements GenericEntity {
 
     @Basic
     @Column
-    @NotNull
+    //@NotNull
     private String hoerernummer;
 
     @OneToOne
-    @NotNull
+    //@NotNull
     private Book buch;
 
     @Basic
     @Column
-    @NotNull
+    //@NotNull
     @Temporal(TemporalType.DATE)
     private Date ausleihdatum;
 

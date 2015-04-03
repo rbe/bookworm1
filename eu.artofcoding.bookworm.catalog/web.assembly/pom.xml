@@ -41,6 +41,13 @@
         </dependency>
     </dependencies>
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources/tomee</directory>
+                <filtering>true</filtering>
+                <targetPath>tomee-resources</targetPath>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -48,6 +55,19 @@
                 <configuration>
                     <skipIfEmpty>true</skipIfEmpty>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.openejb.maven</groupId>
@@ -63,12 +83,12 @@
                 <executions>
                     <execution>
                         <id>tomee-build</id>
-                        <phase>package</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>build</goal>
                         </goals>
                         <configuration>
-                            <config>${project.basedir}/src/main/tomee/conf</config>
+                            <config>${project.build.outputDirectory}/tomee-resources/conf</config>
                             <libs>
                                 <lib>mysql:mysql-connector-java:${version.com.mysql.connector-java}:jar</lib>
                             </libs>

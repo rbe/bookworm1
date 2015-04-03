@@ -15,7 +15,6 @@ import eu.artofcoding.bookworm.customer.hoererimport.as400xml.XmlRowParser;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.stream.XMLStreamReader;
-import java.io.File;
 
 public class HoererImportProcessor implements CamelFileProcessor {
 
@@ -26,13 +25,13 @@ public class HoererImportProcessor implements CamelFileProcessor {
     }
 
     @Transactional
-    public void importFile(final File file) throws Exception {
+    public void importFile(final String body) throws Exception {
         // Check state
         if (null == xmlRowProcessor) {
             throw new IllegalStateException("No file parser or no entity manager");
         }
         // Insert data
-        final XMLStreamReader reader = XmlStreamHelper.makeXMLStreamReaderFromResource(file);
+        final XMLStreamReader reader = XmlStreamHelper.makeXMLStreamReaderFromResource(body);
         new XmlRowParser(xmlRowProcessor).processXml(reader);
     }
 

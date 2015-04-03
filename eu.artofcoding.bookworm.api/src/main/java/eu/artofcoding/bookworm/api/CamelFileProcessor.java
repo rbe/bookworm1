@@ -8,10 +8,8 @@
 
 package eu.artofcoding.bookworm.api;
 
-import java.io.File;
-
 public interface CamelFileProcessor {
 
-    void importFile(File file) throws Exception;
+    void importFile(String body) throws Exception;
 
 }

@@ -4,88 +4,113 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
                            http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.14.1.xsd">
     <!-- BKRXSTP -->
-    <bean id="bkrxstpXmlRowProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.BkrxstpXmlRowProcessor">
-        <property name="stringEncryptor" ref="encryptor"/>
-    </bean>
+    <bean id="bkrxstpXmlRowProcessor"
+          class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.BkrxstpXmlRowProcessor"/>
     <bean id="bkrxstpImportProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.HoererImportProcessor">
         <property name="xmlRowProcessor" ref="bkrxstpXmlRowProcessor"/>
     </bean>
     <!-- BKSTP -->
-    <bean id="bkstpXmlRowProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.BkstpXmlRowProcessor">
-        <property name="stringEncryptor" ref="encryptor"/>
-    </bean>
+    <bean id="bkstpXmlRowProcessor"
+          class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.BkstpXmlRowProcessor"/>
     <bean id="bkstpImportProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.HoererImportProcessor">
         <property name="xmlRowProcessor" ref="bkstpXmlRowProcessor"/>
     </bean>
     <!-- HOEBSTP -->
-    <bean id="hoebstpXmlRowProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.HoebstpXmlRowProcessor">
-        <property name="stringEncryptor" ref="encryptor"/>
-    </bean>
+    <bean id="hoebstpXmlRowProcessor"
+          class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.HoebstpXmlRowProcessor"/>
     <bean id="hoebstpImportProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.HoererImportProcessor">
         <property name="xmlRowProcessor" ref="hoebstpXmlRowProcessor"/>
     </bean>
     <!-- HOEKZSTP -->
-    <bean id="hoekzstpXmlRowProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.HoekzstpXmlRowProcessor">
-        <property name="stringEncryptor" ref="encryptor"/>
-    </bean>
+    <bean id="hoekzstpXmlRowProcessor"
+          class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.HoekzstpXmlRowProcessor"/>
     <bean id="hoekzstpImportProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.HoererImportProcessor">
         <property name="xmlRowProcessor" ref="hoekzstpXmlRowProcessor"/>
     </bean>
     <!-- HOERSTP -->
-    <bean id="hoerstpXmlRowProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.HoerstpXmlRowProcessor">
-        <property name="stringEncryptor" ref="encryptor"/>
-    </bean>
+    <bean id="hoerstpXmlRowProcessor"
+          class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.HoerstpXmlRowProcessor"/>
     <bean id="hoerstpImportProcessor" class="eu.artofcoding.bookworm.customer.hoererimport.HoererImportProcessor">
         <property name="xmlRowProcessor" ref="hoerstpXmlRowProcessor"/>
     </bean>
     <camelContext xmlns="http://camel.apache.org/schema/spring"
                   id="bookwormHoererImport"
                   trace="false">
-        <propertyPlaceholder id="properties" location="META-INF/my.properties"/>
-        <!-- BKRXSTP -->
-        <route id="bkrxstpFetchFromFtp" autoStartup="true">
-            <from uri="{{hoererimport.BKRXSTP.url}}"/>
-            <log loggingLevel="INFO" message="Got ${file:name}"/>
-            <to uri="direct:BKRXSTP"/>
-            <to uri="sql:truncate table BestellkarteArchiv?dataSource=bookwormDataSource"/>
-            <bean ref="bkrxstpImportProcessor" method="importFile"/>
-            <log loggingLevel="INFO" message="Done ${file:name}"/>
-        </route>
-        <!-- BKSTP -->
-        <route id="bkstpFetchFromFtp" autoStartup="true">
-            <from uri="{{hoererimport.BKSTP.url}}"/>
-            <log loggingLevel="INFO" message="Got ${file:name}"/>
-            <to uri="sql:truncate table Bestellkarte_books?dataSource=bookwormDataSource"/>
-            <to uri="sql:delete from Bestellkarte?dataSource=bookwormDataSource"/>
-            <bean ref="bkstpImportProcessor" method="importFile"/>
-            <log loggingLevel="INFO" message="Done ${file:name}"/>
-        </route>
-        <!-- HOEBSTP -->
-        <route id="hoebstpFetchFromFtp" autoStartup="true">
-            <from uri="{{hoererimport.HOEBSTP.url}}"/>
-            <log loggingLevel="INFO" message="Got ${file:name}"/>
-            <to uri="sql:delete from Belastung?dataSource=bookwormDataSource"/>
-            <to uri="sql:truncate table HoererBuchstamm_Belastung?dataSource=bookwormDataSource"/>
-            <to uri="sql:truncate table HoererBuchstamm_Sachgebiet?dataSource=bookwormDataSource"/>
-            <to uri="sql:delete from HoererBuchstamm?dataSource=bookwormDataSource"/>
-            <bean ref="hoebstpImportProcessor" method="importFile"/>
-            <log loggingLevel="INFO" message="Done ${file:name}"/>
-        </route>
-        <!-- HOEKZSTP -->
-        <route id="hoekzstpImport" autoStartup="true">
-            <from uri="{{hoererimport.HOEKZSTP.url}}"/>
-            <log loggingLevel="INFO" message="Got ${file:name}"/>
-            <to uri="sql:truncate table HoererKennzeichen?dataSource=bookwormDataSource"/>
-            <bean ref="hoekzstpImportProcessor" method="importFile"/>
-            <log loggingLevel="INFO" message="Done ${file:name}"/>
-        </route>
-        <!-- HOERSTP -->
-        <route id="hoerstpImport" autoStartup="true">
-            <from uri="{{hoererimport.HOERSTP.url}}"/>
-            <log loggingLevel="INFO" message="Got ${file:name}"/>
-            <to uri="sql:truncate table Hoererstamm?dataSource=bookwormDataSource"/>
-            <bean ref="hoerstpImportProcessor" method="importFile"/>
-            <log loggingLevel="INFO" message="Done ${file:name}"/>
+        <propertyPlaceholder id="properties" location="META-INF/hoererimport.properties"/>
+        <route id="fetchFromFtpAndProcess" autoStartup="true">
+            <from uri="{{hoererimport.ftp.url}}"/>
+            <transacted>
+                <log loggingLevel="INFO" message="Got ${file:name}"/>
+                <convertBodyTo type="java.lang.String"/>
+                <choice>
+                    <when>
+                        <simple>${file:name} == '{{hoererimport.HOERSTP.fileName}}'</simple>
+                        <setHeader headerName="importSequence">
+                            <constant>1</constant>
+                        </setHeader>
+                    </when>
+                    <when>
+                        <simple>${file:name} == '{{hoererimport.HOEKZSTP.fileName}}'</simple>
+                        <setHeader headerName="importSequence">
+                            <constant>2</constant>
+                        </setHeader>
+                    </when>
+                    <when>
+                        <simple>${file:name} == '{{hoererimport.BKRXSTP.fileName}}'</simple>
+                        <setHeader headerName="importSequence">
+                            <constant>3</constant>
+                        </setHeader>
+                    </when>
+                    <when>
+                        <simple>${file:name} == '{{hoererimport.HOEBSTP.fileName}}'</simple>
+                        <setHeader headerName="importSequence">
+                            <constant>4</constant>
+                        </setHeader>
+                    </when>
+                    <when>
+                        <simple>${file:name} == '{{hoererimport.BKSTP.fileName}}'</simple>
+                        <setHeader headerName="importSequence">
+                            <constant>5</constant>
+                        </setHeader>
+                    </when>
+                </choice>
+                <resequence>
+                    <header>importSequence</header>
+                    <log message="Got ${file:name}"/>
+                    <choice>
+                        <when>
+                            <simple>${file:name} == '{{hoererimport.HOERSTP.fileName}}'</simple>
+                            <to uri="sql:truncate table Hoererstamm?dataSource=bookwormDataSource"/>
+                            <bean ref="hoerstpImportProcessor" method="importFile"/>
+                        </when>
+                        <when>
+                            <simple>${file:name} == '{{hoererimport.HOEKZSTP.fileName}}'</simple>
+                            <to uri="sql:truncate table HoererKennzeichen?dataSource=bookwormDataSource"/>
+                            <bean ref="hoekzstpImportProcessor" method="importFile"/>
+                        </when>
+                        <when>
+                            <simple>${file:name} == '{{hoererimport.BKRXSTP.fileName}}'</simple>
+                            <to uri="sql:truncate table BestellkarteArchiv?dataSource=bookwormDataSource"/>
+                            <bean ref="bkrxstpImportProcessor" method="importFile"/>
+                        </when>
+                        <when>
+                            <simple>${file:name} == '{{hoererimport.HOEBSTP.fileName}}'</simple>
+                            <to uri="sql:truncate table HoererBuchstamm_Belastung?dataSource=bookwormDataSource"/>
+                            <to uri="sql:delete from Belastung?dataSource=bookwormDataSource"/>
+                            <to uri="sql:truncate table HoererBuchstamm_Sachgebiet?dataSource=bookwormDataSource"/>
+                            <to uri="sql:delete from HoererBuchstamm?dataSource=bookwormDataSource"/>
+                            <bean ref="hoebstpImportProcessor" method="importFile"/>
+                        </when>
+                        <when>
+                            <simple>${file:name} == '{{hoererimport.BKSTP.fileName}}'</simple>
+                            <to uri="sql:truncate table Bestellkarte_books?dataSource=bookwormDataSource"/>
+                            <to uri="sql:delete from Bestellkarte?dataSource=bookwormDataSource"/>
+                            <bean ref="bkstpImportProcessor" method="importFile"/>
+                        </when>
+                    </choice>
+                </resequence>
+                <log loggingLevel="INFO" message="Done ${file:name}"/>
+            </transacted>
         </route>
     </camelContext>
 </beans>
