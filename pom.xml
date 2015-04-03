@@ -21,6 +21,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>eu.artofcoding.bookworm.api</module>
+        <module>eu.artofcoding.bookworm.common</module>
         <module>eu.artofcoding.bookworm.mock</module>
         <module>eu.artofcoding.bookworm.catalog</module>
         <module>eu.artofcoding.bookworm.customer</module>
@@ -47,17 +48,7 @@
             </dependency>
             <dependency>
                 <groupId>eu.artofcoding.bookworm</groupId>
-                <artifactId>eu.artofcoding.bookworm.bookimport</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>eu.artofcoding.bookworm</groupId>
-                <artifactId>eu.artofcoding.bookworm.hoererimport</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>eu.artofcoding.bookworm</groupId>
-                <artifactId>eu.artofcoding.bookworm.web</artifactId>
+                <artifactId>eu.artofcoding.bookworm.common.web</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -112,18 +103,6 @@
                 <version>6.0</version>
                 <scope>provided</scope>
             </dependency>
-            <!--<dependency>
-                <groupId>org.apache.geronimo.specs</groupId>
-                <artifactId>geronimo-ejb_3.1_spec</artifactId>
-                <version>1.0</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.geronimo.specs</groupId>
-                <artifactId>geronimo-jpa_2.0_spec</artifactId>
-                <version>1.0</version>
-                <scope>provided</scope>
-            </dependency>-->
             <!-- Logging -->
             <dependency>
                 <groupId>org.slf4j</groupId>
