@@ -10,6 +10,9 @@
     </parent>
     <artifactId>eu.artofcoding.bookworm.catalog.datimport.assembly</artifactId>
     <packaging>pom</packaging>
+    <properties>
+        <assembly.root>${project.artifactId}-${project.version}</assembly.root>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>eu.artofcoding.bookworm</groupId>

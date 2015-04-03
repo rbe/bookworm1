@@ -18,31 +18,31 @@
         </fileSet>
         <fileSet>
             <directory>${project.build.directory}/site</directory>
-            <outputDirectory>docs</outputDirectory>
+            <outputDirectory>${assembly.root}/docs</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>../hoererimport/conf</directory>
-            <outputDirectory>example/conf</outputDirectory>
+            <outputDirectory>${assembly.root}/example/conf</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>${project.build.outputDirectory}/bin</directory>
-            <outputDirectory>bin</outputDirectory>
+            <outputDirectory>${assembly.root}/bin</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>${project.build.outputDirectory}/init.d</directory>
-            <outputDirectory>init.d</outputDirectory>
+            <outputDirectory>${assembly.root}/init.d</outputDirectory>
         </fileSet>
     </fileSets>
     <dependencySets>
         <dependencySet>
-            <outputDirectory>lib</outputDirectory>
+            <outputDirectory>${assembly.root}/lib</outputDirectory>
             <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
             <excludes>
                 <exclude>eu.artofcoding.bookworm:eu.artofcoding.bookworm.customer.hoererimport</exclude>
             </excludes>
         </dependencySet>
         <dependencySet>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>${assembly.root}/</outputDirectory>
             <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}-${artifact.version}.${artifact.extension}
             </outputFileNameMapping>
             <includes>

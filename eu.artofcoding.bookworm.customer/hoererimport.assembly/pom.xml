@@ -9,6 +9,9 @@
         <version>LOCALBUILD</version>
     </parent>
     <artifactId>eu.artofcoding.bookworm.customer.hoererimport.assembly</artifactId>
+    <properties>
+        <assembly.root>${project.artifactId}-${project.version}</assembly.root>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>eu.artofcoding.bookworm</groupId>
