@@ -8,7 +8,7 @@
 
 package eu.artofcoding.bookworm.customer.web;
 
-import eu.artofcoding.bookworm.customer.web.jsf.FacesHelper;
+import eu.artofcoding.bookworm.common.web.jsf.FacesHelper;
 import eu.artofcoding.bookworm.customer.web.persistence.MyData;
 
 import javax.annotation.PostConstruct;

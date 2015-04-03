@@ -83,7 +83,7 @@
                 <executions>
                     <execution>
                         <id>tomee-build</id>
-                        <phase>install</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>build</goal>
                         </goals>

@@ -11,7 +11,7 @@
     <!-- FaceletsResourceResolver -->
     <context-param>
         <param-name>javax.faces.FACELETS_RESOURCE_RESOLVER</param-name>
-        <param-value>eu.artofcoding.bookworm.customer.web.jsf.FilesystemResourceResolver</param-value>
+        <param-value>eu.artofcoding.bookworm.common.web.jsf.FilesystemResourceResolver</param-value>
     </context-param>
     <!-- Time in seconds that facelets should be checked for changes since last request. A value of -1 disables refresh checking. -->
     <context-param>

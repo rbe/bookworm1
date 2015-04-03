@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.web.jsf;
+package eu.artofcoding.bookworm.common.web.jsf;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
