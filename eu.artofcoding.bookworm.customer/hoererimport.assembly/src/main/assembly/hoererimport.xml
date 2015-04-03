@@ -21,12 +21,16 @@
             <outputDirectory>docs</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>../datimport/conf</directory>
+            <directory>../hoererimport/conf</directory>
             <outputDirectory>example/conf</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>src/main/assembly/bin</directory>
+            <directory>${project.build.outputDirectory}/bin</directory>
             <outputDirectory>bin</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.outputDirectory}/init.d</directory>
+            <outputDirectory>init.d</outputDirectory>
         </fileSet>
     </fileSets>
     <dependencySets>
@@ -34,7 +38,7 @@
             <outputDirectory>lib</outputDirectory>
             <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
             <excludes>
-                <exclude>eu.artofcoding.bookworm:eu.artofcoding.bookworm.catalog.datimport</exclude>
+                <exclude>eu.artofcoding.bookworm:eu.artofcoding.bookworm.customer.hoererimport</exclude>
             </excludes>
         </dependencySet>
         <dependencySet>
@@ -42,7 +46,7 @@
             <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}-${artifact.version}.${artifact.extension}
             </outputFileNameMapping>
             <includes>
-                <include>eu.artofcoding.bookworm:eu.artofcoding.bookworm.catalog.datimport</include>
+                <include>eu.artofcoding.bookworm:eu.artofcoding.bookworm.customer.hoererimport</include>
             </includes>
         </dependencySet>
     </dependencySets>
