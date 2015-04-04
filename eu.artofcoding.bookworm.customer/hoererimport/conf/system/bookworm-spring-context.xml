@@ -4,6 +4,7 @@
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+    <!-- Persistence -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="bookwormPU"/>
         <property name="dataSource" ref="bookwormDataSource"/>
@@ -18,15 +19,21 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager"/>
-    <!-- Inject PersistenceContext through annotations -->
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
     <!-- Cryptography -->
+    <bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+        <property name="algorithm" value="PBEWithMD5AndDES"/>
+        <property name="passwordEnvName" value="CAMEL_ENCRYPTION_PASSWORD"/>
+    </bean>
     <bean id="encryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
-        <property name="algorithm">
-            <value>PBEWithMD5AndTripleDES</value>
-        </property>
-        <property name="password">
-            <value>askjf0984673hjgfjhgfgj3sdflhsdf1245</value>
+        <property name="config" ref="environmentVariablesConfiguration"/>
+    </bean>
+    <bean id="propertyConfigurer" class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
+        <constructor-arg ref="encryptor"/>
+        <property name="locations">
+            <list>
+                <value>conf/hoererimport.properties</value>
+            </list>
         </property>
     </bean>
 </beans>
