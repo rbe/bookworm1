@@ -17,11 +17,15 @@ import javax.persistence.PrePersist;
 
 public class CryptorEntityListener {
 
-    private static final String ENC_PWD = "askjf0984673hjgfjhgfgj3sdflhsdf1245";
+    private static final String ENC_PWD;
 
     private static final StandardPBEStringEncryptor stringEncryptor;
 
     static {
+        ENC_PWD = System.getenv("CAMEL_ENCRYPTION_PASSWORD");
+        if (null == ENC_PWD) {
+            throw new IllegalStateException("There's no encryption password, please set CAMEL_ENCRYPTION_PASSWORD!");
+        }
         try {
             Class.forName("eu.artofcoding.bookworm.api.crypt.Cryptor");
         } catch (ClassNotFoundException e) {
