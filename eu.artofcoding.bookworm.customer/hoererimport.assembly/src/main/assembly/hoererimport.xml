@@ -3,6 +3,7 @@
           xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
     <id>dist</id>
     <formats>
+        <format>dir</format>
         <format>zip</format>
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
@@ -41,6 +42,13 @@
                 <exclude>eu.artofcoding.bookworm:eu.artofcoding.bookworm.customer.hoererimport</exclude>
                 <exclude>eu.artofcoding.bookworm:eu.artofcoding.bookworm.customer.hoererimport.assembly</exclude>
             </excludes>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>${assembly.root}/lib/optional</outputDirectory>
+            <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
+            <includes>
+                <include>org.jasypt:jasypt</include>
+            </includes>
         </dependencySet>
         <dependencySet>
             <outputDirectory>${assembly.root}/</outputDirectory>

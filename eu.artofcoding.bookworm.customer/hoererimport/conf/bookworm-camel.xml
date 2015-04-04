@@ -5,6 +5,7 @@
                            http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.14.1.xsd">
     <!-- Properties -->
     <bean id="jasyptPropertiesParser" class="org.apache.camel.component.jasypt.JasyptPropertiesParser">
+        <property name="algorithm" value="sysenv:CAMEL_ENCRYPTION_ALGORITHM"/>
         <property name="password" value="sysenv:CAMEL_ENCRYPTION_PASSWORD"/>
     </bean>
     <!-- BKRXSTP -->
@@ -43,7 +44,7 @@
         <propertyPlaceholder id="properties"
                              location="file:${env:BOOKWORM_HOME}/conf/hoererimport.properties"
                              propertiesParserRef="jasyptPropertiesParser"/>
-        <route id="fetchFromFtpAndProcess" autoStartup="true">
+        <route id="fetchFromFtpAndProcess" autoStartup="false">
             <from uri="{{hoererimport.ftp.url}}"/>
             <log loggingLevel="INFO" message="Got ${file:name}"/>
             <transacted>
