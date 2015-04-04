@@ -36,11 +36,11 @@
     <camelContext xmlns="http://camel.apache.org/schema/spring"
                   id="bookwormHoererImport"
                   trace="false">
-        <propertyPlaceholder id="properties" location="META-INF/hoererimport.properties"/>
+        <propertyPlaceholder id="properties" location="file:${env:BOOKWORM_HOME}/conf/hoererimport.properties"/>
         <route id="fetchFromFtpAndProcess" autoStartup="true">
             <from uri="{{hoererimport.ftp.url}}"/>
+            <log loggingLevel="INFO" message="Got ${file:name}"/>
             <transacted>
-                <log loggingLevel="INFO" message="Got ${file:name}"/>
                 <convertBodyTo type="java.lang.String"/>
                 <choice>
                     <when>

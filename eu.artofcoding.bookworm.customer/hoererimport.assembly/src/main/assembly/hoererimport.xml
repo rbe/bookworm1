@@ -39,6 +39,7 @@
             <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
             <excludes>
                 <exclude>eu.artofcoding.bookworm:eu.artofcoding.bookworm.customer.hoererimport</exclude>
+                <exclude>eu.artofcoding.bookworm:eu.artofcoding.bookworm.customer.hoererimport.assembly</exclude>
             </excludes>
         </dependencySet>
         <dependencySet>
