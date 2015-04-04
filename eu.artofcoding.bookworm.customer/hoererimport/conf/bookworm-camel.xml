@@ -3,6 +3,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
                            http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.14.1.xsd">
+    <!-- Properties -->
+    <bean id="jasyptPropertiesParser" class="org.apache.camel.component.jasypt.JasyptPropertiesParser">
+        <property name="password" value="sysenv:CAMEL_ENCRYPTION_PASSWORD"/>
+    </bean>
     <!-- BKRXSTP -->
     <bean id="bkrxstpXmlRowProcessor"
           class="eu.artofcoding.bookworm.customer.hoererimport.as400xml.BkrxstpXmlRowProcessor"/>
@@ -36,7 +40,9 @@
     <camelContext xmlns="http://camel.apache.org/schema/spring"
                   id="bookwormHoererImport"
                   trace="false">
-        <propertyPlaceholder id="properties" location="file:${env:BOOKWORM_HOME}/conf/hoererimport.properties"/>
+        <propertyPlaceholder id="properties"
+                             location="file:${env:BOOKWORM_HOME}/conf/hoererimport.properties"
+                             propertiesParserRef="jasyptPropertiesParser"/>
         <route id="fetchFromFtpAndProcess" autoStartup="true">
             <from uri="{{hoererimport.ftp.url}}"/>
             <log loggingLevel="INFO" message="Got ${file:name}"/>

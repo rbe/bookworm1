@@ -10,10 +10,6 @@
     </parent>
     <artifactId>eu.artofcoding.bookworm.customer.hoererimport</artifactId>
     <packaging>jar</packaging>
-    <properties>
-        <version.org.springframework>4.1.5.RELEASE</version.org.springframework>
-        <version.org.apache.camel>2.14.1</version.org.apache.camel>
-    </properties>
     <dependencies>
         <!-- Bookworm -->
         <dependency>
@@ -53,7 +49,7 @@
         <dependency>
             <groupId>org.apache.openjpa</groupId>
             <artifactId>openjpa-all</artifactId>
-            <version>2.3.0</version>
+            <version>${version.org.apache.openjpa}</version>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
@@ -94,6 +90,11 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-ftp</artifactId>
+            <version>${version.org.apache.camel}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jasypt</artifactId>
             <version>${version.org.apache.camel}</version>
         </dependency>
         <!-- Database -->

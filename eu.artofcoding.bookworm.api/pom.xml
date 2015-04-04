@@ -38,7 +38,7 @@
             <plugin>
                 <groupId>org.apache.openjpa</groupId>
                 <artifactId>openjpa-maven-plugin</artifactId>
-                <version>2.3.0</version>
+                <version>${version.org.apache.openjpa}</version>
                 <executions>
                     <execution>
                         <id>jpa-enhance</id>

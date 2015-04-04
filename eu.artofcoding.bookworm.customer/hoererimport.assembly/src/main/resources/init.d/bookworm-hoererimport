@@ -13,20 +13,24 @@
 ## as well as add the appropriate executables to $PATH.
 [ -r /etc/profile.d/java.sh ] && . /etc/profile.d/java.sh
 
-BOOKWORM_HOME=/home/wbh/${project.artifactId}-${project.version}
+BOOKWORM_USER=${BOOKWORM_USER:-wbh}
+BOOKWORM_HOME=/home/${BOOKWORM_USER}/${project.artifactId}-${project.version}
+CAMEL_ENCRYPTION_PASSWORD=askjf0984673hjgfjhgfgj3sdflhsdf1245
+export CAMEL_ENCRYPTION_PASSWORD
 
 case "$1" in
     start)
         echo "Starting bookworm-hoererimport..."
         cd $BOOKWORM_HOME
-        sudo -u wbh java -jar ${project.artifactId}-${project.version}.jar 2>/var/log/bookworm-hoererimport.log 1>&2 &
+        sudo -u ${BOOKWORM_USER} java -jar ${project.artifactId}-${project.version}.jar 2>/var/log/bookworm-hoererimport.log 1>&2 &
     ;;
     stop)
         echo "Stopping bookworm-hoererimport..."
-        sudo -u wbh
+        sudo -u ${BOOKWORM_USER}
     ;;
     *)
-        echo "Usage: $0 { start | stop }"; exit 1;
+        echo "Usage: $0 { start | stop }"
+        exit 1
     ;;
 esac
 
