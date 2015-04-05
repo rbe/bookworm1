@@ -1,5 +1,0 @@
-#!/bin/bash
-
-nohup java -jar ${project.artifactId}-${project.version}.jar > ${project.artifactId}.nohup.log 2>&1 &
-
-exit 0
