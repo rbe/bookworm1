@@ -13,8 +13,8 @@
                              propertiesParserRef="jasyptPropertiesParser"/>
         <route id="fetchFromFtpAndProcess" autoStartup="true">
             <from uri="{{customer.ftp.url}}"/>
+            <log loggingLevel="INFO" message="Got ${file:name}"/>
             <transacted>
-                <log loggingLevel="INFO" message="Got ${file:name}"/>
                 <convertBodyTo type="java.lang.String"/>
                 <choice>
                     <when>

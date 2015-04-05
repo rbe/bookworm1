@@ -23,7 +23,7 @@ public class HoererimportMain {
     public static void main(String[] args) throws Exception {
         // Spring Filesystem Application Context
         final String[] filesystemConfigLocation = new String[]{
-                "conf/bookworm-datasource.xml",
+                "conf/system/bookworm-datasource.xml",
                 "conf/system/bookworm-spring-context.xml",
                 "conf/system/bookworm-camel-beans.xml",
                 "conf/system/bookworm-camel-routes.xml"

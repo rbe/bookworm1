@@ -44,7 +44,7 @@ case "$1" in
         if [ "${goahead}" = "y" ]
         then
             declare -A pvalue
-            encrypted_properties=$(grep ENC conf/etl.properties)
+            encrypted_properties=$(grep ENC ${BOOKWORM_HOME}/conf/etl.properties)
             for ep in ${encrypted_properties}
             do
                 pname=${ep%=*}
