@@ -8,7 +8,6 @@
 
 package eu.artofcoding.bookworm.common.crypt;
 
-import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
 import javax.persistence.PostLoad;
@@ -43,24 +42,21 @@ public class CryptorEntityListener {
     @PrePersist
     void onPrePersist(Object o) {
         if (null != stringEncryptor) {
-            GenericEntity entity = (GenericEntity) o;
-            Cryptor.processEncryptOnPersist(stringEncryptor, entity);
+            Cryptor.processEncryptOnPersist(stringEncryptor, o);
         }
     }
 
     @PostLoad
     void onPostLoad(Object o) {
         if (null != stringEncryptor) {
-            GenericEntity entity = (GenericEntity) o;
-            Cryptor.processDecryptOnLoad(stringEncryptor, entity);
+            Cryptor.processDecryptOnLoad(stringEncryptor, o);
         }
     }
 
     @PostUpdate
     void onPostUpdate(Object o) {
         if (null != stringEncryptor) {
-            GenericEntity entity = (GenericEntity) o;
-            Cryptor.processEncryptOnPersist(stringEncryptor, entity);
+            Cryptor.processEncryptOnPersist(stringEncryptor, o);
         }
     }
 

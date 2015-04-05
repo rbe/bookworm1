@@ -5,7 +5,8 @@
  * Alle Rechte vorbehalten. Nutzung unterliegt Lizenzbedingungen.
  * All rights reserved. Use is subject to license terms.
  */
-package eu.artofcoding.bookworm.customer.hoererimport;
+
+package eu.artofcoding.bookworm.catalog.etl;
 
 import org.apache.camel.spring.SpringCamelContext;
 import org.springframework.context.ApplicationContext;
@@ -14,7 +15,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class HoererimportMain {
+public class DatimportMain {
 
     private static final AtomicBoolean completed = new AtomicBoolean(false);
 
@@ -29,7 +30,7 @@ public class HoererimportMain {
         };
         final ApplicationContext applicationContext0 = new FileSystemXmlApplicationContext(filesystemConfigLocation);
         // Get Camel context
-        final SpringCamelContext camel = (SpringCamelContext) applicationContext0.getBean("bookwormHoererImport");
+        final SpringCamelContext camel = (SpringCamelContext) applicationContext0.getBean("bookwormBooks");
         // Stop Camel when JVM shuts down
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             @Override

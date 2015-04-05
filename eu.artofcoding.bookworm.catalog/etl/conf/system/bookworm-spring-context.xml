@@ -16,7 +16,7 @@
         <constructor-arg ref="encryptor"/>
         <property name="locations">
             <list>
-                <value>../etl.properties</value>
+                <value>conf/etl.properties</value>
             </list>
         </property>
     </bean>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+    <!--
+    <bean id="camelTracer" class="org.apache.camel.processor.interceptor.Tracer">
+        <property name="traceExceptions" value="true"/>
+        <property name="traceInterceptors" value="true"/>
+        <property name="logLevel" value="INFO"/>
+        <property name="logName" value="eu.artofcoding.bookworm"/>
+    </bean>
+    -->
+    <!-- BKRXSTP -->
+    <bean id="bkrxstpXmlRowProcessor" class="eu.artofcoding.bookworm.customer.etl.as400xml.BkrxstpXmlRowProcessor"/>
+    <bean id="bkrxstpImportProcessor" class="eu.artofcoding.bookworm.customer.etl.HoererImportProcessor">
+        <property name="xmlRowProcessor" ref="bkrxstpXmlRowProcessor"/>
+    </bean>
+    <!-- BKSTP -->
+    <bean id="bkstpXmlRowProcessor" class="eu.artofcoding.bookworm.customer.etl.as400xml.BkstpXmlRowProcessor"/>
+    <bean id="bkstpImportProcessor" class="eu.artofcoding.bookworm.customer.etl.HoererImportProcessor">
+        <property name="xmlRowProcessor" ref="bkstpXmlRowProcessor"/>
+    </bean>
+    <!-- HOEBSTP -->
+    <bean id="hoebstpXmlRowProcessor" class="eu.artofcoding.bookworm.customer.etl.as400xml.HoebstpXmlRowProcessor"/>
+    <bean id="hoebstpImportProcessor" class="eu.artofcoding.bookworm.customer.etl.HoererImportProcessor">
+        <property name="xmlRowProcessor" ref="hoebstpXmlRowProcessor"/>
+    </bean>
+    <!-- HOEKZSTP -->
+    <bean id="hoekzstpXmlRowProcessor" class="eu.artofcoding.bookworm.customer.etl.as400xml.HoekzstpXmlRowProcessor"/>
+    <bean id="hoekzstpImportProcessor" class="eu.artofcoding.bookworm.customer.etl.HoererImportProcessor">
+        <property name="xmlRowProcessor" ref="hoekzstpXmlRowProcessor"/>
+    </bean>
+    <!-- HOERSTP -->
+    <bean id="hoerstpXmlRowProcessor" class="eu.artofcoding.bookworm.customer.etl.as400xml.HoerstpXmlRowProcessor"/>
+    <bean id="hoerstpImportProcessor" class="eu.artofcoding.bookworm.customer.etl.HoererImportProcessor">
+        <property name="xmlRowProcessor" ref="hoerstpXmlRowProcessor"/>
+    </bean>
+</beans>

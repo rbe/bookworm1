@@ -16,14 +16,22 @@
         <constructor-arg ref="encryptor"/>
         <property name="locations">
             <list>
-                <value>../etl.properties</value>
+                <value>conf/etl.encrypted.properties</value>
+                <value>conf/etl.properties</value>
             </list>
         </property>
+    </bean>
+    <bean id="jasyptPropertiesParser" class="org.apache.camel.component.jasypt.JasyptPropertiesParser">
+        <!--
+        <property name="algorithm" value="sysenv:CAMEL_ENCRYPTION_ALGORITHM"/>
+        <property name="password" value="sysenv:CAMEL_ENCRYPTION_PASSWORD"/>
+        -->
+        <property name="encryptor" ref="encryptor"/>
     </bean>
     <!-- Persistence -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="bookwormPU"/>
-        <property name="dataSource" ref="bookwormDataSource"/>
+        <property name="dataSource" ref="bookwormDatasource"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter">
                 <property name="showSql" value="true"/>
@@ -31,9 +39,49 @@
             </bean>
         </property>
     </bean>
+    <!-- Transaction -->
+    <!-- Optional: add a log administrator
+    <bean id="localLogAdministrator" class="com.atomikos.icatch.admin.imp.LocalLogAdministrator"/>
+    -->
+    <bean id="userTransactionService"
+          class="com.atomikos.icatch.config.UserTransactionServiceImp"
+          init-method="init" destroy-method="shutdownForce">
+        <constructor-arg>
+            <props>
+                <prop key="com.atomikos.icatch.service">
+                    com.atomikos.icatch.standalone.UserTransactionServiceFactory
+                </prop>
+            </props>
+        </constructor-arg>
+        <!--
+        <property name="initialLogAdministrators">
+            <list>
+                <ref bean="localLogAdministrator"/>
+            </list>
+        </property>
+        -->
+    </bean>
+    <bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+          init-method="init" destroy-method="close"
+          depends-on="userTransactionService">
+        <!-- IMPORTANT: disable startup because the userTransactionService above does this -->
+        <property name="startupTransactionService" value="false"/>
+        <property name="forceShutdown" value="false"/>
+    </bean>
+    <bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp"
+          depends-on="userTransactionService">
+        <property name="transactionTimeout" value="300"/>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager"
+          depends-on="userTransactionService">
+        <property name="transactionManager" ref="atomikosTransactionManager"/>
+        <property name="userTransaction" ref="atomikosUserTransaction"/>
+    </bean>
+    <!--
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
+    -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 </beans>

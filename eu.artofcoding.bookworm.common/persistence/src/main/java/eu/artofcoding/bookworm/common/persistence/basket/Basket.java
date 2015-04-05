@@ -17,8 +17,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "basket")
-@NamedQueries({
-})
 public class Basket implements GenericEntity {
 
     @Id

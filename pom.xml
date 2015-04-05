@@ -235,4 +235,9 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>bookworm.delivery</id>
+        </profile>
+    </profiles>
 </project>

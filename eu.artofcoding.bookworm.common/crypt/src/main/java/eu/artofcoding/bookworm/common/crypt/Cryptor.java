@@ -8,7 +8,6 @@
 
 package eu.artofcoding.bookworm.common.crypt;
 
-import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 import eu.artofcoding.bookworm.common.crypt.AnnotationProcessor.FieldAnnotationAction;
 import org.jasypt.encryption.StringEncryptor;
 
@@ -19,6 +18,7 @@ public final class Cryptor {
 
     private static final Logger LOGGER = Logger.getLogger(Cryptor.class.getName());
 
+    /*
     static {
         // Disable JCE restriction check
         try {
@@ -29,17 +29,18 @@ public final class Cryptor {
             throw new IllegalStateException("Cannot disable JCE check", e);
         }
     }
+    */
 
     private Cryptor() {
         throw new AssertionError();
     }
 
-    public static <T extends GenericEntity> void processEncryptOnPersist(final StringEncryptor stringEncryptor, final T entity) {
+    public static <T> void processEncryptOnPersist(final StringEncryptor stringEncryptor, final T entity) {
         final AnnotationProcessor annotationProcessor = new AnnotationProcessor();
         annotationProcessor.processFieldAnnotation(entity, EncryptOnPersist.class, new EncryptOnPersistAction(stringEncryptor));
     }
 
-    public static <T extends GenericEntity> void processDecryptOnLoad(final StringEncryptor stringDecryptor, final T entity) {
+    public static <T> void processDecryptOnLoad(final StringEncryptor stringDecryptor, final T entity) {
         final AnnotationProcessor annotationProcessor = new AnnotationProcessor();
         annotationProcessor.processFieldAnnotation(entity, DecryptOnLoad.class, new DecryptOnLoadAction(stringDecryptor));
     }

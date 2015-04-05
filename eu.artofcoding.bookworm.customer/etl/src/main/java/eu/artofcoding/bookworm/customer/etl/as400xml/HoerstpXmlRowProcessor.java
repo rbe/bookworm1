@@ -6,12 +6,13 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.hoererimport.as400xml;
+package eu.artofcoding.bookworm.customer.etl.as400xml;
 
 import eu.artofcoding.bookworm.common.etl.xml.XmlData;
 import eu.artofcoding.bookworm.common.etl.xml.XmlRow;
 import eu.artofcoding.bookworm.common.helper.ParserHelper;
 import eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm;
+import eu.artofcoding.bookworm.customer.etl.xml.AbstractXmlRowProcessor;
 
 public class HoerstpXmlRowProcessor extends AbstractXmlRowProcessor {
 

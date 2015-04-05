@@ -6,14 +6,12 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.hoererimport;
+package eu.artofcoding.bookworm.common.helper;
 
-/**
- * Created by rbe on 14.03.15.
- */
 public class Strings {
 
     public static boolean notEmpty(final String str) {
         return null != str && !str.isEmpty();
     }
+
 }

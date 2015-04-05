@@ -11,11 +11,6 @@
     <artifactId>eu.artofcoding.bookworm.common.crypt</artifactId>
     <packaging>jar</packaging>
     <dependencies>
-        <!-- Beetlejuice -->
-        <dependency>
-            <groupId>eu.artofcoding.beetlejuice</groupId>
-            <artifactId>eu.artofcoding.beetlejuice.persistence</artifactId>
-        </dependency>
         <!-- Java EE -->
         <dependency>
             <groupId>javax</groupId>

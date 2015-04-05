@@ -6,12 +6,13 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.hoererimport;
+package eu.artofcoding.bookworm.customer.etl;
 
 import eu.artofcoding.bookworm.common.etl.CamelFileProcessor;
 import eu.artofcoding.bookworm.common.etl.helper.XmlStreamHelper;
 import eu.artofcoding.bookworm.common.etl.xml.XmlRowProcessor;
-import eu.artofcoding.bookworm.customer.hoererimport.as400xml.XmlRowParser;
+import eu.artofcoding.bookworm.customer.etl.xml.XmlRowParser;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.stream.XMLStreamReader;
@@ -24,7 +25,7 @@ public class HoererImportProcessor implements CamelFileProcessor {
         this.xmlRowProcessor = xmlRowProcessor;
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void importFile(final String body) throws Exception {
         // Check state
         if (null == xmlRowProcessor) {

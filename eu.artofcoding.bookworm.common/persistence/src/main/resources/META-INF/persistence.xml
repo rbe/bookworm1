@@ -6,6 +6,7 @@
     <persistence-unit name="bookwormPU" transaction-type="JTA">
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
         <jta-data-source>bookwormDatasource</jta-data-source>
+        <non-jta-data-source>bookwormDatasourceNonJta</non-jta-data-source>
         <class>eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm</class>
         <class>eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstamm</class>
         <class>eu.artofcoding.bookworm.common.persistence.hoerer.Belastung</class>
@@ -16,14 +17,14 @@
         <class>eu.artofcoding.bookworm.common.persistence.book.Sachgebiet</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
-            <property name="openjpa.Log" value="DefaultLevel=WARN, Runtime=INFO, Tool=INFO, SQL=INFO"/>
+            <!--<property name="openjpa.Log" value="DefaultLevel=ERROR, Enhance=INFO, MetaData=INFO, Runtime=INFO, Query=INFO, DataCache=INFO, Tool=INFO, SQL=INFO"/>-->
+            <!--<property name="openjpa.ConnectionFactoryProperties" value="PrettyPrint=true, PrettyPrintLineLength=80"/>-->
             <property name="openjpa.jdbc.DBDictionary" value="mysql"/>
             <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
-            <property name="openjpa.DynamicEnhancementAgent" value="true"/>
+            <property name="openjpa.DynamicEnhancementAgent" value="false"/>
             <property name="openjpa.DetachState" value="loaded(DetachedStateField=true)"/>
             <property name="openjpa.Compatibility" value="IgnoreDetachedStateFieldForProxySerialization=true"/>
-            <property name="openjpa.jdbc.MappingDefaults"
-                      value="ForeignKeyDeleteAction=restrict, JoinForeignKeyDeleteAction=restrict"/>
+            <property name="openjpa.jdbc.MappingDefaults" value="ForeignKeyDeleteAction=restrict, JoinForeignKeyDeleteAction=restrict"/>
         </properties>
     </persistence-unit>
 </persistence>

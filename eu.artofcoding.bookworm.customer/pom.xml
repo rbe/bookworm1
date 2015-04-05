@@ -12,8 +12,15 @@
     <packaging>pom</packaging>
     <modules>
         <module>etl</module>
-        <module>etl.assembly</module>
         <module>web</module>
-        <module>web.assembly</module>
     </modules>
+    <profiles>
+        <profile>
+            <id>bookworm.delivery</id>
+            <modules>
+                <module>etl.assembly</module>
+                <module>web.assembly</module>
+            </modules>
+        </profile>
+    </profiles>
 </project>

@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.catalog.datimport;
+package eu.artofcoding.bookworm.catalog.etl;
 
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 

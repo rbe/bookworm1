@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.hoererimport.as400xml;
+package eu.artofcoding.bookworm.customer.etl.xml;
 
 import eu.artofcoding.bookworm.common.etl.xml.XmlData;
 import eu.artofcoding.bookworm.common.etl.xml.XmlRow;

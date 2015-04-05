@@ -41,14 +41,25 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${version.org.springframework}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>${version.org.springframework}</version>
             <scope>runtime</scope>
         </dependency>
+        <!-- JTA -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <version>${version.org.springframework}</version>
+            <groupId>com.atomikos</groupId>
+            <artifactId>transactions</artifactId>
+            <version>3.9.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atomikos</groupId>
+            <artifactId>transactions-jta</artifactId>
+            <version>3.9.3</version>
         </dependency>
         <!-- JPA -->
         <dependency>
@@ -60,6 +71,11 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring</artifactId>
+            <version>${version.org.apache.camel}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jasypt</artifactId>
             <version>${version.org.apache.camel}</version>
         </dependency>
         <!-- Database -->
@@ -87,7 +103,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>eu.artofcoding.bookworm.catalog.datimport.DatimportMain</mainClass>
+                            <mainClass>eu.artofcoding.bookworm.catalog.etl.DatimportMain</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
