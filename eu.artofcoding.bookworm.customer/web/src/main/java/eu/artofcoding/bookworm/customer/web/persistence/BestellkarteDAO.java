@@ -9,8 +9,8 @@
 package eu.artofcoding.bookworm.customer.web.persistence;
 
 import eu.artofcoding.beetlejuice.persistence.GenericDAO;
-import eu.artofcoding.bookworm.api.book.Book;
-import eu.artofcoding.bookworm.api.hoerer.Bestellkarte;
+import eu.artofcoding.bookworm.common.persistence.book.Book;
+import eu.artofcoding.bookworm.common.persistence.hoerer.Bestellkarte;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;

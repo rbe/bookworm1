@@ -9,7 +9,7 @@
 package eu.artofcoding.bookworm.catalog.web;
 
 import eu.artofcoding.beetlejuice.persistence.GenericDAO;
-import eu.artofcoding.bookworm.api.book.Book;
+import eu.artofcoding.bookworm.common.persistence.book.Book;
 
 import javax.ejb.Stateless;
 import java.io.Serializable;

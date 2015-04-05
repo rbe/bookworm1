@@ -9,8 +9,8 @@
 package eu.artofcoding.bookworm.customer.web.persistence;
 
 import eu.artofcoding.beetlejuice.persistence.GenericDAO;
-import eu.artofcoding.bookworm.api.hoerer.Belastung;
-import eu.artofcoding.bookworm.api.hoerer.HoererBuchstamm;
+import eu.artofcoding.bookworm.common.persistence.hoerer.Belastung;
+import eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstamm;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;

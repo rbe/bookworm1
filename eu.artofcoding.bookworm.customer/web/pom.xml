@@ -14,7 +14,11 @@
         <!-- Bookworm API -->
         <dependency>
             <groupId>eu.artofcoding.bookworm</groupId>
-            <artifactId>eu.artofcoding.bookworm.api</artifactId>
+            <artifactId>eu.artofcoding.bookworm.common.helper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>eu.artofcoding.bookworm</groupId>
+            <artifactId>eu.artofcoding.bookworm.common.persistence</artifactId>
         </dependency>
         <dependency>
             <groupId>eu.artofcoding.bookworm</groupId>

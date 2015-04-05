@@ -11,6 +11,10 @@
     <artifactId>eu.artofcoding.bookworm.common</artifactId>
     <packaging>pom</packaging>
     <modules>
+        <module>helper</module>
+        <module>etl</module>
+        <module>persistence</module>
+        <module>crypt</module>
         <module>web</module>
     </modules>
 </project>

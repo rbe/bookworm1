@@ -14,10 +14,10 @@
         <wildfly_home>${project.basedir}/../thirdparty/wildfly-8.1.0.Final</wildfly_home>
     </properties>
     <dependencies>
-        <!-- Bookworm API -->
+        <!-- Bookworm -->
         <dependency>
             <groupId>eu.artofcoding.bookworm</groupId>
-            <artifactId>eu.artofcoding.bookworm.api</artifactId>
+            <artifactId>eu.artofcoding.bookworm.common.persistence</artifactId>
         </dependency>
         <!-- Beetlejuice -->
         <dependency>

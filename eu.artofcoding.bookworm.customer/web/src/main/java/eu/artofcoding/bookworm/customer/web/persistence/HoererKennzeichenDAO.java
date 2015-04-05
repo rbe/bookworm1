@@ -9,7 +9,7 @@
 package eu.artofcoding.bookworm.customer.web.persistence;
 
 import eu.artofcoding.beetlejuice.persistence.GenericDAO;
-import eu.artofcoding.bookworm.api.hoerer.HoererKennzeichen;
+import eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;

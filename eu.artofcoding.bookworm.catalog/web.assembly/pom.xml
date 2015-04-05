@@ -11,17 +11,9 @@
     <artifactId>eu.artofcoding.bookworm.catalog.web.assembly</artifactId>
     <packaging>jar</packaging>
     <properties>
-        <tomee.version>1.7.1</tomee.version>
-        <tomee.classifier>plume</tomee.classifier>
-        <tomee-maven-plugin.version>1.5.2</tomee-maven-plugin.version>
+        <assembly.root>${project.artifactId}-${project.version}</assembly.root>
     </properties>
     <dependencies>
-        <!-- Bookworm -->
-        <dependency>
-            <groupId>eu.artofcoding.bookworm</groupId>
-            <artifactId>eu.artofcoding.bookworm.catalog.datimport</artifactId>
-            <version>${project.version}</version>
-        </dependency>
         <!-- Third Party -->
         <dependency>
             <groupId>org.apache.openejb</groupId>

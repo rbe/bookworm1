@@ -8,8 +8,8 @@
 
 package eu.artofcoding.bookworm.customer.web;
 
-import eu.artofcoding.bookworm.api.helper.SqlStatement;
-import eu.artofcoding.bookworm.api.hoerer.Belastung;
+import eu.artofcoding.bookworm.common.helper.ParserHelper;
+import eu.artofcoding.bookworm.common.persistence.hoerer.Belastung;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.event.ActionEvent;
@@ -34,7 +34,7 @@ public class HoererBuchausleihe extends AbstractHoererBean {
         final String titel = String.format("%%%s%%", searchTitle);
         Date datum = null;
         if (null != searchDate && searchDate.length() == 10) {
-            datum = SqlStatement.parseGermanDate(searchDate);
+            datum = ParserHelper.parseGermanDate(searchDate);
         }
         belastungen = hoererSession.getMyData().findBelastungenBooksByTitleOrDatum(titel, datum);
     }

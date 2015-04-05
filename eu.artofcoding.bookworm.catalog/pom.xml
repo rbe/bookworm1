@@ -11,8 +11,8 @@
     <artifactId>eu.artofcoding.bookworm.catalog</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>datimport</module>
-        <module>datimport.assembly</module>
+        <module>etl</module>
+        <module>etl.assembly</module>
         <module>web</module>
         <module>web.assembly</module>
     </modules>

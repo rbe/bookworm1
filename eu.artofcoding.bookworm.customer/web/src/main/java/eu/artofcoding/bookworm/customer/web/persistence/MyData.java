@@ -8,14 +8,14 @@
 
 package eu.artofcoding.bookworm.customer.web.persistence;
 
-import eu.artofcoding.bookworm.api.book.Book;
-import eu.artofcoding.bookworm.api.book.Sachgebiet;
-import eu.artofcoding.bookworm.api.hoerer.Belastung;
-import eu.artofcoding.bookworm.api.hoerer.Bestellkarte;
-import eu.artofcoding.bookworm.api.hoerer.BestellkarteArchiv;
-import eu.artofcoding.bookworm.api.hoerer.HoererBuchstamm;
-import eu.artofcoding.bookworm.api.hoerer.HoererKennzeichen;
-import eu.artofcoding.bookworm.api.hoerer.Hoererstamm;
+import eu.artofcoding.bookworm.common.persistence.book.Book;
+import eu.artofcoding.bookworm.common.persistence.book.Sachgebiet;
+import eu.artofcoding.bookworm.common.persistence.hoerer.Belastung;
+import eu.artofcoding.bookworm.common.persistence.hoerer.Bestellkarte;
+import eu.artofcoding.bookworm.common.persistence.hoerer.BestellkarteArchiv;
+import eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstamm;
+import eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen;
+import eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;

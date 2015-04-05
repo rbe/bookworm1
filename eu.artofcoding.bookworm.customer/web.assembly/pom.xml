@@ -11,9 +11,6 @@
     <artifactId>eu.artofcoding.bookworm.customer.web.assembly</artifactId>
     <packaging>jar</packaging>
     <properties>
-        <tomee.version>1.7.1</tomee.version>
-        <tomee.classifier>plume</tomee.classifier>
-        <tomee-maven-plugin.version>1.5.2</tomee-maven-plugin.version>
         <assembly.root>${project.artifactId}-${project.version}</assembly.root>
     </properties>
     <dependencies>

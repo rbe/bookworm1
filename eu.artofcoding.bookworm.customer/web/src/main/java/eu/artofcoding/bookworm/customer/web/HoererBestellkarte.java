@@ -8,8 +8,8 @@
 
 package eu.artofcoding.bookworm.customer.web;
 
-import eu.artofcoding.bookworm.api.book.Book;
-import eu.artofcoding.bookworm.api.hoerer.Bestellkarte;
+import eu.artofcoding.bookworm.common.persistence.book.Book;
+import eu.artofcoding.bookworm.common.persistence.hoerer.Bestellkarte;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.event.ActionEvent;

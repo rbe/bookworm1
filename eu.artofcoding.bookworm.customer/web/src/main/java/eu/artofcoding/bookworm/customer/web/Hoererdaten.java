@@ -8,7 +8,7 @@
 
 package eu.artofcoding.bookworm.customer.web;
 
-import eu.artofcoding.bookworm.api.hoerer.Hoererstamm;
+import eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
