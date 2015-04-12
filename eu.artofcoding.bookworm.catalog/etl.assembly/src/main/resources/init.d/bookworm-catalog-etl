@@ -25,7 +25,7 @@ case "$1" in
     start)
         echo "Starting $0..."
         cd $BOOKWORM_HOME
-        sudo -u ${BOOKWORM_USER} java -Dopenjpa.ManagedRuntime=invocation(TransactionManagerMethod=com.atomikos.icatch.jta.TransactionManagerImp.getTransactionManager) -jar ${project.artifactId}-${project.version}.jar 2>/var/log/bookworm-datimport.log 1>&2 &
+        sudo -u ${BOOKWORM_USER} java -Dopenjpa.ManagedRuntime=invocation(TransactionManagerMethod=com.atomikos.icatch.jta.TransactionManagerImp.getTransactionManager) -jar ${project.artifactId}-${project.version}.jar 2>/var/log/${project.artifactId}.log 1>&2 &
     ;;
     stop)
         echo "Stopping $0..."
