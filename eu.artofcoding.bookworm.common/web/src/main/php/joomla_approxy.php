@@ -19,14 +19,6 @@ require_once JPATH_BASE . '/includes/framework.php';
 $mainframe = JFactory::getApplication('site');
 $mainframe->initialise();
 
-//
-// Proxy
-//
-
-include_once 'approxy/autoload.php';
-use ApProxy\AppInfo;
-use ApProxy\Factory;
-
 /**
  * Get a value for a field from comprofiler's database for an user.
  * @param $user
@@ -57,6 +49,14 @@ function getHoerernummer()
         return null;
     }
 }
+
+//
+// Proxy
+//
+
+include_once 'approxy/autoload.php';
+use ApProxy\AppInfo;
+use ApProxy\Factory;
 
 /**
  * Redirect if no user is logged in.

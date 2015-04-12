@@ -8,49 +8,49 @@ class Factory
     /**
      * @var array AppInfo[]
      */
-    private static $app_infos = array();
+    private static $appInfos = array();
 
     private function __construct()
     {
     }
 
     /**
-     * @param $request_uri string
+     * @param $requestUri string
      * @return AppInfo|null
      */
-    private static function findApp($request_uri)
+    private static function findApp($requestUri)
     {
-        $parsed_request_uri = parse_url($request_uri);
-        foreach (static::$app_infos as $app) {
-            $app_context_path = $app->getContextPath();
-            $app_context_path_len = strlen($app_context_path);
-            $uriBeginsWithAppContext = substr($parsed_request_uri['path'], 0, $app_context_path_len) == $app_context_path;
+        $parsedRequestUri = parse_url($requestUri);
+        foreach (static::$appInfos as $appInfo) {
+            $appContextPath = $appInfo->getContextPath();
+            $requestUriContextPath = substr($parsedRequestUri['path'], 0, strlen($appContextPath));
+            $uriBeginsWithAppContext = $requestUriContextPath == $appContextPath;
             if ($uriBeginsWithAppContext) {
-                $found_app = $app;
+                $foundAppInfo = $appInfo;
                 break;
             }
         }
-        return isset($found_app) ? $found_app : null;
+        return isset($foundAppInfo) ? $foundAppInfo : null;
     }
 
     /**
      * Configure factory: add an AppInfo for creating proxies.
-     * @param $app_info AppInfo
+     * @param $appInfo AppInfo
      */
-    public static function configure($app_info)
+    public static function configure($appInfo)
     {
-        array_push(static::$app_infos, $app_info);
+        array_push(static::$appInfos, $appInfo);
     }
 
     /**
-     * @param $request_uri string
+     * @param $requestUri string
      * @return ApProxy|null
      */
-    public static function create($request_uri)
+    public static function create($requestUri)
     {
-        $allowed_app = static::findApp($request_uri, static::$app_infos);
-        if (isset($allowed_app)) {
-            return new ApProxy($allowed_app, $request_uri);
+        $app = static::findApp($requestUri);
+        if (isset($app)) {
+            return new ApProxy($app, $requestUri);
         } else {
             return null;
         }
