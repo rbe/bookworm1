@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="de"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:o="http://omnifaces.org/ui"
       xmlns:of="http://omnifaces.org/functions"
@@ -42,12 +42,12 @@
                 <h3 class="unsichtbar">Top-Navigation</h3>
                 <div class="topmenu">
                     <ul>
-                        <li><a href="/">Startseite WBH</a></li>
-                        <li><a class="spacer" href="#"></a></li>
-                        <li><a href="hoererdaten.xhtml">Meine Daten</a></li>
-                        <li><a href="hoererbuchausleihe.xhtml">Meine Ausleihe</a></li>
-                        <li><a href="hoererbucharchiv.xhtml">Mein Archiv</a></li>
-                        <li><a class="active" href="hoererbestellkarte.xhtml">Meine Bestellkarte</a></li>
+                        <li><h:outputLink value="/">Startseite WBH</h:outputLink></li>
+                        <li><h:outputLink styleClass="spacer" value="#"></h:outputLink></li>
+                        <li><h:outputLink value="hoererdaten.xhtml">Meine Daten</h:outputLink></li>
+                        <li><h:outputLink value="hoererbuchausleihe.xhtml">Meine Ausleihe</h:outputLink></li>
+                        <li><h:outputLink styleClass="active" value="hoererbestellkarte.xhtml">Meine Bestellkarte</h:outputLink></li>
+                        <li><h:outputLink value="hoererbucharchiv.xhtml">Mein Archiv</h:outputLink></li>
                     </ul>
                 </div>
             </div>
@@ -66,7 +66,8 @@
                     <div class="row firstrow">
                         <div class="col-lg-7">
                             <h1>Bestellkarte</h1>
-                            <h4>offene Titel, Stand: #{of:formatDate(hoererBestellkarte.datumStand, 'dd.MM.yyyy')}</h4></div>
+                            <h4>offene Titel, Stand: #{of:formatDate(hoererBestellkarte.datumStand, 'dd.MM.yyyy')}</h4>
+                        </div>
                         <div class="col-lg-5">
                             <div class="row data">
                                 <div class="col-lg-4">Hörernummer:</div>
@@ -109,7 +110,7 @@
                                     <tbody>
                                     <tr>
                                         <th>Buchtitelnummer</th>
-                                        <th>Sach/Titel/Autor/Dauer</th>
+                                        <th>Sach/Titel/Autor/Dauer/Sprecher</th>
                                     </tr>
                                     <ui:repeat value="#{hoererBestellkarte.books}" var="book" varStatus="status">
                                         <h:outputFormat rendered="#{status.last}">
@@ -123,22 +124,19 @@
                                                 <table>
                                                     <tbody>
                                                     <tr>
-                                                        <td width="120">
-                                                            <span style="font-weight: bold;">Sachgebiet:</span>
-                                                        </td>
                                                         <td>#{book.sachgebiet}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><span style="font-weight: bold;">Titel:</span></td>
                                                         <td>#{book.titel}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><span style="font-weight: bold;">Autor:</span></td>
                                                         <td>#{book.autor}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><span style="font-weight: bold;">Dauer:</span></td>
                                                         <td>#{book.spieldauer}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>#{book.sprecher1}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>

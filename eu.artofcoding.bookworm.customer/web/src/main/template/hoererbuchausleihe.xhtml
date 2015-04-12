@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="de"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -42,12 +42,12 @@
                 <h3 class="unsichtbar">Top-Navigation</h3>
                 <div class="topmenu">
                     <ul>
-                        <li><a href="/">Startseite WBH</a></li>
-                        <li><a class="spacer" href="#"></a></li>
-                        <li><a href="hoererdaten.xhtml">Meine Daten</a></li>
-                        <li><a class="active" href="hoererbuchausleihe.xhtml">Meine Ausleihe</a></li>
-                        <li><a href="hoererbucharchiv.xhtml">Mein Archiv</a></li>
-                        <li><a href="hoererbestellkarte.xhtml">Meine Bestellkarte</a></li>
+                        <li><h:outputLink value="/">Startseite WBH</h:outputLink></li>
+                        <li><h:outputLink styleClass="spacer" value="#"></h:outputLink></li>
+                        <li><h:outputLink value="hoererdaten.xhtml">Meine Daten</h:outputLink></li>
+						<li><h:outputLink styleClass="active" value="hoererbuchausleihe.xhtml">Meine Ausleihe</h:outputLink></li>
+						<li><h:outputLink value="hoererbestellkarte.xhtml">Meine Bestellkarte</h:outputLink></li>
+                        <li><h:outputLink value="hoererbucharchiv.xhtml">Mein Archiv</h:outputLink></li>
                     </ul>
                 </div>
             </div>
@@ -83,7 +83,7 @@
                     <h:form>
                         <div class="row searchrow">
                             <!-- <div class="col-lg-7"><h3>Bestellarchiv</h3></div> -->
-                            <div class="col-lg-7">
+                            <div class="col-lg-6">
                                 <div class="row data">
                                     <div class="col-lg-2">Suchtitel:</div>
                                     <div class="col-lg-10">
@@ -91,21 +91,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <div class="row data">
+                                    <h:commandButton actionListener="#{hoererBuchausleihe.search}" value="Suchen">
+                                        <f:ajax execute="@form" render="archivTabelle"/>
+                                    </h:commandButton>
+                                    <!--
                                     <div class="col-lg-3">Startdatum:</div>
                                     <div class="col-lg-9 right">
                                         <h:inputText class="searchdate" value="#{hoererBuchausleihe.searchDate}"/>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-1">
-                                <div class="row data">
-                                    <div class="col-lg-12">
-                                        <h:commandButton actionListener="#{hoererBuchausleihe.search}" value="Suchen">
-                                            <f:ajax execute="@form" render="archivTabelle"/>
-                                        </h:commandButton>
-                                    </div>
+                                    -->
                                 </div>
                             </div>
                         </div>
@@ -114,8 +110,7 @@
                                 <table class="table table-striped">
                                     <tbody>
                                     <tr>
-                                        <th>X</th>
-                                        <th>Box-Nummer</th>
+                                        <th>Titel.Nr.</th>
                                         <th>Datum</th>
                                         <th>Titel/Autor/Dauer</th>
                                     </tr>
@@ -126,25 +121,19 @@
                                             </tr>
                                         </h:outputFormat>
                                         <tr>
-                                            <td>leer?</td>
-                                            <td>#{belastung.boxnummer}</td>
+                                            <td>#{belastung.book.titelnummer}</td>
                                             <td>#{of:formatDate(belastung.datum, 'dd.MM.yyyy')}</td>
                                             <td>
                                                 <h:panelGroup rendered="#{null != belastung.book}">
                                                     <table>
                                                         <tbody>
                                                         <tr>
-                                                            <td width="120">
-                                                                <span style="font-weight: bold;">Titel:</span>
-                                                            </td>
                                                             <td>#{belastung.book.titel}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td><span style="font-weight: bold;">Autor:</span></td>
                                                             <td>#{belastung.book.autor}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td><span style="font-weight: bold;">Dauer:</span></td>
                                                             <td>#{belastung.book.spieldauer}</td>
                                                         </tr>
                                                         </tbody>

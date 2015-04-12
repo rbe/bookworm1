@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html lang="de"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:o="http://omnifaces.org/ui"
@@ -41,12 +42,12 @@
                 <h3 class="unsichtbar">Top-Navigation</h3>
                 <div class="topmenu">
                     <ul>
-                        <li><a href="/">Startseite WBH</a></li>
-                        <li><a class="spacer" href="#"></a></li>
-                        <li><a href="hoererdaten.xhtml">Meine Daten</a></li>
-                        <li><a href="hoererbuchausleihe.xhtml">Meine Ausleihe</a></li>
-                        <li><a class="active" href="hoererbucharchiv.xhtml">Mein Archiv</a></li>
-                        <li><a href="hoererbestellkarte.xhtml">Meine Bestellkarte</a></li>
+                        <li><h:outputLink value="/">Startseite WBH</h:outputLink></li>
+                        <li><h:outputLink styleClass="spacer" value="#"></h:outputLink></li>
+                        <li><h:outputLink value="hoererdaten.xhtml">Meine Daten</h:outputLink></li>
+                        <li><h:outputLink value="hoererbuchausleihe.xhtml">Meine Ausleihe</h:outputLink></li>
+                        <li><h:outputLink value="hoererbestellkarte.xhtml">Meine Bestellkarte</h:outputLink></li>
+                        <li><h:outputLink styleClass="active" value="hoererbucharchiv.xhtml">Mein Archiv</h:outputLink></li>
                     </ul>
                 </div>
             </div>
@@ -129,15 +130,9 @@
                                                 <table>
                                                     <tbody>
                                                     <tr>
-                                                        <td width="120">
-                                                            <span style="font-weight: bold;">Buchtitel:</span>
-                                                        </td>
                                                         <td>#{k.buch.titel}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
-                                                            <span style="font-weight: bold;">Autor:</span>
-                                                        </td>
                                                         <td>von #{k.buch.autor}</td>
                                                     </tr>
                                                     </tbody>

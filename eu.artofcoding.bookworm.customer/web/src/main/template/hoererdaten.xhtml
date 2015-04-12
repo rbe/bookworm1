@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="de"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:of="http://omnifaces.org/functions"
@@ -8,12 +8,12 @@
     <ui:define name="topmenu">
         <div class="topmenu">
             <ul>
-                <li><a href="/">Startseite WBH</a></li>
-                <li><a class="spacer" href="#"></a></li>
-                <li><a class="active" href="hoererdaten.xhtml">Meine Daten</a></li>
-                <li><a href="hoererbuchausleihe.xhtml">Meine Ausleihe</a></li>
-                <li><a href="hoererbucharchiv.xhtml">Mein Archiv</a></li>
-                <li><a href="hoererbestellkarte.xhtml">Meine Bestellkarte</a></li>
+                <li><h:outputLink value="/">Startseite WBH</h:outputLink></li>
+                <li><h:outputLink styleClass="spacer" value="#"></h:outputLink></li>
+                <li><h:outputLink styleClass="active" value="hoererdaten.xhtml">Meine Daten</h:outputLink></li>
+                <li><h:outputLink value="hoererbuchausleihe.xhtml">Meine Ausleihe</h:outputLink></li>
+                <li><h:outputLink value="hoererbestellkarte.xhtml">Meine Bestellkarte</h:outputLink></li>
+                <li><h:outputLink value="hoererbucharchiv.xhtml">Mein Archiv</h:outputLink></li>
             </ul>
         </div>
     </ui:define>
@@ -51,7 +51,7 @@
                 <div class="col-lg-9">#{hoererdaten.mengenindex}</div>
             </div>
             <div class="row">
-                <div class="col-lg-3">Strasse:</div>
+                <div class="col-lg-3">Straße:</div>
                 <div class="col-lg-9">#{hoererdaten.hoerer.strasse}</div>
             </div>
             <div class="row">
