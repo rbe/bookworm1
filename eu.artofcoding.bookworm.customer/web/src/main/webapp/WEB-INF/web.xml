@@ -8,6 +8,9 @@
     <welcome-file-list>
         <welcome-file>hoererdaten.xhtml</welcome-file>
     </welcome-file-list>
+    <!--
+        Context Parameters
+    -->
     <!-- FaceletsResourceResolver -->
     <context-param>
         <param-name>javax.faces.FACELETS_RESOURCE_RESOLVER</param-name>
@@ -18,9 +21,6 @@
         <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
         <param-value>0</param-value>
     </context-param>
-    <!--
-        Context Parameters.
-    -->
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
@@ -40,12 +40,9 @@
         <param-value>true</param-value>
     </context-param>
     <!--
-        Listeners.
+        Filters
     -->
-    <!--
-        Filters.
-    -->
-    <!-- Encoding Filter -->
+    <!-- Encoding Filter
     <filter>
         <filter-name>Encoding Filter</filter-name>
         <filter-class>eu.artofcoding.beetlejuice.web.EncodingFilter</filter-class>
@@ -54,8 +51,9 @@
         <filter-name>Encoding Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
+    -->
     <!--
-        Servlets.
+        Servlets
     -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
@@ -67,18 +65,30 @@
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
     <!--
-        Session.
+        Security
+    -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>all</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <!--
+        Session
     -->
     <session-config>
-        <session-timeout>60</session-timeout>
+        <session-timeout>15</session-timeout>
         <cookie-config>
             <name>SESSIONID</name>
-            <!--<secure>true</secure>-->
+            <secure>true</secure>
         </cookie-config>
         <tracking-mode>COOKIE</tracking-mode>
     </session-config>
     <!--
-        Error Pages.
+        Error Pages
     -->
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
