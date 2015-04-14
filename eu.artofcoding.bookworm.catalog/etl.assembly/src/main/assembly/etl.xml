@@ -22,7 +22,7 @@
             <outputDirectory>${assembly.root}/docs</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>../etl/conf</directory>
+            <directory>../etl/target/filtered-resources/conf</directory>
             <outputDirectory>${assembly.root}/example/conf</outputDirectory>
         </fileSet>
         <fileSet>

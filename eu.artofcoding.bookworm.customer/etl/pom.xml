@@ -10,6 +10,9 @@
     </parent>
     <artifactId>eu.artofcoding.bookworm.customer.etl</artifactId>
     <packaging>jar</packaging>
+    <properties>
+        <resources.filter>development</resources.filter>
+    </properties>
     <dependencies>
         <!-- Bookworm -->
         <dependency>
@@ -150,7 +153,31 @@
         </dependency>
     </dependencies>
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources/conf</directory>
+                <filtering>true</filtering>
+                <targetPath>${project.build.directory}/filtered-resources/conf</targetPath>
+            </resource>
+        </resources>
+        <filters>
+            <filter>src/main/filter/${resources.filter}.properties</filter>
+        </filters>
         <plugins>
+            <!-- maven-resources-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- maven-jar-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -166,4 +193,12 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>bookworm.delivery</id>
+            <properties>
+                <resources.filter>production</resources.filter>
+            </properties>
+        </profile>
+    </profiles>
 </project>
