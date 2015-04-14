@@ -8,10 +8,8 @@
 
 package eu.artofcoding.bookworm.customer.web;
 
-import eu.artofcoding.bookworm.common.web.jsf.FacesHelper;
 import eu.artofcoding.bookworm.customer.web.persistence.MyData;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -22,14 +20,28 @@ public class HoererSession implements Serializable {
     @Inject
     private MyData myData;
 
-    @PostConstruct
-    private void postConstruct() {
-        final String hoerernummer = FacesHelper.getRequestValue("hnr");
-        final boolean hasHoerernummer = null != hoerernummer && !hoerernummer.isEmpty();
-        if (hasHoerernummer) {
-            myData.init(hoerernummer);
-        }
+    /*
+    @PrePassivate
+    public void prePassivate() {
+        System.out.println(this + ": prePassivate");
     }
+
+    @PostActivate
+    public void postActivate() {
+        System.out.println(this + ": postActivate");
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        System.out.println(this + ": preDestroy");
+    }
+
+    @AroundInvoke
+    public Object intercept(InvocationContext ctx) throws Exception {
+        System.out.println(this + ": " + ctx.getMethod().getName());
+        return ctx.proceed();
+    }
+    */
 
     public MyData getMyData() {
         return myData;
