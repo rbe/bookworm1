@@ -18,5 +18,6 @@ target/
 # JRebel #
 rebel.xml
 
-thirdparty
+thirdparty/
 temp/
+*/web/src/main/php/approxy/vendor/
