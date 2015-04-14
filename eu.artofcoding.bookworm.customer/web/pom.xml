@@ -10,6 +10,9 @@
     </parent>
     <artifactId>eu.artofcoding.bookworm.customer.web</artifactId>
     <packaging>war</packaging>
+    <properties>
+        <webapp.filter>development</webapp.filter>
+    </properties>
     <dependencies>
         <!-- Bookworm API -->
         <dependency>
@@ -68,4 +71,26 @@
             <version>2.0</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+                    <filters>
+                        <filter>${project.basedir}/src/main/filter/${webapp.filter}.properties</filter>
+                    </filters>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>bookworm.delivery</id>
+            <properties>
+                <webapp.filter>production</webapp.filter>
+            </properties>
+        </profile>
+    </profiles>
 </project>

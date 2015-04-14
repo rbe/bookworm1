@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tomee>
+    <Container id="myStatefulContainer" type="STATEFUL">
+        accessTimeout = 5 seconds
+        bulkPassivate = 100
+        cache = org.apache.openejb.core.stateful.SimpleCache
+        capacity = 1000
+        frequency = 60
+        passivator = org.apache.openejb.core.stateful.SimplePassivater
+        timeOut = ${container.session.timeout}
+    </Container>
     <Resource id="bookwormDatasource" type="javax.sql.DataSource">
         JdbcDriver = com.mysql.jdbc.Driver
         JdbcUrl = jdbc:mysql://localhost:3306/bookworm

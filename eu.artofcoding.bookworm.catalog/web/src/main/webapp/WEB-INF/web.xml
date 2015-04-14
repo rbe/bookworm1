@@ -13,7 +13,7 @@
     -->
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
+        <param-value>${project.stage}</param-value>
     </context-param>
     <!-- faces-config.xml is parsed automatically
     <context-param>
@@ -21,6 +21,17 @@
         <param-value>/WEB-INF/faces-config.xml</param-value>
     </context-param>
     -->
+    <!-- FaceletsResourceResolver
+    <context-param>
+        <param-name>javax.faces.FACELETS_RESOURCE_RESOLVER</param-name>
+        <param-value>eu.artofcoding.bookworm.common.web.jsf.FilesystemResourceResolver</param-value>
+    </context-param>
+    -->
+    <!-- Time in seconds that facelets should be checked for changes since last request. A value of -1 disables refresh checking. -->
+    <context-param>
+        <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+        <param-value>0</param-value>
+    </context-param>
     <!--
     http://balusc.blogspot.de/2011/09/communication-in-jsf-20.html
     Also add JVM flag -Dorg.apache.el.parser.COERCE_TO_ZERO=false
@@ -35,7 +46,6 @@
     <!--
         Filters.
     -->
-    <!-- Encoding Filter -->
     <filter>
         <filter-name>Encoding Filter</filter-name>
         <filter-class>eu.artofcoding.beetlejuice.web.EncodingFilter</filter-class>
@@ -61,7 +71,7 @@
         Session.
     -->
     <session-config>
-        <session-timeout>60</session-timeout>
+        <session-timeout>${container.session.timeout}</session-timeout>
         <cookie-config>
             <name>SESSIONID</name>
         </cookie-config>

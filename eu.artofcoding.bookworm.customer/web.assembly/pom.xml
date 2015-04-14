@@ -12,6 +12,7 @@
     <packaging>jar</packaging>
     <properties>
         <assembly.root>${project.artifactId}-${project.version}</assembly.root>
+        <webapp.filter>development</webapp.filter>
     </properties>
     <dependencies>
         <!-- Third Party -->
@@ -45,6 +46,9 @@
                 <targetPath>tomee-resources</targetPath>
             </resource>
         </resources>
+        <filters>
+            <filter>${project.basedir}/../web/src/main/filter/${webapp.filter}.properties</filter>
+        </filters>
         <plugins>
             <!-- maven-jar-plugin -->
             <plugin>
@@ -211,4 +215,12 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>bookworm.delivery</id>
+            <properties>
+                <webapp.filter>production</webapp.filter>
+            </properties>
+        </profile>
+    </profiles>
 </project>

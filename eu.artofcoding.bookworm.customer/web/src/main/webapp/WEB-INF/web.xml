@@ -11,6 +11,10 @@
     <!--
         Context Parameters
     -->
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>${project.stage}</param-value>
+    </context-param>
     <!-- FaceletsResourceResolver -->
     <context-param>
         <param-name>javax.faces.FACELETS_RESOURCE_RESOLVER</param-name>
@@ -20,10 +24,6 @@
     <context-param>
         <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
         <param-value>0</param-value>
-    </context-param>
-    <context-param>
-        <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
     </context-param>
     <!-- faces-config.xml is parsed automatically
     <context-param>
@@ -42,7 +42,6 @@
     <!--
         Filters
     -->
-    <!-- Encoding Filter
     <filter>
         <filter-name>Encoding Filter</filter-name>
         <filter-class>eu.artofcoding.beetlejuice.web.EncodingFilter</filter-class>
@@ -51,7 +50,6 @@
         <filter-name>Encoding Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
-    -->
     <!--
         Servlets
     -->
@@ -67,6 +65,7 @@
     <!--
         Security
     -->
+    <!--
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>all</web-resource-name>
@@ -76,14 +75,16 @@
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
+    -->
     <!--
         Session
     -->
     <session-config>
-        <session-timeout>15</session-timeout>
+        <!-- container.session.timeout -->
+        <session-timeout>${container.session.timeout}</session-timeout>
         <cookie-config>
             <name>SESSIONID</name>
-            <secure>true</secure>
+            <!--<secure>true</secure>-->
         </cookie-config>
         <tracking-mode>COOKIE</tracking-mode>
     </session-config>
@@ -94,6 +95,12 @@
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
         <location>/viewexpired.xhtml</location>
     </error-page>
+    <!--
+    <error-page>
+        <exception-type>org.apache.openjpa.util.UserException</exception-type>
+        <location>/database.xhtml</location>
+    </error-page>
+    -->
     <error-page>
         <error-code>500</error-code>
         <location>/oops.xhtml</location>
