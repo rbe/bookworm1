@@ -7,12 +7,13 @@ ini_set('display_errors', 'On');
 // Joomla
 //
 
+define('JOOMLA_HOME', __DIR__ . '/..');
 define('_JEXEC', 1);
-if (file_exists(__DIR__ . '/defines.php')) {
-    include_once __DIR__ . '/defines.php';
+if (file_exists(JOOMLA_HOME . '/defines.php')) {
+    include_once JOOMLA_HOME . '/defines.php';
 }
 if (!defined('_JDEFINES')) {
-    define('JPATH_BASE', __DIR__);
+    define('JPATH_BASE', JOOMLA_HOME);
     require_once JPATH_BASE . '/includes/defines.php';
 }
 require_once JPATH_BASE . '/includes/framework.php';
@@ -54,7 +55,7 @@ function getHoerernummer()
 // Proxy
 //
 
-include_once 'approxy/autoload.php';
+include_once 'autoload.php';
 use ApProxy\AppInfo;
 use ApProxy\Factory;
 
@@ -82,7 +83,7 @@ function proxyRequestToApp()
     Factory::configure(new AppInfo('customer', 'http://127.0.0.1:8080', '/customer'));
     $approxy = Factory::create($_SERVER['REQUEST_URI']);
     if (isset($approxy)) {
-        $approxy->perform(function ($app, $request_uri) {
+        $customizeUriDelegate = function ($app, $requestUri) {
             /*
             $session = JFactory::getSession();
             if (empty($session->get('is_first_visit'))) {
@@ -101,12 +102,13 @@ function proxyRequestToApp()
             $hnr = getHoerernummer();
             $uriHasQuery = isset($parsed_uri['query']);
             if ($uriHasQuery) {
-                $app_uri = $request_uri . '&hnr=' . $hnr;
+                $appUri = $requestUri . '&hnr=' . $hnr;
             } else {
-                $app_uri = $request_uri . '?hnr=' . $hnr;
+                $appUri = $requestUri . '?hnr=' . $hnr;
             }
-            return $app_uri;
-        });
+            return $appUri;
+        };
+        $approxy->perform($customizeUriDelegate);
     } else {
         ApProxy\HttpHelper::sendHttpRedirectWithStatus('NO_APPROXY');
     }
