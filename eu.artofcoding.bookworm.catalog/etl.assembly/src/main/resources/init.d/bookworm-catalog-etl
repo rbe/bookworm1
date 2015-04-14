@@ -1,11 +1,11 @@
 #!/bin/bash
 ### BEGIN INIT INFO
-# Provides:          bookworm-import
+# Provides:          bookworm-catalog-etl
 # Required-Start:    $local_fs $remote_fs $network $syslog
 # Required-Stop:     $local_fs $remote_fs $network $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Start/Stop bookworm-import
+# Short-Description: Start/Stop bookworm-catalog-etl
 ### END INIT INFO
 # chkconfig: 35 92 1
 
@@ -15,7 +15,7 @@
 
 BOOKWORM_USER=${BOOKWORM_USER:-wbh}
 BOOKWORM_HOME=/home/${BOOKWORM_USER}/${project.artifactId}-${project.version}
-
+export BOOKWORM_HOME
 CAMEL_ENCRYPTION_ALGORITHM=PBEWithMD5AndTripleDES
 export CAMEL_ENCRYPTION_ALGORITHM
 CAMEL_ENCRYPTION_PASSWORD=askjf0984673hjgfjhgfgj3sdflhsdf1245
@@ -24,8 +24,10 @@ export CAMEL_ENCRYPTION_PASSWORD
 case "$1" in
     start)
         echo "Starting $0..."
-        cd $BOOKWORM_HOME
-        sudo -u ${BOOKWORM_USER} java -Dopenjpa.ManagedRuntime=invocation(TransactionManagerMethod=com.atomikos.icatch.jta.TransactionManagerImp.getTransactionManager) -jar ${project.artifactId}-${project.version}.jar 2>/var/log/${project.artifactId}.log 1>&2 &
+        JAVA_OPTS=-D'openjpa.ManagedRuntime=invocation(TransactionManagerMethod=com.atomikos.icatch.jta.TransactionManagerImp.getTransactionManager)'
+        JAR=${project.artifactId}-${project.version}.jar
+        LOG="2>/var/log/${project.artifactId}.log 1>&2"
+        sudo -Eu ${BOOKWORM_USER} sh -c "cd ${BOOKWORM_HOME} ; java ${JAVA_OPTS} -jar ${JAR} ${LOG} &"
     ;;
     stop)
         echo "Stopping $0..."
