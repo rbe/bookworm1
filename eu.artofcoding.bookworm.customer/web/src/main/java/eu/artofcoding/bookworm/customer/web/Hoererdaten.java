@@ -30,12 +30,22 @@ public class Hoererdaten extends AbstractHoererBean {
         return hoererSession.getMyData().getMengenindex();
     }
 
+    public boolean isSperrtermin() {
+        final String sperrKz = hoererSession.getMyData().getSperrKz();
+        return sperrKz != null && !sperrKz.isEmpty();
+    }
+
     public Date getSperrTerminVon() {
         return hoererSession.getMyData().getSperrTerminVon();
     }
 
     public Date getSperrTerminBis() {
         return hoererSession.getMyData().getSperrTerminVon();
+    }
+
+    public boolean isUrlaub() {
+        final String urlaubKennzeichen = getHoerer().getUrlaubKennzeichen();
+        return urlaubKennzeichen != null && !urlaubKennzeichen.isEmpty();
     }
 
     public Date getRueckbuchungsdatum() {

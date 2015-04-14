@@ -71,13 +71,13 @@
                 <div class="col-lg-9">#{hoererdaten.email}</div>
             </div>
             <!-- Sperrtermin nur anzeigen, wenn sperrTerminVon gesetzt ist -->
-            <h:outputFormat rendered="#{!hoererdaten.sperrTerminVon}">
+            <h:outputFormat rendered="#{!hoererdaten.isSperrtermin()}">
                 <div class="row novacation">
                     <div class="col-lg-3">SperrTermin von:</div>
                     <div class="col-lg-9">Sie haben aktuell keinen Sperrtermin angegeben</div>
                 </div>
             </h:outputFormat>
-            <h:outputFormat rendered="#{hoererdaten.sperrTerminVon}">
+            <h:outputFormat rendered="#{hoererdaten.isSperrtermin()}">
                 <div class="row vacation">
                     <div class="col-lg-3">SperrTermin von:</div>
                     <div class="col-lg-9">#{of:formatDate(hoererdaten.sperrTerminVon, 'dd.MM.yyyy')}</div>
@@ -88,13 +88,13 @@
                 </div>
             </h:outputFormat>
             <!-- Urlaub nur anzeigen, wenn urlaubKennzeichen gesetzt ist -->
-            <h:outputFormat rendered="#{!hoererdaten.hoerer.urlaubKennzeichen}">
+            <h:outputFormat rendered="#{!hoererdaten.isUrlaub()}">
                 <div class="row novacation">
                     <div class="col-lg-3">Urlaubsadresse:</div>
                     <div class="col-lg-9">Sie haben aktuell keine Urlaubsadresse hinterlegt</div>
                 </div>
             </h:outputFormat>
-            <h:outputFormat rendered="#{hoererdaten.hoerer.urlaubKennzeichen}">
+            <h:outputFormat rendered="#{hoererdaten.isUrlaub()}">
                 <div class="row vacation">
                     <div class="col-lg-12">Urlaubsadresse:</div>
                 </div>
