@@ -128,6 +128,11 @@
             <artifactId>camel-jasypt</artifactId>
             <version>${version.org.apache.camel}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-quartz2</artifactId>
+            <version>${version.org.apache.camel}</version>
+        </dependency>
         <!-- Database -->
         <dependency>
             <groupId>mysql</groupId>

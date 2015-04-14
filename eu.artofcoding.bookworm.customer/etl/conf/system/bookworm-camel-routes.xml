@@ -12,7 +12,7 @@
                              location="file:${env:BOOKWORM_HOME}/conf/etl.encrypted.properties,file:${env:BOOKWORM_HOME}/conf/etl.properties"
                              propertiesParserRef="jasyptPropertiesParser"/>
         <route id="fetchFromFtpAndProcess" autoStartup="true">
-            <from uri="{{customer.ftp.url}}"/>
+            <from uri="{{customer.ftp.url}}&amp;{{customer.ftp.cron}}"/>
             <log loggingLevel="INFO" message="Got ${file:name}"/>
             <transacted>
                 <convertBodyTo type="java.lang.String"/>
