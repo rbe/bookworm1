@@ -14,14 +14,14 @@ public final class WebFilesystem {
 
     private static final Logger LOGGER = Logger.getLogger(WebFilesystem.class.toString());
 
-    static final String TEMPLATE_SYSTEM_VARIABLE = "WBH_CUSTOMER_TEMPLATE";
+    static final String TEMPLATE_SYSTEM_VARIABLE = "WBH_TEMPLATE";
 
     static final String BASE_PATH;
 
     static {
-        BASE_PATH = System.getenv(WebFilesystem.TEMPLATE_SYSTEM_VARIABLE);
+        BASE_PATH = System.getenv(TEMPLATE_SYSTEM_VARIABLE);
         if (null == WebFilesystem.BASE_PATH) {
-            LOGGER.warning(String.format("Variable %s not set!", WebFilesystem.TEMPLATE_SYSTEM_VARIABLE));
+            LOGGER.warning(String.format("Variable %s not set!", TEMPLATE_SYSTEM_VARIABLE));
         }
     }
 
