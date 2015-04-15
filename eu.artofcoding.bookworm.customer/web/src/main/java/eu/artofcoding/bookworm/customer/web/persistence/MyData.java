@@ -17,10 +17,13 @@ import eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstamm;
 import eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen;
 import eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm;
 import eu.artofcoding.bookworm.customer.web.Hoerernummer;
+import eu.artofcoding.bookworm.customer.web.NoHoerernummerException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.inject.Inject;
+import javax.interceptor.AroundInvoke;
+import javax.interceptor.InvocationContext;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -60,33 +63,17 @@ public class MyData implements Serializable {
 
     private List<BestellkarteArchiv> bestellkarteArchiv;
 
-    /*
-    @PrePassivate
-    public void prePassivate() {
-        System.out.println(this + ": prePassivate");
-    }
+    //</editor-fold>
 
-    @PostActivate
-    public void postActivate() {
-        System.out.println(this + ": postActivate");
-    }
-
-    @PostConstruct
-    public void postConstruct() {
-        System.out.println(this + ": postConstruct, hoerernummer=" + hoerernummer);
-    }
-
-    @PreDestroy
-    public void preDestroy() {
-        System.out.println(this + ": preDestroy");
-    }
+    //<editor-fold desc="Lifecycle">
 
     @AroundInvoke
     public Object intercept(InvocationContext ctx) throws Exception {
-        System.out.println(this + ": " + ctx.getMethod().getName() + " hoerernummer=" + hoerernummer);
+        if (null == hoerernummer) {
+            throw new NoHoerernummerException();
+        }
         return ctx.proceed();
     }
-    */
 
     //</editor-fold>
 
