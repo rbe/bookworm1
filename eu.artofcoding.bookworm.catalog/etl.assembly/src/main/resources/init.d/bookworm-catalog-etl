@@ -23,15 +23,16 @@ export CAMEL_ENCRYPTION_PASSWORD
 
 case "$1" in
     start)
-        echo "Starting $0..."
-        JAVA_OPTS=-D'openjpa.ManagedRuntime=invocation(TransactionManagerMethod=com.atomikos.icatch.jta.TransactionManagerImp.getTransactionManager)'
+        echo "Starting ${project.artifactId}..."
+        JAVA_OPTS="-D'openjpa.ManagedRuntime=invocation(TransactionManagerMethod=com.atomikos.icatch.jta.TransactionManagerImp.getTransactionManager)'"
         JAR=${project.artifactId}-${project.version}.jar
         LOG="2>/var/log/${project.artifactId}.log 1>&2"
         sudo -Eu ${BOOKWORM_USER} sh -c "cd ${BOOKWORM_HOME} ; java ${JAVA_OPTS} -jar ${JAR} ${LOG} &"
     ;;
     stop)
-        echo "Stopping $0..."
-        sudo -u ${BOOKWORM_USER}
+        echo "Stopping ${project.artifactId}..."
+        pid=$(ps ax | grep ${project.artifactId} | grep -v grep | awk '{print $1}')
+        kill ${pid}
     ;;
     encrypt)
         echo "*"
@@ -62,7 +63,8 @@ case "$1" in
         fi
     ;;
     *)
-        echo "Usage: $0 { start | stop }"; exit 1;
+        echo "Usage: $0 { start | stop }"
+        exit 1
     ;;
 esac
 

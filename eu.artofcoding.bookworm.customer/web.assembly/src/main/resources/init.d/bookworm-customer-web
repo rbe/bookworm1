@@ -13,19 +13,28 @@
 ## as well as add the appropriate executables to $PATH.
 [ -r /etc/profile.d/java.sh ] && . /etc/profile.d/java.sh
 
+BOOKWORM_USER=${BOOKWORM_USER:-wbh}
 BOOKWORM_HOME=/home/wbh/${project.artifactId}-${project.version}
+export BOOKWORM_HOME
+CAMEL_ENCRYPTION_ALGORITHM=PBEWithMD5AndTripleDES
+export CAMEL_ENCRYPTION_ALGORITHM
+CAMEL_ENCRYPTION_PASSWORD=askjf0984673hjgfjhgfgj3sdflhsdf1245
+export CAMEL_ENCRYPTION_PASSWORD
 
 case "$1" in
     start)
-        echo "Starting bookworm-customer-web..."
-        sudo -u wbh $BOOKWORM_HOME/apache-tomee/bin/startup.sh 2>/var/log/bookworm-hoererimport.log 1>&2 &
+        echo "Starting ${project.artifactId}..."
+        mkdir ${BOOKWORM_HOME}/apache-tomee/logs
+        chown ${BOOKWORM_USER} ${BOOKWORM_HOME}/apache-tomee/logs
+        sudo -Eu wbh ${BOOKWORM_HOME}/apache-tomee/bin/startup.sh 2>/var/log/${project.artifactId}.log 1>&2 &
     ;;
     stop)
-        echo "Stopping bookworm-customer-web..."
-        sudo -u wbh
+        echo "Stopping ${project.artifactId}..."
+        sudo -u wbh JAVA_OPTS="-Xmx32m" ${BOOKWORM_HOME}/apache-tomee/bin/shutdown.sh
     ;;
     *)
-        echo "Usage: $0 { start | stop }"; exit 1;
+        echo "Usage: $0 { start | stop }"
+        exit 1
     ;;
 esac
 
