@@ -25,15 +25,9 @@
         <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
         <param-value>0</param-value>
     </context-param>
-    <!-- faces-config.xml is parsed automatically
-    <context-param>
-        <param-name>javax.faces.CONFIG_FILES</param-name>
-        <param-value>/WEB-INF/faces-config.xml</param-value>
-    </context-param>
-    -->
     <!--
-    http://balusc.blogspot.de/2011/09/communication-in-jsf-20.html
-    Also add JVM flag -Dorg.apache.el.parser.COERCE_TO_ZERO=false
+        http://balusc.blogspot.de/2011/09/communication-in-jsf-20.html
+        Also add JVM flag -Dorg.apache.el.parser.COERCE_TO_ZERO=false
     -->
     <context-param>
         <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
@@ -93,16 +87,14 @@
     -->
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-        <location>/viewexpired.xhtml</location>
+        <location>/ViewExpiredException.xhtml</location>
     </error-page>
-    <!--
     <error-page>
-        <exception-type>org.apache.openjpa.util.UserException</exception-type>
-        <location>/database.xhtml</location>
+        <exception-type>eu.artofcoding.bookworm.customer.web.NoHoerernummerException</exception-type>
+        <location>/NoHoerernummerException.xhtml</location>
     </error-page>
-    -->
     <error-page>
         <error-code>500</error-code>
-        <location>/oops.xhtml</location>
+        <location>/ErrorCode500.xhtml</location>
     </error-page>
 </web-app>
