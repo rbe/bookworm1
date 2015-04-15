@@ -58,7 +58,7 @@
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
     <!--
-        Session.
+        Session
     -->
     <session-config>
         <session-timeout>${container.session.timeout}</session-timeout>
