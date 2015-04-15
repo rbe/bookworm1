@@ -70,9 +70,9 @@
         </dependency>
         <!-- JPA -->
         <dependency>
-            <groupId>org.apache.openjpa</groupId>
+            <groupId>org.apache.openejb.patch</groupId>
             <artifactId>openjpa-all</artifactId>
-            <version>${version.org.apache.openjpa}</version>
+            <version>${version.org.apache.openejb.patch}</version>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>

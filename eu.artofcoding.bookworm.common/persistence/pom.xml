@@ -30,9 +30,9 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.openjpa</groupId>
+                <groupId>org.apache.openejb.patch</groupId>
                 <artifactId>openjpa-maven-plugin</artifactId>
-                <version>${version.org.apache.openjpa}</version>
+                <version>${version.org.apache.openejb.patch}</version>
                 <executions>
                     <execution>
                         <id>jpa-enhance</id>
