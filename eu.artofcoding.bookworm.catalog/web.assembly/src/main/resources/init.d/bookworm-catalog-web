@@ -1,0 +1,41 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          bookworm-import
+# Required-Start:    $local_fs $remote_fs $network $syslog
+# Required-Stop:     $local_fs $remote_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start/Stop bookworm-import
+### END INIT INFO
+# chkconfig: 35 92 1
+
+## Include some script files in order to set and export environmental variables
+## as well as add the appropriate executables to $PATH.
+[ -r /etc/profile.d/java.sh ] && . /etc/profile.d/java.sh
+
+BOOKWORM_USER=${BOOKWORM_USER:-wbh}
+BOOKWORM_HOME=/home/wbh/${project.artifactId}-${project.version}
+export BOOKWORM_HOME
+CAMEL_ENCRYPTION_ALGORITHM=PBEWithMD5AndTripleDES
+export CAMEL_ENCRYPTION_ALGORITHM
+CAMEL_ENCRYPTION_PASSWORD=askjf0984673hjgfjhgfgj3sdflhsdf1245
+export CAMEL_ENCRYPTION_PASSWORD
+
+case "$1" in
+    start)
+        echo "Starting ${project.artifactId}..."
+        mkdir ${BOOKWORM_HOME}/apache-tomee/logs
+        chown ${BOOKWORM_USER} ${BOOKWORM_HOME}/apache-tomee/logs
+        sudo -Eu wbh ${BOOKWORM_HOME}/apache-tomee/bin/startup.sh 2>/var/log/${project.artifactId}.log 1>&2 &
+    ;;
+    stop)
+        echo "Stopping ${project.artifactId}..."
+        sudo -u wbh JAVA_OPTS="-Xmx32m" ${BOOKWORM_HOME}/apache-tomee/bin/shutdown.sh
+    ;;
+    *)
+        echo "Usage: $0 { start | stop }"
+        exit 1
+    ;;
+esac
+
+exit 0

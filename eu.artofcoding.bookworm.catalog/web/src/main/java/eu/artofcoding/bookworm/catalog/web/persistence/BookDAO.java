@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.catalog.web;
+package eu.artofcoding.bookworm.catalog.web.persistence;
 
 import eu.artofcoding.beetlejuice.persistence.GenericDAO;
 import eu.artofcoding.bookworm.common.persistence.book.Book;

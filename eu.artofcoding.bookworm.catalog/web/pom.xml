@@ -20,6 +20,10 @@
             <groupId>eu.artofcoding.bookworm</groupId>
             <artifactId>eu.artofcoding.bookworm.common.persistence</artifactId>
         </dependency>
+        <dependency>
+            <groupId>eu.artofcoding.bookworm</groupId>
+            <artifactId>eu.artofcoding.bookworm.common.web</artifactId>
+        </dependency>
         <!-- Beetlejuice -->
         <dependency>
             <groupId>eu.artofcoding.beetlejuice</groupId>

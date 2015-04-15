@@ -15,6 +15,7 @@ import eu.artofcoding.beetlejuice.email.Postman;
 import eu.artofcoding.beetlejuice.email.cdi.QPostman;
 import eu.artofcoding.beetlejuice.persistence.PaginateableSearch;
 import eu.artofcoding.beetlejuice.template.TemplateProcessor;
+import eu.artofcoding.bookworm.catalog.web.persistence.BookDAO;
 import eu.artofcoding.bookworm.common.persistence.basket.Basket;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 import eu.artofcoding.bookworm.common.persistence.book.Sachgebiet;
@@ -248,7 +249,7 @@ public class BookwormBean implements Serializable {
      * @return String Navigation case.
      */
     public String search() {
-        String nextPage = "oops";
+        String nextPage = "ErrorCode500";
         try {
             if (null != stichwort && stichwort.length() > 0) {
                 nextPage = search1();
