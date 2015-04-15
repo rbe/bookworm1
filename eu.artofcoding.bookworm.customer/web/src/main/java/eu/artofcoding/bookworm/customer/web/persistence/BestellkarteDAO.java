@@ -59,8 +59,9 @@ public class BestellkarteDAO extends GenericDAO<Bestellkarte> implements Seriali
         return bestellkarte;
     }
 
-    public List<Book> findBookByTitel(final String titel) {
+    public List<Book> findBookByTitel(final String hoerernummer, final String titel) {
         final TypedQuery<Book> namedQuery = entityManager.createNamedQuery("Bestellkarte.findBooksByTitel", Book.class);
+        namedQuery.setParameter("hoerernummer", hoerernummer);
         namedQuery.setParameter("titel", titel);
         return namedQuery.getResultList();
     }
