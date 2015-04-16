@@ -35,6 +35,11 @@
     <build>
         <resources>
             <resource>
+                <directory>src/main/resources/init.d</directory>
+                <filtering>true</filtering>
+                <targetPath>init.d</targetPath>
+            </resource>
+            <resource>
                 <directory>src/main/resources/tomee</directory>
                 <filtering>true</filtering>
                 <targetPath>tomee-resources</targetPath>
@@ -53,13 +58,43 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
                 <executions>
                     <execution>
                         <phase>process-resources</phase>
                         <goals>
                             <goal>resources</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- maven-antrun-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>mkdir-tomee</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${project.build.directory}/apache-tomee-dist"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>unzip-tomee-dist</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <unzip src="${project.build.directory}/apache-tomee-dist/${project.artifactId}-${project.version}.zip" dest="${project.build.directory}/apache-tomee-dist-unzip"/>
+                            </target>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -90,6 +125,7 @@
                             <webapps>
                                 <webapp>eu.artofcoding.bookworm:eu.artofcoding.bookworm.catalog.web:${project.version}:war</webapp>
                             </webapps>
+                            <zipFile>${project.build.directory}/apache-tomee-dist/${project.build.finalName}.zip</zipFile>
                         </configuration>
                     </execution>
                     <execution>
