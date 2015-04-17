@@ -28,10 +28,6 @@ public class BestellkarteDAO extends GenericDAO<Bestellkarte> implements Seriali
     @PersistenceContext
     private EntityManager em;
 
-    private Long aktuelleBestellkarteCount;
-
-    private Bestellkarte bestellkarte;
-
     public BestellkarteDAO() {
         super(Bestellkarte.class);
     }
@@ -41,25 +37,19 @@ public class BestellkarteDAO extends GenericDAO<Bestellkarte> implements Seriali
         setEntityManager(em);
     }
 
-    public long countByHoerernummer(final String hoerernummer) {
-        if (null == aktuelleBestellkarteCount) {
-            final TypedQuery<Long> namedQuery = em.createNamedQuery("Bestellkarte.countBooksByHoerernummer", Long.class);
-            namedQuery.setParameter("hoerernummer", hoerernummer);
-            aktuelleBestellkarteCount = namedQuery.getSingleResult();
-        }
-        return aktuelleBestellkarteCount;
+    public long countBooksByHoerernummer(final String hoerernummer) {
+        final TypedQuery<Long> namedQuery = em.createNamedQuery("Bestellkarte.countBooksByHoerernummer", Long.class);
+        namedQuery.setParameter("hoerernummer", hoerernummer);
+        return namedQuery.getSingleResult();
     }
 
     public Bestellkarte findByHoerernummer(final String hoerernummer) {
-        if (null == bestellkarte) {
-            final Map<String, Object> map = new HashMap<>();
-            map.put("hoerernummer", hoerernummer);
-            bestellkarte = findOne("Bestellkarte.findByHoerernummer", map);
-        }
-        return bestellkarte;
+        final Map<String, Object> map = new HashMap<>();
+        map.put("hoerernummer", hoerernummer);
+        return findOne("Bestellkarte.findByHoerernummer", map);
     }
 
-    public List<Book> findBookByTitel(final String hoerernummer, final String titel) {
+    public List<Book> findBooksByTitel(final String hoerernummer, final String titel) {
         final TypedQuery<Book> namedQuery = entityManager.createNamedQuery("Bestellkarte.findBooksByTitel", Book.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);
         namedQuery.setParameter("titel", titel);

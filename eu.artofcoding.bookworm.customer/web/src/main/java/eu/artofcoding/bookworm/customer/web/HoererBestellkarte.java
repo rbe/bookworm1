@@ -36,7 +36,9 @@ public class HoererBestellkarte extends AbstractHoererBean {
     public Bestellkarte getBestellkarte() {
         if (null == bestellkarte) {
             bestellkarte = hoererSession.getMyData().getBestellkarte();
-            books = bestellkarte.getBooks();
+            // TODO Fix ManyToMany/NamedQuery? books = bestellkarte.getBooks();
+            searchTitle = "";
+            search(null);
         }
         return bestellkarte;
     }

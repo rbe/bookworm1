@@ -243,7 +243,7 @@ public class MyData implements Serializable {
     //</editor-fold>
 
     public long getAktuelleBestellkarteCount() {
-        return bestellkarteDAO.countByHoerernummer(hoerernummer);
+        return bestellkarteDAO.countBooksByHoerernummer(hoerernummer);
     }
 
     public Bestellkarte getBestellkarte() {
@@ -254,7 +254,7 @@ public class MyData implements Serializable {
     }
 
     public List<Book> findAktuelleBestellkarteBooksByTitel(final String titel) {
-        return bestellkarteDAO.findBookByTitel(hoerernummer, titel);
+        return bestellkarteDAO.findBooksByTitel(hoerernummer, titel);
     }
 
     public List<BestellkarteArchiv> getBestellkarteArchiv() {
