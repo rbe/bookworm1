@@ -100,7 +100,8 @@ function proxyRequestToApp()
             }
             */
             $hnr = getHoerernummer();
-            $uriHasQuery = isset($parsed_uri['query']);
+            $parsedRequestUri = parse_url($requestUri);
+            $uriHasQuery = isset($parsedRequestUri['query']);
             if ($uriHasQuery) {
                 $appUri = $requestUri . '&hnr=' . $hnr;
             } else {

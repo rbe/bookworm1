@@ -29,16 +29,16 @@ class ApProxy
     }
 
     /**
-     * @param $app_request_uri string
+     * @param $appRequestUri string
      */
-    private function requestResponseWithApp($app_request_uri)
+    private function requestResponseWithApp($appRequestUri)
     {
         $proxy_destination = $this->appInfo->getProxyDestination();
-        $parameterSet = isset($proxy_destination) && isset($app_request_uri);
+        $parameterSet = isset($proxy_destination) && isset($appRequestUri);
         if ($parameterSet) {
-            $forward_to_url = $proxy_destination . $app_request_uri;
+            $forwardToUrl = $proxy_destination . $appRequestUri;
             $request = Request::createFromGlobals();
-            $response = Factory::forward($request)->to($forward_to_url);
+            $response = Factory::forward($request)->to($forwardToUrl);
             $response->send();
         } else {
             HttpHelper::sendHttpRedirectWithStatus('NO_APP_REQUEST');
@@ -46,17 +46,17 @@ class ApProxy
     }
 
     /**
-     * @param $customize_uri_delegate
+     * @param $customizeUriDelegate
      */
-    public function perform($customize_uri_delegate)
+    public function perform($customizeUriDelegate)
     {
-        if (isset($customize_uri_delegate)) {
-            $app_uri = $customize_uri_delegate($this->appInfo, $this->requestUri);
+        if (isset($customizeUriDelegate)) {
+            $appUri = $customizeUriDelegate($this->appInfo, $this->requestUri);
         }
-        if (isset($app_uri)) {
-            $this->requestResponseWithApp($app_uri);
-        } else if (isset($request_uri)) {
-            $this->requestResponseWithApp($request_uri);
+        if (isset($appUri)) {
+            $this->requestResponseWithApp($appUri);
+        } else if (isset($requestUri)) {
+            $this->requestResponseWithApp($requestUri);
         } else {
             HttpHelper::sendHttpRedirectWithStatus('NO_APP_URI');
         }
