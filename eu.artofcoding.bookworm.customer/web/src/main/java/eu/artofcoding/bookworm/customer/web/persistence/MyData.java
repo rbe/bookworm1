@@ -155,14 +155,14 @@ public class MyData implements Serializable {
         return getHoererstamm().getVorname();
     }
 
-    //</editor-fold>
-
     public Hoererstamm getHoererstamm() {
         if (null == hoererstamm) {
             hoererstamm = hoererstammDAO.findByHoerernummer(hoerernummer);
         }
         return hoererstamm;
     }
+
+    //</editor-fold>
 
     //<editor-fold desc="HoererBuchstamm">
 
@@ -221,6 +221,10 @@ public class MyData implements Serializable {
         return hoererBuchstamm;
     }
 
+    public List<Belastung> findBelastungenBooksByTitleOrDatum(final String titel, final Date datum) {
+        return hoererBuchstammDAO.findBelastungenBooksByTitleOrDatum(hoerernummer, titel, datum);
+    }
+
     //</editor-fold>
 
     //<editor-fold desc="HoererKennzeichen">
@@ -263,10 +267,6 @@ public class MyData implements Serializable {
     public List<BestellkarteArchiv> findBestellkarteArchivByTitelOrDatum(final String title, final Date datum) {
         bestellkarteArchiv = bestellkarteArchivDAO.findByTitleOrDatum(hoerernummer, title, datum);
         return bestellkarteArchiv;
-    }
-
-    public List<Belastung> findBelastungenBooksByTitleOrDatum(final String titel, final Date datum) {
-        return hoererBuchstammDAO.findBelastungenBooksByTitleOrDatum(hoerernummer, titel, datum);
     }
 
 }

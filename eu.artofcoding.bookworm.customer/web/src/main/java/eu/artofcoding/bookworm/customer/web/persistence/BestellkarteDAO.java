@@ -43,7 +43,7 @@ public class BestellkarteDAO extends GenericDAO<Bestellkarte> implements Seriali
 
     public long countByHoerernummer(final String hoerernummer) {
         if (null == aktuelleBestellkarteCount) {
-            final TypedQuery<Long> namedQuery = em.createNamedQuery("Bestellkarte.countByHoerernummer", Long.class);
+            final TypedQuery<Long> namedQuery = em.createNamedQuery("Bestellkarte.countBooksByHoerernummer", Long.class);
             namedQuery.setParameter("hoerernummer", hoerernummer);
             aktuelleBestellkarteCount = namedQuery.getSingleResult();
         }

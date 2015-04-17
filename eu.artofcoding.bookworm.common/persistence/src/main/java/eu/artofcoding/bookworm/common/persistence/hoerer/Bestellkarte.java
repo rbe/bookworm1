@@ -30,8 +30,8 @@ import java.util.List;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Bestellkarte.countByHoerernummer", query = "SELECT COUNT(o.books) FROM Bestellkarte o WHERE o.hoerernummer = :hoerernummer"),
-        @NamedQuery(name = "Bestellkarte.findByHoerernummer", query = "SELECT o FROM Bestellkarte o WHERE o.hoerernummer = :hoerernummer"),
+        @NamedQuery(name = "Bestellkarte.countBooksByHoerernummer", query = "SELECT COUNT(o.books) FROM Bestellkarte o WHERE o.hoerernummer = :hoerernummer"),
+        @NamedQuery(name = "Bestellkarte.findBooksByHoerernummer", query = "SELECT b FROM Bestellkarte o INNER JOIN o.books bWHERE o.hoerernummer = :hoerernummer"),
         @NamedQuery(name = "Bestellkarte.findBooksByTitel", query = "SELECT b FROM Bestellkarte o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer AND b.titel LIKE :titel")
 })
 public class Bestellkarte implements GenericEntity {
