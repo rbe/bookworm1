@@ -133,7 +133,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>start-tomee-retoure-all</id>
+                        <id>start-tomee</id>
                         <phase>pre-integration-test</phase>
                         <goals>
                             <goal>start</goal>
@@ -143,7 +143,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>stop-tomee-retoure-all</id>
+                        <id>stop-tomee</id>
                         <phase>post-integration-test</phase>
                         <goals>
                             <goal>stop</goal>
