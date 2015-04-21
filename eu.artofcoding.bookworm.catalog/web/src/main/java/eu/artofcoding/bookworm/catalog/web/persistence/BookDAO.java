@@ -11,14 +11,24 @@ package eu.artofcoding.bookworm.catalog.web.persistence;
 import eu.artofcoding.beetlejuice.persistence.GenericDAO;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
-import java.io.Serializable;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Stateless
-public class BookDAO extends GenericDAO<Book> implements Serializable {
+public class BookDAO extends GenericDAO<Book> {
+
+    @PersistenceContext
+    private EntityManager em;
 
     public BookDAO() {
         super(Book.class);
+    }
+
+    @PostConstruct
+    private void postConstruct() {
+        setEntityManager(em);
     }
 
 }

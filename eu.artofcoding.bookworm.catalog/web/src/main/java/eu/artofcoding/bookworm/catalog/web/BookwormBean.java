@@ -39,11 +39,21 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static eu.artofcoding.beetlejuice.api.BeetlejuiceConstant.*;
+import static eu.artofcoding.beetlejuice.api.BeetlejuiceConstant.AND;
+import static eu.artofcoding.beetlejuice.api.BeetlejuiceConstant.GREATER_EQUAL;
+import static eu.artofcoding.beetlejuice.api.BeetlejuiceConstant.LIKE;
+import static eu.artofcoding.beetlejuice.api.BeetlejuiceConstant.OR;
+import static eu.artofcoding.beetlejuice.api.BeetlejuiceConstant.SPACE;
 import static eu.artofcoding.beetlejuice.email.cdi.TransportType.SSL_TLS;
 
 @SessionScoped
@@ -104,8 +114,6 @@ public class BookwormBean implements Serializable {
 
     @PostConstruct
     public void initialize() {
-        // DAO
-        bookDAO.setEntityManager(entityManager);
         // Initialize TemplateProcessor
         ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         templateProcessor.addTemplateLoader(context, "/resources/bookworm");
