@@ -8,9 +8,6 @@
 
 package eu.artofcoding.bookworm.customer.web;
 
-import eu.artofcoding.bookworm.customer.web.persistence.MyData;
-
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 public class AbstractHoererBean {
@@ -20,25 +17,18 @@ public class AbstractHoererBean {
 
     protected String searchTitle = "";
 
-    protected String searchDate = "tt.mm.jjjj";
-
-    protected MyData myData;
-
-    @PostConstruct
-    private void postConstruct() {
-        myData = hoererSession.getMyData();
-    }
+    protected String searchDate = "";
 
     public String getHoerernummer() {
-        return null != myData ? myData.getHoerernummer() : "";
+        return hoererSession.getMyData().getHoerernummer();
     }
 
     public String getVorname() {
-        return null != myData ? myData.getVorname() : "";
+        return hoererSession.getMyData().getVorname();
     }
 
     public String getNachname() {
-        return null != myData ? myData.getNachname() : "";
+        return hoererSession.getMyData().getNachname();
     }
 
     public String getSearchTitle() {

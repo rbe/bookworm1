@@ -9,7 +9,7 @@
         <div class="topmenu">
             <ul>
                 <li><h:outputLink value="/">Startseite WBH</h:outputLink></li>
-                <li><h:outputLink styleClass="spacer" value="#"></h:outputLink></li>
+                <li><h:outputLink value="/login-bereich.html">Login</h:outputLink></li>
                 <li><h:outputLink styleClass="active" value="hoererdaten.xhtml">Meine Daten</h:outputLink></li>
                 <li><h:outputLink value="hoererbuchausleihe.xhtml">Meine Ausleihe</h:outputLink></li>
                 <li><h:outputLink value="hoererbestellkarte.xhtml">Meine Bestellkarte</h:outputLink></li>
@@ -24,23 +24,23 @@
             </div>
             <div class="row">
                 <div class="col-lg-3">Hörernummer:</div>
-                <div class="col-lg-9">#{hoererdaten.hoerer.hoerernummer}</div>
+                <div class="col-lg-9">#{hoererdaten.hoererstamm.hoerernummer}</div>
             </div>
             <div class="row">
                 <div class="col-lg-3">Nachname:</div>
-                <div class="col-lg-9">#{hoererdaten.hoerer.nachname}</div>
+                <div class="col-lg-9">#{hoererdaten.hoererstamm.nachname}</div>
             </div>
             <div class="row">
                 <div class="col-lg-3">Nachnamenszusatz:</div>
-                <div class="col-lg-9">#{hoererdaten.hoerer.name2}</div>
+                <div class="col-lg-9">#{hoererdaten.hoererstamm.name2}</div>
             </div>
             <div class="row">
                 <div class="col-lg-3">Vorname:</div>
-                <div class="col-lg-9">#{hoererdaten.hoerer.vorname}</div>
+                <div class="col-lg-9">#{hoererdaten.hoererstamm.vorname}</div>
             </div>
             <div class="row">
-                <div class="col-lg-3">Geburtstdatum:</div>
-                <div class="col-lg-9">#{of:formatDate(hoererdaten.hoerer.geburtsdatum, 'dd.MM.yyyy')}</div>
+                <div class="col-lg-3">Geburtsdatum:</div>
+                <div class="col-lg-9">#{of:formatDate(hoererdaten.hoererstamm.geburtsdatum, 'dd.MM.yyyy')}</div>
             </div>
             <div class="row">
                 <div class="col-lg-3">Adresszusatz:</div>
@@ -52,55 +52,53 @@
             </div>
             <div class="row">
                 <div class="col-lg-3">Straße:</div>
-                <div class="col-lg-9">#{hoererdaten.hoerer.strasse}</div>
+                <div class="col-lg-9">#{hoererdaten.hoererstamm.strasse}</div>
             </div>
             <div class="row">
                 <div class="col-lg-3">PLZ:</div>
-                <div class="col-lg-9">#{hoererdaten.hoerer.plz}</div>
+                <div class="col-lg-9">#{hoererdaten.hoererstamm.plz}</div>
             </div>
             <div class="row">
                 <div class="col-lg-3">Ort:</div>
-                <div class="col-lg-9">#{hoererdaten.hoerer.ort}</div>
+                <div class="col-lg-9">#{hoererdaten.hoererstamm.ort}</div>
             </div>
             <div class="row">
                 <div class="col-lg-3">Land:</div>
-                <div class="col-lg-9">#{hoererdaten.hoerer.land}</div>
+                <div class="col-lg-9">#{hoererdaten.hoererstamm.land}</div>
             </div>
             <div class="row">
                 <div class="col-lg-3">Emailadresse:</div>
                 <div class="col-lg-9">#{hoererdaten.email}</div>
             </div>
-            <!-- Sperrtermin nur anzeigen, wenn sperrTerminVon gesetzt ist -->
-            <h:outputFormat rendered="#{!hoererdaten.isSperrtermin()}">
+            <h:outputFormat rendered="#{!hoererdaten.hasSperrtermin()}">
                 <div class="row novacation">
                     <div class="col-lg-3">SperrTermin von:</div>
                     <div class="col-lg-9">Sie haben aktuell keinen Sperrtermin angegeben</div>
                 </div>
             </h:outputFormat>
-            <h:outputFormat rendered="#{hoererdaten.isSperrtermin()}">
+            <h:outputFormat rendered="#{hoererdaten.hasSperrtermin()}">
                 <div class="row vacation">
-                    <div class="col-lg-3">SperrTermin von:</div>
+                    <div class="col-lg-3">Sperrtermin von:</div>
                     <div class="col-lg-9">#{of:formatDate(hoererdaten.sperrTerminVon, 'dd.MM.yyyy')}</div>
                 </div>
                 <div class="row vacationend">
-                    <div class="col-lg-3">SperrTermin bis:</div>
+                    <div class="col-lg-3">Sperrtermin bis:</div>
                     <div class="col-lg-9">#{of:formatDate(hoererdaten.sperrTerminBis, 'dd.MM.yyyy')}</div>
                 </div>
             </h:outputFormat>
-            <!-- Urlaub nur anzeigen, wenn urlaubKennzeichen gesetzt ist -->
-            <h:outputFormat rendered="#{!hoererdaten.isUrlaub()}">
+            <h:outputFormat rendered="#{!hoererdaten.hasUrlaub()}">
                 <div class="row novacation">
                     <div class="col-lg-3">Urlaubsadresse:</div>
                     <div class="col-lg-9">Sie haben aktuell keine Urlaubsadresse hinterlegt</div>
                 </div>
             </h:outputFormat>
-            <h:outputFormat rendered="#{hoererdaten.isUrlaub()}">
+            <h:outputFormat rendered="#{hoererdaten.hasUrlaub()}">
                 <div class="row vacation">
                     <div class="col-lg-12">Urlaubsadresse:</div>
                 </div>
                 <div class="row">
                     <div class="col-lg-3">Namenszusatz:</div>
-                    <div class="col-lg-9">#{hoererdaten.hoerer.urlaubName2}</div>
+                    <div class="col-lg-9">#{hoererdaten.hoererstamm.urlaubName2}</div>
                 </div>
                 <div class="row">
                     <div class="col-lg-3">Adresszusatz:</div>
@@ -108,27 +106,27 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-3">Strasse:</div>
-                    <div class="col-lg-9">#{hoererdaten.hoerer.urlaubStrasse}</div>
+                    <div class="col-lg-9">#{hoererdaten.hoererstamm.urlaubStrasse}</div>
                 </div>
                 <div class="row">
                     <div class="col-lg-3">PLZ:</div>
-                    <div class="col-lg-9">#{hoererdaten.hoerer.urlaubPlz}</div>
+                    <div class="col-lg-9">#{hoererdaten.hoererstamm.urlaubPlz}</div>
                 </div>
                 <div class="row">
                     <div class="col-lg-3">Ort:</div>
-                    <div class="col-lg-9">#{hoererdaten.hoerer.urlaubOrt}</div>
+                    <div class="col-lg-9">#{hoererdaten.hoererstamm.urlaubOrt}</div>
                 </div>
                 <div class="row">
                     <div class="col-lg-3">Land:</div>
-                    <div class="col-lg-9">#{hoererdaten.hoerer.urlaubLand}</div>
+                    <div class="col-lg-9">#{hoererdaten.hoererstamm.urlaubLand}</div>
                 </div>
                 <div class="row">
                     <div class="col-lg-3">Urlaub von:</div>
-                    <div class="col-lg-9">#{of:formatDate(hoererdaten.hoerer.urlaubVon, 'dd.MM.yyyy')}</div>
+                    <div class="col-lg-9">#{of:formatDate(hoererdaten.hoererstamm.urlaubVon, 'dd.MM.yyyy')}</div>
                 </div>
                 <div class="row vacationend">
                     <div class="col-lg-3">Urlaub bis:</div>
-                    <div class="col-lg-9">#{of:formatDate(hoererdaten.hoerer.urlaubBis, 'dd.MM.yyyy')}</div>
+                    <div class="col-lg-9">#{of:formatDate(hoererdaten.hoererstamm.urlaubBis, 'dd.MM.yyyy')}</div>
                 </div>
             </h:outputFormat>
             <div class="row">

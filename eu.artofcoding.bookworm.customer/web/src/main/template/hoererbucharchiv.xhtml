@@ -25,25 +25,32 @@
 </h:head>
 <h:body>
     <div id="head">
-        <p class="unsichtbar">
+        <span class="unsichtbar">
             <a name="top"></a>
-            <a href="#content" accesskey="2">zum Inhalt springen</a>
-        </p>
+            <a accesskey="2" href="#content">zum Inhalt springen</a>
+            <br/>
+            <a accesskey="3" href="#topmenu">zur Top-Navigation springen</a>
+        </span>
     </div>
     <div id="all">
         <div id="logo">
+            <h2 class="unsichtbar">WBH Logo</h2>
             <img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="/templates/wbh/images/logo_wbh.gif"/>
         </div>
         <div id="header">
             <div id="slider">
+                <h2 class="unsichtbar">WBH Grafikbanner</h2>
                 <img width="974px" height="237px" src="/templates/wbh/images/header-start.jpg" alt="Westdeutsche Blindenhörbücherei e.V." style="z-index:0;"/>
             </div>
             <div id="topmenu">
-                <h3 class="unsichtbar">Top-Navigation</h3>
+                <h2 class="unsichtbar">
+                    <a name="topmenu"></a>
+                    Top-Navigation
+                </h2>
                 <div class="topmenu">
                     <ul>
                         <li><h:outputLink value="/">Startseite WBH</h:outputLink></li>
-                        <li><h:outputLink styleClass="spacer" value="#"></h:outputLink></li>
+                        <li><h:outputLink value="/login-bereich.html">Login</h:outputLink></li>
                         <li><h:outputLink value="hoererdaten.xhtml">Meine Daten</h:outputLink></li>
                         <li><h:outputLink value="hoererbuchausleihe.xhtml">Meine Ausleihe</h:outputLink></li>
                         <li><h:outputLink value="hoererbestellkarte.xhtml">Meine Bestellkarte</h:outputLink></li>
@@ -56,11 +63,11 @@
         <div class="clr"></div>
         <div id="contentarea">
             <div id="main">
-                <div class="header">
-                    <h1 class="unsichtbar">
+                <div class="maincontent">
+                    <h2 class="unsichtbar">
                         <a name="content"></a>
                         Inhalt
-                    </h1>
+                    </h2>
                 </div>
                 <div class="container">
                     <div class="row firstrow">
@@ -83,33 +90,35 @@
                     <h:form>
                         <div class="row searchrow">
                             <!-- <div class="col-lg-7"><h3>Bestellarchiv</h3></div> -->
-                            <div class="col-lg-7">
+                            <div class="col-lg-12">
                                 <div class="row data">
-                                    <div class="col-lg-2">Suchtitel:</div>
-                                    <div class="col-lg-10">
-                                        <h:inputText class="searchtitle" value="#{hoererBucharchiv.searchTitle}"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="row data">
-                                    <div class="col-lg-3">Startdatum:</div>
-                                    <div class="col-lg-9 right">
+                                    <div class="col-lg-2">Startdatum:</div>
+                                    <div class="col-lg-9">
                                         <h:inputText class="searchdate" value="#{hoererBucharchiv.searchDate}"/>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-1">
-                                <div class="row data">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-1">
                                         <h:commandButton actionListener="#{hoererBucharchiv.search}" value="Suchen">
                                             <f:ajax execute="@form" render="archivTabelle"/>
                                         </h:commandButton>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-12">
+                                <div class="row data">
+                                    <div class="col-lg-2">Suchtitel:</div>
+                                    <div class="col-lg-9">
+                                        <h:inputText class="searchtitle" value="#{hoererBucharchiv.searchTitle}"/>
+                                    </div>
+                                    <div class="col-lg-1">
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <h:panelGroup id="archivTabelle" layout="block" styleClass="row">
+                        <h:panelGroup rendered="#{!hoererBucharchiv.hasBestellkartenArchiv()}" layout="block" styleClass="row">
+                            Es sind keine Bestellungen im Archiv!
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{hoererBucharchiv.hasBestellkartenArchiv()}" id="archivTabelle" layout="block" styleClass="row">
                             <div class="col-lg-12">
                                 <table class="table table-striped">
                                     <tbody>
@@ -118,7 +127,7 @@
                                         <th>Buchtitel/Autor</th>
                                         <th>Ausleihdatum</th>
                                     </tr>
-                                    <ui:repeat value="#{hoererBucharchiv.bestellkarte}" var="k" varStatus="status">
+                                    <ui:repeat value="#{hoererBucharchiv.bestellkartenArchiv}" var="k" varStatus="status">
                                         <h:outputFormat rendered="#{status.last}">
                                             <tr>
                                                 <td colspan="3" class="lastrow">Hinweis: Es folgt der letzte Datensatz</td>

@@ -26,14 +26,19 @@ public class HoererBestellkarte extends AbstractHoererBean {
     private List<Book> books;
 
     public Date getDatumStand() {
-        return getBestellkarte().getDatumStand();
+        final Bestellkarte bestellkarte = getBestellkarte();
+        if (null != bestellkarte) {
+            return bestellkarte.getDatumStand();
+        } else {
+            return null;
+        }
     }
 
     public long getAktuelleBestellkarteCount() {
         return hoererSession.getMyData().getAktuelleBestellkarteCount();
     }
 
-    public Bestellkarte getBestellkarte() {
+    private Bestellkarte getBestellkarte() {
         if (null == bestellkarte) {
             bestellkarte = hoererSession.getMyData().getBestellkarte();
             // TODO Fix ManyToMany/NamedQuery? books = bestellkarte.getBooks();
@@ -41,6 +46,10 @@ public class HoererBestellkarte extends AbstractHoererBean {
             search(null);
         }
         return bestellkarte;
+    }
+
+    public boolean hasBooks() {
+        return null != books && books.size() > 0;
     }
 
     public List<Book> getBooks() {

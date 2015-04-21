@@ -23,7 +23,12 @@ public class HoererBucharchiv extends AbstractHoererBean {
 
     private List<BestellkarteArchiv> bestellkarteArchiv;
 
-    public List<BestellkarteArchiv> getBestellkarte() {
+    public boolean hasBestellkartenArchiv() {
+        List<BestellkarteArchiv> bestellkarteArchiv = getBestellkartenArchiv();
+        return null != bestellkarteArchiv && bestellkarteArchiv.size() > 0;
+    }
+
+    public List<BestellkarteArchiv> getBestellkartenArchiv() {
         if (null == bestellkarteArchiv) {
             bestellkarteArchiv = hoererSession.getMyData().getBestellkarteArchiv();
         }

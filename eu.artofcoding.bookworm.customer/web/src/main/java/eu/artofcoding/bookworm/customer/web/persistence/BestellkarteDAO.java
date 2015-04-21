@@ -15,6 +15,7 @@ import eu.artofcoding.bookworm.common.persistence.hoerer.Bestellkarte;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.io.Serializable;
@@ -46,7 +47,13 @@ public class BestellkarteDAO extends GenericDAO<Bestellkarte> implements Seriali
     public Bestellkarte findByHoerernummer(final String hoerernummer) {
         final Map<String, Object> map = new HashMap<>();
         map.put("hoerernummer", hoerernummer);
-        return findOne("Bestellkarte.findByHoerernummer", map);
+        Bestellkarte bestellkarte = null;
+        try {
+            bestellkarte = findOne("Bestellkarte.findByHoerernummer", map);
+        } catch (NoResultException e) {
+            // ignore
+        }
+        return bestellkarte;
     }
 
     public List<Book> findBooksByTitel(final String hoerernummer, final String titel) {

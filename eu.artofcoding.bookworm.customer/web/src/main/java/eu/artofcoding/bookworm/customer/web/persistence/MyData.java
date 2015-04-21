@@ -9,7 +9,6 @@
 package eu.artofcoding.bookworm.customer.web.persistence;
 
 import eu.artofcoding.bookworm.common.persistence.book.Book;
-import eu.artofcoding.bookworm.common.persistence.book.Sachgebiet;
 import eu.artofcoding.bookworm.common.persistence.hoerer.Belastung;
 import eu.artofcoding.bookworm.common.persistence.hoerer.Bestellkarte;
 import eu.artofcoding.bookworm.common.persistence.hoerer.BestellkarteArchiv;
@@ -27,7 +26,6 @@ import javax.interceptor.InvocationContext;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Stateful
 public class MyData implements Serializable {
@@ -79,76 +77,12 @@ public class MyData implements Serializable {
 
     //<editor-fold desc="Hoererstamm">
 
-    public String getAnrede() {
-        return getHoererstamm().getAnrede();
-    }
-
-    public Date getGeburtsdatum() {
-        return getHoererstamm().getGeburtsdatum();
-    }
-
     public String getHoerernummer() {
         return getHoererstamm().getHoerernummer();
     }
 
-    public String getLand() {
-        return getHoererstamm().getLand();
-    }
-
     public String getNachname() {
         return getHoererstamm().getNachname();
-    }
-
-    public String getName2() {
-        return getHoererstamm().getName2();
-    }
-
-    public String getOrt() {
-        return getHoererstamm().getOrt();
-    }
-
-    public String getPlz() {
-        return getHoererstamm().getPlz();
-    }
-
-    public String getStrasse() {
-        return getHoererstamm().getStrasse();
-    }
-
-    public String getTelefonnummer() {
-        return getHoererstamm().getTelefonnummer();
-    }
-
-    public Date getUrlaubBis() {
-        return getHoererstamm().getUrlaubBis();
-    }
-
-    public String getUrlaubKennzeichen() {
-        return getHoererstamm().getUrlaubKennzeichen();
-    }
-
-    public String getUrlaubLand() {
-        return getHoererstamm().getUrlaubLand();
-    }
-
-    public String getUrlaubName2() {
-        return getHoererstamm().getUrlaubName2();
-    }
-
-    public String getUrlaubOrt() {
-        return getHoererstamm().getUrlaubOrt();
-    }
-
-    public String getUrlaubPlz() {
-        return getHoererstamm().getUrlaubPlz();
-    }
-
-    public String getUrlaubStrasse() {
-        return getHoererstamm().getUrlaubStrasse();
-    }
-
-    public Date getUrlaubVon() {
-        return getHoererstamm().getUrlaubVon();
     }
 
     public String getVorname() {
@@ -170,24 +104,12 @@ public class MyData implements Serializable {
         return getHoererBuchstamm().getSperrTerminVon();
     }
 
-    public Date getAnmeldedatum() {
-        return getHoererBuchstamm().getAnmeldedatum();
-    }
-
-    public Belastung getBelastung(int index) {
-        return getHoererBuchstamm().getBelastung(index);
+    public Date getSperrTerminBis() {
+        return getHoererBuchstamm().getSperrTerminBis();
     }
 
     public List<Belastung> getBelastungen() {
         return getHoererBuchstamm().getBelastungen();
-    }
-
-    public String getBestellkkz() {
-        return getHoererBuchstamm().getBestellkkz();
-    }
-
-    public String getLoeschkennzeichen() {
-        return getHoererBuchstamm().getLoeschkennzeichen();
     }
 
     public Integer getMengenindex() {
@@ -198,21 +120,7 @@ public class MyData implements Serializable {
         return getHoererBuchstamm().getRueckbuchungsdatum();
     }
 
-    public Integer getRueckbuchungskz() {
-        return getHoererBuchstamm().getRueckbuchungskz();
-    }
-
-    public Set<Sachgebiet> getSachgebiet() {
-        return getHoererBuchstamm().getSachgebiet();
-    }
-
-    public String getSperrKz() {
-        return getHoererBuchstamm().getSperrKz();
-    }
-
-    public Date getSperrTerminBis() {
-        return getHoererBuchstamm().getSperrTerminBis();
-    }
+    //</editor-fold>
 
     public HoererBuchstamm getHoererBuchstamm() {
         if (null == hoererBuchstamm) {
@@ -225,22 +133,12 @@ public class MyData implements Serializable {
         return hoererBuchstammDAO.findBelastungenBooksByTitleOrDatum(hoerernummer, titel, datum);
     }
 
-    //</editor-fold>
-
-    //<editor-fold desc="HoererKennzeichen">
-
-    public String getEmail() {
-        return getHoererKennzeichen().getEmail();
-    }
-
     public HoererKennzeichen getHoererKennzeichen() {
         if (null == hoererKennzeichen) {
             hoererKennzeichen = hoererKennzeichenDAO.findByHoerernummer(hoerernummer);
         }
         return hoererKennzeichen;
     }
-
-    //</editor-fold>
 
     public long getAktuelleBestellkarteCount() {
         return bestellkarteDAO.countBooksByHoerernummer(hoerernummer);

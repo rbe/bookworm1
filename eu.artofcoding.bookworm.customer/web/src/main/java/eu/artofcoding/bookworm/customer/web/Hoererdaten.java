@@ -18,7 +18,7 @@ import java.util.Date;
 @RequestScoped
 public class Hoererdaten extends AbstractHoererBean {
 
-    public Hoererstamm getHoerer() {
+    public Hoererstamm getHoererstamm() {
         return hoererSession.getMyData().getHoererstamm();
     }
 
@@ -30,9 +30,16 @@ public class Hoererdaten extends AbstractHoererBean {
         return hoererSession.getMyData().getMengenindex();
     }
 
-    public boolean isSperrtermin() {
-        final String sperrKz = hoererSession.getMyData().getSperrKz();
-        return sperrKz != null && !sperrKz.isEmpty();
+    public boolean hasSperrtermin() {
+        final Date sperrTerminVon = hoererSession.getMyData().getSperrTerminVon();
+        final Date sperrTerminBis = hoererSession.getMyData().getSperrTerminBis();
+        final boolean haveSperrtermin = null != sperrTerminVon && null != sperrTerminBis;
+        if (haveSperrtermin) {
+            final Date now = new Date();
+            return (now.equals(sperrTerminVon) || now.after(sperrTerminVon)) && (now.before(sperrTerminBis) || now.equals(sperrTerminBis));
+        } else {
+            return false;
+        }
     }
 
     public Date getSperrTerminVon() {
@@ -43,9 +50,16 @@ public class Hoererdaten extends AbstractHoererBean {
         return hoererSession.getMyData().getSperrTerminVon();
     }
 
-    public boolean isUrlaub() {
-        final String urlaubKennzeichen = getHoerer().getUrlaubKennzeichen();
-        return urlaubKennzeichen != null && !urlaubKennzeichen.isEmpty();
+    public boolean hasUrlaub() {
+        final Date urlaubVon = getHoererstamm().getUrlaubVon();
+        final Date urlaubBis = getHoererstamm().getUrlaubBis();
+        final boolean haveUrlaub = null != urlaubVon && null != urlaubBis;
+        if (haveUrlaub) {
+            final Date now = new Date();
+            return (now.equals(urlaubVon) || now.after(urlaubVon)) && (now.before(urlaubBis) || now.equals(urlaubBis));
+        } else {
+            return false;
+        }
     }
 
     public Date getRueckbuchungsdatum() {
