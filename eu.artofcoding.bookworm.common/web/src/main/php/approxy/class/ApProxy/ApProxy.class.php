@@ -4,6 +4,7 @@ namespace ApProxy;
 
 use Proxy\Factory;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ApProxy
 {
@@ -38,8 +39,15 @@ class ApProxy
         if ($parameterSet) {
             $forwardToUrl = $proxy_destination . $appRequestUri;
             $request = Request::createFromGlobals();
+            $request->headers->set('Connection', 'close');
             $response = Factory::forward($request)->to($forwardToUrl);
-            $response->send();
+            // Do not use $response->send(); to fix curl, Safari + Transfer-Encoding:
+            // The proxy does not send size for each chunk
+            $response->headers->remove('Transfer-Encoding');
+            $content = $response->getContent();
+            $response->headers->set('Content-Length', strlen($content));
+            $response->sendHeaders();
+            echo $content;
         } else {
             HttpHelper::sendHttpRedirectWithStatus('NO_APP_REQUEST');
         }

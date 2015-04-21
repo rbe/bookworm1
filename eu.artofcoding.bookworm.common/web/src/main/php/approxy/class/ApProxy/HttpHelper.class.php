@@ -7,7 +7,6 @@ class HttpHelper
 
     private function __construct()
     {
-
     }
 
     /**
@@ -15,6 +14,7 @@ class HttpHelper
      */
     public static function sendHttpRedirectWithStatus($status)
     {
+        http_response_code(302);
         header('Location: /?status=' . $status);
     }
 
