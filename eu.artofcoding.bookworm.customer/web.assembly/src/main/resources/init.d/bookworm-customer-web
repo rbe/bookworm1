@@ -24,6 +24,8 @@ export WBH_TEMPLATE
 #CAMEL_ENCRYPTION_PASSWORD=${CAMEL_ENCRYPTION_PASSWORD:-abc123}
 #export CAMEL_ENCRYPTION_PASSWORD
 
+chmod +x ${BOOKWORM_HOME}/apache-tomee/bin/*.sh
+
 case "$1" in
     start)
         echo "Starting ${project.artifactId}..."
