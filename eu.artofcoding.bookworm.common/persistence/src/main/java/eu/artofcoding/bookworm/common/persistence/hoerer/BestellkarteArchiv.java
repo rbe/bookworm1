@@ -27,9 +27,9 @@ import java.util.Date;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "BestellkarteArchiv.countByHoerernummer", query = "SELECT COUNT(o) FROM BestellkarteArchiv o WHERE o.hoerernummer = :hoerernummer"),
-        @NamedQuery(name = "BestellkarteArchiv.findByHoerernummerOrderByAusleihdatum", query = "SELECT o FROM BestellkarteArchiv o WHERE o.hoerernummer = :hoerernummer ORDER BY o.ausleihdatum DESC"),
-        @NamedQuery(name = "BestellkarteArchiv.findByHoerernummerAndTitelOrderByAusleihdatum", query = "SELECT o FROM BestellkarteArchiv o WHERE o.hoerernummer = :hoerernummer AND o.buch.titel LIKE :titel ORDER BY o.ausleihdatum DESC"),
-        @NamedQuery(name = "BestellkarteArchiv.findByHoerernummerAndTitelAndAusleihdatumOrderByAusleihdatum", query = "SELECT o FROM BestellkarteArchiv o WHERE o.hoerernummer = :hoerernummer AND o.buch.titel LIKE :titel AND o.ausleihdatum >= :datum ORDER BY o.ausleihdatum DESC")
+        @NamedQuery(name = "BestellkarteArchiv.findByHoerernummerOrderByAusleihdatum", query = "SELECT o FROM BestellkarteArchiv o WHERE o.hoerernummer = :hoerernummer ORDER BY o.ausleihdatum ASC"),
+        @NamedQuery(name = "BestellkarteArchiv.findByHoerernummerAndTitelOrderByAusleihdatum", query = "SELECT o FROM BestellkarteArchiv o WHERE o.hoerernummer = :hoerernummer AND o.buch.titel LIKE :titel ORDER BY o.ausleihdatum ASC"),
+        @NamedQuery(name = "BestellkarteArchiv.findByHoerernummerAndTitelAndAusleihdatumOrderByAusleihdatum", query = "SELECT o FROM BestellkarteArchiv o WHERE o.hoerernummer = :hoerernummer AND o.buch.titel LIKE :titel AND o.ausleihdatum >= :datum ORDER BY o.ausleihdatum ASC")
 })
 public class BestellkarteArchiv implements GenericEntity {
 
