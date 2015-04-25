@@ -21,22 +21,28 @@ public class HoererimportMain {
     private static final CountDownLatch latch = new CountDownLatch(1);
 
     public static void main(String[] args) throws Exception {
+        final String bookwormHome = System.getenv("BOOKWORM_HOME");
+        final boolean hasBookwormHome = null == bookwormHome || bookwormHome.isEmpty();
+        if (hasBookwormHome) {
+            System.out.println("Please set BOOKWORM_HOME");
+            System.exit(1);
+        }
+        System.out.println("BOOKWORM_HOME: " + bookwormHome);
         // Spring Filesystem Application Context
         final String[] filesystemConfigLocation = new String[]{
-                "conf/system/bookworm-datasource.xml",
-                "conf/system/bookworm-spring-context.xml",
-                "conf/system/bookworm-camel-beans.xml",
-                "conf/system/bookworm-camel-routes.xml"
+                bookwormHome + "/conf/system/bookworm-datasource.xml",
+                bookwormHome + "/conf/system/bookworm-spring-context.xml",
+                bookwormHome + "/conf/system/bookworm-camel-beans.xml",
+                bookwormHome + "/conf/system/bookworm-camel-routes.xml"
         };
         final ApplicationContext applicationContext0 = new FileSystemXmlApplicationContext(filesystemConfigLocation);
-        // Get Camel context
-        final SpringCamelContext camel = (SpringCamelContext) applicationContext0.getBean("bookwormHoererImport");
+        final SpringCamelContext camelContext = (SpringCamelContext) applicationContext0.getBean("bookwormHoererImport");
         // Stop Camel when JVM shuts down
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    camel.stop();
+                    camelContext.stop();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -16,8 +16,8 @@
         <constructor-arg ref="encryptor"/>
         <property name="locations">
             <list>
-                <value>conf/etl.encrypted.properties</value>
-                <value>conf/etl.properties</value>
+                <value>${BOOKWORM_HOME}/conf/etl.encrypted.properties</value>
+                <value>${BOOKWORM_HOME}/conf/etl.properties</value>
             </list>
         </property>
     </bean>
