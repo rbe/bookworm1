@@ -11,79 +11,83 @@
         <propertyPlaceholder id="properties"
                              location="file:${env:BOOKWORM_HOME}/conf/etl.encrypted.properties,file:${env:BOOKWORM_HOME}/conf/etl.properties"
                              propertiesParserRef="jasyptPropertiesParser"/>
-        <route id="fetchFromFtpAndProcess" autoStartup="true">
+        <route id="fetchFromFtp" autoStartup="true">
             <from uri="{{customer.ftp.url}}&amp;{{customer.ftp.cron}}"/>
+            <transacted/>
+            <to uri="direct:importData"/>
+        </route>
+        <route id="importData" autoStartup="true">
+            <from uri="direct:importData"/>
+            <transacted/>
             <log loggingLevel="INFO" message="Got ${file:name}"/>
-            <transacted>
-                <convertBodyTo type="java.lang.String"/>
+            <convertBodyTo type="java.lang.String"/>
+            <choice>
+                <when>
+                    <simple>${in.headers.CamelFileName} == '{{customer.HOERSTP.fileName}}'</simple>
+                    <setHeader headerName="importSequence">
+                        <constant>1</constant>
+                    </setHeader>
+                </when>
+                <when>
+                    <simple>${in.headers.CamelFileName} == '{{customer.HOEKZSTP.fileName}}'</simple>
+                    <setHeader headerName="importSequence">
+                        <constant>2</constant>
+                    </setHeader>
+                </when>
+                <when>
+                    <simple>${in.headers.CamelFileName} == '{{customer.BKRXSTP.fileName}}'</simple>
+                    <setHeader headerName="importSequence">
+                        <constant>3</constant>
+                    </setHeader>
+                </when>
+                <when>
+                    <simple>${in.headers.CamelFileName} == '{{customer.HOEBSTP.fileName}}'</simple>
+                    <setHeader headerName="importSequence">
+                        <constant>4</constant>
+                    </setHeader>
+                </when>
+                <when>
+                    <simple>${in.headers.CamelFileName} == '{{customer.BKSTP.fileName}}'</simple>
+                    <setHeader headerName="importSequence">
+                        <constant>5</constant>
+                    </setHeader>
+                </when>
+            </choice>
+            <resequence>
+                <header>importSequence</header>
+                <log message="Got ${file:name}"/>
                 <choice>
                     <when>
                         <simple>${in.headers.CamelFileName} == '{{customer.HOERSTP.fileName}}'</simple>
-                        <setHeader headerName="importSequence">
-                            <constant>1</constant>
-                        </setHeader>
+                        <to uri="sql:truncate table Hoererstamm?dataSource=bookwormDatasource"/>
+                        <bean ref="hoerstpImportProcessor" method="importFile"/>
                     </when>
                     <when>
                         <simple>${in.headers.CamelFileName} == '{{customer.HOEKZSTP.fileName}}'</simple>
-                        <setHeader headerName="importSequence">
-                            <constant>2</constant>
-                        </setHeader>
+                        <to uri="sql:truncate table HoererKennzeichen?dataSource=bookwormDatasource"/>
+                        <bean ref="hoekzstpImportProcessor" method="importFile"/>
                     </when>
                     <when>
                         <simple>${in.headers.CamelFileName} == '{{customer.BKRXSTP.fileName}}'</simple>
-                        <setHeader headerName="importSequence">
-                            <constant>3</constant>
-                        </setHeader>
+                        <to uri="sql:truncate table BestellkarteArchiv?dataSource=bookwormDatasource"/>
+                        <bean ref="bkrxstpImportProcessor" method="importFile"/>
                     </when>
                     <when>
                         <simple>${in.headers.CamelFileName} == '{{customer.HOEBSTP.fileName}}'</simple>
-                        <setHeader headerName="importSequence">
-                            <constant>4</constant>
-                        </setHeader>
+                        <to uri="sql:truncate table HoererBuchstamm_Belastung?dataSource=bookwormDatasource"/>
+                        <to uri="sql:delete from Belastung?dataSource=bookwormDatasource"/>
+                        <to uri="sql:truncate table HoererBuchstamm_Sachgebiet?dataSource=bookwormDatasource"/>
+                        <to uri="sql:delete from HoererBuchstamm?dataSource=bookwormDatasource"/>
+                        <bean ref="hoebstpImportProcessor" method="importFile"/>
                     </when>
                     <when>
                         <simple>${in.headers.CamelFileName} == '{{customer.BKSTP.fileName}}'</simple>
-                        <setHeader headerName="importSequence">
-                            <constant>5</constant>
-                        </setHeader>
+                        <to uri="sql:truncate table Bestellkarte_books?dataSource=bookwormDatasource"/>
+                        <to uri="sql:delete from Bestellkarte?dataSource=bookwormDatasource"/>
+                        <bean ref="bkstpImportProcessor" method="importFile"/>
                     </when>
                 </choice>
-                <resequence>
-                    <header>importSequence</header>
-                    <log message="Got ${file:name}"/>
-                    <choice>
-                        <when>
-                            <simple>${in.headers.CamelFileName} == '{{customer.HOERSTP.fileName}}'</simple>
-                            <to uri="sql:truncate table Hoererstamm?dataSource=bookwormDatasource"/>
-                            <bean ref="hoerstpImportProcessor" method="importFile"/>
-                        </when>
-                        <when>
-                            <simple>${in.headers.CamelFileName} == '{{customer.HOEKZSTP.fileName}}'</simple>
-                            <to uri="sql:truncate table HoererKennzeichen?dataSource=bookwormDatasource"/>
-                            <bean ref="hoekzstpImportProcessor" method="importFile"/>
-                        </when>
-                        <when>
-                            <simple>${in.headers.CamelFileName} == '{{customer.BKRXSTP.fileName}}'</simple>
-                            <to uri="sql:truncate table BestellkarteArchiv?dataSource=bookwormDatasource"/>
-                            <bean ref="bkrxstpImportProcessor" method="importFile"/>
-                        </when>
-                        <when>
-                            <simple>${in.headers.CamelFileName} == '{{customer.HOEBSTP.fileName}}'</simple>
-                            <to uri="sql:truncate table HoererBuchstamm_Belastung?dataSource=bookwormDatasource"/>
-                            <to uri="sql:delete from Belastung?dataSource=bookwormDatasource"/>
-                            <to uri="sql:truncate table HoererBuchstamm_Sachgebiet?dataSource=bookwormDatasource"/>
-                            <to uri="sql:delete from HoererBuchstamm?dataSource=bookwormDatasource"/>
-                            <bean ref="hoebstpImportProcessor" method="importFile"/>
-                        </when>
-                        <when>
-                            <simple>${in.headers.CamelFileName} == '{{customer.BKSTP.fileName}}'</simple>
-                            <to uri="sql:truncate table Bestellkarte_books?dataSource=bookwormDatasource"/>
-                            <to uri="sql:delete from Bestellkarte?dataSource=bookwormDatasource"/>
-                            <bean ref="bkstpImportProcessor" method="importFile"/>
-                        </when>
-                    </choice>
-                </resequence>
-            </transacted>
+            </resequence>
             <log loggingLevel="INFO" message="Done ${file:name}"/>
         </route>
     </camelContext>
