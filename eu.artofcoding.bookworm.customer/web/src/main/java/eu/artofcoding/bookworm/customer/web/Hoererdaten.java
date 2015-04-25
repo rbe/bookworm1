@@ -36,7 +36,10 @@ public class Hoererdaten extends AbstractHoererBean {
         final boolean haveSperrtermin = null != sperrTerminVon && null != sperrTerminBis;
         if (haveSperrtermin) {
             final Date now = new Date();
-            return (now.equals(sperrTerminVon) || now.after(sperrTerminVon)) && (now.before(sperrTerminBis) || now.equals(sperrTerminBis));
+            final boolean nowBeforeOrEqualToSperrTerminVon = now.equals(sperrTerminVon) || now.after(sperrTerminVon);
+            final boolean nowBeforeOrEqualToSperrTerminBis = now.before(sperrTerminBis) || now.equals(sperrTerminBis);
+            final boolean nowInRangeOfSperrtermin = nowBeforeOrEqualToSperrTerminVon && nowBeforeOrEqualToSperrTerminBis;
+            return nowInRangeOfSperrtermin;
         } else {
             return false;
         }
@@ -47,7 +50,7 @@ public class Hoererdaten extends AbstractHoererBean {
     }
 
     public Date getSperrTerminBis() {
-        return hoererSession.getMyData().getSperrTerminVon();
+        return hoererSession.getMyData().getSperrTerminBis();
     }
 
     public boolean hasUrlaub() {
@@ -56,7 +59,10 @@ public class Hoererdaten extends AbstractHoererBean {
         final boolean haveUrlaub = null != urlaubVon && null != urlaubBis;
         if (haveUrlaub) {
             final Date now = new Date();
-            return (now.equals(urlaubVon) || now.after(urlaubVon)) && (now.before(urlaubBis) || now.equals(urlaubBis));
+            final boolean nowBeforeOrEqualToUrlaubVon = now.equals(urlaubVon) || now.after(urlaubVon);
+            final boolean nowBeforeOrEqualToUrlaubBis = now.before(urlaubBis) || now.equals(urlaubBis);
+            final boolean nowInRangeOfUrlaub = nowBeforeOrEqualToUrlaubVon && nowBeforeOrEqualToUrlaubBis;
+            return nowInRangeOfUrlaub;
         } else {
             return false;
         }

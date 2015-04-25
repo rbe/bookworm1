@@ -95,6 +95,16 @@ public class Hoererstamm implements GenericEntity {
     @Basic
     @Column
     @Temporal(TemporalType.DATE)
+    private Date sperrTerminVon;
+
+    @Basic
+    @Column
+    @Temporal(TemporalType.DATE)
+    private Date sperrTerminBis;
+
+    @Basic
+    @Column
+    @Temporal(TemporalType.DATE)
     private Date urlaubVon;
 
     @Basic
@@ -142,11 +152,6 @@ public class Hoererstamm implements GenericEntity {
     //@Size(min = 1, max = 20)
     @TransparentCrypt
     private String telefonnummer;
-
-    @Basic
-    @Column
-    @Size(min = 1, max = 1)
-    private String urlaubKennzeichen;
 
     @Override
     public Long getId() {
@@ -238,12 +243,20 @@ public class Hoererstamm implements GenericEntity {
         this.ort = ort;
     }
 
-    public void setUrlaubKennzeichen(String urlaubKennzeichen) {
-        this.urlaubKennzeichen = urlaubKennzeichen;
+    public Date getSperrTerminVon() {
+        return sperrTerminVon;
     }
 
-    public String getUrlaubKennzeichen() {
-        return urlaubKennzeichen;
+    public void setSperrTerminVon(Date sperrTerminVon) {
+        this.sperrTerminVon = sperrTerminVon;
+    }
+
+    public Date getSperrTerminBis() {
+        return sperrTerminBis;
+    }
+
+    public void setSperrTerminBis(Date sperrTerminBis) {
+        this.sperrTerminBis = sperrTerminBis;
     }
 
     public Date getUrlaubBis() {

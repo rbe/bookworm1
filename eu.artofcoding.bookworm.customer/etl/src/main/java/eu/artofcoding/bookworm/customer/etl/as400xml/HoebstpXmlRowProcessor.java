@@ -38,18 +38,6 @@ public class HoebstpXmlRowProcessor extends AbstractXmlRowProcessor {
                 case "BUMGI":
                     hoererBuchstamm.setMengenindex(ParserHelper.parseInteger(tagContent));
                     break;
-                case "BUVON":
-                    hoererBuchstamm.setSperrTerminVon(ParserHelper.parseIsoDate(tagContent));
-                    break;
-                case "BUBIS":
-                    hoererBuchstamm.setSperrTerminBis(ParserHelper.parseIsoDate(tagContent));
-                    break;
-                case "BUSPR":
-                    hoererBuchstamm.setSperrKz(tagContent);
-                    break;
-                case "BUBKKZ":
-                    hoererBuchstamm.setBestellkkz(tagContent);
-                    break;
                 case "BUSGB":
                     /*
                     final boolean hasValue = null != tagContent && !tagContent.isEmpty();

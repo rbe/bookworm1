@@ -72,7 +72,7 @@
             </div>
             <h:outputFormat rendered="#{!hoererdaten.hasSperrtermin()}">
                 <div class="row novacation">
-                    <div class="col-lg-3">SperrTermin von:</div>
+                    <div class="col-lg-3">Sperrtermin von:</div>
                     <div class="col-lg-9">Sie haben aktuell keinen Sperrtermin angegeben</div>
                 </div>
             </h:outputFormat>
@@ -94,7 +94,15 @@
             </h:outputFormat>
             <h:outputFormat rendered="#{hoererdaten.hasUrlaub()}">
                 <div class="row vacation">
-                    <div class="col-lg-12">Urlaubsadresse:</div>
+                    <div class="col-lg-12"><b>Urlaubsadresse</b></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">Urlaub von:</div>
+                    <div class="col-lg-9">#{of:formatDate(hoererdaten.hoererstamm.urlaubVon, 'dd.MM.yyyy')}</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">Urlaub bis:</div>
+                    <div class="col-lg-9">#{of:formatDate(hoererdaten.hoererstamm.urlaubBis, 'dd.MM.yyyy')}</div>
                 </div>
                 <div class="row">
                     <div class="col-lg-3">Namenszusatz:</div>
@@ -116,18 +124,11 @@
                     <div class="col-lg-3">Ort:</div>
                     <div class="col-lg-9">#{hoererdaten.hoererstamm.urlaubOrt}</div>
                 </div>
-                <div class="row">
+                <div class="row  vacationend">
                     <div class="col-lg-3">Land:</div>
                     <div class="col-lg-9">#{hoererdaten.hoererstamm.urlaubLand}</div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-3">Urlaub von:</div>
-                    <div class="col-lg-9">#{of:formatDate(hoererdaten.hoererstamm.urlaubVon, 'dd.MM.yyyy')}</div>
-                </div>
-                <div class="row vacationend">
-                    <div class="col-lg-3">Urlaub bis:</div>
-                    <div class="col-lg-9">#{of:formatDate(hoererdaten.hoererstamm.urlaubBis, 'dd.MM.yyyy')}</div>
-                </div>
+
             </h:outputFormat>
             <div class="row">
                 <div class="col-lg-3">Letzte Rückbuchung:</div>

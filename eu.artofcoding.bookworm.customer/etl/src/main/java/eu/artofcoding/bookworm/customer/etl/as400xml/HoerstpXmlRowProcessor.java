@@ -49,9 +49,6 @@ public class HoerstpXmlRowProcessor extends AbstractXmlRowProcessor {
                 case "HOEORT":
                     hoererstamm.setOrt(tagContent);
                     break;
-                case "HOUKZ":
-                    hoererstamm.setUrlaubKennzeichen(tagContent);
-                    break;
                 case "HOUN2":
                     hoererstamm.setUrlaubName2(tagContent);
                     break;
@@ -67,10 +64,16 @@ public class HoerstpXmlRowProcessor extends AbstractXmlRowProcessor {
                 case "HOUORT":
                     hoererstamm.setUrlaubOrt(tagContent);
                     break;
-                case "HOERV":
+                case "HOETV":
+                    hoererstamm.setSperrTerminVon(ParserHelper.parseIsoDate(tagContent));
+                    break;
+                case "HOETB":
+                    hoererstamm.setSperrTerminBis(ParserHelper.parseIsoDate(tagContent));
+                    break;
+                case "HOEUV":
                     hoererstamm.setUrlaubVon(ParserHelper.parseIsoDate(tagContent));
                     break;
-                case "HOERB":
+                case "HOEUB":
                     hoererstamm.setUrlaubBis(ParserHelper.parseIsoDate(tagContent));
                     break;
                 case "HOEGBD":

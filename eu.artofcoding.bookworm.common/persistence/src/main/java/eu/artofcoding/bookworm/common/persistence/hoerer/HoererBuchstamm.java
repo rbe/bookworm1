@@ -64,26 +64,6 @@ public class HoererBuchstamm implements GenericEntity {
     @DecimalMax("9")
     private Integer mengenindex;
 
-    @Basic
-    @Column
-    @Temporal(TemporalType.DATE)
-    private Date sperrTerminVon;
-
-    @Basic
-    @Column
-    @Temporal(TemporalType.DATE)
-    private Date sperrTerminBis;
-
-    @Basic
-    @Column
-    @Size(min = 1, max = 1)
-    private String sperrKz;
-
-    @Basic
-    @Column
-    @Size(min = 1, max = 1)
-    private String bestellkkz;
-
     @OneToMany
     private Set<Sachgebiet> sachgebiet;
 
@@ -138,14 +118,6 @@ public class HoererBuchstamm implements GenericEntity {
         this.mengenindex = mengenindex;
     }
 
-    public String getBestellkkz() {
-        return bestellkkz;
-    }
-
-    public void setBestellkkz(String bestellkkz) {
-        this.bestellkkz = bestellkkz;
-    }
-
     public String getHoerernummer() {
         return hoerernummer;
     }
@@ -168,30 +140,6 @@ public class HoererBuchstamm implements GenericEntity {
 
     public void setSachgebiet(Set<Sachgebiet> sachgebiet) {
         this.sachgebiet = sachgebiet;
-    }
-
-    public String getSperrKz() {
-        return sperrKz;
-    }
-
-    public void setSperrKz(String sperrKz) {
-        this.sperrKz = sperrKz;
-    }
-
-    public Date getSperrTerminBis() {
-        return sperrTerminBis;
-    }
-
-    public void setSperrTerminBis(Date terminBis) {
-        this.sperrTerminBis = terminBis;
-    }
-
-    public Date getSperrTerminVon() {
-        return sperrTerminVon;
-    }
-
-    public void setSperrTerminVon(Date terminVon) {
-        this.sperrTerminVon = terminVon;
     }
 
     public Date getRueckbuchungsdatum() {

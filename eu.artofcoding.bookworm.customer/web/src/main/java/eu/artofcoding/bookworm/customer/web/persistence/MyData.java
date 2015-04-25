@@ -101,11 +101,11 @@ public class MyData implements Serializable {
     //<editor-fold desc="HoererBuchstamm">
 
     public Date getSperrTerminVon() {
-        return getHoererBuchstamm().getSperrTerminVon();
+        return getHoererstamm().getSperrTerminVon();
     }
 
     public Date getSperrTerminBis() {
-        return getHoererBuchstamm().getSperrTerminBis();
+        return getHoererstamm().getSperrTerminBis();
     }
 
     public List<Belastung> getBelastungen() {
