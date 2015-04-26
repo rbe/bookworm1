@@ -2,9 +2,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:o="http://omnifaces.org/ui"
       xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm/catalog">
 <h:head>
-    <bookworm:head/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="robots" content="index, follow"/>
+    <meta name="keywords" content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
+    <meta name="description" content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
+    <meta name="generator" content="medienhof - Source Management"/>
+    <title>Katalogsuche - Westdeutsche Blindenhörbücherei - Münster</title>
+    <link href="/templates/wbh/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link type="text/css" rel="stylesheet" href="/templates/wbh/css/template.css"/>
+    <link type="text/css" rel="stylesheet" href="/templates/wbh/css/position.css"/>
+    <link type="text/css" rel="stylesheet" href="/templates/wbh/css/layout.css"/>
+    <link type="text/css" rel="stylesheet" href="/app/search.css"/>
+    <o:conditionalComment if="lte IE 6">
+        <link href="/templates/wbh/css/ie6only.css" rel="stylesheet" type="text/css"/>
+    </o:conditionalComment>
+    <o:conditionalComment if="lte IE 7">
+        <link href="/templates/wbh/css/ie7only.css" rel="stylesheet" type="text/css"/>
+    </o:conditionalComment>
+    <o:conditionalComment if="lte IE 8">
+        <link href="/templates/wbh/css/ie8only.css" rel="stylesheet" type="text/css"/>
+    </o:conditionalComment>
 </h:head>
 <h:body style="font-size: 100%;">
     <div id="head">
@@ -13,7 +33,27 @@
         </p>
     </div>
     <div id="all">
-        <bookworm:logo-header/>
+        <div id="logo">
+            <a title="Link zur Startseite" href="http://www.wbh-online.de/index.php"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="http://www.wbh-online.de/templates/wbh/images/logo_wbh.gif"/></a>
+        </div>
+        <div id="header">
+            <div class="moduletable">
+                <img src="/components/com_gk2_photoslide/images/thumbm/649894header_start.jpg" alt="Westdeutsche Blindenhörbücherei e.V." style="z-index:0;"/>
+            </div>
+            <div id="topmenu">
+                <h3 class="unsichtbar">Top-Navigation</h3>
+                <div class="moduletable_topmenu">
+                    <ul id="mainlevel">
+                        <li><a href="/" class="mainlevel">Startseite</a></li>
+                        <li><a href="/bookworm/search.xhtml" class="mainlevel">Onlinekatalog</a></li>
+                        <li><a href="/bestellkarte.html" class="mainlevel">Bestellkarte</a></li>
+                        <li><a href="/download.html" class="mainlevel">Download</a></li>
+                        <li><a href="/kontakt.html" class="mainlevel">Kontakt</a></li>
+                        <li><a href="/bhb-stiftung.html" class="mainlevel">BHB-Stiftung</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         <!-- end header -->
         <div class="wrap">&nbsp;</div>
         <div id="contentarea">
