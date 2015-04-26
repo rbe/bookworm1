@@ -36,14 +36,15 @@
     </fileSets>
     <dependencySets>
         <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
             <outputDirectory>${assembly.root}/lib</outputDirectory>
             <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
             <excludes>
                 <exclude>eu.artofcoding.bookworm:eu.artofcoding.bookworm.customer.etl</exclude>
-                <exclude>eu.artofcoding.bookworm:eu.artofcoding.bookworm.customer.etl.assembly</exclude>
             </excludes>
         </dependencySet>
         <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
             <outputDirectory>${assembly.root}/lib/optional</outputDirectory>
             <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
             <includes>
@@ -51,9 +52,9 @@
             </includes>
         </dependencySet>
         <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
             <outputDirectory>${assembly.root}/</outputDirectory>
-            <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}-${artifact.version}.${artifact.extension}
-            </outputFileNameMapping>
+            <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
             <includes>
                 <include>eu.artofcoding.bookworm:eu.artofcoding.bookworm.customer.etl</include>
             </includes>

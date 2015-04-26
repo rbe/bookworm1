@@ -26,7 +26,7 @@
             <outputDirectory>${assembly.root}/example/conf</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>${project.build.outputDirectory}//bin</directory>
+            <directory>${project.build.outputDirectory}/bin</directory>
             <outputDirectory>${assembly.root}/bin</outputDirectory>
         </fileSet>
         <fileSet>
@@ -36,16 +36,26 @@
     </fileSets>
     <dependencySets>
         <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
             <outputDirectory>${assembly.root}/lib</outputDirectory>
             <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
             <excludes>
                 <exclude>eu.artofcoding.bookworm:eu.artofcoding.bookworm.catalog.etl</exclude>
+                <!--<exclude>eu.artofcoding.bookworm:eu.artofcoding.bookworm.catalog.etl.assembly</exclude>-->
             </excludes>
         </dependencySet>
         <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>${assembly.root}/lib/optional</outputDirectory>
+            <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
+            <includes>
+                <include>org.jasypt:jasypt</include>
+            </includes>
+        </dependencySet>
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
             <outputDirectory>${assembly.root}</outputDirectory>
-            <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}-${artifact.version}.${artifact.extension}
-            </outputFileNameMapping>
+            <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
             <includes>
                 <include>eu.artofcoding.bookworm:eu.artofcoding.bookworm.catalog.etl</include>
             </includes>

@@ -159,6 +159,10 @@
                 <filtering>true</filtering>
                 <targetPath>${project.build.directory}/filtered-resources/conf</targetPath>
             </resource>
+            <resource>
+                <directory>${project.build.directory}/filtered-resources</directory>
+                <filtering>false</filtering>
+            </resource>
         </resources>
         <filters>
             <filter>src/main/filter/${resources.filter}.properties</filter>

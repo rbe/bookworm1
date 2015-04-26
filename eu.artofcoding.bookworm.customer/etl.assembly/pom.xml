@@ -9,8 +9,10 @@
         <version>LOCALBUILD</version>
     </parent>
     <artifactId>eu.artofcoding.bookworm.customer.etl.assembly</artifactId>
+    <packaging>pom</packaging>
     <properties>
         <assembly.root>${project.artifactId}-${project.version}</assembly.root>
+        <assembly.for.artifactId>eu.artofcoding.bookworm.customer.etl</assembly.for.artifactId>
     </properties>
     <dependencies>
         <dependency>
@@ -22,8 +24,9 @@
     <build>
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>src/main/resources/init.d</directory>
                 <filtering>true</filtering>
+                <targetPath>init.d</targetPath>
             </resource>
         </resources>
         <plugins>
@@ -31,6 +34,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!-- maven-assembly-plugin -->
             <plugin>
