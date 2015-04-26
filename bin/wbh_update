@@ -1,0 +1,57 @@
+#!/bin/bash
+#
+# Please add to /etc/sudoers:
+#     wbh ALL=(ALL) ALL, NOPASSWD: /usr/sbin/service, /bin/rm, /bin/ln
+#
+
+APP_BASE=${HOME}/app
+APP_INSTALL=${HOME}/app/install
+CI_BASE_URL=https://ci.art-of-coding.eu/repository/download/bookworm_build/.lastSuccessful/distrib/
+
+set -o nounset
+
+update_module() {
+    local component=$1
+    local artifact=$2
+    gav="eu.artofcoding.bookworm.${component}.${artifact}.assembly-${BUILD}"
+    echo "+ Updating ${gav}"
+    remote_name="${gav}-dist.zip"
+    ci_url="${CI_BASE_URL}/eu.artofcoding.bookworm.${component}/${artifact}.assembly/target/${remote_name}"
+    local_dest="${APP_INSTALL}/${remote_name}"
+    echo "+ Downloading ${ci_url}"
+    curl -u rbe -L -o ${local_dest} ${ci_url}
+    pushd ${APP_BASE}
+    echo "+ Unpacking ${local_dest}"
+    unzip -q ${local_dest}
+    popd
+    echo "+ Updating system service"
+    chmod +x ${APP_BASE}/${gav}/init.d/*
+    service bookworm-${component}-${artifact} stop
+    sudo rm /etc/init.d/bookworm-${component}-${artifact}
+    sudo ln -s ${APP_BASE}/${gav}/init.d/bookworm-${component}-${artifact} /etc/init.d
+}
+
+update_etl_web_module() {
+    local component=$1
+    update_module ${component} etl
+    etl_component="eu.artofcoding.bookworm.${component}.etl.assembly-${BUILD}"
+    echo "*"
+    echo "* Please configure ${etl_component}/conf"
+    echo "*"
+    update_module ${component} web
+    web_component="eu.artofcoding.bookworm.${component}.web.assembly-${BUILD}"
+    chmod +x ${HOME}/app/${web_component}/apache-tomee/bin/*.sh
+    echo "*"
+    echo "* Please configure ${web_component}/apache-tomee/conf"
+    echo "*"
+}
+
+if [ $# -lt 1 ]; then
+    echo "usage: $0 <build number>, e.g. $0 1.0.0.140"
+elif [ $# -eq 1 ]; then
+    BUILD=$1
+    update_etl_web_module catalog
+    update_etl_web_module customer
+fi
+
+exit 1
