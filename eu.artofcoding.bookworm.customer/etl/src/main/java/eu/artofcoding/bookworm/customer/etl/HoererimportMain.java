@@ -30,10 +30,10 @@ public class HoererimportMain {
         System.out.println("BOOKWORM_HOME: " + bookwormHome);
         // Spring Filesystem Application Context
         final String[] filesystemConfigLocation = new String[]{
-                bookwormHome + "/conf/system/bookworm-datasource.xml",
-                bookwormHome + "/conf/system/bookworm-spring-context.xml",
-                bookwormHome + "/conf/system/bookworm-camel-beans.xml",
-                bookwormHome + "/conf/system/bookworm-camel-routes.xml"
+                "file://" + bookwormHome + "/conf/system/bookworm-datasource.xml",
+                "file://" + bookwormHome + "/conf/system/bookworm-spring-context.xml",
+                "file://" + bookwormHome + "/conf/system/bookworm-camel-beans.xml",
+                "file://" + bookwormHome + "/conf/system/bookworm-camel-routes.xml"
         };
         final ApplicationContext applicationContext0 = new FileSystemXmlApplicationContext(filesystemConfigLocation);
         final SpringCamelContext camelContext = (SpringCamelContext) applicationContext0.getBean("bookwormHoererImport");

@@ -14,7 +14,7 @@
 [ -r /etc/profile.d/java.sh ] && . /etc/profile.d/java.sh
 
 BOOKWORM_USER=${BOOKWORM_USER:-wbh}
-BOOKWORM_HOME=${BOOKWORM_HOME:-/home/${BOOKWORM_USER}/${project.artifactId}-${project.version}}
+BOOKWORM_HOME=${BOOKWORM_HOME:-/home/${BOOKWORM_USER}/app/${project.artifactId}-${project.version}}
 export BOOKWORM_HOME
 WBH_TEMPLATE=/home/${BOOKWORM_USER}/templates/${project.artifactId}
 export WBH_TEMPLATE

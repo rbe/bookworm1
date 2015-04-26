@@ -31,9 +31,9 @@ public class DatimportMain {
         System.out.println("BOOKWORM_HOME: " + bookwormHome);
         // Spring Filesystem Application Context
         final String[] filesystemConfigLocation = new String[]{
-                bookwormHome + "/conf/system/bookworm-datasource.xml",
-                bookwormHome + "/conf/system/bookworm-spring-context.xml",
-                bookwormHome + "/conf/system/bookworm-camel.xml"
+                "file://" + bookwormHome + "/conf/system/bookworm-datasource.xml",
+                "file://" + bookwormHome + "/conf/system/bookworm-spring-context.xml",
+                "file://" + bookwormHome + "/conf/system/bookworm-camel.xml"
         };
         final ApplicationContext applicationContext0 = new FileSystemXmlApplicationContext(filesystemConfigLocation);
         final SpringCamelContext camelContext = (SpringCamelContext) applicationContext0.getBean("bookwormBooks");
