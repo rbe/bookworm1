@@ -109,6 +109,9 @@
                     <removeDefaultWebapps>true</removeDefaultWebapps>
                     <removeTomeeWebapp>true</removeTomeeWebapp>
                     <skipCurrentProject>true</skipCurrentProject>
+                    <tomeeShutdownPort>8015</tomeeShutdownPort>
+                    <tomeeHttpPort>8090</tomeeHttpPort>
+                    <tomeeAjpPort>8019</tomeeAjpPort>
                 </configuration>
                 <executions>
                     <execution>
