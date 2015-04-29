@@ -77,6 +77,13 @@ public class MyData implements Serializable {
 
     //<editor-fold desc="Hoererstamm">
 
+    public Hoererstamm getHoererstamm() {
+        if (null == hoererstamm) {
+            hoererstamm = hoererstammDAO.findByHoerernummer(hoerernummer);
+        }
+        return hoererstamm;
+    }
+
     public String getHoerernummer() {
         return getHoererstamm().getHoerernummer();
     }
@@ -89,38 +96,9 @@ public class MyData implements Serializable {
         return getHoererstamm().getVorname();
     }
 
-    public Hoererstamm getHoererstamm() {
-        if (null == hoererstamm) {
-            hoererstamm = hoererstammDAO.findByHoerernummer(hoerernummer);
-        }
-        return hoererstamm;
-    }
-
     //</editor-fold>
 
     //<editor-fold desc="HoererBuchstamm">
-
-    public Date getSperrTerminVon() {
-        return getHoererstamm().getSperrTerminVon();
-    }
-
-    public Date getSperrTerminBis() {
-        return getHoererstamm().getSperrTerminBis();
-    }
-
-    public List<Belastung> getBelastungen() {
-        return getHoererBuchstamm().getBelastungen();
-    }
-
-    public Integer getMengenindex() {
-        return getHoererBuchstamm().getMengenindex();
-    }
-
-    public Date getRueckbuchungsdatum() {
-        return getHoererBuchstamm().getRueckbuchungsdatum();
-    }
-
-    //</editor-fold>
 
     public HoererBuchstamm getHoererBuchstamm() {
         if (null == hoererBuchstamm) {
@@ -133,6 +111,8 @@ public class MyData implements Serializable {
         return hoererBuchstammDAO.findBelastungenBooksByTitleOrDatum(hoerernummer, titel, datum);
     }
 
+    //</editor-fold>
+
     public HoererKennzeichen getHoererKennzeichen() {
         if (null == hoererKennzeichen) {
             hoererKennzeichen = hoererKennzeichenDAO.findByHoerernummer(hoerernummer);
@@ -140,7 +120,7 @@ public class MyData implements Serializable {
         return hoererKennzeichen;
     }
 
-    public long getAktuelleBestellkarteCount() {
+    public long getBestellkarteBookCount() {
         return bestellkarteDAO.countBooksByHoerernummer(hoerernummer);
     }
 
@@ -151,7 +131,7 @@ public class MyData implements Serializable {
         return bestellkarte;
     }
 
-    public List<Book> findAktuelleBestellkarteBooksByTitel(final String titel) {
+    public List<Book> findBestellkarteBooksByTitel(final String titel) {
         return bestellkarteDAO.findBooksByTitel(hoerernummer, titel);
     }
 

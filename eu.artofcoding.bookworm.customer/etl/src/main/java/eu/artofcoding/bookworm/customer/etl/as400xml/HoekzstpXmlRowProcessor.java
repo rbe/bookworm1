@@ -22,10 +22,10 @@ public class HoekzstpXmlRowProcessor extends AbstractXmlRowProcessor<HoererKennz
             final String tagContent = xmlData.getTagContent();
             switch (xmlData.getTagName()) {
                 case "HOELAN":
-                    //hoererKennzeichen.setLand(tagContent);
+                    hoererKennzeichen.setLand(tagContent);
                     break;
                 case "HOELA2":
-                    //hoererKennzeichen.setUrlaubLand(tagContent);
+                    hoererKennzeichen.setUrlaubLand(tagContent);
                     break;
                 case "HOEKZN":
                     hoererKennzeichen.setHoerernummer(tagContent);

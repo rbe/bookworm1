@@ -50,6 +50,18 @@ public class HoererKennzeichen implements GenericEntity {
     @TransparentCrypt
     private String email;
 
+    @Basic
+    @Column
+    @Size(min = 0, max = 80)
+    @TransparentCrypt
+    private String land;
+
+    @Basic
+    @Column
+    @Size(min = 0, max = 80)
+    @TransparentCrypt
+    private String urlaubLand;
+
     @Override
     public Long getId() {
         return id;
@@ -81,6 +93,22 @@ public class HoererKennzeichen implements GenericEntity {
 
     public void setHoerernummer(String hoerernummer) {
         this.hoerernummer = hoerernummer;
+    }
+
+    public String getLand() {
+        return land;
+    }
+
+    public void setLand(final String land) {
+        this.land = land;
+    }
+
+    public String getUrlaubLand() {
+        return urlaubLand;
+    }
+
+    public void setUrlaubLand(final String urlaubLand) {
+        this.urlaubLand = urlaubLand;
     }
 
 }

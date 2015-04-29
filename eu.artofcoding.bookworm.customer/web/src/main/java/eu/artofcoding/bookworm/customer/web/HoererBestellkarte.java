@@ -35,7 +35,7 @@ public class HoererBestellkarte extends AbstractHoererBean {
     }
 
     public long getAktuelleBestellkarteCount() {
-        return hoererSession.getMyData().getAktuelleBestellkarteCount();
+        return hoererSession.getMyData().getBestellkarteBookCount();
     }
 
     private Bestellkarte getBestellkarte() {
@@ -58,7 +58,7 @@ public class HoererBestellkarte extends AbstractHoererBean {
 
     public void search(ActionEvent e) {
         final String titel = String.format("%%%s%%", searchTitle);
-        books = hoererSession.getMyData().findAktuelleBestellkarteBooksByTitel(titel);
+        books = hoererSession.getMyData().findBestellkarteBooksByTitel(titel);
     }
 
 }

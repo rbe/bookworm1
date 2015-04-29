@@ -40,24 +40,34 @@ public class HoerstpXmlRowProcessor extends AbstractXmlRowProcessor<Hoererstamm>
                 case "HOESTR":
                     hoererstamm.setStrasse(tagContent);
                     break;
+/* HOEKZSTP.HOELAN
                 case "HOEPLL":
                     hoererstamm.setLand(tagContent);
                     break;
+*/
                 case "HOEPLZ":
                     hoererstamm.setPlz(tagContent);
                     break;
                 case "HOEORT":
                     hoererstamm.setOrt(tagContent);
                     break;
+                case "HOENPB":
+                    hoererstamm.setAdresszusatz(tagContent);
+                    break;
                 case "HOUN2":
-                    hoererstamm.setUrlaubName2(tagContent);
+                    hoererstamm.setUrlaubName2(tagContent); // Namenszusatz
                     break;
                 case "HOUSTR":
                     hoererstamm.setUrlaubStrasse(tagContent);
                     break;
+                case "HOUNPB":
+                    hoererstamm.setUrlaubAdresszusatz(tagContent);
+                    break;
+/* HOEKZSTP.HOELA2
                 case "HOUPLL":
                     hoererstamm.setUrlaubLand(tagContent);
                     break;
+*/
                 case "HOUPLZ":
                     hoererstamm.setUrlaubPlz(tagContent);
                     break;

@@ -30,7 +30,7 @@ public class HoererBuchausleihe extends AbstractHoererBean {
 
     public List<Belastung> getBelastungen() {
         if (null == belastungen) {
-            belastungen = hoererSession.getMyData().getBelastungen();
+            belastungen = hoererSession.getMyData().getHoererBuchstamm().getBelastungen();
         }
         return belastungen;
     }
@@ -43,4 +43,5 @@ public class HoererBuchausleihe extends AbstractHoererBean {
         }
         belastungen = hoererSession.getMyData().findBelastungenBooksByTitleOrDatum(titel, datum);
     }
+
 }

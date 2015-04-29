@@ -75,12 +75,6 @@ public class Hoererstamm implements GenericEntity {
     private String strasse;
 
     @Basic
-    @Column(nullable = true)
-    //@Size(min = 0, max = 4)
-    @TransparentCrypt
-    private String land;
-
-    @Basic
     @Column(nullable = false)
     //@Size(min = 1, max = 9)
     @TransparentCrypt
@@ -91,6 +85,11 @@ public class Hoererstamm implements GenericEntity {
     ////@Size(min = 1, max = 20)
     @TransparentCrypt
     private String ort;
+
+    @Basic
+    @Column
+    @TransparentCrypt
+    private String adresszusatz;
 
     @Basic
     @Column
@@ -126,12 +125,6 @@ public class Hoererstamm implements GenericEntity {
 
     @Basic
     @Column(nullable = true)
-    //@Size(min = 0, max = 4)
-    @TransparentCrypt
-    private String urlaubLand;
-
-    @Basic
-    @Column(nullable = true)
     //@Size(min = 1, max = 9)
     @TransparentCrypt
     private String urlaubPlz;
@@ -141,6 +134,11 @@ public class Hoererstamm implements GenericEntity {
     //@Size(min = 1, max = 20)
     @TransparentCrypt
     private String urlaubOrt;
+
+    @Basic
+    @Column
+    @TransparentCrypt
+    private String urlaubAdresszusatz;
 
     @Basic
     @Column
@@ -219,14 +217,6 @@ public class Hoererstamm implements GenericEntity {
         this.strasse = strasse;
     }
 
-    public String getLand() {
-        return land;
-    }
-
-    public void setLand(String land) {
-        this.land = land;
-    }
-
     public String getPlz() {
         return plz;
     }
@@ -241,6 +231,14 @@ public class Hoererstamm implements GenericEntity {
 
     public void setOrt(String ort) {
         this.ort = ort;
+    }
+
+    public String getAdresszusatz() {
+        return adresszusatz;
+    }
+
+    public void setAdresszusatz(String adresszusatz) {
+        this.adresszusatz = adresszusatz;
     }
 
     public Date getSperrTerminVon() {
@@ -283,14 +281,6 @@ public class Hoererstamm implements GenericEntity {
         this.urlaubName2 = urlaubName2;
     }
 
-    public String getUrlaubLand() {
-        return urlaubLand;
-    }
-
-    public void setUrlaubLand(String urlaubLand) {
-        this.urlaubLand = urlaubLand;
-    }
-
     public String getUrlaubOrt() {
         return urlaubOrt;
     }
@@ -313,6 +303,14 @@ public class Hoererstamm implements GenericEntity {
 
     public void setUrlaubStrasse(String urlaubStrasse) {
         this.urlaubStrasse = urlaubStrasse;
+    }
+
+    public String getUrlaubAdresszusatz() {
+        return urlaubAdresszusatz;
+    }
+
+    public void setUrlaubAdresszusatz(String urlaubAdresszusatz) {
+        this.urlaubAdresszusatz = urlaubAdresszusatz;
     }
 
     public String getTelefonnummer() {
