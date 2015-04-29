@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:o="http://omnifaces.org/ui"
       xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm/catalog">
 <h:head>
@@ -67,7 +68,69 @@
                         <div class="leading">
                             <h2 class="contentheading">Suchergebnisse</h2>
                             <bookworm:navigation/>
-                            <bookworm:result-table/>
+                            <h:form rendered="#{bookwormBean.paginateableSearch.totalRowCount > 0}">
+                                <p class="line15 resulttext">
+                                    Ihre Suche nach
+                                    <span class="suchbegriff">
+                                        <h:outputText value="#{bookwormBean.paginateableSearch.searchTerm}"/>
+                                    </span>
+                                    ergab
+                                    <span class="suchtreffer">
+                                        <h:outputText rendered="#{bookwormBean.paginateableSearch.totalRowCount > 0}" value="#{bookwormBean.paginateableSearch.totalRowCount}"/>
+                                        <h:outputText rendered="#{bookwormBean.paginateableSearch.totalRowCount == 0}" value="keine"/>
+                                    </span>
+                                    Treffer
+                                </p>
+                                <h:dataTable id="bookwormSearchResultTable"
+                                             styleClass="tab result-table"
+                                             columnClasses="result-column1,result-column2,result-column3,result-column4,result-column5"
+                                             rowClasses="result-row1,result-row2"
+                                             cellpadding="0" cellspacing="0"
+                                             value="#{bookwormBean.paginateableSearch.currentPage}" var="book"
+                                             offset="#{bookwormBean.paginateableSearch.offset}" rows="#{bookwormBean.paginateableSearch.pageSize}">
+                                    <h:column headerClass="result-column-header">
+                                        <f:facet name="header">
+                                            Titelnummer
+                                        </f:facet>
+                                        <h:outputText styleClass="result-column-content" value="#{book.titelnummer}"/>
+                                    </h:column>
+                                    <h:column headerClass="result-column-header">
+                                        <f:facet name="header">
+                                            Autor
+                                        </f:facet>
+                                        <h:outputText styleClass="result-column-content" value="#{book.autor}"/>
+                                    </h:column>
+                                    <h:column headerClass="result-column-header">
+                                        <f:facet name="header">
+                                            Titel
+                                        </f:facet>
+                                        <h:outputText styleClass="result-column-content" value="#{book.titel}"/>
+                                    </h:column>
+                                    <h:column headerClass="result-column-header">
+                                        <f:facet name="header">
+                                            Details
+                                        </f:facet>
+                                        <h:commandLink action="#{bookwormBean.showDetail(book.id)}" value="Detail"/>
+                                    </h:column>
+                                    <h:column headerClass="result-column-header">
+                                        <f:facet name="header">
+                                            Merkliste
+                                        </f:facet>
+                                        <h:commandLink rendered="#{!bookwormBean.isEntityInBasket(book.id)}" styleClass="basket-order-link" action="#{bookwormBean.addToBasket(book.id)}" value="In die Merkliste"/>
+                                        <h:commandLink rendered="#{bookwormBean.isEntityInBasket(book.id)}" styleClass="basket-remove-link" action="#{bookwormBean.removeFromBasket(book.id)}" value="Aus der Merkliste entfernen"/>
+                                    </h:column>
+                                    <f:facet name="footer">
+                                        <h:panelGroup>
+                                            <h:commandButton value="Zurück" action="#{bookwormBean.previousPage}" disabled="#{!bookwormBean.previousButtonEnabled}"/>
+                                            &nbsp;Seite
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.currentPageIndex + 1}"/> von
+                                            <h:outputText value="#{bookwormBean.paginateableSearch.pageCount}"/>&nbsp;
+                                            <h:commandButton value="Weiter" action="#{bookwormBean.nextPage}" disabled="#{!bookwormBean.nextButtonEnabled}"/>
+                                        </h:panelGroup>
+                                    </f:facet>
+                                </h:dataTable>
+                                <br/><br/><br/>
+                            </h:form>
                         </div>
                     </div>
                 </div>
