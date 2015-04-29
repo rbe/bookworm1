@@ -8,8 +8,8 @@
 
 package eu.artofcoding.bookworm.catalog.etl;
 
+import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 import eu.artofcoding.bookworm.common.etl.CamelFileProcessor;
-import eu.artofcoding.bookworm.common.persistence.book.Book;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -28,7 +28,7 @@ public class BookImportProcessor implements CamelFileProcessor {
     }
 
     @Transactional
-    public void importFile(final String body) throws Exception {
+    public List<GenericEntity> importFile(final String body) throws Exception {
         // Check state
         if (null == bookFileParser || null == em) {
             throw new IllegalStateException("No file parser or no entity manager");
@@ -36,10 +36,11 @@ public class BookImportProcessor implements CamelFileProcessor {
         // Truncate table
         em.createNativeQuery("TRUNCATE TABLE books").executeUpdate();
         // Insert data
-        final List<Book> bookEntities = bookFileParser.parse(body);
-        for (Book b : bookEntities) {
+        final List<GenericEntity> genericEntities = bookFileParser.parse(body);
+        for (GenericEntity b : genericEntities) {
             em.persist(b);
         }
+        return genericEntities;
     }
 
 }

@@ -5,10 +5,6 @@
                            http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.14.1.xsd">
     <!-- Cryptography -->
     <bean id="jasyptPropertiesParser" class="org.apache.camel.component.jasypt.JasyptPropertiesParser">
-        <!--
-        <property name="algorithm" value="sysenv:CAMEL_ENCRYPTION_ALGORITHM"/>
-        <property name="password" value="sysenv:CAMEL_ENCRYPTION_PASSWORD"/>
-        -->
         <property name="encryptor" ref="encryptor"/>
     </bean>
     <!-- Catalog Import -->
@@ -21,7 +17,7 @@
                   allowUseOriginalMessage="false"
                   streamCache="true"
                   trace="false">
-        <route id="incomingFile" autoStartup="true">
+        <route id="importBooks" autoStartup="true">
             <from uri="{{catalog.file.url}}"/>
             <bean ref="bookImportProcessor" method="importFile"/>
         </route>

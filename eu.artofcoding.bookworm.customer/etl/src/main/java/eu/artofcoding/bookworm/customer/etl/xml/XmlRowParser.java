@@ -8,6 +8,7 @@
 
 package eu.artofcoding.bookworm.customer.etl.xml;
 
+import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 import eu.artofcoding.bookworm.common.etl.xml.XmlData;
 import eu.artofcoding.bookworm.common.etl.xml.XmlRow;
 import eu.artofcoding.bookworm.common.etl.xml.XmlRowProcessor;
@@ -15,6 +16,8 @@ import eu.artofcoding.bookworm.common.etl.xml.XmlRowProcessor;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public final class XmlRowParser {
@@ -31,7 +34,7 @@ public final class XmlRowParser {
         return new IllegalStateException("Unexpected event");
     }
 
-    private XmlData processColumn(final XMLStreamReader reader, final String localName) throws XMLStreamException {
+    private XmlData convertToXmlData(final XMLStreamReader reader, final String localName) throws XMLStreamException {
         final XmlData xmlData = new XmlData();
         xmlData.setTagName(localName);
         final boolean bodyFound = XMLStreamConstants.CHARACTERS == reader.getEventType();
@@ -50,7 +53,7 @@ public final class XmlRowParser {
         }
     }
 
-    private XmlRow processRow(final XMLStreamReader reader) {
+    private XmlRow convertToXmlRow(final XMLStreamReader reader) {
         final XmlRow xmlRow = new XmlRow();
         try {
             String localName = null;
@@ -58,13 +61,15 @@ public final class XmlRowParser {
                 final int eventWithinRow = reader.next();
                 final boolean startElement = XMLStreamConstants.START_ELEMENT == eventWithinRow;
                 final boolean endElement = XMLStreamConstants.END_ELEMENT == eventWithinRow;
+                final boolean endOfRow = endElement && reader.getLocalName().equals("row");
+                final boolean hasData = XMLStreamConstants.CHARACTERS == eventWithinRow && reader.getText().trim().length() > 0;
                 if (startElement) {
                     localName = reader.getLocalName();
-                } else if (endElement && reader.getLocalName().equals("row")) {
-                    return xmlRow;
-                } else if (XMLStreamConstants.CHARACTERS == eventWithinRow && reader.getText().trim().length() > 0) {
-                    final XmlData xmlData = processColumn(reader, localName);
+                } else if (hasData) {
+                    final XmlData xmlData = convertToXmlData(reader, localName);
                     xmlRow.addXmlData(xmlData);
+                } else if (endOfRow) {
+                    return xmlRow;
                 }
             }
         } catch (XMLStreamException e) {
@@ -73,15 +78,17 @@ public final class XmlRowParser {
         throw new IllegalStateException();
     }
 
-    public void processXml(final XMLStreamReader reader) {
+    public List<GenericEntity> xmlRowsToEntities(final XMLStreamReader reader) {
+        List<GenericEntity> genericEntities = new ArrayList<>();
         try {
             while (reader.hasNext()) {
                 final int event = reader.next();
-                final boolean startElement = XMLStreamConstants.START_ELEMENT == event;
-                if (startElement && reader.getLocalName().equals("row")) {
-                    final XmlRow xmlRow = processRow(reader);
+                final boolean startOfRow = XMLStreamConstants.START_ELEMENT == event && reader.getLocalName().equals("row");
+                if (startOfRow) {
+                    final XmlRow xmlRow = convertToXmlRow(reader);
                     try {
-                        xmlRowProcessor.xmlRowToEntity(xmlRow);
+                        final GenericEntity entity = xmlRowProcessor.xmlRowToEntity(xmlRow);
+                        genericEntities.add(entity);
                     } catch (Exception e) {
                         LOGGER.warning(String.format("Cannot process row %s: %s", xmlRow, e.getMessage()));
                     }
@@ -90,6 +97,7 @@ public final class XmlRowParser {
         } catch (XMLStreamException e) {
             throw new RuntimeException(e);
         }
+        return genericEntities;
     }
 
 }

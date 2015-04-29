@@ -8,6 +8,7 @@
 
 package eu.artofcoding.bookworm.catalog.etl;
 
+import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 
 import java.io.BufferedReader;
@@ -118,10 +119,10 @@ public class BookFileParser {
         return book;
     }
 
-    public List<Book> parse(final String body) throws IOException {
+    public List<GenericEntity> parse(final String body) throws IOException {
         // A line, terminated by CRLF
         String[] lines = body.split("\r\n");
-        final List<Book> bookEntities = new ArrayList<>();
+        final List<GenericEntity> bookEntities = new ArrayList<>();
         for (String line : lines) {
             final Book book = createBook(line);
             bookEntities.add(book);
@@ -130,12 +131,12 @@ public class BookFileParser {
         return bookEntities;
     }
 
-    public List<Book> parse(final File file) throws IOException {
+    public List<GenericEntity> parse(final File file) throws IOException {
         // A line, terminated by CRLF
         final Path path = Paths.get(file.toURI());
         //ByteBuffer buffer = ByteBuffer.allocate(4 * 1024 * 1024); // 4 MB buffer
         final BufferedReader reader = Files.newBufferedReader(path, Charset.forName("ISO-8859-15"));
-        final List<Book> bookEntities = new ArrayList<>();
+        final List<GenericEntity> bookEntities = new ArrayList<>();
         String line;
         while (null != (line = reader.readLine()) && line.length() > 1) {
             final Book book = createBook(line);

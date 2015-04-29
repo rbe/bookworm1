@@ -8,14 +8,15 @@
 
 package eu.artofcoding.bookworm.customer.etl;
 
+import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 import eu.artofcoding.bookworm.common.etl.CamelFileProcessor;
 import eu.artofcoding.bookworm.common.etl.helper.XmlStreamHelper;
 import eu.artofcoding.bookworm.common.etl.xml.XmlRowProcessor;
 import eu.artofcoding.bookworm.customer.etl.xml.XmlRowParser;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.stream.XMLStreamReader;
+import java.util.List;
 
 public class HoererImportProcessor implements CamelFileProcessor {
 
@@ -25,15 +26,16 @@ public class HoererImportProcessor implements CamelFileProcessor {
         this.xmlRowProcessor = xmlRowProcessor;
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void importFile(final String body) throws Exception {
+    @Transactional
+    public List<GenericEntity> importFile(final String body) throws Exception {
         // Check state
         if (null == xmlRowProcessor) {
             throw new IllegalStateException("No file parser or no entity manager");
         }
         // Insert data
         final XMLStreamReader reader = XmlStreamHelper.makeXMLStreamReaderFromResource(body);
-        new XmlRowParser(xmlRowProcessor).processXml(reader);
+        final List<GenericEntity> genericEntities = new XmlRowParser(xmlRowProcessor).xmlRowsToEntities(reader);
+        return genericEntities;
     }
 
 }

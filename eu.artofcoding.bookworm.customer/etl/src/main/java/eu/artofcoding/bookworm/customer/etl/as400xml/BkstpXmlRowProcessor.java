@@ -20,12 +20,12 @@ import javax.persistence.Query;
 import java.util.Date;
 import java.util.logging.Logger;
 
-public class BkstpXmlRowProcessor extends AbstractXmlRowProcessor {
+public class BkstpXmlRowProcessor extends AbstractXmlRowProcessor<Bestellkarte> {
 
     private static final Logger LOGGER = Logger.getLogger(BkstpXmlRowProcessor.class.getName());
 
     @Override
-    public void xmlRowToEntity(final XmlRow xmlRow) {
+    public Bestellkarte xmlRowToEntity(final XmlRow xmlRow) {
         final Query findBookByTitelnummer = entityManager.createNamedQuery("Book.findByTitelnummer");
         final Bestellkarte bestellkarte = new Bestellkarte();
         for (final XmlData xmlData : xmlRow.getXmlDatas()) {
@@ -55,13 +55,14 @@ public class BkstpXmlRowProcessor extends AbstractXmlRowProcessor {
                                 bestellkarte.addBook(book);
                             } catch (NoResultException e) {
                                 //LOGGER.warning(String.format("Book titelnummer=%s not found for XmlRow %s", tagContent, xmlRow));
+                                // ignore
                             }
                         }
                     }
                     break;
             }
         }
-        validateAndMerge(bestellkarte);
+        return bestellkarte;
     }
 
 }

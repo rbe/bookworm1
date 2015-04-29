@@ -8,8 +8,12 @@
 
 package eu.artofcoding.bookworm.common.etl;
 
+import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
+
+import java.util.List;
+
 public interface CamelFileProcessor {
 
-    void importFile(String body) throws Exception;
+    List<GenericEntity> importFile(String body) throws Exception;
 
 }

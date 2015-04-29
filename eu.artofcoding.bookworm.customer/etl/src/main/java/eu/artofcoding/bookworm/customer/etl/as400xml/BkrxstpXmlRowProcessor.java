@@ -17,10 +17,10 @@ import eu.artofcoding.bookworm.customer.etl.xml.AbstractXmlRowProcessor;
 
 import javax.persistence.Query;
 
-public class BkrxstpXmlRowProcessor extends AbstractXmlRowProcessor {
+public class BkrxstpXmlRowProcessor extends AbstractXmlRowProcessor<BestellkarteArchiv> {
 
     @Override
-    public void xmlRowToEntity(final XmlRow xmlRow) {
+    public BestellkarteArchiv xmlRowToEntity(final XmlRow xmlRow) {
         final Query findBookByTitelnummer = entityManager.createNamedQuery("Book.findByTitelnummer");
         final BestellkarteArchiv bestellkarteArchiv = new BestellkarteArchiv();
         for (final XmlData xmlData : xmlRow.getXmlDatas()) {
@@ -41,7 +41,7 @@ public class BkrxstpXmlRowProcessor extends AbstractXmlRowProcessor {
                     break;
             }
         }
-        validateAndMerge(bestellkarteArchiv);
+        return bestellkarteArchiv;
     }
 
 }

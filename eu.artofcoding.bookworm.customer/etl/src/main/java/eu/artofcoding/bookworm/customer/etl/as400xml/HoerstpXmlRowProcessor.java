@@ -14,10 +14,10 @@ import eu.artofcoding.bookworm.common.helper.ParserHelper;
 import eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm;
 import eu.artofcoding.bookworm.customer.etl.xml.AbstractXmlRowProcessor;
 
-public class HoerstpXmlRowProcessor extends AbstractXmlRowProcessor {
+public class HoerstpXmlRowProcessor extends AbstractXmlRowProcessor<Hoererstamm> {
 
     @Override
-    public void xmlRowToEntity(final XmlRow xmlRow) {
+    public Hoererstamm xmlRowToEntity(final XmlRow xmlRow) {
         final Hoererstamm hoererstamm = new Hoererstamm();
         for (final XmlData xmlData : xmlRow.getXmlDatas()) {
             final String tagContent = xmlData.getTagContent();
@@ -84,7 +84,7 @@ public class HoerstpXmlRowProcessor extends AbstractXmlRowProcessor {
                     break;
             }
         }
-        validateAndMerge(hoererstamm);
+        return hoererstamm;
     }
 
 }

@@ -8,8 +8,16 @@
 
 package eu.artofcoding.bookworm.common.etl.xml;
 
-public interface XmlRowProcessor {
+import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 
-    void xmlRowToEntity(XmlRow xmlRow);
+import java.util.List;
+
+public interface XmlRowProcessor<T extends GenericEntity> {
+
+    T xmlRowToEntity(XmlRow xmlRow);
+
+    T validateAndMerge(final T entity);
+
+    List<T> validateAndMerge(final List<T> entities);
 
 }

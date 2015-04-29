@@ -13,14 +13,20 @@ import eu.artofcoding.bookworm.common.etl.xml.XmlRow;
 import eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen;
 import eu.artofcoding.bookworm.customer.etl.xml.AbstractXmlRowProcessor;
 
-public class HoekzstpXmlRowProcessor extends AbstractXmlRowProcessor {
+public class HoekzstpXmlRowProcessor extends AbstractXmlRowProcessor<HoererKennzeichen> {
 
     @Override
-    public void xmlRowToEntity(final XmlRow xmlRow) {
+    public HoererKennzeichen xmlRowToEntity(final XmlRow xmlRow) {
         final HoererKennzeichen hoererKennzeichen = new HoererKennzeichen();
         for (final XmlData xmlData : xmlRow.getXmlDatas()) {
             final String tagContent = xmlData.getTagContent();
             switch (xmlData.getTagName()) {
+                case "HOELAN":
+                    //hoererKennzeichen.setLand(tagContent);
+                    break;
+                case "HOELA2":
+                    //hoererKennzeichen.setUrlaubLand(tagContent);
+                    break;
                 case "HOEKZN":
                     hoererKennzeichen.setHoerernummer(tagContent);
                     break;
@@ -29,7 +35,7 @@ public class HoekzstpXmlRowProcessor extends AbstractXmlRowProcessor {
                     break;
             }
         }
-        validateAndMerge(hoererKennzeichen);
+        return hoererKennzeichen;
     }
 
 }

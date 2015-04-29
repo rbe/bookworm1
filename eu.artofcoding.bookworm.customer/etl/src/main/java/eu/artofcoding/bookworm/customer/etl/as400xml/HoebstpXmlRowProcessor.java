@@ -19,12 +19,12 @@ import eu.artofcoding.bookworm.customer.etl.xml.AbstractXmlRowProcessor;
 import javax.persistence.NoResultException;
 import java.util.logging.Logger;
 
-public class HoebstpXmlRowProcessor extends AbstractXmlRowProcessor {
+public class HoebstpXmlRowProcessor extends AbstractXmlRowProcessor<HoererBuchstamm> {
 
     private static final Logger LOGGER = Logger.getLogger(HoebstpXmlRowProcessor.class.getName());
 
     @Override
-    public void xmlRowToEntity(final XmlRow xmlRow) {
+    public HoererBuchstamm xmlRowToEntity(final XmlRow xmlRow) {
         final HoererBuchstamm hoererBuchstamm = new HoererBuchstamm();
         for (final XmlData xmlData : xmlRow.getXmlDatas()) {
             final String tagContent = xmlData.getTagContent();
@@ -87,7 +87,7 @@ public class HoebstpXmlRowProcessor extends AbstractXmlRowProcessor {
                     break;
             }
         }
-        validateAndMerge(hoererBuchstamm);
+        return hoererBuchstamm;
     }
 
 }
