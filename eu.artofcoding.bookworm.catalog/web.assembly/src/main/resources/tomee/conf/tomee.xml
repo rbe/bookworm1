@@ -29,8 +29,8 @@
         mail.smtp.host = mx.1ci.net
         mail.smtp.port = 465
         mail.smtp.auth = true
-        mail.smtp.user = someuser
+        mail.smtp.user = wbh@wbh-online.de
         password = mypassword
-        mail.from = Bla
+        mail.from = WBH Online Shop
     </Resource>
 </tomee>
