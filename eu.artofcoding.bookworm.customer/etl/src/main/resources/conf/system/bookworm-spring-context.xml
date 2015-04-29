@@ -22,10 +22,6 @@
         </property>
     </bean>
     <bean id="jasyptPropertiesParser" class="org.apache.camel.component.jasypt.JasyptPropertiesParser">
-        <!--
-        <property name="algorithm" value="sysenv:CAMEL_ENCRYPTION_ALGORITHM"/>
-        <property name="password" value="sysenv:CAMEL_ENCRYPTION_PASSWORD"/>
-        -->
         <property name="encryptor" ref="encryptor"/>
     </bean>
     <!-- Persistence -->
@@ -34,7 +30,7 @@
         <property name="dataSource" ref="bookwormDatasource"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter">
-                <property name="showSql" value="true"/>
+                <property name="showSql" value="false"/>
                 <property name="generateDdl" value="true"/>
             </bean>
         </property>
