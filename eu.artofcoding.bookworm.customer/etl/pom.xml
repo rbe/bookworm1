@@ -155,6 +155,10 @@
     <build>
         <resources>
             <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
                 <directory>src/main/resources/conf</directory>
                 <filtering>true</filtering>
                 <targetPath>${project.build.directory}/filtered-resources/conf</targetPath>
@@ -199,10 +203,19 @@
     </build>
     <profiles>
         <profile>
-            <id>bookworm.delivery</id>
+            <id>bookworm.development</id>
             <properties>
-                <resources.filter>production</resources.filter>
+                <webapp.filter>development</webapp.filter>
             </properties>
+        </profile>
+        <profile>
+            <id>bookworm.production</id>
+            <properties>
+                <webapp.filter>production</webapp.filter>
+            </properties>
+        </profile>
+        <profile>
+            <id>bookworm.delivery</id>
         </profile>
     </profiles>
 </project>

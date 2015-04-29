@@ -250,6 +250,12 @@
     </build>
     <profiles>
         <profile>
+            <id>bookworm.development</id>
+        </profile>
+        <profile>
+            <id>bookworm.production</id>
+        </profile>
+        <profile>
             <id>bookworm.delivery</id>
         </profile>
     </profiles>

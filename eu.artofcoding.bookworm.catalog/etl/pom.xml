@@ -140,10 +140,19 @@
     </build>
     <profiles>
         <profile>
-            <id>bookworm.delivery</id>
+            <id>bookworm.development</id>
             <properties>
-                <resources.filter>production</resources.filter>
+                <webapp.filter>development</webapp.filter>
             </properties>
+        </profile>
+        <profile>
+            <id>bookworm.production</id>
+            <properties>
+                <webapp.filter>production</webapp.filter>
+            </properties>
+        </profile>
+        <profile>
+            <id>bookworm.delivery</id>
         </profile>
     </profiles>
 </project>
