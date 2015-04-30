@@ -14,11 +14,29 @@ import eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 @Named
 @RequestScoped
 public class Hoererdaten extends AbstractHoererBean {
+
+    private Date getTodayWithoutTime() {
+        final Calendar calendar = Calendar.getInstance(Locale.GERMANY);
+        calendar.clear(Calendar.HOUR);
+        calendar.clear(Calendar.MINUTE);
+        calendar.clear(Calendar.SECOND);
+        return calendar.getTime();
+    }
+
+    private boolean isDateWithinRange(final Date dateFrom, final Date dateTo) {
+        final Date now = getTodayWithoutTime();
+        final boolean nowBeforeOrEqualToDateFrom = now.equals(dateFrom) || now.after(dateFrom);
+        final boolean nowBeforeOrEqualToDateTo = now.before(dateTo) || now.equals(dateTo);
+        final boolean nowInRangeOf = nowBeforeOrEqualToDateFrom || nowBeforeOrEqualToDateTo;
+        return nowInRangeOf;
+    }
 
     //<editor-fold desc="Hoererstamm">
 
@@ -82,15 +100,7 @@ public class Hoererdaten extends AbstractHoererBean {
         final Date sperrTerminVon = getHoererstamm().getSperrTerminVon();
         final Date sperrTerminBis = getHoererstamm().getSperrTerminBis();
         final boolean haveSperrtermin = null != sperrTerminVon && null != sperrTerminBis;
-        if (haveSperrtermin) {
-            final Date now = new Date();
-            final boolean nowBeforeOrEqualToSperrTerminVon = now.equals(sperrTerminVon) || now.after(sperrTerminVon);
-            final boolean nowBeforeOrEqualToSperrTerminBis = now.before(sperrTerminBis) || now.equals(sperrTerminBis);
-            final boolean nowInRangeOfSperrtermin = nowBeforeOrEqualToSperrTerminVon && nowBeforeOrEqualToSperrTerminBis;
-            return nowInRangeOfSperrtermin;
-        } else {
-            return false;
-        }
+        return haveSperrtermin && isDateWithinRange(sperrTerminVon, sperrTerminBis);
     }
 
     public Date getSperrTerminVon() {
@@ -105,15 +115,7 @@ public class Hoererdaten extends AbstractHoererBean {
         final Date urlaubVon = getHoererstamm().getUrlaubVon();
         final Date urlaubBis = getHoererstamm().getUrlaubBis();
         final boolean haveUrlaub = null != urlaubVon && null != urlaubBis;
-        if (haveUrlaub) {
-            final Date now = new Date();
-            final boolean nowBeforeOrEqualToUrlaubVon = now.equals(urlaubVon) || now.after(urlaubVon);
-            final boolean nowBeforeOrEqualToUrlaubBis = now.before(urlaubBis) || now.equals(urlaubBis);
-            final boolean nowInRangeOfUrlaub = nowBeforeOrEqualToUrlaubVon && nowBeforeOrEqualToUrlaubBis;
-            return nowInRangeOfUrlaub;
-        } else {
-            return false;
-        }
+        return haveUrlaub && isDateWithinRange(urlaubVon, urlaubBis);
     }
 
     public Date getUrlaubVon() {
