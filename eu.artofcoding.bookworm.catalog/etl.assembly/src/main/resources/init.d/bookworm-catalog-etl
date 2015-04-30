@@ -33,7 +33,7 @@ case "$1" in
     stop)
         echo "Stopping ${assembly.for.artifactId}..."
         pid=$(ps ax | grep ${assembly.for.artifactId} | grep -v grep | awk '{print $1}')
-        if [ x"${pid}" -eq "" ]; then
+        if [ x"${pid}" = "" ]; then
             echo "$0: Cannot find process id for ${assembly.for.artifactId}"
         else
             kill ${pid}
