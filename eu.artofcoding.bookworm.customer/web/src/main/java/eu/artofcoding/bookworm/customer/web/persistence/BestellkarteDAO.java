@@ -38,12 +38,6 @@ public class BestellkarteDAO extends GenericDAO<Bestellkarte> implements Seriali
         setEntityManager(em);
     }
 
-    public long countBooksByHoerernummer(final String hoerernummer) {
-        final TypedQuery<Long> namedQuery = em.createNamedQuery("Bestellkarte.countBooksByHoerernummer", Long.class);
-        namedQuery.setParameter("hoerernummer", hoerernummer);
-        return namedQuery.getSingleResult();
-    }
-
     public Bestellkarte findByHoerernummer(final String hoerernummer) {
         final Map<String, Object> map = new HashMap<>();
         map.put("hoerernummer", hoerernummer);
@@ -54,6 +48,12 @@ public class BestellkarteDAO extends GenericDAO<Bestellkarte> implements Seriali
             // ignore
         }
         return bestellkarte;
+    }
+
+    public long countBooksByHoerernummer(final String hoerernummer) {
+        final TypedQuery<Long> namedQuery = em.createNamedQuery("Bestellkarte.countBooksByHoerernummer", Long.class);
+        namedQuery.setParameter("hoerernummer", hoerernummer);
+        return namedQuery.getSingleResult();
     }
 
     public List<Book> findBooksByTitel(final String hoerernummer, final String titel) {
