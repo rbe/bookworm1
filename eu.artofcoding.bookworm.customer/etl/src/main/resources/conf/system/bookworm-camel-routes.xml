@@ -86,7 +86,7 @@
                     </when>
                     <when>
                         <simple>${in.headers.CamelFileName} == '{{customer.BKSTP.fileName}}'</simple>
-                        <to uri="sql:truncate table Bestellkarte_books?dataSource=bookwormDatasource"/>
+                        <to uri="sql:truncate table Bestellkarte_Book?dataSource=bookwormDatasource"/>
                         <to uri="sql:delete from Bestellkarte?dataSource=bookwormDatasource"/>
                         <bean ref="bkstpImportProcessor" method="importFile"/>
                         <bean ref="bkstpXmlRowProcessor" method="validateAndMerge"/>

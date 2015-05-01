@@ -18,14 +18,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.persistence.Version;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "books")
 @NamedQueries({
         //@NamedQuery(name = "findByStichwort", query = "SELECT o FROM Book o WHERE o.autor LIKE :autor OR o.titel LIKE :titel OR o.untertitel LIKE :untertitel OR o.titelnummer = :titelnummer"),
         @NamedQuery(name = "Book.findByTitelnummer", query = "SELECT o FROM Book o WHERE o.titelnummer = :titelnummer"),
