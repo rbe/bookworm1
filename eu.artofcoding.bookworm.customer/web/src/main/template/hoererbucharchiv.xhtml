@@ -98,7 +98,7 @@
                                     </div>
                                     <div class="col-lg-1">
                                         <h:commandButton actionListener="#{hoererBucharchiv.search}" value="Suchen">
-                                            <f:ajax execute="@form" render="archivTabelle"/>
+                                            <f:ajax execute="@form" render="@all"/>
                                         </h:commandButton>
                                     </div>
                                 </div>
@@ -115,8 +115,11 @@
                                 </div>
                             </div>
                         </div>
-                        <h:panelGroup rendered="#{!hoererBucharchiv.hasBestellkartenArchiv()}" layout="block" styleClass="row">
+                        <h:panelGroup rendered="#{!hoererBucharchiv.hasBestellkartenArchiv() and !hoererBucharchiv.hasSearchTerms()}" layout="block" styleClass="row">
                             Es sind keine Bestellungen im Archiv!
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{!hoererBucharchiv.hasBestellkartenArchiv() and hoererBucharchiv.hasSearchTerms()}" layout="block" styleClass="row">
+                            Es sind keine Bestellungen im Archiv zur Ihrer Suche gefunden worden!
                         </h:panelGroup>
                         <h:panelGroup rendered="#{hoererBucharchiv.hasBestellkartenArchiv()}" id="archivTabelle" layout="block" styleClass="row">
                             <div class="col-lg-12">

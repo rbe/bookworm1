@@ -105,14 +105,17 @@
                                 <div class="row data">
                                     <div class="col-lg-12">
                                         <h:commandButton actionListener="#{hoererBestellkarte.search}" value="Suchen">
-                                            <f:ajax execute="@form" render="archivTabelle"/>
+                                            <f:ajax execute="@form" render="@all"/>
                                         </h:commandButton>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <h:panelGroup rendered="#{!hoererBestellkarte.hasBooks()}" layout="block" styleClass="row">
+                        <h:panelGroup rendered="#{!hoererBestellkarte.hasBooks() and !hoererBestellkarte.hasSearchTerms()}" layout="block" styleClass="row">
                             Es liegt keine Bestellkarte vor!
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{!hoererBestellkarte.hasBooks() and hoererBestellkarte.hasSearchTerms()}" layout="block" styleClass="row">
+                            Es sind keine Titel in Ihrer Bestellkarte vorhanden, die Ihrer Suche entsprechen!
                         </h:panelGroup>
                         <h:panelGroup rendered="#{hoererBestellkarte.hasBooks()}" id="archivTabelle" layout="block" styleClass="row">
                             <div class="col-lg-12">

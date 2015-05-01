@@ -47,4 +47,10 @@ public class AbstractHoererBean {
         this.searchDate = searchDate;
     }
 
+    public boolean hasSearchTerms() {
+        boolean hasSearchTitle = null != searchTitle && !searchTitle.trim().isEmpty();
+        boolean hasSearchDate = null != searchDate && !searchDate.trim().isEmpty();
+        return hasSearchTitle || hasSearchDate;
+    }
+
 }
