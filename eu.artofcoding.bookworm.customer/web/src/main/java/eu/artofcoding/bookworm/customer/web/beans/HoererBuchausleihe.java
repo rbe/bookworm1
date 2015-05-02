@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.web;
+package eu.artofcoding.bookworm.customer.web.beans;
 
 import eu.artofcoding.bookworm.common.helper.ParserHelper;
 import eu.artofcoding.bookworm.common.persistence.hoerer.Belastung;
@@ -30,7 +30,7 @@ public class HoererBuchausleihe extends AbstractHoererBean {
 
     public List<Belastung> getBelastungen() {
         if (null == belastungen) {
-            belastungen = hoererSession.getMyData().getHoererBuchstamm().getBelastungen();
+            belastungen = hoererSession.getHoererBuchstamm().getBelastungen();
         }
         return belastungen;
     }
@@ -41,7 +41,7 @@ public class HoererBuchausleihe extends AbstractHoererBean {
         if (null != searchDate && searchDate.length() == 10) {
             datum = ParserHelper.parseGermanDate(searchDate);
         }
-        belastungen = hoererSession.getMyData().findBelastungenBooksByTitleOrDatum(titel, datum);
+        belastungen = hoererSession.findBelastungenBooksByTitleOrDatum(titel, datum);
     }
 
 }

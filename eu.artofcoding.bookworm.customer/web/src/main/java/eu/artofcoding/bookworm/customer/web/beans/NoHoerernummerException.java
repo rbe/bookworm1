@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.web;
+package eu.artofcoding.bookworm.customer.web.beans;
 
 import javax.ejb.ApplicationException;
 

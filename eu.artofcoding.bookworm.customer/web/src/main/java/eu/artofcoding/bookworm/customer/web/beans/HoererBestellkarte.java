@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.web;
+package eu.artofcoding.bookworm.customer.web.beans;
 
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 import eu.artofcoding.bookworm.common.persistence.hoerer.Bestellkarte;
@@ -35,12 +35,12 @@ public class HoererBestellkarte extends AbstractHoererBean {
     }
 
     public long getAktuelleBestellkarteCount() {
-        return hoererSession.getMyData().getBestellkarteBookCount();
+        return hoererSession.getBestellkarteBookCount();
     }
 
     private Bestellkarte getBestellkarte() {
         if (null == bestellkarte) {
-            bestellkarte = hoererSession.getMyData().getBestellkarte();
+            bestellkarte = hoererSession.getBestellkarte();
             search(null);
         }
         return bestellkarte;
@@ -56,7 +56,7 @@ public class HoererBestellkarte extends AbstractHoererBean {
 
     public void search(ActionEvent e) {
         final String titel = String.format("%%%s%%", searchTitle);
-        books = hoererSession.getMyData().findBestellkarteBooksByTitel(titel);
+        books = hoererSession.findBestellkarteBooksByTitel(titel);
     }
 
 }

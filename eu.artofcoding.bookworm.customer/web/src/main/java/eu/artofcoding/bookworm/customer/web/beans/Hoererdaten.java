@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.web;
+package eu.artofcoding.bookworm.customer.web.beans;
 
 import eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstamm;
 import eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen;
@@ -41,7 +41,7 @@ public class Hoererdaten extends AbstractHoererBean {
     //<editor-fold desc="Hoererstamm">
 
     private Hoererstamm getHoererstamm() {
-        return hoererSession.getMyData().getHoererstamm();
+        return hoererSession.getHoererstamm();
     }
 
     public Date getGeburtsdatum() {
@@ -129,7 +129,7 @@ public class Hoererdaten extends AbstractHoererBean {
     //</editor-fold>
 
     private HoererKennzeichen getHoererKennzeichen() {
-        return hoererSession.getMyData().getHoererKennzeichen();
+        return hoererSession.getHoererKennzeichen();
     }
 
     public String getLand() {
@@ -145,7 +145,7 @@ public class Hoererdaten extends AbstractHoererBean {
     }
 
     private HoererBuchstamm getHoererBuchstamm() {
-        return hoererSession.getMyData().getHoererBuchstamm();
+        return hoererSession.getHoererBuchstamm();
     }
 
     public Integer getMengenindex() {

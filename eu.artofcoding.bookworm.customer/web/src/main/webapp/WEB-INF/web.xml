@@ -90,7 +90,7 @@
         <location>/ViewExpiredException.xhtml</location>
     </error-page>
     <error-page>
-        <exception-type>eu.artofcoding.bookworm.customer.web.NoHoerernummerException</exception-type>
+        <exception-type>eu.artofcoding.bookworm.customer.web.beans.NoHoerernummerException</exception-type>
         <location>/NoHoerernummerException.xhtml</location>
     </error-page>
     <error-page>

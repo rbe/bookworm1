@@ -13,17 +13,14 @@ import eu.artofcoding.bookworm.common.persistence.book.Book;
 import eu.artofcoding.bookworm.common.persistence.hoerer.Bestellkarte;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-@Stateless
+@Named
 public class BestellkarteDAO extends GenericDAO<Bestellkarte> implements Serializable {
 
     @PersistenceContext
@@ -36,24 +33,6 @@ public class BestellkarteDAO extends GenericDAO<Bestellkarte> implements Seriali
     @PostConstruct
     private void postConstruct() {
         setEntityManager(em);
-    }
-
-    public Bestellkarte findByHoerernummer(final String hoerernummer) {
-        final Map<String, Object> map = new HashMap<>();
-        map.put("hoerernummer", hoerernummer);
-        Bestellkarte bestellkarte = null;
-        try {
-            bestellkarte = findOne("Bestellkarte.findByHoerernummer", map);
-        } catch (NoResultException e) {
-            // ignore
-        }
-        return bestellkarte;
-    }
-
-    public long countBooksByHoerernummer(final String hoerernummer) {
-        final TypedQuery<Long> namedQuery = em.createNamedQuery("Bestellkarte.countBooksByHoerernummer", Long.class);
-        namedQuery.setParameter("hoerernummer", hoerernummer);
-        return namedQuery.getSingleResult();
     }
 
     public List<Book> findBooksByTitel(final String hoerernummer, final String titel) {

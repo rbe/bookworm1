@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.web;
+package eu.artofcoding.bookworm.customer.web.qualifier;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.ElementType;
@@ -17,5 +17,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Qualifier
-public @interface Hoerernummer {
+public @interface HoererCount {
+    String query() default "";
 }

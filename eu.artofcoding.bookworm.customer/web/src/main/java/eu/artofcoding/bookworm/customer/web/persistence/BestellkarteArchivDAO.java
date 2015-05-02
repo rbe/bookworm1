@@ -12,18 +12,16 @@ import eu.artofcoding.beetlejuice.persistence.GenericDAO;
 import eu.artofcoding.bookworm.common.persistence.hoerer.BestellkarteArchiv;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-@Stateless
+@Named
 public class BestellkarteArchivDAO extends GenericDAO<BestellkarteArchiv> implements Serializable {
 
     @PersistenceContext
@@ -36,18 +34,6 @@ public class BestellkarteArchivDAO extends GenericDAO<BestellkarteArchiv> implem
     @PostConstruct
     private void postConstruct() {
         setEntityManager(em);
-    }
-
-    public long countByHoerernummer(final String hoerernummer) {
-        final TypedQuery<Long> namedQuery = entityManager.createNamedQuery("BestellkarteArchiv.countByHoerernummer", Long.class);
-        namedQuery.setParameter("hoerernummer", hoerernummer);
-        return namedQuery.getSingleResult();
-    }
-
-    public List<BestellkarteArchiv> findByHoerernummer(final String hoerernummer) {
-        final Map<String, Object> map = new HashMap<>();
-        map.put("hoerernummer", hoerernummer);
-        return findAll("BestellkarteArchiv.findByHoerernummerOrderByAusleihdatum", map);
     }
 
     public List<BestellkarteArchiv> findByTitleOrDatum(final String hoerernummer, final String titel, final Date datum) {

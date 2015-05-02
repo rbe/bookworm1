@@ -13,18 +13,16 @@ import eu.artofcoding.bookworm.common.persistence.hoerer.Belastung;
 import eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstamm;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-@Stateless
+@Named
 public class HoererBuchstammDAO extends GenericDAO<HoererBuchstamm> implements Serializable {
 
     @PersistenceContext
@@ -37,12 +35,6 @@ public class HoererBuchstammDAO extends GenericDAO<HoererBuchstamm> implements S
     @PostConstruct
     private void postConstruct() {
         setEntityManager(em);
-    }
-
-    public HoererBuchstamm findByHoerernummer(final String hoerernummer) {
-        final Map<String, Object> map = new HashMap<>();
-        map.put("hoerernummer", hoerernummer);
-        return findOne("HoererBuchstamm.findByHoerernummer", map);
     }
 
     public List<Belastung> findBelastungenBooksByTitleOrDatum(final String hoerernummer, final String titel, final Date datum) {

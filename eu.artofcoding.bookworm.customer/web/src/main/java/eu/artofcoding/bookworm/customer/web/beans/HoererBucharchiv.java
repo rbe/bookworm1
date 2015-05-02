@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.web;
+package eu.artofcoding.bookworm.customer.web.beans;
 
 import eu.artofcoding.bookworm.common.helper.ParserHelper;
 import eu.artofcoding.bookworm.common.persistence.hoerer.BestellkarteArchiv;
@@ -24,13 +24,13 @@ public class HoererBucharchiv extends AbstractHoererBean {
     private List<BestellkarteArchiv> bestellkarteArchiv;
 
     public boolean hasBestellkartenArchiv() {
-        List<BestellkarteArchiv> bestellkarteArchiv = getBestellkartenArchiv();
+        bestellkarteArchiv = getBestellkartenArchiv();
         return null != bestellkarteArchiv && bestellkarteArchiv.size() > 0;
     }
 
     public List<BestellkarteArchiv> getBestellkartenArchiv() {
         if (null == bestellkarteArchiv) {
-            bestellkarteArchiv = hoererSession.getMyData().getBestellkarteArchiv();
+            bestellkarteArchiv = hoererSession.getBestellkarteArchiv();
         }
         return bestellkarteArchiv;
     }
@@ -41,7 +41,7 @@ public class HoererBucharchiv extends AbstractHoererBean {
         if (null != searchDate && searchDate.length() == 10) {
             datum = ParserHelper.parseGermanDate(searchDate);
         }
-        bestellkarteArchiv = hoererSession.getMyData().findBestellkarteArchivByTitelOrDatum(titel, datum);
+        bestellkarteArchiv = hoererSession.findBestellkarteArchivByTitelOrDatum(titel, datum);
     }
 
 }

@@ -6,7 +6,9 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.web;
+package eu.artofcoding.bookworm.customer.web.beans;
+
+import eu.artofcoding.bookworm.customer.web.HoererSession;
 
 import javax.inject.Inject;
 
@@ -20,15 +22,15 @@ public class AbstractHoererBean {
     protected String searchDate = "";
 
     public String getHoerernummer() {
-        return hoererSession.getMyData().getHoerernummer();
+        return hoererSession.getHoerernummer();
     }
 
     public String getVorname() {
-        return hoererSession.getMyData().getVorname();
+        return hoererSession.getVorname();
     }
 
     public String getNachname() {
-        return hoererSession.getMyData().getNachname();
+        return hoererSession.getNachname();
     }
 
     public String getSearchTitle() {
