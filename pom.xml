@@ -22,8 +22,6 @@
     <modules>
         <module>eu.artofcoding.bookworm.common</module>
         <module>eu.artofcoding.bookworm.mock</module>
-        <module>eu.artofcoding.bookworm.catalog</module>
-        <module>eu.artofcoding.bookworm.customer</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -249,6 +247,18 @@
         </plugins>
     </build>
     <profiles>
+        <profile>
+            <id>bookworm.catalog</id>
+            <modules>
+                <module>eu.artofcoding.bookworm.catalog</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>bookworm.customer</id>
+            <modules>
+                <module>eu.artofcoding.bookworm.customer</module>
+            </modules>
+        </profile>
         <profile>
             <id>bookworm.development</id>
         </profile>
