@@ -8,16 +8,19 @@
 
 package eu.artofcoding.bookworm.customer.web;
 
-import eu.artofcoding.bookworm.common.web.jsf.FacesHelper;
+import eu.artofcoding.bookworm.customer.web.qualifier.Hoerernummer;
 
 import javax.enterprise.inject.Produces;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 public class HoerernummerProducer {
 
     @Produces
     @Hoerernummer
-    public String hoerernummer() {
-        return FacesHelper.getRequestValue("hnr");
+    private String hoerernummer() {
+        final HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        return req.getParameter("hnr");
     }
 
 }
