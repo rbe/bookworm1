@@ -25,15 +25,12 @@ import freemarker.template.TemplateException;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.Session;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.Serializable;
@@ -63,10 +60,7 @@ public class BookwormBean implements Serializable {
 
     //<editor-fold desc="Member">
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
-    @EJB
+    @Inject
     private BookDAO bookDAO;
 
     /**
@@ -288,7 +282,7 @@ public class BookwormBean implements Serializable {
                 QueryConfiguration queryConfiguration = new QueryConfiguration();
                 queryConfiguration.setQueryVariant(QueryVariant.Variant2);
                 queryConfiguration.setQueryParameters(queryParameters);
-                queryConfiguration.setTableName("books");
+                queryConfiguration.setTableName("Book");
                 queryConfiguration.setNativeQuery(true);
                 paginateableSearch.executeSearch(queryConfiguration, AND, new String[]{"o.autor", "o.titel"});
             }

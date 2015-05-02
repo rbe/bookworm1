@@ -12,12 +12,13 @@ import eu.artofcoding.beetlejuice.persistence.GenericDAO;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.Serializable;
 
-@Stateless
-public class BookDAO extends GenericDAO<Book> {
+@Named
+public class BookDAO extends GenericDAO<Book> implements Serializable {
 
     @PersistenceContext
     private EntityManager em;
