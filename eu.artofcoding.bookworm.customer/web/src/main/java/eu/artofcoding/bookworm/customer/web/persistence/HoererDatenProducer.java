@@ -34,7 +34,6 @@ public final class HoererDatenProducer {
     private String hoerernummer;
 
     private HoererDatenProducer() {
-        throw new AssertionError();
     }
 
     @Produces @HoererValue
