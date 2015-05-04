@@ -10,6 +10,7 @@ package eu.artofcoding.bookworm.common.persistence.hoerer;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
+import org.apache.openjpa.persistence.jdbc.ElementForeignKey;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -50,6 +51,7 @@ public class Bestellkarte implements GenericEntity {
     private String hoerernummer;
 
     @OneToMany(fetch = FetchType.EAGER)
+    @ElementForeignKey(enabled = false)
     private List<Book> books;
 
     @Basic

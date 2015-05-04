@@ -15,15 +15,15 @@
         <class>eu.artofcoding.bookworm.common.persistence.hoerer.BestellkarteArchiv</class>
         <class>eu.artofcoding.bookworm.common.persistence.book.Book</class>
         <class>eu.artofcoding.bookworm.common.persistence.book.Sachgebiet</class>
-        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
-            <property name="openjpa.Log" value="DefaultLevel=ERROR, Runtime=INFO, Tool=INFO, SQL=INFO"/>
-            <!--<property name="openjpa.Log" value="DefaultLevel=ERROR, Enhance=INFO, MetaData=INFO, Runtime=INFO, Query=INFO, DataCache=INFO, Tool=INFO, SQL=INFO"/>-->
+            <property name="openjpa.Log" value="DefaultLevel=WARN, Runtime=INFO, Tool=INFO"/>
+            <!--property name="openjpa.Log" value="DefaultLevel=ERROR, Enhance=INFO, MetaData=INFO, Runtime=INFO, Query=INFO, DataCache=INFO, Tool=INFO, SQL=INFO"/-->
             <property name="openjpa.ConnectionFactoryProperties" value="PrettyPrint=true, PrettyPrintLineLength=80"/>
             <property name="openjpa.jdbc.DBDictionary" value="mysql"/>
-            <!--<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true, schemaAction='dropDB,add')"/>-->
-            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
-            <property name="openjpa.jdbc.SchemaFactory" value="native(ForeignKeys=true)"/>
+            <!--property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true, schemaAction='dropDB,createDB,add')"/-->
+            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=false, schemaAction='add')"/>
+            <property name="openjpa.jdbc.SchemaFactory" value="native(ForeignKeys=false)"/>
             <property name="openjpa.jdbc.MappingDefaults" value="ForeignKeyDeleteAction=restrict, JoinForeignKeyDeleteAction=restrict"/>
             <property name="openjpa.DynamicEnhancementAgent" value="false"/>
             <property name="openjpa.DetachState" value="loaded(DetachedStateField=true)"/>

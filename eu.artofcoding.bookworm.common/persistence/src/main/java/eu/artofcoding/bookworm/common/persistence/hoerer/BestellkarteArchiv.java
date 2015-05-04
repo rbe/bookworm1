@@ -10,6 +10,7 @@ package eu.artofcoding.bookworm.common.persistence.hoerer;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
+import org.apache.openjpa.persistence.jdbc.ForeignKey;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -47,6 +48,7 @@ public class BestellkarteArchiv implements GenericEntity {
 
     @OneToOne
     //@NotNull
+    @ForeignKey(enabled = false)
     private Book buch;
 
     @Basic
