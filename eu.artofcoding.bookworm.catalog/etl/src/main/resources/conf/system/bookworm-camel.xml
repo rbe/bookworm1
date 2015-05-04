@@ -17,8 +17,12 @@
                   allowUseOriginalMessage="false"
                   streamCache="true"
                   trace="false">
+        <propertyPlaceholder id="properties"
+                             location="file:${env:BOOKWORM_HOME}/conf/etl.encrypted.properties,file:${env:BOOKWORM_HOME}/conf/etl.properties"
+                             propertiesParserRef="jasyptPropertiesParser"/>
         <route id="importBooks" autoStartup="true">
             <from uri="{{catalog.file.url}}"/>
+            <to uri="sql:truncate table Book?dataSource=bookwormDatasource"/>
             <bean ref="bookImportProcessor" method="importFile"/>
         </route>
     </camelContext>

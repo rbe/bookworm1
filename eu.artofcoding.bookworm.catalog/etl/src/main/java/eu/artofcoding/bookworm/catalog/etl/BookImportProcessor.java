@@ -33,8 +33,6 @@ public class BookImportProcessor implements CamelFileProcessor {
         if (null == bookFileParser || null == em) {
             throw new IllegalStateException("No file parser or no entity manager");
         }
-        // Truncate table
-        em.createNativeQuery("TRUNCATE TABLE books").executeUpdate();
         // Insert data
         final List<GenericEntity> genericEntities = bookFileParser.parse(body);
         for (GenericEntity b : genericEntities) {

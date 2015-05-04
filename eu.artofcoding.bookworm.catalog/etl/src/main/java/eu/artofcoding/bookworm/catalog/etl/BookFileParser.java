@@ -21,6 +21,7 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class BookFileParser {
@@ -109,7 +110,7 @@ public class BookFileParser {
                     break;
                 case 34:
                     try {
-                        book.setEinstelldatum(new java.sql.Date(SDF_ISO.parse(substring).getTime()));
+                        book.setEinstelldatum(new Date(SDF_ISO.parse(substring).getTime()));
                     } catch (ParseException e) {
                         // ignore
                     }
@@ -124,8 +125,11 @@ public class BookFileParser {
         String[] lines = body.split("\r\n");
         final List<GenericEntity> bookEntities = new ArrayList<>();
         for (String line : lines) {
-            final Book book = createBook(line);
-            bookEntities.add(book);
+            final boolean lineIsEmpty = line.trim().isEmpty();
+            if (!lineIsEmpty) {
+                final Book book = createBook(line);
+                bookEntities.add(book);
+            }
         }
         // Return all entities
         return bookEntities;
