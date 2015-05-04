@@ -280,7 +280,7 @@ public class BookwormBean implements Serializable {
                 // Execute search
                 setSearchTerm(stichwort);
                 QueryConfiguration queryConfiguration = new QueryConfiguration();
-                queryConfiguration.setQueryVariant(QueryVariant.Variant2);
+                queryConfiguration.setQueryVariant(QueryVariant.VARIANT_2);
                 queryConfiguration.setQueryParameters(queryParameters);
                 queryConfiguration.setTableName("Book");
                 queryConfiguration.setNativeQuery(true);
@@ -320,7 +320,7 @@ public class BookwormBean implements Serializable {
             // Execute search
             setSearchTerm(sachgebiet, autor, titel, datum);
             QueryConfiguration queryConfiguration = new QueryConfiguration();
-            queryConfiguration.setQueryVariant(QueryVariant.Variant1);
+            queryConfiguration.setQueryVariant(QueryVariant.VARIANT_1);
             queryConfiguration.setQueryParameters(queryParameters);
             paginateableSearch.executeSearch(queryConfiguration, AND, new String[]{"o.autor", "o.titel"});
         }
