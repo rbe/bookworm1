@@ -10,9 +10,6 @@
     </parent>
     <artifactId>eu.artofcoding.bookworm.customer.etl</artifactId>
     <packaging>jar</packaging>
-    <properties>
-        <resources.filter>development</resources.filter>
-    </properties>
     <dependencies>
         <!-- Bookworm -->
         <dependency>
@@ -205,12 +202,14 @@
         <profile>
             <id>bookworm.development</id>
             <properties>
+                <resources.filter>development</resources.filter>
                 <webapp.filter>development</webapp.filter>
             </properties>
         </profile>
         <profile>
             <id>bookworm.production</id>
             <properties>
+                <resources.filter>production</resources.filter>
                 <webapp.filter>production</webapp.filter>
             </properties>
         </profile>
