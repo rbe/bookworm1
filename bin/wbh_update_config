@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -o nounset
+
+current_version=$1
+next_version=$2
+
+set -x
+
+pushd $HOME/app
+cp -a eu.artofcoding.bookworm.catalog.web.assembly-${current_version}/apache-tomee/conf/tomee.xml eu.artofcoding.bookworm.catalog.web.assembly-${next_version}/apache-tomee/conf/
+cp -a eu.artofcoding.bookworm.customer.etl.assembly-${current_version}/conf/ eu.artofcoding.bookworm.customer.etl.assembly-${next_version}/
+cp eu.artofcoding.bookworm.customer.web.assembly-${current_version}/apache-tomee/conf/tomee.xml eu.artofcoding.bookworm.customer.web.assembly-${next_version}/apache-tomee/conf/
+pushd $HOME/app/eu.artofcoding.bookworm.catalog.web.assembly-${next_version}/apache-tomee/webapps/
+mv eu.artofcoding.bookworm.catalog.web-${next_version}.war bookworm.war
+popd
+pushd $HOME/app/eu.artofcoding.bookworm.customer.web.assembly-${next_version}/apache-tomee/webapps/
+mv eu.artofcoding.bookworm.customer.web-${next_version}.war customer.war
+popd
