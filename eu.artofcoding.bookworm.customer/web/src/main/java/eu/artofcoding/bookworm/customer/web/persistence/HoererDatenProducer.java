@@ -41,7 +41,6 @@ public final class HoererDatenProducer {
         final TypedQuery<Hoererstamm> namedQuery = entityManager.createNamedQuery("Hoererstamm.findByHoerernummer", Hoererstamm.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);
         final Hoererstamm singleResult = namedQuery.getSingleResult();
-        System.out.println("Produced: " + singleResult);
         return singleResult;
     }
 
@@ -50,7 +49,6 @@ public final class HoererDatenProducer {
         final TypedQuery<HoererKennzeichen> namedQuery = entityManager.createNamedQuery("HoererKennzeichen.findByHoerernummer", HoererKennzeichen.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);
         final HoererKennzeichen singleResult = namedQuery.getSingleResult();
-        System.out.println("Produced: " + singleResult);
         return singleResult;
     }
 
@@ -59,7 +57,6 @@ public final class HoererDatenProducer {
         final TypedQuery<HoererBuchstamm> namedQuery = entityManager.createNamedQuery("HoererBuchstamm.findByHoerernummer", HoererBuchstamm.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);
         final HoererBuchstamm singleResult = namedQuery.getSingleResult();
-        System.out.println("Produced: " + singleResult);
         return singleResult;
     }
 
@@ -68,7 +65,6 @@ public final class HoererDatenProducer {
         final TypedQuery<Bestellkarte> namedQuery = entityManager.createNamedQuery("Bestellkarte.findByHoerernummer", Bestellkarte.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);
         final Bestellkarte singleResult = namedQuery.getSingleResult();
-        System.out.println("Produced: " + singleResult);
         return singleResult;
     }
 
