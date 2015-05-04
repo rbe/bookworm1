@@ -34,8 +34,7 @@ public class Hoererdaten extends AbstractHoererBean {
         final Date now = getTodayWithoutTime();
         final boolean nowBeforeOrEqualToDateFrom = now.equals(dateFrom) || now.after(dateFrom);
         final boolean nowBeforeOrEqualToDateTo = now.before(dateTo) || now.equals(dateTo);
-        final boolean nowInRangeOf = nowBeforeOrEqualToDateFrom || nowBeforeOrEqualToDateTo;
-        return nowInRangeOf;
+        return nowBeforeOrEqualToDateFrom && nowBeforeOrEqualToDateTo;
     }
 
     //<editor-fold desc="Hoererstamm">
