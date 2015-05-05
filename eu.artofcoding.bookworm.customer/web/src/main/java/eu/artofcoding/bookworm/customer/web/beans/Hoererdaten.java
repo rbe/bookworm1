@@ -22,19 +22,20 @@ import java.util.Locale;
 @RequestScoped
 public class Hoererdaten extends AbstractHoererBean {
 
-    private Date getTodayWithoutTime() {
-        final Calendar calendar = Calendar.getInstance(Locale.GERMANY);
-        calendar.clear(Calendar.HOUR);
-        calendar.clear(Calendar.MINUTE);
-        calendar.clear(Calendar.SECOND);
-        return calendar.getTime();
+    private boolean isDateWithinRange(final Date dateFrom, final Date dateTo) {
+        final Date now = getTodayWithTime0();
+        final boolean nowAfterOrEqualToDateFrom = now.after(dateFrom) || now.equals(dateFrom);
+        final boolean nowBeforeOrEqualToDateTo = now.before(dateTo) || now.equals(dateTo);
+        return nowAfterOrEqualToDateFrom && nowBeforeOrEqualToDateTo;
     }
 
-    private boolean isDateWithinRange(final Date dateFrom, final Date dateTo) {
-        final Date now = getTodayWithoutTime();
-        final boolean nowBeforeOrEqualToDateFrom = now.equals(dateFrom) || now.after(dateFrom);
-        final boolean nowBeforeOrEqualToDateTo = now.before(dateTo) || now.equals(dateTo);
-        return nowBeforeOrEqualToDateFrom && nowBeforeOrEqualToDateTo;
+    private Date getTodayWithTime0() {
+        final Calendar calendar = Calendar.getInstance(Locale.GERMANY);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
     }
 
     //<editor-fold desc="Hoererstamm">
