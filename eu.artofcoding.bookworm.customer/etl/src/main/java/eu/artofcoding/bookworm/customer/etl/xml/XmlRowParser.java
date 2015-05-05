@@ -37,15 +37,15 @@ public final class XmlRowParser {
     private XmlData convertToXmlData(final XMLStreamReader reader, final String localName) throws XMLStreamException {
         final XmlData xmlData = new XmlData();
         xmlData.setTagName(localName);
-        final boolean bodyFound = XMLStreamConstants.CHARACTERS == reader.getEventType();
-        if (bodyFound) {
-            final String tagContent = reader.getText().trim();
-            xmlData.setTagContent(tagContent);
-        } else {
-            throw throwUnexpectedEvent();
+        final StringBuilder tagContent = new StringBuilder();
+        int readerEventType = reader.getEventType();
+        while (XMLStreamConstants.CHARACTERS == readerEventType) {
+            final String str = reader.getText().trim();
+            tagContent.append(str);
+            readerEventType = reader.next();
         }
-        final int eventWithinElement = reader.next();
-        final boolean endFound = XMLStreamConstants.END_ELEMENT == eventWithinElement;
+        xmlData.setTagContent(tagContent.toString());
+        final boolean endFound = XMLStreamConstants.END_ELEMENT == readerEventType;
         if (endFound) {
             return xmlData;
         } else {

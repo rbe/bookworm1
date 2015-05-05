@@ -23,9 +23,9 @@
         </dependency>
         <!-- Java EE -->
         <dependency>
-            <groupId>org.apache.openjpa</groupId>
-            <artifactId>openjpa</artifactId>
-            <version>${version.org.apache.openjpa}</version>
+            <groupId>org.apache.openejb.patch</groupId>
+            <artifactId>openjpa-all</artifactId>
+            <version>${version.org.apache.openejb.patch}</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>

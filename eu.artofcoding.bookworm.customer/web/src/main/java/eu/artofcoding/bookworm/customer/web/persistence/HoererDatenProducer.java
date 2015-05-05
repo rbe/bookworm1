@@ -20,6 +20,7 @@ import eu.artofcoding.bookworm.customer.web.qualifier.Hoerernummer;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
@@ -40,39 +41,55 @@ public final class HoererDatenProducer {
     private Hoererstamm findHoererstammByHoerernummer() {
         final TypedQuery<Hoererstamm> namedQuery = entityManager.createNamedQuery("Hoererstamm.findByHoerernummer", Hoererstamm.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);
-        final Hoererstamm singleResult = namedQuery.getSingleResult();
-        return singleResult;
+        try {
+            return namedQuery.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Produces @HoererValue
     private HoererKennzeichen findHoererKennzeichenByHoerernummer() {
         final TypedQuery<HoererKennzeichen> namedQuery = entityManager.createNamedQuery("HoererKennzeichen.findByHoerernummer", HoererKennzeichen.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);
-        final HoererKennzeichen singleResult = namedQuery.getSingleResult();
-        return singleResult;
+        try {
+            return namedQuery.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Produces @HoererValue
     private HoererBuchstamm findHoererBuchstammByHoerernummer() {
         final TypedQuery<HoererBuchstamm> namedQuery = entityManager.createNamedQuery("HoererBuchstamm.findByHoerernummer", HoererBuchstamm.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);
-        final HoererBuchstamm singleResult = namedQuery.getSingleResult();
-        return singleResult;
+        try {
+            return namedQuery.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Produces @HoererValue
     private Bestellkarte findByHoerernummer() {
         final TypedQuery<Bestellkarte> namedQuery = entityManager.createNamedQuery("Bestellkarte.findByHoerernummer", Bestellkarte.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);
-        final Bestellkarte singleResult = namedQuery.getSingleResult();
-        return singleResult;
+        try {
+            return namedQuery.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Produces @HoererCount(query = "Bestellkarte.Books")
     private long countBooksByHoerernummer() {
         final TypedQuery<Long> namedQuery = entityManager.createNamedQuery("Bestellkarte.countBooksByHoerernummer", Long.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);
-        return namedQuery.getSingleResult();
+        try {
+            return namedQuery.getSingleResult();
+        } catch (NoResultException e) {
+            return 0;
+        }
     }
 
     @Produces @HoererValue
