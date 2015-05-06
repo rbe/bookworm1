@@ -35,8 +35,10 @@ case "$1" in
         pid=$(ps ax | grep ${assembly.for.artifactId} | grep -v grep | awk '{print $1}')
         if [ x"${pid}" = "" ]; then
             echo "$0: Cannot find process id for ${assembly.for.artifactId}"
-        else
+        elif [ -n "${pid}" ]; then
             kill ${pid}
+        else
+            echo "No pid"
         fi
     ;;
     encrypt)
