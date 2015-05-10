@@ -13,6 +13,7 @@ import eu.artofcoding.bookworm.common.etl.xml.XmlData;
 import eu.artofcoding.bookworm.common.etl.xml.XmlRow;
 import eu.artofcoding.bookworm.common.etl.xml.XmlRowProcessor;
 
+import javax.persistence.NoResultException;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -89,8 +90,10 @@ public final class XmlRowParser {
                     try {
                         final GenericEntity entity = xmlRowProcessor.xmlRowToEntity(xmlRow);
                         genericEntities.add(entity);
+                    } catch (NoResultException e) {
+                        LOGGER.fine(String.format("Cannot process row %s: No result from database, %s", xmlRow, e.getMessage()));
                     } catch (Exception e) {
-                        LOGGER.warning(String.format("Cannot process row %s: %s", xmlRow, e.getMessage()));
+                        LOGGER.severe(String.format("Cannot process row %s: %s", xmlRow, e.getMessage()));
                     }
                 }
             }

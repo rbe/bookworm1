@@ -18,11 +18,8 @@ import eu.artofcoding.bookworm.customer.etl.xml.AbstractXmlRowProcessor;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.Date;
-import java.util.logging.Logger;
 
 public class BkstpXmlRowProcessor extends AbstractXmlRowProcessor<Bestellkarte> {
-
-    private static final Logger LOGGER = Logger.getLogger(BkstpXmlRowProcessor.class.getName());
 
     @Override
     public Bestellkarte xmlRowToEntity(final XmlRow xmlRow) {
@@ -36,9 +33,7 @@ public class BkstpXmlRowProcessor extends AbstractXmlRowProcessor<Bestellkarte> 
                     break;
                 case "BKPDAT":
                     final Date datumStand = ParserHelper.parseIsoDate(tagContent);
-                    if (null == datumStand) {
-                        LOGGER.warning(String.format("Could not parse date %s for XmlRow %s", tagContent, xmlRow));
-                    } else {
+                    if (null != datumStand) {
                         bestellkarte.setDatumStand(datumStand);
                     }
                     break;
