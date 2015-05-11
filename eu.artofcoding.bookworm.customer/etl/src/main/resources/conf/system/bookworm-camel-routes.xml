@@ -3,23 +3,25 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
                            http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.15.1.xsd">
+    <bean id="PROPAGATION_REQUIRED" class="org.apache.camel.spring.spi.SpringTransactionPolicy">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="propagationBehaviorName" value="PROPAGATION_REQUIRED"/>
+    </bean>
     <camelContext xmlns="http://camel.apache.org/schema/spring"
                   id="bookwormHoererImport"
                   allowUseOriginalMessage="false"
                   streamCache="true"
                   trace="false">
+        <properties>
+            <property key="CamelLogDebugBodyMaxChars" value="10"/>
+        </properties>
         <propertyPlaceholder id="properties"
                              location="file:${env:BOOKWORM_HOME}/conf/etl.encrypted.properties,file:${env:BOOKWORM_HOME}/conf/etl.properties"
                              propertiesParserRef="jasyptPropertiesParser"/>
+        <jmxAgent id="agent" disabled="true"/>
         <route id="fetchFromFtp" autoStartup="true">
             <from uri="{{customer.ftp.url}}&amp;{{customer.ftp.cron}}"/>
-            <transacted/>
-            <log message="Fetched ${file:name} from FTP server"/>
-            <to uri="direct-vm:importData"/>
-        </route>
-        <route id="importData" autoStartup="true">
-            <from uri="direct-vm:importData"/>
-            <transacted/>
+            <log message="Fetched from FTP server, name=${file:name}, size=${file:size}, CamelBatchIndex/Size (header) = ${header.CamelBatchIndex}/${header.CamelBatchSize}"/>
             <convertBodyTo type="java.lang.String"/>
             <choice>
                 <when>
@@ -54,46 +56,52 @@
                 </when>
             </choice>
             <resequence>
+                <batch-config batchSize="5" batchTimeout="60000"/>
                 <header>importSequence</header>
-                <log message="Importing ${file:name}"/>
-                <choice>
-                    <when>
-                        <simple>${in.headers.CamelFileName} == '{{customer.HOERSTP.fileName}}'</simple>
-                        <to uri="sql:truncate table Hoererstamm?dataSource=bookwormDatasource"/>
-                        <bean ref="hoerstpImportProcessor" method="importFile"/>
-                        <bean ref="hoerstpXmlRowProcessor" method="validateAndMerge"/>
-                    </when>
-                    <when>
-                        <simple>${in.headers.CamelFileName} == '{{customer.HOEKZSTP.fileName}}'</simple>
-                        <to uri="sql:truncate table HoererKennzeichen?dataSource=bookwormDatasource"/>
-                        <bean ref="hoekzstpImportProcessor" method="importFile"/>
-                        <bean ref="hoekzstpXmlRowProcessor" method="validateAndMerge"/>
-                    </when>
-                    <when>
-                        <simple>${in.headers.CamelFileName} == '{{customer.BKRXSTP.fileName}}'</simple>
-                        <to uri="sql:truncate table BestellkarteArchiv?dataSource=bookwormDatasource"/>
-                        <bean ref="bkrxstpImportProcessor" method="importFile"/>
-                        <bean ref="bkrxstpXmlRowProcessor" method="validateAndMerge"/>
-                    </when>
-                    <when>
-                        <simple>${in.headers.CamelFileName} == '{{customer.HOEBSTP.fileName}}'</simple>
-                        <to uri="sql:truncate table HoererBuchstamm_Belastung?dataSource=bookwormDatasource"/>
-                        <to uri="sql:delete from Belastung?dataSource=bookwormDatasource"/>
-                        <to uri="sql:truncate table HoererBuchstamm_Sachgebiet?dataSource=bookwormDatasource"/>
-                        <to uri="sql:delete from HoererBuchstamm?dataSource=bookwormDatasource"/>
-                        <bean ref="hoebstpImportProcessor" method="importFile"/>
-                        <bean ref="hoebstpXmlRowProcessor" method="validateAndMerge"/>
-                    </when>
-                    <when>
-                        <simple>${in.headers.CamelFileName} == '{{customer.BKSTP.fileName}}'</simple>
-                        <to uri="sql:truncate table Bestellkarte_Book?dataSource=bookwormDatasource"/>
-                        <to uri="sql:delete from Bestellkarte?dataSource=bookwormDatasource"/>
-                        <bean ref="bkstpImportProcessor" method="importFile"/>
-                        <bean ref="bkstpXmlRowProcessor" method="validateAndMerge"/>
-                    </when>
-                </choice>
-                <log loggingLevel="INFO" message="Done ${file:name}"/>
+                <to uri="direct:importData"/>
             </resequence>
+        </route>
+        <route>
+            <from uri="direct:importData"/>
+            <transacted ref="PROPAGATION_REQUIRED"/>
+            <log message="Importing ${header.importSequence} name=${file:name}, size=${file:size}"/>
+            <choice>
+                <when>
+                    <simple>${in.headers.CamelFileName} == '{{customer.HOERSTP.fileName}}'</simple>
+                    <to uri="sql:truncate table Hoererstamm?dataSource=bookwormDatasource"/>
+                    <bean ref="hoerstpImportProcessor" method="importFile"/>
+                    <bean ref="hoerstpXmlRowProcessor" method="validateAndMerge"/>
+                </when>
+                <when>
+                    <simple>${in.headers.CamelFileName} == '{{customer.HOEKZSTP.fileName}}'</simple>
+                    <to uri="sql:truncate table HoererKennzeichen?dataSource=bookwormDatasource"/>
+                    <bean ref="hoekzstpImportProcessor" method="importFile"/>
+                    <bean ref="hoekzstpXmlRowProcessor" method="validateAndMerge"/>
+                </when>
+                <when>
+                    <simple>${in.headers.CamelFileName} == '{{customer.BKRXSTP.fileName}}'</simple>
+                    <to uri="sql:truncate table BestellkarteArchiv?dataSource=bookwormDatasource"/>
+                    <bean ref="bkrxstpImportProcessor" method="importFile"/>
+                    <bean ref="bkrxstpXmlRowProcessor" method="validateAndMerge"/>
+                </when>
+                <when>
+                    <simple>${in.headers.CamelFileName} == '{{customer.HOEBSTP.fileName}}'</simple>
+                    <to uri="sql:truncate table HoererBuchstamm_Belastung?dataSource=bookwormDatasource"/>
+                    <to uri="sql:delete from Belastung?dataSource=bookwormDatasource"/>
+                    <to uri="sql:truncate table HoererBuchstamm_Sachgebiet?dataSource=bookwormDatasource"/>
+                    <to uri="sql:delete from HoererBuchstamm?dataSource=bookwormDatasource"/>
+                    <bean ref="hoebstpImportProcessor" method="importFile"/>
+                    <bean ref="hoebstpXmlRowProcessor" method="validateAndMerge"/>
+                </when>
+                <when>
+                    <simple>${in.headers.CamelFileName} == '{{customer.BKSTP.fileName}}'</simple>
+                    <to uri="sql:truncate table Bestellkarte_Book?dataSource=bookwormDatasource"/>
+                    <to uri="sql:delete from Bestellkarte?dataSource=bookwormDatasource"/>
+                    <bean ref="bkstpImportProcessor" method="importFile"/>
+                    <bean ref="bkstpXmlRowProcessor" method="validateAndMerge"/>
+                </when>
+            </choice>
+            <log message="Import done ${file:name}"/>
         </route>
     </camelContext>
 </beans>

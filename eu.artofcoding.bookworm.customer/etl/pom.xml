@@ -105,11 +105,6 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-juel</artifactId>
-            <version>${version.org.apache.camel}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring</artifactId>
             <version>${version.org.apache.camel}</version>
         </dependency>

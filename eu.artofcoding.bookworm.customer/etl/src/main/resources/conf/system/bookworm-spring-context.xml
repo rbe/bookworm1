@@ -44,9 +44,7 @@
           init-method="init" destroy-method="shutdownForce">
         <constructor-arg>
             <props>
-                <prop key="com.atomikos.icatch.service">
-                    com.atomikos.icatch.standalone.UserTransactionServiceFactory
-                </prop>
+                <prop key="com.atomikos.icatch.service">com.atomikos.icatch.standalone.UserTransactionServiceFactory</prop>
             </props>
         </constructor-arg>
         <!--
