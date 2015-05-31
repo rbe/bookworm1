@@ -61,6 +61,7 @@ use ApProxy\Factory;
 
 /**
  * Redirect if no user is logged in.
+ * @return bool
  */
 function sendHttpRedirectIfNoUser()
 {
