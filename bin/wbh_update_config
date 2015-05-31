@@ -2,19 +2,29 @@
 
 set -o nounset
 
-current_version=$1
-next_version=$2
+component=$1
+current_version=$2
+next_version=$3
 
 set -x
 
 pushd $HOME/app
-cp -a eu.artofcoding.bookworm.catalog-${current_version}/conf/ eu.artofcoding.bookworm.catalog-${next_version}/
-cp -a eu.artofcoding.bookworm.catalog.web.assembly-${current_version}/apache-tomee/conf/tomee.xml eu.artofcoding.bookworm.catalog.web.assembly-${next_version}/apache-tomee/conf/
-cp -a eu.artofcoding.bookworm.customer.etl.assembly-${current_version}/conf/ eu.artofcoding.bookworm.customer.etl.assembly-${next_version}/
-cp eu.artofcoding.bookworm.customer.web.assembly-${current_version}/apache-tomee/conf/tomee.xml eu.artofcoding.bookworm.customer.web.assembly-${next_version}/apache-tomee/conf/
-pushd $HOME/app/eu.artofcoding.bookworm.catalog.web.assembly-${next_version}/apache-tomee/webapps/
-mv eu.artofcoding.bookworm.catalog.web-${next_version}.war bookworm.war
+
+if [ x"${component}" = x"catalog.etl" ]; then
+    cp -a eu.artofcoding.bookworm.catalog.etl.assembly-${current_version}/conf/ eu.artofcoding.bookworm.catalog.etl.assembly-${next_version}/
+elif [ x"${component}" = x"catalog.web" ]; then
+    cp -a eu.artofcoding.bookworm.catalog.web.assembly-${current_version}/apache-tomee/conf/tomee.xml eu.artofcoding.bookworm.catalog.web.assembly-${next_version}/apache-tomee/conf/
+    pushd $HOME/app/eu.artofcoding.bookworm.catalog.web.assembly-${next_version}/apache-tomee/webapps/
+    mv eu.artofcoding.bookworm.catalog.web-${next_version}.war bookworm.war
+    popd
+elif [ x"${component}" = x"customer.etl" ]; then
+    cp -a eu.artofcoding.bookworm.customer.etl.assembly-${current_version}/conf/ eu.artofcoding.bookworm.customer.etl.assembly-${next_version}/
+elif [ x"${component}" = x"customer.web" ]; then
+    cp eu.artofcoding.bookworm.customer.web.assembly-${current_version}/apache-tomee/conf/tomee.xml eu.artofcoding.bookworm.customer.web.assembly-${next_version}/apache-tomee/conf/
+    pushd $HOME/app/eu.artofcoding.bookworm.customer.web.assembly-${next_version}/apache-tomee/webapps/
+    mv eu.artofcoding.bookworm.customer.web-${next_version}.war customer.war
+    popd
+fi
+
 popd
-pushd $HOME/app/eu.artofcoding.bookworm.customer.web.assembly-${next_version}/apache-tomee/webapps/
-mv eu.artofcoding.bookworm.customer.web-${next_version}.war customer.war
-popd
+exit 0

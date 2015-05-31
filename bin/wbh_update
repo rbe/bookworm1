@@ -6,7 +6,7 @@
 
 APP_BASE=${HOME}/app
 APP_INSTALL=${HOME}/app/install
-CI_BASE_URL=https://ci.art-of-coding.eu/repository/download/bookworm_build/.lastSuccessful/distrib/
+CI_BASE_URL=https://ci.art-of-coding.eu/repository/download/bookworm_build/.lastSuccessful/distrib
 
 set -o nounset
 
@@ -29,15 +29,20 @@ update_module() {
     service bookworm-${component}-${artifact} stop
     sudo rm /etc/init.d/bookworm-${component}-${artifact}
     sudo ln -s ${APP_BASE}/${gav}/init.d/bookworm-${component}-${artifact} /etc/init.d
+    rm ${local_dest}
 }
 
-update_etl_web_module() {
+update_etl_module() {
     local component=$1
     update_module ${component} etl
     etl_component="eu.artofcoding.bookworm.${component}.etl.assembly-${BUILD}"
     echo "*"
     echo "* Please configure ${etl_component}/conf"
     echo "*"
+}
+
+update_web_module() {
+    local component=$1
     update_module ${component} web
     web_component="eu.artofcoding.bookworm.${component}.web.assembly-${BUILD}"
     chmod +x ${HOME}/app/${web_component}/apache-tomee/bin/*.sh
@@ -46,12 +51,19 @@ update_etl_web_module() {
     echo "*"
 }
 
-if [ $# -lt 1 ]; then
-    echo "usage: $0 <build number>, e.g. $0 1.0.0.140"
-elif [ $# -eq 1 ]; then
+perform_update() {
     BUILD=$1
-    update_etl_web_module catalog
-    update_etl_web_module customer
+    local component=$2
+    local subcomponent=$3
+    update_${subcomponent}_module ${component}
+}
+
+if [ $# -lt 1 ]; then
+    echo "usage: $0 <build number> <component ::= catalog | customer> <subcomponent ::= etl | web>, e.g. $0 1.0.0.140"
+elif [ $# -eq 3 ]; then
+    perform_update $1 $2 $3
+else
+    echo "Unknown number of parameters"
 fi
 
 exit 1
