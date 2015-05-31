@@ -94,7 +94,7 @@ function removeQueryParameter($parsedRequestUri, $params)
  */
 function proxyRequestToApp()
 {
-    Factory::configure(new AppInfo('catalog', 'http://127.0.0.1:8090', '/catalog'));
+    // TODO Unused: Factory::configure(new AppInfo('catalog', 'http://127.0.0.1:8090', '/catalog'));
     Factory::configure(new AppInfo('customer', 'http://127.0.0.1:8080', '/customer'));
     $approxy = Factory::create($_SERVER['REQUEST_URI']);
     if (isset($approxy)) {
