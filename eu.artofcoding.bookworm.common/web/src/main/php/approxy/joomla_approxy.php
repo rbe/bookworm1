@@ -84,21 +84,6 @@ function proxyRequestToApp()
     $approxy = Factory::create($_SERVER['REQUEST_URI']);
     if (isset($approxy)) {
         $customizeUriDelegate = function ($app, $requestUri) {
-            /*
-            $session = JFactory::getSession();
-            if (empty($session->get('is_first_visit'))) {
-                $hnr = getHoerernummer($user);
-                if (isset($hnr)) {
-                    $forward_to_resource = $requested_resource . '?hnr=' . $hnr;
-                    $session->set('is_first_visit', 'hello');
-                } else {
-                    echo "Error: no hnr";
-                    return;
-                }
-            } else {
-                $forward_to_resource = $requested_resource;
-            }
-            */
             $hnr = getHoerernummer();
             $parsedRequestUri = parse_url($requestUri);
             $uriHasQuery = isset($parsedRequestUri['query']);
