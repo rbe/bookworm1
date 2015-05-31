@@ -76,6 +76,20 @@ function sendHttpRedirectIfNoUser()
 }
 
 /**
+ * @param string $parsedRequestUri
+ * @param array $params
+ * @return string
+ */
+function removeQueryParameter($parsedRequestUri, $params)
+{
+    parse_str($parsedRequestUri['query'], $queryParameters);
+    foreach ($params as $p) {
+        unset($queryParameters[$p]);
+    }
+    return http_build_query($queryParameters);
+}
+
+/**
  * Proxy request to application.
  */
 function proxyRequestToApp()
