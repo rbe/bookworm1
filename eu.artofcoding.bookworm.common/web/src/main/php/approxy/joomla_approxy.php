@@ -103,6 +103,8 @@ function proxyRequestToApp()
             $parsedRequestUri = parse_url($requestUri);
             $uriHasQuery = isset($parsedRequestUri['query']);
             if ($uriHasQuery) {
+                // TODO Rebuild request URI
+                // TODO $queryParameters = removeQueryParameter($parsedRequestUri['query'], 'hnr');
                 $appUri = $requestUri . '&hnr=' . $hnr;
             } else {
                 $appUri = $requestUri . '?hnr=' . $hnr;
