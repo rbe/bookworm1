@@ -25,7 +25,12 @@ export BOOKWORM_HOME
 case "$1" in
     start)
         echo "Starting ${assembly.for.artifactId}..."
-        JAVA_OPTS="-D'openjpa.ManagedRuntime=invocation(TransactionManagerMethod=com.atomikos.icatch.jta.TransactionManagerImp.getTransactionManager)'"
+        ATOMIKOS_PROPERTIES=${BOOKWORM_HOME}/conf/transactions.properties
+        if [ -f ${ATOMIKOS_PROPERTIES} ]; then
+            ATOMIKOS_OPTS="-Dcom.atomikos.icatch.file=${ATOMIKOS_PROPERTIES}"
+        fi
+        OPENJPA_OPTS="-D'openjpa.ManagedRuntime=invocation(TransactionManagerMethod=com.atomikos.icatch.jta.TransactionManagerImp.getTransactionManager)'"
+        JAVA_OPTS="-Xms128m -Xmx256m ${ATOMIKOS_OPTS} ${OPENJPA_OPTS}"
         JAR=${assembly.for.artifactId}-${project.version}.jar
         LOG="2>/var/log/${assembly.for.artifactId}.log 1>&2"
         sudo -Eu ${BOOKWORM_USER} sh -c "cd ${BOOKWORM_HOME} ; java ${JAVA_OPTS} -jar ${JAR} ${LOG} &"
