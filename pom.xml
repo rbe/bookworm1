@@ -133,6 +133,12 @@
                 <artifactId>slf4j-simple</artifactId>
                 <version>${version.org.slf4j}</version>
             </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${version.org.slf4j}</version>
+                <scope>runtime</scope>
+            </dependency>
             <!-- Database -->
             <dependency>
                 <groupId>mysql</groupId>
