@@ -95,7 +95,7 @@ public class BookwormBean implements Serializable {
     @Resource(name = "bookwormMail")
     private Session session;
 
-    @ManagedProperty(value = "WBH Online Shop")
+    @ManagedProperty(value = "WBH Katalog")
     private String mailName;
 
     @ManagedProperty(value = "wbh@wbh-online.de")
