@@ -149,7 +149,8 @@ public class Hoererdaten extends AbstractHoererBean {
     }
 
     public Integer getMengenindex() {
-        return getHoererBuchstamm().getMengenindex();
+        final HoererBuchstamm hoererBuchstamm = getHoererBuchstamm();
+        return null != hoererBuchstamm ? hoererBuchstamm.getMengenindex() : 0;
     }
 
     public Date getRueckbuchungsdatum() {
