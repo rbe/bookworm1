@@ -11,9 +11,10 @@ package eu.artofcoding.bookworm.customer.etl.as400xml;
 import eu.artofcoding.bookworm.common.etl.xml.XmlData;
 import eu.artofcoding.bookworm.common.etl.xml.XmlRow;
 import eu.artofcoding.bookworm.common.helper.ParserHelper;
-import eu.artofcoding.bookworm.common.persistence.book.Book;
-import eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstamm;
 import eu.artofcoding.bookworm.common.helper.Strings;
+import eu.artofcoding.bookworm.common.persistence.book.Book;
+import eu.artofcoding.bookworm.common.persistence.hoerer.Belastung;
+import eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstamm;
 import eu.artofcoding.bookworm.customer.etl.xml.AbstractXmlRowProcessor;
 
 import javax.persistence.NoResultException;
@@ -81,7 +82,12 @@ public class HoebstpXmlRowProcessor extends AbstractXmlRowProcessor<HoererBuchst
                     } else if (isBUDAT) { // BUDAT1-27 == 20150224
                         final String[] budat = xmlData.getTagName().split("BUDAT");
                         final int index = Integer.valueOf(budat[1]);
-                        hoererBuchstamm.getBelastung(index).setDatum(ParserHelper.parseIsoDate(tagContent));
+                        final Belastung belastung = hoererBuchstamm.getBelastung(index);
+                        if (null != belastung) {
+                            belastung.setDatum(ParserHelper.parseIsoDate(tagContent));
+                        } else {
+                            LOGGER.warning(String.format("[%s] Could not find Belastung for BUDAT%d", hoererBuchstamm.getHoerernummer(), index));
+                        }
                     } else if (isBUKT) { // BUKT01-15
                     }
                     break;

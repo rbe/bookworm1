@@ -183,9 +183,11 @@ public class HoererBuchstamm implements GenericEntity {
                 break;
             }
         }
+/*
         if (null == belastung) {
             throw new RuntimeException("Cannot find Belastung with index " + index);
         }
+*/
         return belastung;
     }
 
