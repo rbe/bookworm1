@@ -21,7 +21,7 @@
         </managed-property>
         <managed-property>
             <property-name>mailName</property-name>
-            <value>WBH Online Shop</value>
+            <value>WBH Katalog</value>
         </managed-property>
         <managed-property>
             <property-name>mailUser</property-name>
