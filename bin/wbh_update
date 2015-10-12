@@ -20,13 +20,16 @@ update_module() {
     local_dest="${APP_INSTALL}/${remote_name}"
     echo "+ Downloading ${ci_url}"
     curl -u rbe -L -o ${local_dest} ${ci_url}
-    pushd ${APP_BASE}
+    pushd ${APP_BASE} >/dev/null
     echo "+ Unpacking ${local_dest}"
     unzip -q ${local_dest}
-    popd
+    popd >/dev/null
     echo "+ Updating system service"
     chmod +x ${APP_BASE}/${gav}/init.d/*
-    service bookworm-${component}-${artifact} stop
+    echo "*"
+    echo "* Please stop bookworm-${component}-${artifact} yourself"
+    echo "* Use script $(readlink /etc/init.d/bookworm-${component}-${artifact})"
+    echo "*"
     sudo rm /etc/init.d/bookworm-${component}-${artifact}
     sudo ln -s ${APP_BASE}/${gav}/init.d/bookworm-${component}-${artifact} /etc/init.d
     rm ${local_dest}
