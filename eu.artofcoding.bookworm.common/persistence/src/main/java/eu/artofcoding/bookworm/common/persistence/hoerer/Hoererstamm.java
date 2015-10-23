@@ -329,4 +329,9 @@ public class Hoererstamm implements GenericEntity {
         this.vorname = vorname;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Hoererstamm{hoerernummer='%s'}", hoerernummer);
+    }
+
 }

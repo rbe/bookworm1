@@ -127,4 +127,9 @@ public class Belastung implements GenericEntity {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Belastung{belastungIndex=%d, boxnummer='%s', book=%s}", belastungIndex, boxnummer, book);
+    }
+
 }

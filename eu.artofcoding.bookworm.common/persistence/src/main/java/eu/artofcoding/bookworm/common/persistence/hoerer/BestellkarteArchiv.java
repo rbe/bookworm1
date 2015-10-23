@@ -111,4 +111,9 @@ public class BestellkarteArchiv implements GenericEntity {
         this.kennzeichen = kennzeichen;
     }
 
+    @Override
+    public String toString() {
+        return String.format("BestellkarteArchiv{hoerernummer='%s'}", hoerernummer);
+    }
+
 }

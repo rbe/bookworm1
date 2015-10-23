@@ -111,4 +111,9 @@ public class HoererKennzeichen implements GenericEntity {
         this.urlaubLand = urlaubLand;
     }
 
+    @Override
+    public String toString() {
+        return String.format("HoererKennzeichen{hoerernummer='%s'}", hoerernummer);
+    }
+
 }

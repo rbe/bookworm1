@@ -320,7 +320,7 @@ public class Book implements GenericEntity {
 
     @Override
     public String toString() {
-        return String.format("BookEntity{id='%d', sachgebiet='%s', titelnummer='%s', autor='%s', titel='%s', untertitel='%s', erlaeuterung='%s', verlagsort='%s', verlag='%s', druckjahr='%s', sprecher1='%s', sprecher2='%s', spieldauer='%s', prodOrt='%s', prodJahr='%s', suchwoerter='%s', anzahlCD='%s', titelfamilie='%s', einstelldatum='%s'}", id, sachgebiet, titelnummer, autor, titel, untertitel, erlaeuterung, verlagsort, verlag, druckjahr, sprecher1, sprecher2, spieldauer, prodOrt, prodJahr, suchwoerter, anzahlCD, titelfamilie, einstelldatum);
+        return String.format("BookEntity{id='%d', sachgebiet='%s', titelnummer='%s', autor='%s', titel='%s'}", id, sachgebiet, titelnummer, autor, titel);
     }
 
 }

@@ -108,4 +108,9 @@ public class Bestellkarte implements GenericEntity {
         getBooks().add(book);
     }
 
+    @Override
+    public String toString() {
+        return String.format("Bestellkarte{hoerernummer='%s'}", hoerernummer);
+    }
+
 }

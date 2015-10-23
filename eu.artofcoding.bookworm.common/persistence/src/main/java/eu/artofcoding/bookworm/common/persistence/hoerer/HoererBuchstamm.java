@@ -191,4 +191,9 @@ public class HoererBuchstamm implements GenericEntity {
         return belastung;
     }
 
+    @Override
+    public String toString() {
+        return String.format("HoererBuchstamm{hoerernummer='%s'}", hoerernummer);
+    }
+
 }
