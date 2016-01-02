@@ -31,7 +31,10 @@ case "$1" in
         echo "Starting ${project.artifactId}..."
         mkdir -p ${BOOKWORM_HOME}/apache-tomee/logs
         chown ${BOOKWORM_USER} ${BOOKWORM_HOME}/apache-tomee/logs
-        sudo -Eu wbh ${BOOKWORM_HOME}/apache-tomee/bin/startup.sh 2>/var/log/${project.artifactId}.log 1>&2 &
+        LOGFILE="2>/var/log/${project.artifactId}.log 1>&2"
+        sudo touch ${LOGFILE}
+        sudo chown ${BOOKWORM_USER} ${LOGFILE}
+        sudo -Eu wbh ${BOOKWORM_HOME}/apache-tomee/bin/startup.sh 2>${LOGFILE} 1>&2 &
     ;;
     stop)
         echo "Stopping ${project.artifactId}..."

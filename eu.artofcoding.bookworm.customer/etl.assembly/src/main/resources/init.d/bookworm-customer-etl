@@ -32,8 +32,11 @@ case "$1" in
         OPENJPA_OPTS="-D'openjpa.ManagedRuntime=invocation(TransactionManagerMethod=com.atomikos.icatch.jta.TransactionManagerImp.getTransactionManager)'"
         JAVA_OPTS="-Xms128m -Xmx256m ${ATOMIKOS_OPTS} ${OPENJPA_OPTS}"
         JAR=${assembly.for.artifactId}-${project.version}.jar
-        LOG="2>/var/log/${assembly.for.artifactId}.log 1>&2"
-        sudo -Eu ${BOOKWORM_USER} sh -c "cd ${BOOKWORM_HOME} ; java ${JAVA_OPTS} -jar ${JAR} ${LOG} &"
+        LOGFILE="/var/log/${assembly.for.artifactId}.log"
+        sudo touch ${LOGFILE}
+        sudo chown ${BOOKWORM_USER} ${LOGFILE}
+        LOGREDIR="2>${LOGFILE} 1>&2"
+        sudo -Eu ${BOOKWORM_USER} sh -c "cd ${BOOKWORM_HOME} ; java ${JAVA_OPTS} -jar ${JAR} ${LOGREDIR} &"
     ;;
     stop)
         echo "Stopping ${assembly.for.artifactId}..."
