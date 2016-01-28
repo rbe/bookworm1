@@ -273,12 +273,18 @@
     <profiles>
         <profile>
             <id>bookworm.catalog</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <modules>
                 <module>eu.artofcoding.bookworm.catalog</module>
             </modules>
         </profile>
         <profile>
             <id>bookworm.customer</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <modules>
                 <module>eu.artofcoding.bookworm.customer</module>
             </modules>
