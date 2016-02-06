@@ -10,15 +10,7 @@ package eu.artofcoding.bookworm.common.persistence.book;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -62,8 +54,7 @@ public class Book implements GenericEntity {
         SACHGEBIET_ENTITY.add(new Sachgebiet("X", "Stimme des Autors"));
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Basic
     public Long id;
 
     @Version
@@ -73,7 +64,7 @@ public class Book implements GenericEntity {
     @Column
     private String sachgebiet;
 
-    @Basic
+    @Id
     @Column(unique = true)
     private String titelnummer; // 6 0 (nummerisch)
 
@@ -142,12 +133,17 @@ public class Book implements GenericEntity {
     private
     Date einstelldatum; // .80
 
+    @PrePersist
+    private void prePersist() {
+        this.id = Long.valueOf(titelnummer);
+    }
+
     public Long getId() {
-        return id;
+        return Long.valueOf(titelnummer);
     }
 
     public void setId(Long id) {
-        this.id = id;
+        // See @PrePersist
     }
 
     public Long getVersion() {
@@ -320,7 +316,7 @@ public class Book implements GenericEntity {
 
     @Override
     public String toString() {
-        return String.format("BookEntity{id='%d', sachgebiet='%s', titelnummer='%s', autor='%s', titel='%s'}", id, sachgebiet, titelnummer, autor, titel);
+        return String.format("BookEntity{id='', sachgebiet='%s', titelnummer='%s', autor='%s', titel='%s'}", /*id,*/ sachgebiet, titelnummer, autor, titel);
     }
 
 }

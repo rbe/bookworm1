@@ -297,7 +297,6 @@
             <properties>
                 <sonar.host.url>http://localhost:9000/sonar</sonar.host.url>
                 <sonar.language>java</sonar.language>
-                <sonar.scm.provider>git</sonar.scm.provider>
             </properties>
             <build>
                 <plugins>
