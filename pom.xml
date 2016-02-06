@@ -294,6 +294,10 @@
         </profile>
         <profile>
             <id>sonar</id>
+            <modules>
+                <module>eu.artofcoding.bookworm.catalog</module>
+                <module>eu.artofcoding.bookworm.customer</module>
+            </modules>
             <properties>
                 <sonar.host.url>http://localhost:9000/sonar</sonar.host.url>
                 <sonar.language>java</sonar.language>
