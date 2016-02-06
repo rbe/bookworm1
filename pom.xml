@@ -244,7 +244,7 @@
                     <artifactId>maven-antrun-plugin</artifactId>
                     <version>1.7</version>
                 </plugin>
-           </plugins>
+            </plugins>
         </pluginManagement>
         <plugins>
             <!-- versions-maven-plugin -->
@@ -296,21 +296,25 @@
             <id>sonar</id>
             <properties>
                 <sonar.host.url>http://localhost:9000/sonar</sonar.host.url>
+                <sonar.language>java</sonar.language>
+                <sonar.scm.provider>git</sonar.scm.provider>
             </properties>
-            <plugins>
-                <plugin>
-                    <groupId>org.sonarsource.scanner.maven</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>3.0.1</version>
-                </plugin>
-                <!-- sonar-maven-plugin
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>2.6</version>
-                </plugin>
-                -->
-            </plugins>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>3.0.1</version>
+                    </plugin>
+                    <!-- sonar-maven-plugin
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>2.6</version>
+                    </plugin>
+                    -->
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>
