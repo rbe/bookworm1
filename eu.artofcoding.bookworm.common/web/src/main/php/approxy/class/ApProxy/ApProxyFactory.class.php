@@ -2,7 +2,7 @@
 
 namespace ApProxy;
 
-class Factory
+class ApProxyFactory
 {
 
     /**
