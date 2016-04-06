@@ -19,7 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-public class SqlStatementHelper {
+public final class SqlStatementHelper {
 
     private SqlStatementHelper() {
         throw new AssertionError();

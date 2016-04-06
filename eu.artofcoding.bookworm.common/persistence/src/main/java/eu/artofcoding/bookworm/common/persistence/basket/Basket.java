@@ -13,11 +13,12 @@ import eu.artofcoding.bookworm.common.persistence.book.Book;
 import org.apache.openjpa.persistence.jdbc.ForeignKey;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Basket implements GenericEntity {
+public class Basket implements GenericEntity, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
