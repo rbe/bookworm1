@@ -21,6 +21,10 @@
             <groupId>eu.artofcoding.bookworm</groupId>
             <artifactId>eu.artofcoding.bookworm.common.persistence</artifactId>
         </dependency>
+        <dependency>
+            <groupId>eu.artofcoding.bookworm</groupId>
+            <artifactId>eu.artofcoding.bookworm.common.spring</artifactId>
+        </dependency>
         <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>

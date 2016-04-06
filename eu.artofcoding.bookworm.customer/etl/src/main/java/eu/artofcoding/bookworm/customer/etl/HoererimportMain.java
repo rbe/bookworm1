@@ -7,55 +7,39 @@
  */
 package eu.artofcoding.bookworm.customer.etl;
 
+import eu.artofcoding.bookworm.common.spring.SpringMain;
 import org.apache.camel.spring.SpringCamelContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
 
 public class HoererimportMain {
 
-    private static final AtomicBoolean completed = new AtomicBoolean(false);
-
-    private static final CountDownLatch latch = new CountDownLatch(1);
-
     public static void main(String[] args) throws Exception {
-        final String bookwormHome = System.getenv("BOOKWORM_HOME");
-        final boolean hasBookwormHome = null == bookwormHome || bookwormHome.isEmpty();
-        if (hasBookwormHome) {
-            System.out.println("Please set BOOKWORM_HOME");
-            System.exit(1);
-        }
-        System.out.println("BOOKWORM_HOME: " + bookwormHome);
         // Spring Filesystem Application Context
-        final String[] filesystemConfigLocation = new String[]{
+        final String bookwormHome = SpringMain.getAppHomeOrExit();
+        final String[] filesystemContextLocations = new String[]{
                 "file://" + bookwormHome + "/conf/system/bookworm-datasource.xml",
                 "file://" + bookwormHome + "/conf/system/bookworm-spring-context.xml",
                 "file://" + bookwormHome + "/conf/system/bookworm-camel-beans.xml",
                 "file://" + bookwormHome + "/conf/system/bookworm-camel-routes.xml"
         };
-        final ApplicationContext applicationContext0 = new FileSystemXmlApplicationContext(filesystemConfigLocation);
-        final SpringCamelContext camelContext = (SpringCamelContext) applicationContext0.getBean("bookwormHoererImport");
         // Stop Camel when JVM shuts down
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            @Override
-            public void run() {
+        final Function<ApplicationContext, Void> custom = (applicationContext) -> {
+            FileSystemXmlApplicationContext c = (FileSystemXmlApplicationContext) applicationContext;
+            c.registerShutdownHook();
+            final SpringCamelContext camelContext = (SpringCamelContext) applicationContext.getBean("bookwormHoererImport");
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
                 try {
                     camelContext.stop();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-        }));
-        // Await countdown latch... it's intended to wait forever
-        while (!completed.get()) {
-            try {
-                latch.await();
-            } catch (InterruptedException e) {
-                // ignore
-            }
-        }
+            }));
+            return null;
+        };
+        SpringMain.startSpringContext(filesystemContextLocations, custom);
     }
 
 }
