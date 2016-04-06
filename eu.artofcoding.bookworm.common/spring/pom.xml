@@ -5,18 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>eu.artofcoding.bookworm</groupId>
-        <artifactId>eu.artofcoding.bookworm</artifactId>
+        <artifactId>eu.artofcoding.bookworm.common</artifactId>
         <version>LOCALBUILD</version>
     </parent>
-    <artifactId>eu.artofcoding.bookworm.common</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>helper</module>
-        <module>etl</module>
-        <module>persistence</module>
-        <module>crypt</module>
-        <module>web</module>
-        <module>spring</module>
-        <module>template</module>
-    </modules>
+    <artifactId>eu.artofcoding.bookworm.common.spring</artifactId>
+    <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${version.org.springframework}</version>
+        </dependency>
+    </dependencies>
 </project>
