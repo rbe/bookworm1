@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dls>
+<version>0.3</version><book>
+<DlsID>
+294
+</DlsID>
+<Bestellnummer>
+1-0000122-3-9
+</Bestellnummer>
+<Kundennummer>
+titusTest
+</Kundennummer>
+<Ausleihstatus>
+3
+</Ausleihstatus>
+<Streampath>
+</Streampath>
+<Bestelldatum>
+2016-04-05 09:24:56
+</Bestelldatum>
+<Rueckgabedatum>
+2016-05-05 00:00:00
+</Rueckgabedatum>
+<Title>
+Die Löwin Elsa und ihre Jungen
+</Title>
+<DlsDescription>
+Bereitstellung abgeschlossen.
+</DlsDescription>
+<Progress>
+8
+</Progress>
+<MaxProgress>
+8
+</MaxProgress>
+<DownloadCount>
+0
+</DownloadCount>
+<MaxDownload>
+5
+</MaxDownload>
+<Gesperrt>
+0
+</Gesperrt>
+<DownloadLink>
+http://dls-test-katalog.blista.de/download/wbh06/titusTest/1-0000122-3-9/cof67n4m68fhitcht9onr5lpcg
+</DownloadLink>
+<DownloadServer>
+dls-test-katalog.blista.de
+</DownloadServer>
+<Typ>
+BOOK
+</Typ>
+</book>
+</dls>
