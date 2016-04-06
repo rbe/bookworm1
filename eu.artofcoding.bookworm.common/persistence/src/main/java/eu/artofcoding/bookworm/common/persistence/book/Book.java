@@ -10,7 +10,14 @@ package eu.artofcoding.bookworm.common.persistence.book;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
+import javax.persistence.Version;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -132,6 +139,10 @@ public class Book implements GenericEntity {
     @Column
     private
     Date einstelldatum; // .80
+
+    @Basic
+    @Column
+    private String aghNummer; // 15 Stellen
 
     @PrePersist
     private void prePersist() {
@@ -314,9 +325,18 @@ public class Book implements GenericEntity {
         this.einstelldatum = einstelldatum;
     }
 
+    public String getAghNummer() {
+        return aghNummer;
+    }
+
+    public void setAghNummer(final String aghNummer) {
+        this.aghNummer = aghNummer;
+    }
+
     @Override
     public String toString() {
-        return String.format("BookEntity{id='', sachgebiet='%s', titelnummer='%s', autor='%s', titel='%s'}", /*id,*/ sachgebiet, titelnummer, autor, titel);
+        return String.format("BookEntity{id='', aghNummer='%s', sachgebiet='%s', titelnummer='%s', autor='%s', titel='%s'}",
+                /*id,*/ aghNummer, sachgebiet, titelnummer, autor, titel);
     }
 
 }

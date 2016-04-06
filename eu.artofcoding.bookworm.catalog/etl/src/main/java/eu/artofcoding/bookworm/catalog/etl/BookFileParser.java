@@ -46,7 +46,8 @@ public class BookFileParser {
             917, 999,   // pos#28, Märchen
             1000, 1005, // pos#30, 1
             1006, 1008, // pos#32, 0
-            1009, 1016  // pos#34, 20001030
+            1009, 1016,  // pos#34, 20001030
+            1017, 1036,  // pos#36, 401-0044470-1-9
     };
 
     private Book createBook(final String line) {
@@ -114,6 +115,10 @@ public class BookFileParser {
                     } catch (ParseException e) {
                         // ignore
                     }
+                    break;
+
+                case 36:
+                    book.setAghNummer(substring);
                     break;
             }
         }
