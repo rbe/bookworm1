@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.catalog.web;
+package eu.artofcoding.bookworm.catalog.web.view;
 
 import eu.artofcoding.beetlejuice.api.persistence.QueryConfiguration;
 import eu.artofcoding.beetlejuice.api.persistence.QueryParameter;
@@ -353,8 +353,7 @@ public class BookwormBean implements Serializable {
 
     public boolean isEntityInBasket(Long id) {
         if (null != id) {
-            boolean inBasket = basket.isInBasket(id);
-            return inBasket;
+            return basket.isInBasket(id);
         } else {
             return false;
         }
@@ -363,8 +362,7 @@ public class BookwormBean implements Serializable {
     public boolean isSelectedEntityInBasket() {
         if (null != paginateableSearch && null != paginateableSearch.getSelectedEntity()) {
             final Long id = paginateableSearch.getSelectedEntity().getId();
-            boolean inBasket = basket.isInBasket(id);
-            return inBasket;
+            return basket.isInBasket(id);
         } else {
             return false;
         }
