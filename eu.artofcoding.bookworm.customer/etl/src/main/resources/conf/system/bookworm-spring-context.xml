@@ -25,7 +25,8 @@
         <property name="encryptor" ref="encryptor"/>
     </bean>
     <!-- Persistence -->
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+          depends-on="atomikosTransactionManager">
         <property name="persistenceUnitName" value="bookwormPU"/>
         <property name="dataSource" ref="bookwormDatasource"/>
         <property name="jpaVendorAdapter">

@@ -23,9 +23,9 @@
         </dependency>
         <!-- Java EE -->
         <dependency>
-            <groupId>org.apache.openejb.patch</groupId>
+            <groupId>org.apache.openjpa</groupId>
             <artifactId>openjpa-all</artifactId>
-            <version>${version.org.apache.openejb.patch}</version>
+            <version>${version.org.apache.openjpa}</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -35,9 +35,9 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.openejb.patch</groupId>
+                <groupId>org.apache.openjpa</groupId>
                 <artifactId>openjpa-maven-plugin</artifactId>
-                <version>${version.org.apache.openejb.patch}</version>
+                <version>${version.org.apache.openjpa}</version>
                 <executions>
                     <execution>
                         <id>jpa-enhance</id>
@@ -45,6 +45,16 @@
                         <goals>
                             <goal>enhance</goal>
                         </goals>
+                    </execution>
+                    <execution>
+                        <id>build-schema</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>schema</goal>
+                        </goals>
+                        <configuration>
+                            <schemaAction>buildSchema</schemaAction>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
