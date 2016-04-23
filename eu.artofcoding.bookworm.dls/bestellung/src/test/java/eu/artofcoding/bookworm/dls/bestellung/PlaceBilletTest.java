@@ -11,6 +11,7 @@ package eu.artofcoding.bookworm.dls.bestellung;
 import eu.artofcoding.bookworm.dls.v03.bestellung.Billet;
 import eu.artofcoding.bookworm.dls.v03.bestellung.BilletCreator;
 import eu.artofcoding.bookworm.dls.v03.bestellung.BilletSender;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -40,6 +41,7 @@ public class PlaceBilletTest {
     }
 
     @Test
+    @Ignore
     public void shouldPutFileIntoNew() throws InterruptedException {
         final Billet billet = billetCreator.create("titusTest", "1-0000122-3-9");
         billetSender.sendToServer(billet);

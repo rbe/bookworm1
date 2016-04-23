@@ -31,13 +31,7 @@
             <version>${version.org.springframework}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- Logging -->
+       <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -45,6 +39,17 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+         <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+        <!-- Spotify Apollo -->
+        <dependency>
+            <groupId>com.spotify</groupId>
+            <artifactId>apollo-http-service</artifactId>
+            <version>1.0.3</version>
         </dependency>
         <!-- -->
         <dependency>

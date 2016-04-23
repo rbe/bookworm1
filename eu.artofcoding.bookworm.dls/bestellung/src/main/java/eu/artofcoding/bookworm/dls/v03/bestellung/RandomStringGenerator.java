@@ -1,4 +1,4 @@
-package eu.artofcoding.bookworm.dls.bestellung;
+package eu.artofcoding.bookworm.dls.v03.bestellung;
 
 import org.springframework.stereotype.Component;
 

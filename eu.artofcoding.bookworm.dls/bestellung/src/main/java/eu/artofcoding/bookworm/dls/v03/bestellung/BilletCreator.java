@@ -9,7 +9,6 @@
 package eu.artofcoding.bookworm.dls.v03.bestellung;
 
 import eu.artofcoding.bookworm.common.template.Template;
-import eu.artofcoding.bookworm.dls.bestellung.RandomStringGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
