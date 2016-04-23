@@ -47,7 +47,7 @@ public class BookFileParser {
             1000, 1005, // pos#30, 1
             1006, 1008, // pos#32, 0
             1009, 1016,  // pos#34, 20001030
-            1017, 1036,  // pos#36, 401-0044470-1-9
+            1017, 0,  // pos#36, 01-0044470-1-9
     };
 
     private Book createBook(final String line) {
@@ -56,70 +56,76 @@ public class BookFileParser {
         for (int i = 0; i < pos.length; i += 2) {
             int from = pos[i];
             int to = pos[i + 1];
-            final String substring = line.substring(from, to + 1).trim();
-            switch (i) {
-                case 0:
-                    book.setSachgebiet(substring);
-                    break;
-                case 2:
-                    book.setTitelnummer(substring);
-                    break;
-                case 4:
-                    book.setAutor(substring);
-                    break;
-                case 6:
-                    book.setTitel(substring);
-                    break;
-                case 8:
-                    book.setUntertitel(substring);
-                    break;
-                case 10:
-                    book.setErlaeuterung(substring);
-                    break;
-                case 12:
-                    book.setVerlagsort(substring);
-                    break;
-                case 14:
-                    book.setVerlag(substring);
-                    break;
-                case 16:
-                    book.setDruckjahr(substring);
-                    break;
-                case 18:
-                    book.setSprecher1(substring);
-                    break;
-                case 20:
-                    book.setSprecher2(substring);
-                    break;
-                case 22:
-                    book.setSpieldauer(substring);
-                    break;
-                case 24:
-                    book.setProdOrt(substring);
-                    break;
-                case 26:
-                    book.setProdJahr(substring);
-                    break;
-                case 28:
-                    book.setSuchwoerter(substring);
-                    break;
-                case 30:
-                    book.setAnzahlCD(substring);
-                    break;
-                case 32:
-                    book.setTitelfamilie(substring);
-                    break;
-                case 34:
-                    try {
-                        book.setEinstelldatum(new Date(SDF_ISO.parse(substring).getTime()));
-                    } catch (ParseException e) {
-                        // ignore
-                    }
-                    break;
-
-                case 36:
-                    book.setAghNummer(substring);
-                    break;
+            String substring = null;
+            if (line.length() >= from) {
+                if (to > 0) {
+                    substring = line.substring(from, to + 1).trim();
+                } else {
+                    substring = line.substring(from).trim();
+                }
+                switch (i) {
+                    case 0:
+                        book.setSachgebiet(substring);
+                        break;
+                    case 2:
+                        book.setTitelnummer(substring);
+                        break;
+                    case 4:
+                        book.setAutor(substring);
+                        break;
+                    case 6:
+                        book.setTitel(substring);
+                        break;
+                    case 8:
+                        book.setUntertitel(substring);
+                        break;
+                    case 10:
+                        book.setErlaeuterung(substring);
+                        break;
+                    case 12:
+                        book.setVerlagsort(substring);
+                        break;
+                    case 14:
+                        book.setVerlag(substring);
+                        break;
+                    case 16:
+                        book.setDruckjahr(substring);
+                        break;
+                    case 18:
+                        book.setSprecher1(substring);
+                        break;
+                    case 20:
+                        book.setSprecher2(substring);
+                        break;
+                    case 22:
+                        book.setSpieldauer(substring);
+                        break;
+                    case 24:
+                        book.setProdOrt(substring);
+                        break;
+                    case 26:
+                        book.setProdJahr(substring);
+                        break;
+                    case 28:
+                        book.setSuchwoerter(substring);
+                        break;
+                    case 30:
+                        book.setAnzahlCD(substring);
+                        break;
+                    case 32:
+                        book.setTitelfamilie(substring);
+                        break;
+                    case 34:
+                        try {
+                            book.setEinstelldatum(new Date(SDF_ISO.parse(substring).getTime()));
+                        } catch (ParseException e) {
+                            // ignore
+                        }
+                        break;
+                    case 36:
+                        book.setAghNummer(substring);
+                        break;
+                }
             }
         }
         return book;
