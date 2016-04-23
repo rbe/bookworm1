@@ -19,6 +19,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public final class XmlRowParser {
@@ -91,9 +92,9 @@ public final class XmlRowParser {
                         final GenericEntity entity = xmlRowProcessor.xmlRowToEntity(xmlRow);
                         genericEntities.add(entity);
                     } catch (NoResultException e) {
-                        LOGGER.fine(String.format("Cannot process row %s: No result from database, %s", xmlRow, e.getMessage()));
+                        LOGGER.log(Level.WARNING, String.format("Cannot process row %s: No result from database, %s", xmlRow, e.getMessage()), e);
                     } catch (Exception e) {
-                        LOGGER.severe(String.format("Cannot process row %s: %s", xmlRow, e.getMessage()));
+                        LOGGER.log(Level.SEVERE, String.format("Cannot process row %s: %s", xmlRow, e.getMessage()), e);
                     }
                 }
             }
