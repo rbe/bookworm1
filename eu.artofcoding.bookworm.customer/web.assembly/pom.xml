@@ -114,6 +114,7 @@
                     <skipCurrentProject>true</skipCurrentProject>
                     <tomeeShutdownPort>8005</tomeeShutdownPort>
                     <tomeeHttpPort>8080</tomeeHttpPort>
+                    <tomeeHttpsPort>8088</tomeeHttpsPort>
                     <tomeeAjpPort>8009</tomeeAjpPort>
                 </configuration>
                 <executions>

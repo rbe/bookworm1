@@ -10,8 +10,8 @@
         timeOut = ${container.session.timeout}
     </Container>
     <Resource id="bookwormDatasource" type="javax.sql.DataSource">
-        JdbcDriver = com.mysql.jdbc.Driver
-        JdbcUrl = jdbc:mysql://localhost:3306/bookworm
+        JdbcDriver = com.mysql.cj.jdbc.Driver
+        JdbcUrl = jdbc:mysql://localhost:3306/bookworm?useSSL=false&amp;serverTimezone=CET&amp;nullNamePatternMatchesAll=true
         UserName = bookworm
         Password = bookworm
         JtaManaged = true

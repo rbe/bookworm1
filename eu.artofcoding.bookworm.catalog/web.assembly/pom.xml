@@ -111,6 +111,7 @@
                     <skipCurrentProject>true</skipCurrentProject>
                     <tomeeShutdownPort>8015</tomeeShutdownPort>
                     <tomeeHttpPort>8090</tomeeHttpPort>
+                    <tomeeHttpsPort>8099</tomeeHttpsPort>
                     <tomeeAjpPort>8019</tomeeAjpPort>
                 </configuration>
                 <executions>
