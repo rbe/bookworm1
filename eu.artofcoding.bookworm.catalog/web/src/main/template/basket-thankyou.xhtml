@@ -59,7 +59,10 @@
                             <br/><br/>
                             <h:outputText styleClass="line15 baskettext" value="Ihre Bestellung wurde erfolgreich &uuml;bermittelt!"/>
                             <br/><br/>
-                            <bookworm:basket-table basket="#{bookwormBean.orderedBasket}" readonly="true"/>
+                            <h3>Digitale Bestellung</h3>
+                            <bookworm:basket-table bean="#{digitalBasketBean}" readonly="true"/>
+                            <h3>Postalische Bestellung</h3>
+                            <bookworm:basket-table bean="#{postalBasketBean}" readonly="true"/>
                         </div>
                     </div>
                 </div>

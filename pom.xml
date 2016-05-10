@@ -21,7 +21,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>eu.artofcoding.bookworm.common</module>
-        <module>eu.artofcoding.bookworm.mock</module>
+        <!--<module>eu.artofcoding.bookworm.mock</module>-->
         <module>eu.artofcoding.bookworm.catalog</module>
         <module>eu.artofcoding.bookworm.customer</module>
         <module>eu.artofcoding.bookworm.dls</module>
@@ -50,6 +50,11 @@
             <dependency>
                 <groupId>eu.artofcoding.bookworm</groupId>
                 <artifactId>eu.artofcoding.bookworm.api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>eu.artofcoding.bookworm</groupId>
+                <artifactId>eu.artofcoding.bookworm.dls.restclient</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

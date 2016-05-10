@@ -58,16 +58,16 @@
                         <div class="leading">
                             <h2 class="contentheading">Suchergebnisse</h2>
                             <bookworm:navigation/>
-                            <h:form rendered="#{bookwormBean.paginateableSearch.totalRowCount > 0}">
+                            <h:form rendered="#{searchBean.paginateableSearch.totalRowCount > 0}">
                                 <p class="line15 resulttext">
                                     Ihre Suche nach
                                     <span class="suchbegriff">
-                                        <h:outputText value="#{bookwormBean.paginateableSearch.searchTerm}"/>
+                                        <h:outputText value="#{searchBean.paginateableSearch.searchTerm}"/>
                                     </span>
                                     ergab
                                     <span class="suchtreffer">
-                                        <h:outputText rendered="#{bookwormBean.paginateableSearch.totalRowCount > 0}" value="#{bookwormBean.paginateableSearch.totalRowCount}"/>
-                                        <h:outputText rendered="#{bookwormBean.paginateableSearch.totalRowCount == 0}" value="keine"/>
+                                        <h:outputText rendered="#{searchBean.paginateableSearch.totalRowCount > 0}" value="#{searchBean.paginateableSearch.totalRowCount}"/>
+                                        <h:outputText rendered="#{searchBean.paginateableSearch.totalRowCount == 0}" value="keine"/>
                                     </span>
                                     Treffer
                                 </p>
@@ -76,8 +76,8 @@
                                              columnClasses="result-column1,result-column2,result-column3,result-column4,result-column5"
                                              rowClasses="result-row1,result-row2"
                                              cellpadding="0" cellspacing="0"
-                                             value="#{bookwormBean.paginateableSearch.currentPage}" var="book"
-                                             offset="#{bookwormBean.paginateableSearch.offset}" rows="#{bookwormBean.paginateableSearch.pageSize}">
+                                             value="#{searchBean.paginateableSearch.currentPage}" var="book"
+                                             offset="#{searchBean.paginateableSearch.offset}" rows="#{searchBean.paginateableSearch.pageSize}">
                                     <h:column headerClass="result-column-header">
                                         <f:facet name="header">
                                             Titelnummer
@@ -100,22 +100,29 @@
                                         <f:facet name="header">
                                             Details
                                         </f:facet>
-                                        <h:commandLink action="#{bookwormBean.showDetail(book.id)}" value="Detail"/>
+                                        <h:commandLink action="#{searchBean.showDetail(book)}" value="Detail"/>
                                     </h:column>
                                     <h:column headerClass="result-column-header">
                                         <f:facet name="header">
                                             Merkliste
                                         </f:facet>
-                                        <h:commandLink rendered="#{!bookwormBean.isEntityInBasket(book.id)}" styleClass="basket-order-link" action="#{bookwormBean.addToBasket(book.id)}" value="In die Merkliste"/>
-                                        <h:commandLink rendered="#{bookwormBean.isEntityInBasket(book.id)}" styleClass="basket-remove-link" action="#{bookwormBean.removeFromBasket(book.id)}" value="Aus der Merkliste entfernen"/>
+                                        <h:commandLink rendered="#{!postalBasketBean.isInBasket(book)}"
+                                                       styleClass="basket-order-link" action="#{postalBasketBean.add(book)}" value="Per Post bestellen"/>
+                                        <h:commandLink rendered="#{postalBasketBean.isInBasket(book)}"
+                                                       styleClass="basket-remove-link" action="#{postalBasketBean.remove(book)}" value="Nicht mehr per Post bestellen"/>
+
+                                        <h:commandLink rendered="#{digitalBasketBean.canBeOrderedAsDownload(book)}"
+                                                       styleClass="basket-order-link" action="#{digitalBasketBean.add(book)}" value="Per Download bestellen"/>
+                                        <h:commandLink rendered="#{digitalBasketBean.canBeRemovedFromBasket(book)}"
+                                                       styleClass="basket-remove-link" action="#{digitalBasketBean.remove(book)}" value="Nicht mehr als Download bestellen"/>
                                     </h:column>
                                     <f:facet name="footer">
                                         <h:panelGroup>
-                                            <h:commandButton value="Zurück" action="#{bookwormBean.previousPage}" disabled="#{!bookwormBean.previousButtonEnabled}"/>
+                                            <h:commandButton value="Zurück" action="#{searchBean.previousPage}" disabled="#{!searchBean.previousButtonEnabled}"/>
                                             &nbsp;Seite
-                                            <h:outputText value="#{bookwormBean.paginateableSearch.currentPageIndex + 1}"/> von
-                                            <h:outputText value="#{bookwormBean.paginateableSearch.pageCount}"/>&nbsp;
-                                            <h:commandButton value="Weiter" action="#{bookwormBean.nextPage}" disabled="#{!bookwormBean.nextButtonEnabled}"/>
+                                            <h:outputText value="#{searchBean.paginateableSearch.currentPageIndex + 1}"/> von
+                                            <h:outputText value="#{searchBean.paginateableSearch.pageCount}"/>&nbsp;
+                                            <h:commandButton value="Weiter" action="#{searchBean.nextPage}" disabled="#{!searchBean.nextButtonEnabled}"/>
                                         </h:panelGroup>
                                     </f:facet>
                                 </h:dataTable>

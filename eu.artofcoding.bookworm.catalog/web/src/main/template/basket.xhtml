@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:o="http://omnifaces.org/ui"
       xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm/catalog">
 <h:head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <meta name="robots" content="index, follow"/>
-    <meta name="keywords" content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
-    <meta name="description" content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
+    <meta name="keywords"
+          content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
+    <meta name="description"
+          content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
     <meta name="generator" content="medienhof - Source Management"/>
     <title>Katalogsuche - Westdeutsche Blindenhörbücherei - Münster</title>
     <link href="/templates/oneweb/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
@@ -26,7 +28,10 @@
     </div>
     <div id="all">
         <div id="logo">
-            <a title="Link zur Startseite" href="https://www.wbh-online.de/index.php"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="http://www.wbh-online.de/templates/oneweb/images/logo_wbh.gif"/></a>
+            <a title="Link zur Startseite" href="https://www.wbh-online.de/index.php"><img width="150" height="47"
+                                                                                           border="0"
+                                                                                           alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster"
+                                                                                           src="http://www.wbh-online.de/templates/oneweb/images/logo_wbh.gif"/></a>
         </div>
         <div id="header">
             <div class="moduletable">
@@ -58,9 +63,14 @@
                         <div class="leading">
                             <h2 class="contentheading">Detailinformationen</h2>
                             <bookworm:navigation/>
-                            <bookworm:basket-table basket="#{bookwormBean.basket}" readonly="false"/>
+
+                            <h3>Merkliste für den Download</h3>
+                            <bookworm:basket-table bean="#{digitalBasketBean}" readonly="false"/>
+
+                            <h3>Merkliste für die Post</h3>
+                            <bookworm:basket-table bean="#{postalBasketBean}" readonly="false"/>
                             <h:form>
-                                <h:panelGrid rendered="#{bookwormBean.basket.itemCount() > 0}"
+                                <h:panelGrid rendered="#{orderBean.itemCount > 0}"
                                              columns="2"
                                              styleClass="basket-member"
                                              columnClasses="basket-order-column1,basket-order-column2"
@@ -73,7 +83,7 @@
                                         <h:outputLabel for="name" value="Name"/>
                                     </h:panelGroup>
                                     <h:inputText id="name"
-                                                 value="#{bookwormBean.basket.name}" styleClass="input_hoerername"
+                                                 value="#{orderBean.orderDetails.name}" styleClass="input_hoerername"
                                                  required="true" requiredMessage="Bitte geben Sie Ihren Namen ein"
                                                  validatorMessage="Bitte geben Sie mehr als 3 Zeichen ein">
                                         <f:validateLength minimum="3"/>
@@ -86,7 +96,8 @@
                                         <h:outputLabel for="hoerernummer" value="Hörernummer"/>
                                     </h:panelGroup>
                                     <h:inputText id="hoerernummer"
-                                                 value="#{bookwormBean.basket.hoerernummer}" styleClass="input_hoerernummer"
+                                                 value="#{orderBean.orderDetails.hoerernummer}"
+                                                 styleClass="input_hoerernummer"
                                                  required="true" requiredMessage="Bitte geben Sie Ihre Hörernummer ein"
                                                  validatorMessage="Bitte geben Sie mehr als 2 Zeichen ein">
                                         <f:validateLength minimum="2"/>
@@ -99,8 +110,9 @@
                                         <h:outputLabel for="email" value="Email"/>
                                     </h:panelGroup>
                                     <h:inputText id="email"
-                                                 value="#{bookwormBean.basket.email}" styleClass="input_hoereremail"
-                                                 required="true" requiredMessage="Bitte geben Sie Ihre Email-Adresse ein"
+                                                 value="#{orderBean.orderDetails.email}" styleClass="input_hoereremail"
+                                                 required="true"
+                                                 requiredMessage="Bitte geben Sie Ihre Email-Adresse ein"
                                                  validatorMessage="Bitte geben Sie mehr als 5 Zeichen ein">
                                         <f:validateLength minimum="5"/>
                                     </h:inputText>
@@ -112,7 +124,8 @@
                                         <h:outputLabel for="bemerkung" value="Bemerkung"/>
                                     </h:panelGroup>
                                     <h:inputTextarea id="bemerkung"
-                                                     value="#{bookwormBean.basket.bemerkung}" styleClass="input_bemerkung"
+                                                     value="#{orderBean.orderDetails.bemerkung}"
+                                                     styleClass="input_bemerkung"
                                                      rows="5" cols="35"
                                                      required="false"
                                                      validatorMessage="Bitte geben Sie mehr als 5 Zeichen ein">
@@ -126,7 +139,8 @@
                                         <h:outputLabel for="bestellkarteMischen" value="Bestellkarte mischen?"/>
                                     </h:panelGroup>
                                     <h:selectBooleanCheckbox id="bestellkarteMischen"
-                                                             value="#{bookwormBean.basket.bestellkarteMischen}" styleClass="input_bestellkarteMischen"
+                                                             value="#{orderBean.orderDetails.bestellkarteMischen}"
+                                                             styleClass="input_bestellkarteMischen"
                                                              required="false">
                                     </h:selectBooleanCheckbox>
 
@@ -134,15 +148,18 @@
                                         <div class="basketerror">
                                             <h:message for="alteBestellkarteLoeschen"/>
                                         </div>
-                                        <h:outputLabel for="alteBestellkarteLoeschen" value="Alte Bestellkarte l&ouml;schen?"/>
+                                        <h:outputLabel for="alteBestellkarteLoeschen"
+                                                       value="Alte Bestellkarte l&ouml;schen?"/>
                                     </h:panelGroup>
                                     <h:selectBooleanCheckbox id="alteBestellkarteLoeschen"
-                                                             value="#{bookwormBean.basket.alteBestellkarteLoeschen}" styleClass="input_alteBestellkarteLoeschen"
+                                                             value="#{orderBean.orderDetails.alteBestellkarteLoeschen}"
+                                                             styleClass="input_alteBestellkarteLoeschen"
                                                              required="false">
                                     </h:selectBooleanCheckbox>
 
                                     <h:outputLabel value=" "/>
-                                    <h:commandButton value="Bestellen" action="#{bookwormBean.placeOrder}" styleClass="basketsubmit" required="true"/>
+                                    <h:commandButton value="Bestellen" action="#{orderBean.placeOrder}"
+                                                     styleClass="basketsubmit" required="true"/>
 
                                 </h:panelGrid>
                             </h:form>

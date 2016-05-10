@@ -12,6 +12,10 @@
     <packaging>jar</packaging>
     <dependencies>
         <!-- Bookworm -->
+        <dependency>
+            <groupId>eu.artofcoding.bookworm</groupId>
+            <artifactId>eu.artofcoding.bookworm.common.spring</artifactId>
+        </dependency>
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>

@@ -38,7 +38,6 @@ public final class SpringMain {
     }
 
     public static void startSpringContext(final Function<ApplicationContext, Void> custom) throws Exception {
-        final String bookwormHome = getAppHomeOrExit();
         final AnnotationConfigApplicationContext applicationContext =
                 new AnnotationConfigApplicationContext();
         // Run custom code

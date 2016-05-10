@@ -24,6 +24,10 @@
             <groupId>eu.artofcoding.bookworm</groupId>
             <artifactId>eu.artofcoding.bookworm.common.web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>eu.artofcoding.bookworm</groupId>
+            <artifactId>eu.artofcoding.bookworm.dls.restclient</artifactId>
+        </dependency>
         <!-- Beetlejuice -->
         <dependency>
             <groupId>eu.artofcoding.beetlejuice</groupId>

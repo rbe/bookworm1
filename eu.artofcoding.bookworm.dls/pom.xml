@@ -11,7 +11,7 @@
     <artifactId>eu.artofcoding.bookworm.dls</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>etl</module>
         <module>bestellung</module>
+        <module>restclient</module>
     </modules>
 </project>

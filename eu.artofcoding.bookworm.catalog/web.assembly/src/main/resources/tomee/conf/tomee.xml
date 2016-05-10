@@ -31,6 +31,6 @@
         mail.smtp.auth = true
         mail.smtp.user = wbh@wbh-online.de
         password = mypassword
-        mail.from = WBH Online Shop
+        mail.from = Westdeutsche Blindenhörbucherei
     </Resource>
 </tomee>

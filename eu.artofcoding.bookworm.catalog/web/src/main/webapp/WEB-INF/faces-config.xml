@@ -9,27 +9,4 @@
         <managed-bean-class>eu.artofcoding.beetlejuice.web.LanguageBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
-    <!-- Basket -->
-    <managed-bean>
-        <managed-bean-name>bookwormBean</managed-bean-name>
-        <managed-bean-class>eu.artofcoding.bookworm.catalog.web.BookwormBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-            <property-name>maxSearchResults</property-name>
-            <property-class>java.lang.Integer</property-class>
-            <value>0</value>
-        </managed-property>
-        <managed-property>
-            <property-name>mailName</property-name>
-            <value>WBH Katalog</value>
-        </managed-property>
-        <managed-property>
-            <property-name>mailUser</property-name>
-            <value>wbh@wbh-online.de</value>
-        </managed-property>
-        <managed-property>
-            <property-name>mailSubject</property-name>
-            <value>Ihre Bestellung bei der WBH</value>
-        </managed-property>
-    </managed-bean>
 </faces-config>

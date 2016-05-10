@@ -32,7 +32,9 @@ import java.util.List;
 })
 public class Book implements GenericEntity {
 
-    public static final List<Sachgebiet> SACHGEBIET_ENTITY = new ArrayList<>();
+	private static final long serialVersionUID = 1L;
+
+	public static final List<Sachgebiet> SACHGEBIET_ENTITY = new ArrayList<>();
 
     static {
         SACHGEBIET_ENTITY.add(new Sachgebiet("A", "Klassiker der Weltliteratur"));
@@ -62,10 +64,10 @@ public class Book implements GenericEntity {
     }
 
     @Basic
-    public Long id;
+    private Long id;
 
     @Version
-    public Long version;
+    private Long version;
 
     @Basic
     @Column
@@ -331,6 +333,30 @@ public class Book implements GenericEntity {
 
     public void setAghNummer(final String aghNummer) {
         this.aghNummer = aghNummer;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        final Book book = (Book) o;
+
+        if (sachgebiet != null ? !sachgebiet.equals(book.sachgebiet) : book.sachgebiet != null) return false;
+        if (!titelnummer.equals(book.titelnummer)) return false;
+        if (!autor.equals(book.autor)) return false;
+        if (!titel.equals(book.titel)) return false;
+        return aghNummer != null ? aghNummer.equals(book.aghNummer) : book.aghNummer == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = sachgebiet != null ? sachgebiet.hashCode() : 0;
+        result = 31 * result + titelnummer.hashCode();
+        result = 31 * result + autor.hashCode();
+        result = 31 * result + titel.hashCode();
+        result = 31 * result + (aghNummer != null ? aghNummer.hashCode() : 0);
+        return result;
     }
 
     @Override

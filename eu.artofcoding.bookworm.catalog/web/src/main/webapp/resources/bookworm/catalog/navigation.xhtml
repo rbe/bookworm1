@@ -4,29 +4,27 @@
       xmlns:cc="http://java.sun.com/jsf/composite"
       xmlns:h="http://java.sun.com/jsf/html">
 
-<!-- INTERFACE -->
 <cc:interface>
 </cc:interface>
 
-<!-- IMPLEMENTATION -->
 <cc:implementation>
     <div class="search_basket">
         <h:form>
             <!-- Ergebnis -->
-            <h:commandLink rendered="#{bookwormBean.displayBackToResultListLink()}" styleClass="nav-link-resultlist" action="result">Zurück zum Suchergebnis</h:commandLink>
+            <h:commandLink rendered="#{searchBean.displayBackToResultListLink()}" styleClass="nav-link-resultlist" action="result">Zurück zum Suchergebnis</h:commandLink>
             <!-- Suche -->
             <div class="newsearch_basket">
-                <h:commandLink rendered="#{bookwormBean.displaySearchAgainLink()}" styleClass="nav-link-newsearch" action="#{bookwormBean.resetStateAndGotoSearchPage}">Erneute Suche</h:commandLink>
-                <h:commandLink rendered="#{bookwormBean.displaySearchLink()}" styleClass="nav-link-search" action="#{bookwormBean.resetStateAndGotoSearchPage}">Suche</h:commandLink>
+                <h:commandLink rendered="#{searchBean.displaySearchAgainLink()}" styleClass="nav-link-newsearch" action="#{searchBean.resetStateAndGotoSearchPage}">Erneute Suche</h:commandLink>
+                <h:commandLink rendered="#{searchBean.displaySearchLink()}" styleClass="nav-link-search" action="#{searchBean.resetStateAndGotoSearchPage}">Suche</h:commandLink>
             </div>
             <!-- Merkliste -->
-            <h:commandLink rendered="#{bookwormBean.displayBasketLink()}" action="basket.xhtml">
+            <h:commandLink rendered="#{orderBean.displayBasketLink()}" action="basket.xhtml">
                 <div class="basket-count">
-                    <h:outputText value="Merkliste (#{bookwormBean.basket.itemCount()})"/>
+                    <h:outputText value="Merkliste (#{orderBean.itemCount})"/>
                 </div>
             </h:commandLink>
             <div class="basket-count">
-                <h:outputText rendered="#{bookwormBean.displayEmptyBasketLink()}" value="Merkliste (0)"/>
+                <h:outputText rendered="#{orderBean.displayEmptyBasketLink()}" value="Merkliste (0)"/>
             </div>
         </h:form>
     </div>

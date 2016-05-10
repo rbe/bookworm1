@@ -37,7 +37,7 @@ public class AbstractXmlRowProcessor<T extends GenericEntity> implements XmlRowP
     private String buildErrorMessage(final Iterator<ConstraintViolation<?>> iterator) {
         final StringBuilder errorMessages = new StringBuilder();
         while (iterator.hasNext()) {
-            final ConstraintViolation constraintViolation = iterator.next();
+            final ConstraintViolation<?> constraintViolation = iterator.next();
             errorMessages.append("'").append(constraintViolation.getPropertyPath().toString()).append("' ");
             errorMessages.append(constraintViolation.getMessage());
             if (iterator.hasNext()) {

@@ -7,6 +7,10 @@
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
         <jta-data-source>bookwormDatasource</jta-data-source>
         <non-jta-data-source>bookwormDatasourceNonJta</non-jta-data-source>
+        <class>eu.artofcoding.bookworm.common.persistence.basket.Basket</class>
+        <class>eu.artofcoding.bookworm.common.persistence.basket.BlistaOrder</class>
+        <class>eu.artofcoding.bookworm.common.persistence.basket.AghNummer</class>
+        <class>eu.artofcoding.bookworm.common.persistence.basket.Abrufkennwort</class>
         <class>eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm</class>
         <class>eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen</class>
         <class>eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstamm</class>
@@ -17,6 +21,7 @@
         <class>eu.artofcoding.bookworm.common.persistence.book.Sachgebiet</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
+            <!--<property name="openjpa.Compatibility=CheckDatabaseForCascadePersistToDetachedEntity=" value="true"/>-->
             <property name="openjpa.Log" value="DefaultLevel=WARN, Runtime=INFO, Tool=INFO"/>
             <!--property name="openjpa.Log" value="DefaultLevel=ERROR, Enhance=INFO, MetaData=INFO, Runtime=INFO, Query=INFO, DataCache=INFO, Tool=INFO, SQL=INFO"/-->
             <property name="openjpa.ConnectionDriverName" value="com.mysql.cj.jdbc.Driver"/>

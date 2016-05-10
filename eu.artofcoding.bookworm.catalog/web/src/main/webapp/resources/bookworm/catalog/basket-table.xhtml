@@ -9,27 +9,27 @@
 <ui:component>
 
     <cc:interface>
-        <cc:attribute name="basket" required="true" type="eu.artofcoding.bookworm.common.persistence.basket.Basket"/>
+        <cc:attribute name="bean" required="true" type="eu.artofcoding.bookworm.catalog.web.view.BasketBean"/>
         <cc:attribute name="readonly" required="false" type="java.lang.Boolean" default="false"/>
     </cc:interface>
 
     <cc:implementation>
         <h:form>
             <p class="line15 baskettext">
-                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.basket.itemCount() == 0}" value="Ihre Merkliste ist leer."/>
-                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.basket.itemCount() == 1}" value="Ihre Merkliste enthält #{cc.attrs.basket.itemCount()} Hörbuch."/>
-                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.basket.itemCount() > 1}" value="Ihre Merkliste enthält #{cc.attrs.basket.itemCount()} Hörbücher."/>
+                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.basket.itemCount() == 0}" value="Ihre Merkliste ist leer."/>
+                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.basket.itemCount() == 1}" value="Ihre Merkliste enthält #{cc.attrs.bean.basket.itemCount()} Hörbuch."/>
+                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.basket.itemCount() > 1}" value="Ihre Merkliste enthält #{cc.attrs.bean.basket.itemCount()} Hörbücher."/>
                 <!-- readonly -->
-                <h:outputText rendered="#{cc.attrs.readonly}" value="Sie haben #{cc.attrs.basket.itemCount()} Titel bestellt."/>
+                <h:outputText rendered="#{cc.attrs.readonly}" value="Sie haben #{cc.attrs.bean.basket.itemCount()} Titel bestellt."/>
             </p>
             <br/><br/>
             <h:dataTable id="bookwormBasketTable"
-                         rendered="#{cc.attrs.basket.itemCount() > 0}"
+                         rendered="#{cc.attrs.bean.basket.itemCount() > 0}"
                          styleClass="tab basket-table"
                          columnClasses="basket-column1,basket-column2,basket-column3,basket-column4,basket-column5"
                          rowClasses="row basket-row1,row basket-row2"
                          cellpadding="0" cellspacing="0"
-                         value="#{cc.attrs.basket.books}" var="book">
+                         value="#{cc.attrs.bean.basket.books}" var="book">
                 <h:column headerClass="basket-column-header">
                     <f:facet name="header">
                         Titelnummer
@@ -52,14 +52,14 @@
                     <f:facet name="header">
                         Details
                     </f:facet>
-                    <h:commandLink action="#{bookwormBean.showDetail(book.id)}" value="Detail"/>
+                    <h:commandLink action="#{searchBean.showDetail(book)}" value="Detail"/>
                 </h:column>
                 <h:column headerClass="basket-column-header" rendered="#{!cc.attrs.readonly}">
                     <f:facet name="header">
                         Merkliste
                     </f:facet>
-                    <h:commandLink rendered="#{!bookwormBean.isEntityInBasket(book.id)}" action="#{bookwormBean.addToBasket(book.id)}" value="Bestellen"/>
-                    <h:commandLink rendered="#{bookwormBean.isEntityInBasket(book.id)}" action="#{bookwormBean.removeFromBasket(book.id)}">Aus Merkliste entfernen</h:commandLink>
+                    <h:commandLink rendered="#{!cc.attrs.bean.isInBasket(book)}" action="#{cc.attrs.bean.add(book)}" value="Bestellen"/>
+                    <h:commandLink rendered="#{cc.attrs.bean.isInBasket(book)}" action="#{cc.attrs.bean.remove(book)}">Aus Merkliste entfernen</h:commandLink>
                 </h:column>
             </h:dataTable>
         </h:form>
