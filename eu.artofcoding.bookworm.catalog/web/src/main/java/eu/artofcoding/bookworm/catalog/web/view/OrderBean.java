@@ -16,14 +16,11 @@ import eu.artofcoding.bookworm.common.persistence.basket.BlistaOrder;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 import eu.artofcoding.bookworm.dls.bestellung.restclient.v03.BlistaRestClient;
 import eu.artofcoding.bookworm.dls.bestellung.restclient.v03.BookOrder;
-import freemarker.template.TemplateException;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.mail.MessagingException;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,34 +57,53 @@ public class OrderBean implements Serializable {
         return orderDetails;
     }
 
+    private void postalDelivery() {
+        emailService.sendMail(orderDetails, postalDelivery.getBasket(), "catalog/postalOrderReceipt.html");
+    }
+
+    private void digitalDelivery() {
+        emailService.sendMail(orderDetails, postalDelivery.getBasket(), "catalog/digtalOrderReceipt.html");
+        final BlistaOrder blistaOrder = new BlistaOrder();
+        blistaOrder.setHoerernummer(orderDetails.getHoerernummer());
+        blistaOrder.setUserId(orderDetails.getName());
+        blistaOrder.setEmail(orderDetails.getEmail());
+        for (Book book : digitalDelivery.getBasket().getBooks()) {
+            blistaOrder.getBooks().add(book);
+            try {
+                final BookOrder bookOrder = blistaRestClient.placeBillet(blistaOrder.getUserId(), book.getAghNummer());
+                blistaOrder.abrufkennwort(book.getAghNummer(), bookOrder.getAbrufkennwort());
+            } catch (Exception e) {
+                blistaOrder.abrufkennwort(book.getAghNummer(), "");
+            }
+        }
+        try {
+            blistaOrderDAO.create(blistaOrder);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "", e);
+        }
+    }
+
     public int getItemCount() {
         return postalDelivery.getItemCount() + digitalDelivery.getItemCount();
     }
 
-    public String placeOrder() throws IOException, TemplateException, MessagingException {
+    public String placeOrder() {
         final boolean wantPostalDelivery = !postalDelivery.isEmpty();
         if (wantPostalDelivery) {
-            emailService.sendMail(orderDetails, postalDelivery.getBasket(), "catalog/order.html");
+            try {
+                postalDelivery();
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "", e);
+                return "basket-error";
+            }
         }
         final boolean wantDigitalDelivery = !digitalDelivery.isEmpty();
         if (wantDigitalDelivery) {
-            final BlistaOrder blistaOrder = new BlistaOrder();
-            blistaOrder.setHoerernummer(orderDetails.getHoerernummer());
-            blistaOrder.setUserId(orderDetails.getName());
-            blistaOrder.setEmail(orderDetails.getEmail());
-            for (Book book : digitalDelivery.getBasket().getBooks()) {
-                blistaOrder.getBooks().add(book);
-                try {
-                    final BookOrder bookOrder = blistaRestClient.placeBillet(blistaOrder.getUserId(), book.getAghNummer());
-                    blistaOrder.abrufkennwort(book.getAghNummer(), bookOrder.getAbrufkennwort());
-                } catch (Exception e) {
-                    blistaOrder.abrufkennwort(book.getAghNummer(), "");
-                }
-            }
             try {
-                blistaOrderDAO.create(blistaOrder);
+                digitalDelivery();
             } catch (Exception e) {
                 LOGGER.log(Level.SEVERE, "", e);
+                return "basket-error";
             }
         }
         return "basket-thankyou";
