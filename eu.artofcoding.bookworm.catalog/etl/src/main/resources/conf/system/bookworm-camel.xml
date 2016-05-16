@@ -22,8 +22,9 @@
                              propertiesParserRef="jasyptPropertiesParser"/>
         <route id="importBooks" autoStartup="true">
             <from uri="{{catalog.file.url}}"/>
-            <to uri="sql:truncate table Book?dataSource=bookwormDatasource"/>
+            <!--<to uri="sql:truncate table Book?dataSource=bookwormDatasource"/>-->
             <bean ref="bookImportProcessor" method="importFile"/>
+            <log loggingLevel="INFO" message="Finished"/>
         </route>
     </camelContext>
 </beans>
