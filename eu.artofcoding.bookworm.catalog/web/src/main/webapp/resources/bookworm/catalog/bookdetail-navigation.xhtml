@@ -10,7 +10,7 @@
 <cc:implementation>
     <div class="itemtobasket">
         <h:commandLink rendered="#{!postalBasketBean.isInBasket(searchBean.selectedBook)}"
-                       styleClass="basket-order-link" action="#{postalBasketBean.add(searchBean.selectedBook}"
+                       styleClass="basket-order-link" action="#{postalBasketBean.add(searchBean.selectedBook)}"
                        value="Per Post bestellen"/>
         <h:commandLink rendered="#{postalBasketBean.isInBasket(searchBean.selectedBook)}"
                        styleClass="basket-remove-link" action="#{postalBasketBean.remove(searchBean.selectedBook)}"

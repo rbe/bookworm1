@@ -265,7 +265,7 @@ public class SearchBean implements Serializable {
         return paginateableSearch;
     }
 
-    public Book selectedBook() {
+    public Book getSelectedBook() {
         return paginateableSearch.getSelectedEntity();
     }
 
