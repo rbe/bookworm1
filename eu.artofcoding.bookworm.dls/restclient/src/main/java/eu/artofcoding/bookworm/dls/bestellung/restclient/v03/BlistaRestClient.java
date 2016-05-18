@@ -38,7 +38,7 @@ public class BlistaRestClient implements Serializable {
             final WebResource webResource = client.resource(String.format("%s/book/available/%s", URL, aghNummer));
             final BookAvailability bookAvailability = webResource.accept("application/xml").get(BookAvailability.class);
             try {
-            return bookAvailability.isAvailable();
+                return bookAvailability.isAvailable();
             } catch (Exception e) {
                 return false;
             }
@@ -52,7 +52,7 @@ public class BlistaRestClient implements Serializable {
         final Client client = Client.create();
         final WebResource webResource = client.resource(String.format("%s/billet/place/%s/%s", URL, userId, aghNummer));
         try {
-        return webResource.accept("application/xml").get(BookOrder.class);
+            return webResource.accept("application/xml").get(BookOrder.class);
         } catch (Exception e) {
             return null;
         }
@@ -63,7 +63,7 @@ public class BlistaRestClient implements Serializable {
         final Client client = Client.create();
         final WebResource webResource = client.resource(String.format("%s/billet/status/%s/%s", URL, userId, aghNummer));
         try {
-        return webResource.accept("application/json").get(String.class);
+            return webResource.accept("application/json").get(String.class);
         } catch (Exception e) {
             return null;
         }
@@ -74,7 +74,7 @@ public class BlistaRestClient implements Serializable {
         final Client client = Client.create();
         final WebResource webResource = client.resource(String.format("%s/book/status/%s/%s", URL, userId, aghNummer));
         try {
-        return webResource.accept("application/xml").get(BookOrderStatus.class);
+            return webResource.accept("application/xml").get(BookOrderStatus.class);
         } catch (Exception e) {
             return null;
         }
