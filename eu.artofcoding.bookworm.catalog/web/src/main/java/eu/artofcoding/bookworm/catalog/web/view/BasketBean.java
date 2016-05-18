@@ -15,7 +15,7 @@ public interface BasketBean extends Serializable {
 
     int getItemCount();
 
-    Basket getOrdered();
+    Basket getOrderedBasket();
 
     boolean isInBasket(Book book);
 
@@ -23,6 +23,6 @@ public interface BasketBean extends Serializable {
 
     String remove(Book book);
 
-    void ordered();
+    void wasOrdered();
 
 }

@@ -58,8 +58,8 @@ public class OrderBean implements Serializable {
     }
 
     private void postalDelivery() {
-        postalDelivery.ordered();
-        emailService.sendMail(orderDetails, postalDelivery.getOrdered(), "catalog/postalOrderReceipt.html");
+        postalDelivery.wasOrdered();
+        emailService.sendMail(orderDetails, postalDelivery.getOrderedBasket(), "catalog/postalOrderReceipt.html");
     }
 
     private void digitalDelivery() {
@@ -78,8 +78,8 @@ public class OrderBean implements Serializable {
         }
         try {
             blistaOrderDAO.create(blistaOrder);
-            digitalDelivery.ordered();
-            emailService.sendMail(orderDetails, digitalDelivery.getOrdered(), "catalog/digitalOrderReceipt.html");
+            digitalDelivery.wasOrdered();
+            emailService.sendMail(orderDetails, digitalDelivery.getOrderedBasket(), "catalog/digitalOrderReceipt.html");
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "", e);
         }

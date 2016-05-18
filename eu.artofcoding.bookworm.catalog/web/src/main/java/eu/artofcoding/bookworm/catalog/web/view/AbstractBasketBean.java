@@ -46,7 +46,7 @@ public class AbstractBasketBean implements BasketBean {
     }
 
     @Override
-    public Basket getOrdered() {
+    public Basket getOrderedBasket() {
         return orderedBasket;
     }
 
@@ -68,7 +68,7 @@ public class AbstractBasketBean implements BasketBean {
     }
 
     @Override
-    public void ordered() {
+    public void wasOrdered() {
         orderedBasket = basket;
         basket = new Basket();
     }
