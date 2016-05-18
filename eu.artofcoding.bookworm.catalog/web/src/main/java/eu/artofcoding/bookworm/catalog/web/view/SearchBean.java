@@ -47,7 +47,7 @@ public class SearchBean implements Serializable {
     /**
      * Maximum count of search results, > will redirect to page too-many-results.xhtml.
      */
-    private Integer maxSearchResults = 500;
+    private Integer maxSearchResults = 100;
 
     private String stichwort;
 
