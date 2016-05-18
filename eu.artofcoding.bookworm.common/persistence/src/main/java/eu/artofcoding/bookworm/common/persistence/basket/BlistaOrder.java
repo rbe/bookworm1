@@ -75,12 +75,13 @@ public class BlistaOrder implements GenericEntity, Serializable {
     }
 
     private String normalizeUserId(final String hoerernummer, final String userId) {
-        final String u = hoerernummer + "-" + userId
-                .replaceAll("\\s", "")
-                .replaceAll("ä", "ae")
-                .replaceAll("ö", "ue")
-                .replaceAll("ü", "oe")
-                .replaceAll("ß", "ss");
+        final StringBuilder builder = new StringBuilder();
+        builder.append(hoerernummer);
+        final String u = userId.chars()
+                .filter(i -> i > 32 && i < 127)
+                .mapToObj(i -> (char) i)
+                .collect(() -> builder, (sb, c) -> sb.append((char) c), StringBuilder::append)
+                .toString();
         return u.length() > 30 ? u.substring(1, 30) : u;
     }
 
