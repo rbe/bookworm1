@@ -39,11 +39,11 @@ public class OrderBean implements Serializable {
 
     @Inject
     @PostalOrder
-    private BasketBean postalDelivery;
+    private BasketBean postalBasketBean;
 
     @Inject
     @DigitalOrder
-    private BasketBean digitalDelivery;
+    private BasketBean digitalBasketBean;
 
     @Inject
     private EmailService emailService;
@@ -58,8 +58,8 @@ public class OrderBean implements Serializable {
     }
 
     private void postalDelivery() {
-        postalDelivery.wasOrdered();
-        emailService.sendMail(orderDetails, postalDelivery.getOrderedBasket(), "catalog/postalOrderReceipt.html");
+        postalBasketBean.wasOrdered();
+        emailService.sendMail(orderDetails, postalBasketBean.getOrderedBasket(), "catalog/postalOrderReceipt.html");
     }
 
     private void digitalDelivery() {
@@ -67,7 +67,7 @@ public class OrderBean implements Serializable {
         blistaOrder.setHoerernummer(orderDetails.getHoerernummer());
         blistaOrder.setUserId(orderDetails.getName());
         blistaOrder.setEmail(orderDetails.getEmail());
-        for (Book book : digitalDelivery.getBasket().getBooks()) {
+        for (Book book : digitalBasketBean.getBasket().getBooks()) {
             blistaOrder.getBooks().add(book);
             try {
                 final BookOrder bookOrder = blistaRestClient.placeBillet(blistaOrder.getUserId(), book.getAghNummer());
@@ -78,19 +78,19 @@ public class OrderBean implements Serializable {
         }
         try {
             blistaOrderDAO.create(blistaOrder);
-            digitalDelivery.wasOrdered();
-            emailService.sendMail(orderDetails, digitalDelivery.getOrderedBasket(), "catalog/digitalOrderReceipt.html");
+            digitalBasketBean.wasOrdered();
+            emailService.sendMail(orderDetails, digitalBasketBean.getOrderedBasket(), "catalog/digitalOrderReceipt.html");
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "", e);
         }
     }
 
     public int getItemCount() {
-        return postalDelivery.getItemCount() + digitalDelivery.getItemCount();
+        return postalBasketBean.getItemCount() + digitalBasketBean.getItemCount();
     }
 
     public String placeOrder() {
-        final boolean wantPostalDelivery = !postalDelivery.isEmpty();
+        final boolean wantPostalDelivery = !postalBasketBean.isEmpty();
         if (wantPostalDelivery) {
             try {
                 postalDelivery();
@@ -99,7 +99,7 @@ public class OrderBean implements Serializable {
                 return "basket-error";
             }
         }
-        final boolean wantDigitalDelivery = !digitalDelivery.isEmpty();
+        final boolean wantDigitalDelivery = !digitalBasketBean.isEmpty();
         if (wantDigitalDelivery) {
             try {
                 digitalDelivery();
@@ -113,12 +113,12 @@ public class OrderBean implements Serializable {
 
     public boolean displayBasketLink() {
         String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-        return !viewId.startsWith("/basket") && (!postalDelivery.isEmpty() || !digitalDelivery.isEmpty());
+        return !viewId.startsWith("/basket") && (!postalBasketBean.isEmpty() || !digitalBasketBean.isEmpty());
     }
 
     public boolean displayEmptyBasketLink() {
         String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-        return !viewId.startsWith("/basket") && (postalDelivery.isEmpty() && digitalDelivery.isEmpty());
+        return !viewId.startsWith("/basket") && (postalBasketBean.isEmpty() && digitalBasketBean.isEmpty());
     }
 
 }

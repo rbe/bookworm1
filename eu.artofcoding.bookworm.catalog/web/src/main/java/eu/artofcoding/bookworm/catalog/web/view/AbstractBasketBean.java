@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class AbstractBasketBean implements BasketBean {
 
-    protected static final Logger LOGGER = Logger.getLogger(PostalBasketBean.class.getName());
+    protected static final Logger LOGGER = Logger.getLogger(AbstractBasketBean.class.getName());
 
     protected Basket basket = new Basket();
 
