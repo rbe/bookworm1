@@ -25,7 +25,7 @@
             <outputDirectory>${assembly.root}/init.d</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>${project.build.directory}/apache-tomee-dist-unzip</directory>
+            <directory>${project.build.directory}/apache-tomee-dist-unzip/apache-tomee</directory>
             <outputDirectory>${assembly.root}/apache-tomee</outputDirectory>
         </fileSet>
     </fileSets>
