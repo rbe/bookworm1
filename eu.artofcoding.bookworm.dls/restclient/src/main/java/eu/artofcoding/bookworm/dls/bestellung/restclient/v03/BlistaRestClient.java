@@ -35,9 +35,13 @@ public class BlistaRestClient implements Serializable {
     public boolean bookAvailable(final String aghNummer) {
         if (null != aghNummer && !aghNummer.trim().isEmpty()) {
             final Client client = Client.create();
-            final WebResource webResource = client.resource(URL + "/book/available/" + aghNummer);
+            final WebResource webResource = client.resource(String.format("%s/book/available/%s", URL, aghNummer));
             final BookAvailability bookAvailability = webResource.accept("application/xml").get(BookAvailability.class);
+            try {
             return bookAvailability.isAvailable();
+            } catch (Exception e) {
+                return false;
+            }
         } else {
             return false;
         }
@@ -46,29 +50,45 @@ public class BlistaRestClient implements Serializable {
     @SuppressWarnings({"unchecked"})
     public BookOrder placeBillet(final String userId, final String aghNummer) {
         final Client client = Client.create();
-        final WebResource webResource = client.resource(URL + "/billet/place/" + userId + "/" + aghNummer);
+        final WebResource webResource = client.resource(String.format("%s/billet/place/%s/%s", URL, userId, aghNummer));
+        try {
         return webResource.accept("application/xml").get(BookOrder.class);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @SuppressWarnings({"unchecked"})
     public String billetStatus(final String userId, final String aghNummer) {
         final Client client = Client.create();
-        final WebResource webResource = client.resource(URL + "/billet/status/" + userId + "/" + aghNummer);
+        final WebResource webResource = client.resource(String.format("%s/billet/status/%s/%s", URL, userId, aghNummer));
+        try {
         return webResource.accept("application/json").get(String.class);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @SuppressWarnings({"unchecked"})
     public BookOrderStatus bookStatus(final String userId, final String aghNummer) {
         final Client client = Client.create();
-        final WebResource webResource = client.resource(URL + "/book/status/" + userId + "/" + aghNummer);
+        final WebResource webResource = client.resource(String.format("%s/book/status/%s/%s", URL, userId, aghNummer));
+        try {
         return webResource.accept("application/xml").get(BookOrderStatus.class);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @SuppressWarnings({"unchecked"})
     public UserOrderStatus userStatus(final String userId) {
         final Client client = Client.create();
-        final WebResource webResource = client.resource(URL + "/book/status/" + userId);
-        return webResource.accept("application/xml").get(UserOrderStatus.class);
+        final WebResource webResource = client.resource(String.format("%s/book/status/%s", URL, userId));
+        try {
+            return webResource.accept("application/xml").get(UserOrderStatus.class);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }

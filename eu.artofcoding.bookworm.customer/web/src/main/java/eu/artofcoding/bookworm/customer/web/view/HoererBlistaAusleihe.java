@@ -86,23 +86,39 @@ public class HoererBlistaAusleihe extends AbstractHoererBean {
 
     public boolean isDownloadable(final BlistaOrder blistaOrder, final Book book) {
         final BookOrderStatus bookOrderStatus = getBookOrderStatus(blistaOrder, book);
-        return bookOrderStatus.isBezugsfaehig();
+        if (null != bookOrderStatus) {
+            return bookOrderStatus.isBezugsfaehig();
+        } else {
+            return false;
+        }
     }
 
     public String getStatusText(final BlistaOrder blistaOrder, final Book book) {
         final BookOrderStatus bookOrderStatus = getBookOrderStatus(blistaOrder, book);
-        return String.format("%s: %s", bookOrderStatus.getAusleihstatus(),bookOrderStatus.getDlsDescription());
+        if (null != bookOrderStatus) {
+            return String.format("%s: %s", bookOrderStatus.getAusleihstatus(), bookOrderStatus.getDlsDescription());
+        } else {
+            return "Leider kein Status seitens der blista verfügbar";
+        }
     }
 
     public String getDownloadCount(final BlistaOrder blistaOrder, final Book book) {
         final BookOrderStatus bookOrderStatus = getBookOrderStatus(blistaOrder, book);
-        final int available = bookOrderStatus.getMaxDownload() - bookOrderStatus.getDownloadCount();
-        return String.format("%s / %s", available, bookOrderStatus.getMaxDownload());
+        if (null != bookOrderStatus) {
+            final int available = bookOrderStatus.getMaxDownload() - bookOrderStatus.getDownloadCount();
+            return String.format("%s / %s", available, bookOrderStatus.getMaxDownload());
+        } else {
+            return "? / ?";
+        }
     }
 
     public String getDownloadLink(final BlistaOrder blistaOrder, final Book book) {
         final BookOrderStatus bookOrderStatus = getBookOrderStatus(blistaOrder, book);
-        return bookOrderStatus.getDownloadLink();
+        if (null != bookOrderStatus) {
+            return bookOrderStatus.getDownloadLink();
+        } else {
+            return "#";
+        }
     }
 
 }

@@ -27,14 +27,22 @@ public class BookController {
     @RequestMapping(value = "/book/available/{aghNummer}", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<BookAvailability> bookAvailable(@PathVariable("aghNummer") String aghNummer) {
-        final boolean available = availableBooks.findBook(aghNummer);
-        return new ResponseEntity<>(new BookAvailability(aghNummer, available), HttpStatus.OK);
+        try {
+            final boolean available = availableBooks.findBook(aghNummer);
+            return new ResponseEntity<>(new BookAvailability(aghNummer, available), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+        }
     }
 
     @RequestMapping(value = "/book/status/{userId}/{aghNummer}", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<BookOrderStatus> bookStatus(@PathVariable("userId") String userId, @PathVariable("aghNummer") String aghNummer) {
-        return new ResponseEntity<>(blistaBookStatus.bookStatus(userId, aghNummer), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(blistaBookStatus.bookStatus(userId, aghNummer), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+        }
     }
 
 }
