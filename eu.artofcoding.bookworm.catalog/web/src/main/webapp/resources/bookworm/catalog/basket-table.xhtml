@@ -14,7 +14,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <h:form>
+        <h:form styleClass="#{cc.attrs.bean.name}">
             <p class="line15 baskettext">
                 <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.basket.itemCount() == 0}" value="Ihre Merkliste ist leer."/>
                 <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.basket.itemCount() == 1}" value="Ihre Merkliste enthält #{cc.attrs.bean.basket.itemCount()} Hörbuch."/>
@@ -22,7 +22,6 @@
                 <!-- readonly -->
                 <h:outputText rendered="#{cc.attrs.readonly}" value="Sie haben #{cc.attrs.bean.basket.itemCount()} Titel bestellt."/>
             </p>
-            <br/><br/>
             <h:dataTable id="bookwormBasketTable"
                          rendered="#{cc.attrs.bean.basket.itemCount() > 0}"
                          styleClass="tab basket-table"

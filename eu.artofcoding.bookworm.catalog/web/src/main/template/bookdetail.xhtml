@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:o="http://omnifaces.org/ui"
       xmlns:of="http://omnifaces.org/functions"
@@ -9,55 +9,65 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <meta name="robots" content="index, follow"/>
     <meta name="keywords" content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="MobileOptimized" content="320"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
-    <meta name="generator" content="medienhof - Source Management"/>
-    <title>Katalogsuche - Westdeutsche Blindenhörbücherei - Münster</title>
+    <meta name="generator" content="WBH - Westfälische Blindenhörbücherei - Münster"/>
+    <title>Katalogsuche DETAILS - Westdeutsche Blindenhörbücherei Münster</title>
     <link href="/templates/oneweb/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/template.css"/>
     <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/position.css"/>
-    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/layout.css"/>
+    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/bookworm.css"/>    
     <link type="text/css" rel="stylesheet" href="/app/search.css"/>
 </h:head>
 <h:body>
-    <div id="head">
-        <p class="unsichtbar">
-            <a name="top"></a><a href="#content" accesskey="2">zum Inhalt springen</a>
-        </p>
+
+    <div class="header">
+        <div class="wrapper">
+            <span class="unsichtbar">
+                <a name="top"></a>
+                <a accesskey="2" href="#content">zum Inhalt springen</a><br/>
+                <a accesskey="3" href="#topmenu">zur Top-Navigation springen</a>
+            </span>
+            <div class="logo">
+                <h2 class="unsichtbar">WBH Logo</h2>
+                <a title="Link zur Startseite" href="https://www.wbh-online.de"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="/templates/wbh/images/logo_wbh.gif"/></a>
+            </div>
+        </div>
     </div>
-    <div id="all">
-        <div id="logo">
-            <a title="Link zur Startseite" href="https://www.wbh-online.de/index.php"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="http://www.wbh-online.de/templates/oneweb/images/logo_wbh.gif"/></a>
+    <div class="slider" aria-hidden="true">
+        <div class="wrapper">
+            <h2 class="unsichtbar">WBH Grafikbanner</h2>
+            <img src="/images/stories/header-start_1.jpg" alt="Westdeutsche Blindenhörbücherei e.V."/>
         </div>
-        <div id="header">
-            <div class="moduletable">
-            </div>
-            <div id="topmenu">
-                <h3 class="unsichtbar">Top-Navigation</h3>
-                <div class="moduletable_topmenu">
-                    <ul id="mainlevel">
-                        <li><a href="/" class="mainlevel">Startseite</a></li>
-                        <li><a href="/bookworm/search.xhtml" class="mainlevel">Onlinekatalog</a></li>
-                        <li><a href="/bestellkarte.html" class="mainlevel">Bestellkarte</a></li>
-                        <li><a href="/download.html" class="mainlevel">Download</a></li>
-                        <li><a href="/kontakt.html" class="mainlevel">Kontakt</a></li>
-                        <li><a href="/bhb-stiftung.html" class="mainlevel">BHB-Stiftung</a></li>
-                    </ul>
-                </div>
+    </div>
+    
+    <div class="navigation">
+        <div class="wrapper">
+            <div class="topmenu">
+                <a name="topmenu"></a>
+                <h2 class="unsichtbar">Top-Navigation</h2>
+                <ul class="nav menu">
+                    <li><a href="/">Startseite</a></li>
+                    <li><a href="/bookworm/search.xhtml">Onlinekatalog</a></li>
+                    <li><a href="/bestellkarte.html">Bestellkarte</a></li>
+                    <li><a href="/download.html">Download</a></li>
+                    <li><a href="/kontakt.html">Kontakt</a></li>
+                    <li><a href="/bhb-stiftung.html">BHB-Stiftung</a></li>
+                </ul>
             </div>
         </div>
-        <!-- end header -->
-        <div class="wrap">&nbsp;</div>
-        <div id="contentarea">
-            <div id="wrapperfull">
-                <div id="main">
-                    <h1 class="unsichtbar">
-                        <a name="content"></a>
-                        Inhalt
-                    </h1>
-                    <div class="blog">
-                        <div class="leading">
-                            <h2 class="contentheading">Detailinformationen</h2>
-                            <bookworm:navigation/>
+    </div>        
+    <div class="content">
+        <div class="wrapper">
+            <div class="main">
+                <a name="content"></a>
+                <h2 class="unsichtbar">Inhalt</h2>
+                <div class="blog">
+                    <div class="leading">
+                        <h2 class="contentheading">Detailinformationen - Onlinekatalog Suche</h2>
+                        <bookworm:navigation/>
                             <h:form rendered="#{searchBean.selectedBook != null}">
                                 <div class="detailpagination">
                                     <div class="catalogtitle">
@@ -160,19 +170,20 @@
                                 </table>
                                 <bookworm:bookdetail-navigation/>
                             </h:form>
-                        </div>
+                    </div>
+                    <div class="noticetext">
+                        <h3>Hinweise für bessere Suchergebnisse</h3>
+                        Die Suche findet alle Einträge die Ihren Suchbegriff enthalten - auch als Wortbestandteil.<br />Eine Suche nach »test« findet also auch »späteste«.
                     </div>
                 </div>
-                <!-- END main -->
             </div>
-            <!-- END wrapper1 -->
         </div>
-        <!-- contentarea -->
-        <div id="footer">
+    </div>    
+    <div id="footer">
+        <div class="wrapper">
             <bookworm:footer/>
         </div>
-        <!-- footer -->
     </div>
-    <!-- all -->
+
 </h:body>
 </html>

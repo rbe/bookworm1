@@ -1,4 +1,8 @@
 
+
+.wrapper { margin: 0 auto; width: 1024px; padding: 0px; }
+
+
 body { background: #FFFFFF url(../img/bg_body.gif) repeat-x top left; }
 .unsichtbar { 
 	display: inline; height: 0px; left: -3000px; 

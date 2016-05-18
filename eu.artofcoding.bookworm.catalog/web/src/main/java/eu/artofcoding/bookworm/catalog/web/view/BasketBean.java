@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 public interface BasketBean extends Serializable {
 
+    String getName();
+
     Basket getBasket();
 
     boolean isEmpty();

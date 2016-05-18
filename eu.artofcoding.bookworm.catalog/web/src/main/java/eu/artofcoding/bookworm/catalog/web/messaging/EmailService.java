@@ -3,8 +3,8 @@ package eu.artofcoding.bookworm.catalog.web.messaging;
 import eu.artofcoding.beetlejuice.email.Postman;
 import eu.artofcoding.beetlejuice.email.cdi.QPostman;
 import eu.artofcoding.beetlejuice.template.TemplateProcessor;
-import eu.artofcoding.bookworm.common.persistence.basket.Basket;
 import eu.artofcoding.bookworm.catalog.web.persistence.OrderDetails;
+import eu.artofcoding.bookworm.common.persistence.basket.Basket;
 import freemarker.template.ObjectWrapper;
 import freemarker.template.SimpleHash;
 import freemarker.template.TemplateException;
@@ -18,6 +18,7 @@ import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.servlet.ServletContext;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
@@ -38,10 +39,6 @@ public class EmailService implements Serializable {
     @Resource(name = "bookwormMail")
     private transient Session session;
 
-    private String mailName = "Westdeutsche Blindenhörbucherei";
-
-    private String mailUser = "wbh@wbh-online.de";
-
     private String mailSubject = "Ihre Bestellung bei der WBH";
 
     @PostConstruct
@@ -54,6 +51,7 @@ public class EmailService implements Serializable {
     public void sendMail(final OrderDetails orderDetails, final Basket basket, final String template) {
         // Data model for template
         final SimpleHash root = new SimpleHash();
+        root.put("orderdetails", orderDetails);
         root.put("basket", basket);
         root.put("bestelldatum", new Date());
         // Render template depending on request locale
@@ -62,11 +60,16 @@ public class EmailService implements Serializable {
             // Set recipient
             final Set<String> recipients = new HashSet<>();
             recipients.add(orderDetails.getEmail());
-            recipients.add(mailUser);
-            // Send email
-            postman.setSession(session);
-            final String fromAddress = String.format("%s <%s>", mailName, mailUser);
-            postman.sendHtmlMail(fromAddress, recipients, mailSubject, body);
+            try {
+                final String mailFrom = new String(session.getProperty("mail.from").getBytes("ISO-8859-1"), "UTF-8");
+                recipients.add(mailFrom);
+                // Send email
+                session.getProperties().setProperty("mail.mime.charset", "UTF8");
+                postman.setSession(session);
+                postman.sendHtmlMail(mailFrom, recipients, mailSubject, body);
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
         } catch (TemplateException | MessagingException e) {
             throw new RuntimeException(e);
         }

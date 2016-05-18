@@ -26,6 +26,11 @@ public class AbstractBasketBean implements BasketBean {
     }
 
     @Override
+    public String getName() {
+        return getClass().getSimpleName();
+    }
+
+    @Override
     public Basket getBasket() {
         return basket;
     }

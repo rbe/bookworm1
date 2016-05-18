@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <body>
-${basket.hoerernummer} ${basket.name}<br/>
+${orderdetails.hoerernummer} ${orderdetails.name}<br/>
 <br/>
 Wir haben am ${bestelldatum?date} folgende Bestellung über
 <#if basket.books?size = 1>
@@ -30,17 +30,17 @@ erhalten:
     </tbody>
 </table>
 <p>
-    Die von Ihnen angegebene Kontakt-Email lautet ${basket.email}.<br/>
-<#if basket.bemerkung??>
+    Die von Ihnen angegebene Kontakt-Email lautet ${orderdetails.email}.<br/>
+<#if orderdetails.bemerkung??>
     <br/>
     Ihre Bemerkung:<br/>
-    ${basket.bemerkung}<br/>
+    ${orderdetails.bemerkung}<br/>
     <br/>
 </#if>
-<#if basket.bestellkarteMischen>
+<#if orderdetails.bestellkarteMischen>
     Ihre Bestellkarte wird gemischt!<br/>
 </#if>
-<#if basket.alteBestellkarteLoeschen>
+<#if orderdetails.alteBestellkarteLoeschen>
     Ihre alte Bestellkarte wird gelöscht.<br/>
 </#if>
 </p>
