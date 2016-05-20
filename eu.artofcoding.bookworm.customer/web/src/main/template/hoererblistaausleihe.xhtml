@@ -167,8 +167,8 @@
                                                         <div class="link">
                                                             <h:outputLink
                                                                     rendered="#{hoererBlistaAusleihe.isDownloadable(blistaOrder, book)}"
-                                                                    href="#{hoererBlistaAusleihe.getDownloadLink(blistaOrder, book)}"
-                                                                    target="blistaDownload">Herunterladen</h:outputLink>
+                                                                    value="#{hoererBlistaAusleihe.getDownloadLink(blistaOrder, book)}"
+                                                                    target="_blank">Herunterladen</h:outputLink>
                                                         </div>
                                                     </td>
                                                     <td class="download-count">

@@ -98,7 +98,7 @@ public class HoererBlistaAusleihe extends AbstractHoererBean {
         if (null != bookOrderStatus) {
             return String.format("%s: %s", bookOrderStatus.getAusleihstatus(), bookOrderStatus.getDlsDescription());
         } else {
-            return "Leider kein Status seitens der blista verfügbar";
+            return "Leider kein Status verfügbar";
         }
     }
 
