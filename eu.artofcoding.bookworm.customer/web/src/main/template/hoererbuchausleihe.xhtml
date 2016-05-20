@@ -6,176 +6,79 @@
       xmlns:o="http://omnifaces.org/ui"
       xmlns:of="http://omnifaces.org/functions"
       xmlns:f="http://java.sun.com/jsf/core">
-<h:head>
-    <!-- base href="http://www.wbh-online.de" -->
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <meta name="robots" content="index, follow"/>
-    <meta name="keywords" content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
-    <meta name="description" content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
-    <meta name="generator" content="medienhof - Source Management"/>
-    <title>WBH Hörbuchausleihe - Westdeutsche Blindenhörbücherei - Münster</title>
-    <link href="/templates/wbh/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-    <link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>
-    <link rel="stylesheet" href="css/style.css" type="text/css"/>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <o:conditionalComment if="lte IE 9">
-        <link href="js/html5shiv.js" rel="stylesheet" type="text/css"/>
-    </o:conditionalComment>
-</h:head>
-<h:body>
-    <div id="head">
-        <span class="unsichtbar">
-            <a name="top"></a>
-            <a accesskey="2" href="#content">zum Inhalt springen</a>
-            <br/>
-            <a accesskey="3" href="#topmenu">zur Top-Navigation springen</a>
-        </span>
-    </div>
-    <div id="all">
-        <div id="logo">
-            <h2 class="unsichtbar">WBH Logo</h2>
-            <img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="/templates/wbh/images/logo_wbh.gif"/>
+<ui:composition template="ui/wbh-customer.xhtml">
+
+    <ui:define name="container">
+    <div class="leading hoererdaten">
+        <h2 class="contentheading ">Meine Ausleihe</h2>
+        <div class="contact-data">
+            <div class="hoerer"><span class="entry-name">#{hoererBlistaAusleihe.vorname} #{hoererBlistaAusleihe.nachname}</span> - Hörernummer: <span class="entry-hrnr">#{hoererBlistaAusleihe.hoerernummer}</span></div>
         </div>
-        <div id="header">
-            <div id="slider">
-                <h2 class="unsichtbar">WBH Grafikbanner</h2>
-                <img width="974px" height="237px" src="/templates/wbh/images/header-start.jpg" alt="Westdeutsche Blindenhörbücherei e.V." style="z-index:0;"/>
+
+        <h:form>
+            <div class="searchrow">
+                <h3>Suchen Sie innerhalb Ihres Archivs</h3>
+                <h:inputText class="searchtitle" value="#{hoererBuchausleihe.searchTitle}"/>
+                <h:commandButton actionListener="#{hoererBuchausleihe.search}" value="Suchen" styleClass="searchbutton">
+                    <f:ajax execute="@form" render="@all"/>
+                </h:commandButton>
             </div>
-            <div id="topmenu">
-                <h2 class="unsichtbar">
-                    <a name="topmenu"></a>
-                    Top-Navigation
-                </h2>
-                <div class="topmenu">
-                    <ul>
-                        <li><h:outputLink value="/">Startseite WBH</h:outputLink></li>
-                        <li><h:outputLink value="/login-bereich.html">Login</h:outputLink></li>
-                        <li><h:outputLink value="hoererdaten.xhtml">Meine Daten</h:outputLink></li>
-                        <li><h:outputLink value="hoererblistaausleihe.xhtml">Meine Downloads</h:outputLink></li>
-                        <li><h:outputLink styleClass="active" value="hoererbuchausleihe.xhtml">Meine Ausleihe</h:outputLink></li>
-                        <li><h:outputLink value="hoererbestellkarte.xhtml">Meine Bestellkarte</h:outputLink></li>
-                        <li><h:outputLink value="hoererbucharchiv.xhtml">Mein Archiv</h:outputLink></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- end header -->
-        <div class="clr"></div>
-        <div id="contentarea">
-            <div id="main">
-                <div class="maincontent">
-                    <h2 class="unsichtbar">
-                        <a name="content"></a>
-                        Inhalt
-                    </h2>
-                </div>
-                <div class="container">
-                    <div class="row firstrow">
-                        <div class="col-lg-7"><h1>Hörbuchausleihe</h1></div>
-                        <div class="col-lg-5">
-                            <div class="row data">
-                                <div class="col-lg-4">Hörernummer:</div>
-                                <div class="col-lg-8 hint right">#{hoererBuchausleihe.hoerernummer}</div>
-                            </div>
-                            <div class="row data">
-                                <div class="col-lg-4">Nachname:</div>
-                                <div class="col-lg-8 hint right">#{hoererBuchausleihe.nachname}</div>
-                            </div>
-                            <div class="row data">
-                                <div class="col-lg-4">Vorname:</div>
-                                <div class="col-lg-8 hint right">#{hoererBuchausleihe.vorname}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <h:form>
-                        <div class="row searchrow">
-                            <!-- <div class="col-lg-7"><h3>Bestellarchiv</h3></div> -->
-                            <div class="col-lg-6">
-                                <div class="row data">
-                                    <div class="col-lg-2">Suchtitel:</div>
-                                    <div class="col-lg-10">
-                                        <h:inputText class="searchtitle" value="#{hoererBuchausleihe.searchTitle}"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="row data">
-                                    <h:commandButton actionListener="#{hoererBuchausleihe.search}" value="Suchen">
-                                        <f:ajax execute="@form" render="@all"/>
-                                    </h:commandButton>
-                                    <!--
-                                    <div class="col-lg-3">Startdatum:</div>
-                                    <div class="col-lg-9 right">
-                                        h:inputText class="searchdate" value="{hoererBuchausleihe.searchDate}"/
-                                    </div>
-                                    -->
-                                </div>
-                            </div>
-                        </div>
-                        <h:panelGroup rendered="#{!hoererBuchausleihe.hasBelastungen() and !hoererBuchausleihe.hasSearchTerms()}" layout="block" styleClass="row">
-                            Es wurden keine Hörbücher ausgeliehen!
-                        </h:panelGroup>
-                        <h:panelGroup rendered="#{!hoererBuchausleihe.hasBelastungen() and hoererBuchausleihe.hasSearchTerms()}" layout="block" styleClass="row">
-                            Es wurden keine Hörbücher ausgeliehen, die Ihrer Suche entsprechen!
-                        </h:panelGroup>
-                        <h:panelGroup rendered="#{hoererBuchausleihe.hasBelastungen()}" id="archivTabelle" layout="block" styleClass="row">
-                            <div class="col-lg-12">
-                                <table class="table table-striped">
-                                    <tbody>
-                                    <tr>
-                                        <th>Titel.Nr.</th>
-                                        <th>Datum</th>
-                                        <th>Titel/Autor/Dauer</th>
-                                    </tr>
-                                    <ui:repeat value="#{hoererBuchausleihe.belastungen}" var="book" varStatus="blistaOrderStatus">
-                                        <h:outputFormat rendered="#{blistaOrderStatus.last}">
+            <h:panelGroup rendered="#{!hoererBuchausleihe.hasBelastungen() and !hoererBuchausleihe.hasSearchTerms()}" layout="block" styleClass="row notitle">
+                Es wurden keine Hörbücher ausgeliehen!
+            </h:panelGroup>
+            <h:panelGroup rendered="#{!hoererBuchausleihe.hasBelastungen() and hoererBuchausleihe.hasSearchTerms()}" layout="block" styleClass="row notitle">
+                Es wurden keine Hörbücher ausgeliehen, die Ihrer Suche entsprechen!
+            </h:panelGroup>
+            <h:panelGroup rendered="#{hoererBuchausleihe.hasBelastungen()}" id="archivTabelle" layout="block" styleClass="row">
+                <div class="col-lg-12">
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <th>Titel.Nr.</th>
+                            <th>Datum</th>
+                            <th>Titel/Autor/Dauer</th>
+                        </tr>
+                        <ui:repeat value="#{hoererBuchausleihe.belastungen}" var="book" varStatus="blistaOrderStatus">
+                            <h:outputFormat rendered="#{blistaOrderStatus.last}">
+                                <tr>
+                                    <td colspan="4" class="lastrow">Hinweis: Es folgt der letzte Datensatz</td>
+                                </tr>
+                            </h:outputFormat>
+                            <tr>
+                                <td>#{book.book.titelnummer}</td>
+                                <td>#{of:formatDate(book.datum, 'dd.MM.yyyy')}</td>
+                                <td>
+                                    <h:panelGroup rendered="#{null != book.book}">
+                                        <table>
+                                            <tbody>
                                             <tr>
-                                                <td colspan="4" class="lastrow">Hinweis: Es folgt der letzte Datensatz</td>
+                                                <td>#{book.book.titel}</td>
                                             </tr>
-                                        </h:outputFormat>
-                                        <tr>
-                                            <td>#{book.book.titelnummer}</td>
-                                            <td>#{of:formatDate(book.datum, 'dd.MM.yyyy')}</td>
-                                            <td>
-                                                <h:panelGroup rendered="#{null != book.book}">
-                                                    <table>
-                                                        <tbody>
-                                                        <tr>
-                                                            <td>#{book.book.titel}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>#{book.book.autor}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>#{book.book.spieldauer}</td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </h:panelGroup>
-                                            </td>
-                                        </tr>
-                                    </ui:repeat>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </h:panelGroup>
-                    </h:form>
-                    <div class="row footer">
-                        <div class="col-lg-2 hint">Hinweis:</div>
-                        <div class="col-lg-8">
-                            Sie haben Fragen oder Anmerkungen zu dieser Seite?<br/>
-                            Dann schicken Sie uns eine Email an <a href="mailto:wbh@wbh-online.de">wbh@wbh-online.de</a>
-                            <br/><br/>&#169; 2015 Westdeutsche Blindenhörbücherei e.V. |
-                            <a href="/impressum.html" title="Impressum">Impressum</a>
-                        </div>
-                        <div class="col-lg-2 top">
-                            <a href="#top" accesskey="1">zum Seitenanfang</a>
-                        </div>
-                    </div>
+                                            <tr>
+                                                <td>#{book.book.autor}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>#{book.book.spieldauer}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </h:panelGroup>
+                                </td>
+                            </tr>
+                        </ui:repeat>
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-        </div>
+            </h:panelGroup>
+        </h:form>
     </div>
-</h:body>
+    <div class="noticetext">
+        <h3>Hinweise</h3>
+        Hier kann ein Hinweistext stehen..
+    </div>
+
+</ui:define>
+
+
+</ui:composition>
 </html>
