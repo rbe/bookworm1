@@ -16,19 +16,19 @@
     <cc:implementation>
         <h:form styleClass="#{cc.attrs.bean.name}">
             <p class="line15 baskettext">
-                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.orderedBasket.itemCount() == 0}" value="Ihre Merkliste ist leer."/>
-                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.orderedBasket.itemCount() == 1}" value="Ihre Merkliste enthält #{cc.attrs.bean.orderedBasket.itemCount()} Hörbuch."/>
-                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.orderedBasket.itemCount() > 1}" value="Ihre Merkliste enthält #{cc.attrs.bean.orderedBasket.itemCount()} Hörbücher."/>
+                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.itemCount == 0}" value="Ihre Merkliste ist leer."/>
+                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.itemCount == 1}" value="Ihre Merkliste enthält 1 Hörbuch."/>
+                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.itemCount > 1}" value="Ihre Merkliste enthält #{cc.attrs.bean.itemCount} Hörbücher."/>
                 <!-- readonly -->
-                <h:outputText rendered="#{cc.attrs.readonly}" value="Sie haben #{cc.attrs.bean.orderedBasket.itemCount()} Titel bestellt."/>
+                <h:outputText rendered="#{cc.attrs.readonly}" value="Sie haben #{cc.attrs.bean.itemCount} Titel bestellt."/>
             </p>
             <h:dataTable id="bookwormBasketTable"
-                         rendered="#{cc.attrs.bean.orderedBasket.itemCount() > 0}"
+                         rendered="#{cc.attrs.bean.itemCount > 0}"
                          styleClass="tab basket-table"
                          columnClasses="basket-column1,basket-column2,basket-column3,basket-column4,basket-column5"
                          rowClasses="row basket-row1,row basket-row2"
                          cellpadding="0" cellspacing="0"
-                         value="#{cc.attrs.bean.orderedBasket.books}" var="book">
+                         value="#{cc.attrs.bean.books}" var="book">
                 <h:column headerClass="basket-column-header">
                     <f:facet name="header">
                         Titelnummer
@@ -58,7 +58,7 @@
                         Merkliste
                     </f:facet>
                     <h:commandLink rendered="#{!cc.attrs.bean.isInBasket(book)}" action="#{cc.attrs.bean.add(book)}" value="Bestellen"/>
-                    <h:commandLink rendered="#{cc.attrs.bean.isInBasket(book)}" action="#{cc.attrs.bean.remove(book)}">Aus Merkliste entfernen</h:commandLink>
+                    <h:commandLink rendered="#{cc.attrs.bean.isInBasket(book)}" action="#{cc.attrs.bean.remove(book)}" value="Aus Merkliste entfernen"/>
                 </h:column>
             </h:dataTable>
         </h:form>

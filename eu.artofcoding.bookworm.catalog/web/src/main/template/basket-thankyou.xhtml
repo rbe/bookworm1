@@ -71,11 +71,11 @@
                         </div>
                         <div class="download-header">
                             <h3>Digitale Bestellung</h3>
-                            <bookworm:basket-table bean="#{digitalBasketBean}" readonly="true"/>
+                            <bookworm:ordered-basket-table basket="#{orderBean.orderedDigitalBasket}" basketType="DigitalBasketBean"/>
                         </div>
                         <div class="post-header">
                             <h3>Postalische Bestellung</h3>
-                            <bookworm:basket-table bean="#{postalBasketBean}" readonly="true"/>
+                            <bookworm:ordered-basket-table basket="#{orderBean.orderedPostalBasket}" basketType="PostalBasketBean"/>
                         </div>
                     </div>
                     <div class="noticetext">

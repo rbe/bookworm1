@@ -4,6 +4,7 @@ import eu.artofcoding.bookworm.common.persistence.basket.Basket;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 
 import java.io.Serializable;
+import java.util.List;
 
 public interface BasketBean extends Serializable {
 
@@ -11,11 +12,11 @@ public interface BasketBean extends Serializable {
 
     Basket getBasket();
 
+    List<Book> getBooks();
+
     boolean isEmpty();
 
     int getItemCount();
-
-    Basket getOrderedBasket();
 
     boolean isInBasket(Book book);
 

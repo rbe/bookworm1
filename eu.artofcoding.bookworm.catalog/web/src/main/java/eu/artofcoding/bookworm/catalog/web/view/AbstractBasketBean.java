@@ -4,6 +4,7 @@ import eu.artofcoding.bookworm.common.persistence.basket.Basket;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class AbstractBasketBean implements BasketBean {
@@ -11,8 +12,6 @@ public class AbstractBasketBean implements BasketBean {
     protected static final Logger LOGGER = Logger.getLogger(AbstractBasketBean.class.getName());
 
     protected Basket basket = new Basket();
-
-    protected Basket orderedBasket;
 
     private void remove(final Basket basket, final Book book) {
         if (null != book) {
@@ -36,6 +35,11 @@ public class AbstractBasketBean implements BasketBean {
     }
 
     @Override
+    public List<Book> getBooks() {
+        return basket.getBooks();
+    }
+
+    @Override
     public boolean isEmpty() {
         return basket.itemCount() == 0;
     }
@@ -43,11 +47,6 @@ public class AbstractBasketBean implements BasketBean {
     @Override
     public int getItemCount() {
         return basket.itemCount();
-    }
-
-    @Override
-    public Basket getOrderedBasket() {
-        return orderedBasket;
     }
 
     @Override
@@ -69,7 +68,6 @@ public class AbstractBasketBean implements BasketBean {
 
     @Override
     public void wasOrdered() {
-        orderedBasket = basket;
         basket = new Basket();
     }
 

@@ -20,6 +20,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -111,6 +112,12 @@ public class SearchBean implements Serializable {
 
     public Sachgebiet[] getSachgebiete() {
         return Book.SACHGEBIET_ENTITY.toArray(new Sachgebiet[Book.SACHGEBIET_ENTITY.size()]);
+    }
+
+    public boolean hasHoerernummer() {
+        final HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        final String hoerernummer = (String) req.getSession().getAttribute("hnr");
+        return null != hoerernummer && !hoerernummer.isEmpty();
     }
 
     /**

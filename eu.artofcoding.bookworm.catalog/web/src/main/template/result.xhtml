@@ -121,9 +121,9 @@
                                         <h:commandLink rendered="#{postalBasketBean.isInBasket(book)}"
                                                        styleClass="basket-remove-link" action="#{postalBasketBean.remove(book)}" value="Nicht mehr per Post bestellen"/>
 
-                                        <h:commandLink rendered="#{digitalBasketBean.canBeOrderedAsDownload(book)}"
+                                        <h:commandLink rendered="#{searchBean.hasHoerernummer() and digitalBasketBean.canBeOrderedAsDownload(book)}"
                                                        styleClass="basket-order-link" action="#{digitalBasketBean.add(book)}" value="Per Download bestellen"/>
-                                        <h:commandLink rendered="#{digitalBasketBean.canBeRemovedFromBasket(book)}"
+                                        <h:commandLink rendered="#{searchBean.hasHoerernummer() and digitalBasketBean.canBeRemovedFromBasket(book)}"
                                                        styleClass="basket-remove-link" action="#{digitalBasketBean.remove(book)}" value="Nicht mehr als Download bestellen"/>
                                     </h:column>
                                     <f:facet name="footer">
