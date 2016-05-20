@@ -33,7 +33,7 @@ class BlistaBookStatus {
     }
 
     BookOrderStatus bookStatus(final String userId, final String aghNummer) {
-        final String bookStatusUrl = blistaConfiguration.getBlistaDlsUrl() + "/" + userId + "/" + aghNummer;
+        final String bookStatusUrl = String.format("%s/%s/%s", blistaConfiguration.getBlistaDlsUrl(), userId, aghNummer);
         final Request searchRequest = makeHttpRequest(bookStatusUrl);
         final OkHttpClient client = new OkHttpClient();
         try {
