@@ -193,7 +193,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>eu.artofcoding.bookworm.customer.etl.HoererimportMain</mainClass>
+                            <mainClass>eu.artofcoding.bookworm.customer.etl.application.HoererimportMain</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>

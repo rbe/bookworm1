@@ -144,7 +144,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>eu.artofcoding.bookworm.catalog.etl.DatimportMain</mainClass>
+                            <mainClass>eu.artofcoding.bookworm.catalog.etl.application.DatimportMain</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
