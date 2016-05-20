@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.catalog.etl;
+package eu.artofcoding.bookworm.catalog.etl.application;
 
 import eu.artofcoding.bookworm.common.spring.SpringMain;
 import org.apache.camel.spring.SpringCamelContext;

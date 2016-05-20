@@ -8,8 +8,8 @@
         <property name="encryptor" ref="encryptor"/>
     </bean>
     <!-- Catalog Import -->
-    <bean id="bookFileParser" class="eu.artofcoding.bookworm.catalog.etl.BookFileParser"/>
-    <bean id="bookImportProcessor" class="eu.artofcoding.bookworm.catalog.etl.BookImportProcessor">
+    <bean id="bookFileParser" class="eu.artofcoding.bookworm.catalog.etl.as400dat.BookFileParser"/>
+    <bean id="bookImportProcessor" class="eu.artofcoding.bookworm.catalog.etl.as400dat.BookImportProcessor">
         <property name="bookFileParser" ref="bookFileParser"/>
     </bean>
     <camelContext xmlns="http://camel.apache.org/schema/spring"

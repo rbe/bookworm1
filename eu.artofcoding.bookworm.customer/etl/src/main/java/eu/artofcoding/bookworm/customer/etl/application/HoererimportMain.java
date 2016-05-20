@@ -5,7 +5,7 @@
  * Alle Rechte vorbehalten. Nutzung unterliegt Lizenzbedingungen.
  * All rights reserved. Use is subject to license terms.
  */
-package eu.artofcoding.bookworm.customer.etl;
+package eu.artofcoding.bookworm.customer.etl.application;
 
 import eu.artofcoding.bookworm.common.spring.SpringMain;
 import org.apache.camel.spring.SpringCamelContext;
