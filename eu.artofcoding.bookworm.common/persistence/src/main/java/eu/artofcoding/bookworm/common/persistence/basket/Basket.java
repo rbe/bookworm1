@@ -26,9 +26,9 @@ import java.util.Objects;
 @Entity
 public class Basket implements GenericEntity, Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -62,6 +62,10 @@ public class Basket implements GenericEntity, Serializable {
         return books;
     }
 
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
     public int itemCount() {
         return getBooks().size();
     }
@@ -75,10 +79,6 @@ public class Basket implements GenericEntity, Serializable {
             }
         }
         return inBasket;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
     }
 
 }

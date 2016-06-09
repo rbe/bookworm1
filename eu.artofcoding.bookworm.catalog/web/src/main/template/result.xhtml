@@ -125,6 +125,11 @@
                                                        styleClass="basket-order-link" action="#{digitalBasketBean.add(book)}" value="Per Download bestellen"/>
                                         <h:commandLink rendered="#{searchBean.hasHoerernummer() and digitalBasketBean.canBeRemovedFromBasket(book)}"
                                                        styleClass="basket-remove-link" action="#{digitalBasketBean.remove(book)}" value="Nicht mehr als Download bestellen"/>
+
+                                        <h:commandLink rendered="#{searchBean.hasHoerernummer() and !wishlistBean.isInWishlist(book)}"
+                                                       styleClass="basket-order-link" action="#{wishlistBean.add(book)}" value="In die Merkliste"/>
+                                        <h:commandLink rendered="#{searchBean.hasHoerernummer() and wishlistBean.isInWishlist(book)}"
+                                                       styleClass="basket-remove-link" action="#{wishlistBean.remove(book)}" value="Von der Merkliste entfernen"/>
                                     </h:column>
                                     <f:facet name="footer">
                                         <h:panelGroup>

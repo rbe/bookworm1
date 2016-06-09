@@ -11,6 +11,7 @@
         <class>eu.artofcoding.bookworm.common.persistence.basket.BlistaOrder</class>
         <class>eu.artofcoding.bookworm.common.persistence.basket.AghNummer</class>
         <class>eu.artofcoding.bookworm.common.persistence.basket.Abrufkennwort</class>
+        <class>eu.artofcoding.bookworm.common.persistence.basket.Wishlist</class>
         <class>eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm</class>
         <class>eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen</class>
         <class>eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstamm</class>

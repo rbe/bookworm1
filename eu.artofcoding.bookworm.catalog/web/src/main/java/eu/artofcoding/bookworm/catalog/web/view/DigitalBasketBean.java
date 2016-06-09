@@ -29,10 +29,18 @@ public class DigitalBasketBean extends AbstractBasketBean {
 
     private boolean cachedBookAvailable(final Book book) {
         if (!availableAsDownloadMap.containsKey(book.getAghNummer())) {
-            final boolean bookAvailable = blistaRestClient.bookAvailable(book.getAghNummer());
-            availableAsDownloadMap.put(book.getAghNummer(), bookAvailable);
+            try {
+                final boolean bookAvailable = blistaRestClient.bookAvailable(book.getAghNummer());
+                availableAsDownloadMap.put(book.getAghNummer(), bookAvailable);
+            } catch (Exception e) {
+                // ignored, service not available
+            }
         }
-        return availableAsDownloadMap.get(book.getAghNummer());
+        if (availableAsDownloadMap.containsKey(book.getAghNummer())) {
+            return availableAsDownloadMap.get(book.getAghNummer());
+        } else {
+            return false;
+        }
     }
 
     public boolean canBeOrderedAsDownload(final Book book) {
