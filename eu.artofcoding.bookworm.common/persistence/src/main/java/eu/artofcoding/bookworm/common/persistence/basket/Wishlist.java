@@ -10,7 +10,6 @@ package eu.artofcoding.bookworm.common.persistence.basket;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
-import org.apache.openjpa.persistence.jdbc.ForeignKey;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -49,7 +48,6 @@ public class Wishlist implements GenericEntity, Serializable {
     private String hoerernummer;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @ForeignKey(enabled = false)
     private List<Book> books = new ArrayList<>();
 
     public Long getId() {

@@ -10,9 +10,9 @@ package eu.artofcoding.bookworm.common.persistence.basket;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
-import org.apache.openjpa.persistence.jdbc.ForeignKey;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,8 +35,7 @@ public class Basket implements GenericEntity, Serializable {
     @Version
     private Long version;
 
-    @OneToMany
-    @ForeignKey(enabled = false)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Book> books;
 
     public Long getId() {
