@@ -15,17 +15,18 @@
             <!-- Suche -->
             <div class="newsearch_basket">
                 <h:commandLink rendered="#{searchBean.displaySearchAgainLink()}" styleClass="nav-link-newsearch" action="#{searchBean.resetStateAndGotoSearchPage}">Erneute Suche</h:commandLink>
-                <h:commandLink rendered="#{searchBean.displaySearchLink()}" styleClass="nav-link-search" action="#{searchBean.resetStateAndGotoSearchPage}">Suche</h:commandLink>
+                <h:commandLink rendered="#{searchBean.displaySearchLink()}" styleClass="nav-link-search"
+                               action="#{searchBean.resetStateAndGotoSearchPage}">Suchen</h:commandLink>
             </div>
             <!-- Merkliste -->
             <h:commandLink rendered="#{orderBean.displayBasketLink()}" action="basket.xhtml">
                 <div class="basket-count">
-                    <h:outputText value="Merkliste (#{orderBean.itemCount})"/>
+                    <h:outputText value="Warenkorb (#{orderBean.itemCount})"/>
                 </div>
             </h:commandLink>
-            <div class="basket-count">
-                <h:outputText rendered="#{orderBean.displayEmptyBasketLink()}" value="Merkliste (0)"/>
-            </div>
+            <h:panelGroup rendered="#{orderBean.displayEmptyBasketLink()}" layout="block" styleClass="basket-count">
+                Warenkorb (0)
+            </h:panelGroup>
         </h:form>
     </div>
 </cc:implementation>
