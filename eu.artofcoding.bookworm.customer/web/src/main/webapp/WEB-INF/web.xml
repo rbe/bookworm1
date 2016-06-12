@@ -13,8 +13,7 @@
     -->
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <!--<param-value>${project.stage}</param-value>-->
-        <param-value>Development</param-value>
+        <param-value>${project.stage}</param-value>
     </context-param>
     <!-- FaceletsResourceResolver -->
     <context-param>
@@ -76,8 +75,7 @@
     -->
     <session-config>
         <!-- container.session.timeout -->
-        <!--<session-timeout>${container.session.timeout}</session-timeout>-->
-        <session-timeout>60</session-timeout>
+        <session-timeout>${container.session.timeout}</session-timeout>
         <cookie-config>
             <name>SESSIONID</name>
             <!--<secure>true</secure>-->

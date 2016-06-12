@@ -93,6 +93,7 @@
         </repository>
     </repositories>
     <build>
+        <finalName>catalog</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

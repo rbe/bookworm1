@@ -98,7 +98,7 @@ function proxyRequestToApp()
     ApProxyFactory::configure(new AppInfo('customer', 'http://127.0.0.1:8080', '/customer'));
     $approxy = ApProxyFactory::create($_SERVER['REQUEST_URI']);
     if (isset($approxy)) {
-        $customizeUriDelegate = function ($app, $requestUri) {
+        $customizeUriDelegate = function ($appInfo, $requestUri) {
             $hnr = getHoerernummer();
             $parsedRequestUri = parse_url($requestUri);
             $uriHasQuery = isset($parsedRequestUri['query']);

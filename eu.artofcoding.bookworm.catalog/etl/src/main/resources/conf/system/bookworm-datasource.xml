@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
     <bean id="bookwormDatasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/${bookwormDataSource.database}?useSSL=false&amp;serverTimezone=CET&amp;nullNamePatternMatchesAll=true&amp;autoReconnect=true"/>
         <property name="username" value="${bookwormDataSource.user}"/>
         <property name="password" value="${bookwormDataSource.password}"/>
