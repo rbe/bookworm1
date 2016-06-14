@@ -10,7 +10,6 @@ package eu.artofcoding.bookworm.common.persistence.basket;
 
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
-import org.apache.openjpa.persistence.jdbc.ForeignKey;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -20,6 +19,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -36,10 +36,14 @@ import java.util.Map;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "BlistaOrder.countByHoerernummer", query = "SELECT COUNT(o) FROM BlistaOrder o WHERE o.hoerernummer = :hoerernummer"),
-        @NamedQuery(name = "BlistaOrder.findByHoerernummerOrderByAusleihdatum", query = "SELECT o FROM BlistaOrder o WHERE o.hoerernummer = :hoerernummer ORDER BY o.ausleihdatum ASC"),
-        @NamedQuery(name = "BlistaOrder.findByHoerernummerAndTitelOrderByAusleihdatum", query = "SELECT o FROM BlistaOrder o LEFT OUTER JOIN o.books b WHERE o.hoerernummer = :hoerernummer AND b.titel LIKE :titel ORDER BY o.ausleihdatum ASC"),
-        @NamedQuery(name = "BlistaOrder.findByHoerernummerAndTitelAndAusleihdatumOrderByAusleihdatum", query = "SELECT o FROM BlistaOrder o WHERE o.hoerernummer = :hoerernummer AND o.buch.titel LIKE :titel AND o.ausleihdatum >= :datum ORDER BY o.ausleihdatum ASC")
+        @NamedQuery(name = "BlistaOrder.countByHoerernummer",
+                query = "SELECT COUNT(o) FROM BlistaOrder o WHERE o.hoerernummer = :hoerernummer"),
+        @NamedQuery(name = "BlistaOrder.findByHoerernummerOrderByAusleihdatum",
+                query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer ORDER BY o.ausleihdatum ASC"),
+        @NamedQuery(name = "BlistaOrder.findByHoerernummerAndTitelOrderByAusleihdatum",
+                query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer AND b.titel LIKE :titel ORDER BY o.ausleihdatum ASC"),
+        @NamedQuery(name = "BlistaOrder.findByHoerernummerAndTitelAndAusleihdatumOrderByAusleihdatum",
+                query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer AND b.titel LIKE :titel AND o.ausleihdatum >= :datum ORDER BY o.ausleihdatum ASC")
 })
 public class BlistaOrder implements GenericEntity, Serializable {
 
@@ -67,7 +71,7 @@ public class BlistaOrder implements GenericEntity, Serializable {
     private Date ausleihdatum;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @ForeignKey(enabled = false)
+    @JoinTable
     private List<Book> books = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)

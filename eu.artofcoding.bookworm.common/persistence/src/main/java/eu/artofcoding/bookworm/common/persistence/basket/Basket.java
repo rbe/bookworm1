@@ -16,6 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import java.io.Serializable;
@@ -36,7 +37,8 @@ public class Basket implements GenericEntity, Serializable {
     private Long version;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private List<Book> books;
+    @JoinTable
+    private List<Book> books = new ArrayList<>();
 
     public Long getId() {
         return id;
