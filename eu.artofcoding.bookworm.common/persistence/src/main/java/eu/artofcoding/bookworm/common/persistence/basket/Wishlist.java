@@ -18,6 +18,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -48,6 +49,7 @@ public class Wishlist implements GenericEntity, Serializable {
     private String hoerernummer;
 
     @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable
     private List<Book> books = new ArrayList<>();
 
     public Long getId() {
