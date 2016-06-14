@@ -88,6 +88,7 @@ public class WishlistBean implements Serializable {
                 }
             }
             wishlist = wishlistDAO.update(wishlist);
+            postConstruct();
         }
     }
 
