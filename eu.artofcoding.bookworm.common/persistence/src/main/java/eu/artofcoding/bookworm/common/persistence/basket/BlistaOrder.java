@@ -39,11 +39,11 @@ import java.util.Map;
         @NamedQuery(name = "BlistaOrder.countByHoerernummer",
                 query = "SELECT COUNT(o) FROM BlistaOrder o WHERE o.hoerernummer = :hoerernummer"),
         @NamedQuery(name = "BlistaOrder.findByHoerernummerOrderByAusleihdatum",
-                query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer ORDER BY o.ausleihdatum ASC"),
+                query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer ORDER BY o.ausleihdatum DESC"),
         @NamedQuery(name = "BlistaOrder.findByHoerernummerAndTitelOrderByAusleihdatum",
-                query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer AND b.titel LIKE :titel ORDER BY o.ausleihdatum ASC"),
+                query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer AND b.titel LIKE :titel ORDER BY o.ausleihdatum DESC"),
         @NamedQuery(name = "BlistaOrder.findByHoerernummerAndTitelAndAusleihdatumOrderByAusleihdatum",
-                query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer AND b.titel LIKE :titel AND o.ausleihdatum >= :datum ORDER BY o.ausleihdatum ASC")
+                query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer AND b.titel LIKE :titel AND o.ausleihdatum >= :datum ORDER BY o.ausleihdatum DESC")
 })
 public class BlistaOrder implements GenericEntity, Serializable {
 
