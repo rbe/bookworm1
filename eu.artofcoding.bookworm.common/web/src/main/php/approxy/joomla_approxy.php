@@ -111,12 +111,17 @@ function proxyRequestToApp()
             }
             return $appUri;
         };
-        $approxy->perform($customizeUriDelegate);
+        $requestUri = $_SERVER['REQUEST_URI'];
+        if (strpos($requestUri, "customer") > 0) {
+            sendHttpRedirectIfNoUser() or $approxy->perform($customizeUriDelegate);
+        } else {
+            $approxy->perform($customizeUriDelegate);
+        }
     } else {
         ApProxy\HttpHelper::sendHttpRedirectWithStatus('NO_APPROXY');
     }
 }
 
-sendHttpRedirectIfNoUser() or proxyRequestToApp();
+proxyRequestToApp();
 
 ?>
