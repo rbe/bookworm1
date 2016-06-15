@@ -11,6 +11,7 @@ package eu.artofcoding.bookworm.catalog.web.view;
 import eu.artofcoding.bookworm.catalog.web.messaging.EmailService;
 import eu.artofcoding.bookworm.catalog.web.persistence.BlistaOrderDAO;
 import eu.artofcoding.bookworm.catalog.web.persistence.BookDAO;
+import eu.artofcoding.bookworm.catalog.web.persistence.HoerernummerFilter;
 import eu.artofcoding.bookworm.catalog.web.persistence.OrderDetails;
 import eu.artofcoding.bookworm.common.persistence.basket.Basket;
 import eu.artofcoding.bookworm.common.persistence.basket.BlistaOrder;
@@ -72,9 +73,11 @@ public class OrderBean implements Serializable {
 
     @PostConstruct
     private void postConstruct() {
-        orderDetails.setName(String.format("%s %s", hoererstamm.getVorname(), hoererstamm.getNachname()));
-        orderDetails.setHoerernummer(hoererstamm.getHoerernummer());
-        orderDetails.setEmail(hoererKennzeichen.getEmail());
+        if (HoerernummerFilter.hasHoerernummer()) {
+            orderDetails.setName(String.format("%s %s", hoererstamm.getVorname(), hoererstamm.getNachname()));
+            orderDetails.setHoerernummer(hoererstamm.getHoerernummer());
+            orderDetails.setEmail(hoererKennzeichen.getEmail());
+        }
     }
 
     public OrderDetails getOrderDetails() {
