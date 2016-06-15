@@ -6,9 +6,9 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.web.persistence;
+package eu.artofcoding.bookworm.common.persistence.hoerer;
 
-import eu.artofcoding.bookworm.customer.web.qualifier.Hoerernummer;
+import eu.artofcoding.bookworm.common.persistence.qualifier.Hoerernummer;
 
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;

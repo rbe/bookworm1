@@ -14,15 +14,15 @@ import eu.artofcoding.bookworm.common.persistence.book.Book;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import static eu.artofcoding.bookworm.catalog.web.persistence.HoerernummerFilter.getHoerernummer;
 
 @Named
 @SessionScoped
@@ -54,11 +54,6 @@ public class WishlistBean implements Serializable {
             wishlist = new Wishlist();
             wishlist.setHoerernummer(hoerernummer);
         }
-    }
-
-    private String getHoerernummer() {
-        final HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        return (String) req.getSession().getAttribute("hnr");
     }
 
     public String add(final Book book) {

@@ -121,7 +121,7 @@
                                         <h:commandLink rendered="#{!postalBasketBean.isInBasket(book)}"
                                                        action="#{wishlistBean.moveToPostalBasketBean(book)}"
                                                        value="Per Post bestellen"/>
-                                        <h:commandLink rendered="#{!digitalBasketBean.isInBasket(book)}"
+                                        <h:commandLink rendered="#{digitalBasketBean.canBeOrderedAsDownload(book) and !digitalBasketBean.isInBasket(book)}"
                                                        action="#{wishlistBean.moveToDigitalBasketBean(book)}"
                                                        value="Per Download bestellen"/>
                                         <h:commandLink action="#{wishlistBean.remove(book)}"

@@ -15,9 +15,13 @@ import eu.artofcoding.bookworm.catalog.web.persistence.OrderDetails;
 import eu.artofcoding.bookworm.common.persistence.basket.Basket;
 import eu.artofcoding.bookworm.common.persistence.basket.BlistaOrder;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
+import eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen;
+import eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm;
+import eu.artofcoding.bookworm.common.persistence.qualifier.HoererValue;
 import eu.artofcoding.bookworm.dls.bestellung.restclient.v03.BlistaRestClient;
 import eu.artofcoding.bookworm.dls.bestellung.restclient.v03.BookOrder;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -31,6 +35,14 @@ import java.util.logging.Logger;
 public class OrderBean implements Serializable {
 
     private static final Logger LOGGER = Logger.getLogger(OrderBean.class.getName());
+
+    @Inject
+    @HoererValue
+    private Hoererstamm hoererstamm;
+
+    @Inject
+    @HoererValue
+    private HoererKennzeichen hoererKennzeichen;
 
     @Inject
     private BookDAO bookDAO;
@@ -57,6 +69,13 @@ public class OrderBean implements Serializable {
     private Basket orderedDigitalBasket;
 
     private OrderDetails orderDetails = new OrderDetails();
+
+    @PostConstruct
+    private void postConstruct() {
+        orderDetails.setName(String.format("%s %s", hoererstamm.getVorname(), hoererstamm.getNachname()));
+        orderDetails.setHoerernummer(hoererstamm.getHoerernummer());
+        orderDetails.setEmail(hoererKennzeichen.getEmail());
+    }
 
     public OrderDetails getOrderDetails() {
         return orderDetails;

@@ -6,16 +6,16 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.web.persistence;
+package eu.artofcoding.bookworm.common.persistence.hoerer;
 
 import eu.artofcoding.bookworm.common.persistence.hoerer.Bestellkarte;
 import eu.artofcoding.bookworm.common.persistence.hoerer.BestellkarteArchiv;
 import eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstamm;
 import eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen;
 import eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm;
-import eu.artofcoding.bookworm.customer.web.qualifier.HoererCount;
-import eu.artofcoding.bookworm.customer.web.qualifier.HoererValue;
-import eu.artofcoding.bookworm.customer.web.qualifier.Hoerernummer;
+import eu.artofcoding.bookworm.common.persistence.qualifier.HoererCount;
+import eu.artofcoding.bookworm.common.persistence.qualifier.HoererValue;
+import eu.artofcoding.bookworm.common.persistence.qualifier.Hoerernummer;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -37,7 +37,8 @@ public final class HoererDatenProducer {
     private HoererDatenProducer() {
     }
 
-    @Produces @HoererValue
+    @Produces
+    @HoererValue
     private Hoererstamm findHoererstammByHoerernummer() {
         final TypedQuery<Hoererstamm> namedQuery = entityManager.createNamedQuery("Hoererstamm.findByHoerernummer", Hoererstamm.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);
@@ -48,7 +49,8 @@ public final class HoererDatenProducer {
         }
     }
 
-    @Produces @HoererValue
+    @Produces
+    @HoererValue
     private HoererKennzeichen findHoererKennzeichenByHoerernummer() {
         final TypedQuery<HoererKennzeichen> namedQuery = entityManager.createNamedQuery("HoererKennzeichen.findByHoerernummer", HoererKennzeichen.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);
@@ -59,7 +61,8 @@ public final class HoererDatenProducer {
         }
     }
 
-    @Produces @HoererValue
+    @Produces
+    @HoererValue
     private HoererBuchstamm findHoererBuchstammByHoerernummer() {
         final TypedQuery<HoererBuchstamm> namedQuery = entityManager.createNamedQuery("HoererBuchstamm.findByHoerernummer", HoererBuchstamm.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);
@@ -70,7 +73,8 @@ public final class HoererDatenProducer {
         }
     }
 
-    @Produces @HoererValue
+    @Produces
+    @HoererValue
     private Bestellkarte findByHoerernummer() {
         final TypedQuery<Bestellkarte> namedQuery = entityManager.createNamedQuery("Bestellkarte.findByHoerernummer", Bestellkarte.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);
@@ -81,7 +85,8 @@ public final class HoererDatenProducer {
         }
     }
 
-    @Produces @HoererCount(query = "Bestellkarte.Books")
+    @Produces
+    @HoererCount(query = "Bestellkarte.Books")
     private long countBooksByHoerernummer() {
         final TypedQuery<Long> namedQuery = entityManager.createNamedQuery("Bestellkarte.countBooksByHoerernummer", Long.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);
@@ -92,7 +97,8 @@ public final class HoererDatenProducer {
         }
     }
 
-    @Produces @HoererValue
+    @Produces
+    @HoererValue
     private ArrayList<BestellkarteArchiv> findBestellkarteArchivByHoerernummer() {
         final TypedQuery<BestellkarteArchiv> namedQuery = entityManager.createNamedQuery("BestellkarteArchiv.findByHoerernummerOrderByAusleihdatum", BestellkarteArchiv.class);
         namedQuery.setParameter("hoerernummer", hoerernummer);

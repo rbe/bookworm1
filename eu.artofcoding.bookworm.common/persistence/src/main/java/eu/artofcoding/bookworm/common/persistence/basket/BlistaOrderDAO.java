@@ -6,10 +6,9 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.web.persistence;
+package eu.artofcoding.bookworm.common.persistence.basket;
 
 import eu.artofcoding.beetlejuice.persistence.GenericDAO;
-import eu.artofcoding.bookworm.common.persistence.basket.BlistaOrder;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;

@@ -21,6 +21,10 @@
             <groupId>eu.artofcoding.beetlejuice</groupId>
             <artifactId>eu.artofcoding.beetlejuice.api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>eu.artofcoding.beetlejuice</groupId>
+            <artifactId>eu.artofcoding.beetlejuice.persistence</artifactId>
+        </dependency>
         <!-- Java EE -->
         <dependency>
             <groupId>org.apache.openjpa</groupId>
