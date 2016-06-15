@@ -5,73 +5,92 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:o="http://omnifaces.org/ui">
 <h:head>
-    <!-- base href="http://www.wbh-online.de" -->
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <meta name="robots" content="index, follow"/>
     <meta name="keywords" content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="MobileOptimized" content="320"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
-    <meta name="generator" content="medienhof - Source Management"/>
-    <title>WBH Hörerdaten - Westdeutsche Blindenhörbücherei - Münster</title>
-    <link href="/templates/wbh/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-    <link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>
-    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <meta name="generator" content="WBH - Westfälische Blindenhörbücherei - Münster"/>
+    <title>Hörerdaten - Westdeutsche Blindenhörbücherei Münster</title>
+    <link href="/templates/oneweb/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/position.css"/>
+    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/bookworm.css"/>
+    <link type="text/css" rel="stylesheet" href="/app/search.css"/>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <o:conditionalComment if="lte IE 9">
         <link href="js/html5shiv.js" rel="stylesheet" type="text/css"/>
     </o:conditionalComment>
 </h:head>
 <h:body>
-    <div id="head">
-        <span class="unsichtbar">
-            <a name="top"></a>
-            <a accesskey="2" href="#content">zum Inhalt springen</a>
-            <br/>
-            <a accesskey="3" href="#topmenu">zur Top-Navigation springen</a>
-        </span>
+    <div class="header">
+        <div class="wrapper">
+            <span class="unsichtbar">
+                <a name="top"></a>
+                <a accesskey="2" href="#content">zum Inhalt springen</a><br/>
+                <a accesskey="3" href="#topmenu">zur Top-Navigation springen</a>
+            </span>
+            <div class="logo">
+                <h2 class="unsichtbar">WBH Logo</h2>
+                <a title="Link zur Startseite" href="https://www.wbh-online.de"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="/templates/wbh/images/logo_wbh.gif"/></a>
+            </div>
+        </div>
     </div>
-    <div id="all">
-        <div id="logo">
-            <h2 class="unsichtbar">WBH Logo</h2>
-            <img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="/templates/wbh/images/logo_wbh.gif"/>
+    <div class="slider" aria-hidden="true">
+        <div class="wrapper">
+            <h2 class="unsichtbar">WBH Grafikbanner</h2>
+            <img src="/images/stories/header-start_1.jpg" alt="Westdeutsche Blindenhörbücherei e.V."/>
         </div>
-        <div id="header">
-            <div id="slider">
-                <h2 class="unsichtbar">WBH Grafikbanner</h2>
-                <img width="974px" height="237px" src="/templates/wbh/images/header-start.jpg" alt="Westdeutsche Blindenhörbücherei e.V." style="z-index:0;"/>
-            </div>
-            <div id="topmenu">
-                <h2 class="unsichtbar">
-                    <a name="topmenu"></a>
-                    Top-Navigation
-                </h2>
-                <ui:insert name="topmenu">
-                    <div class="topmenu">
-                        <ul>
-                            <li><h:outputLink value="/">Startseite WBH</h:outputLink></li>
-                            <li><h:outputLink value="/login-bereich.html">Login</h:outputLink></li>
-                            <li><h:outputLink value="hoererdaten.xhtml">Meine Daten</h:outputLink></li>
-                            <li><h:outputLink value="hoererbuchausleihe.xhtml">Meine Ausleihe</h:outputLink></li>
-                            <li><h:outputLink value="hoererbestellkarte.xhtml">Meine Bestellkarte</h:outputLink></li>
-                            <li><h:outputLink value="hoererbucharchiv.xhtml">Mein Archiv</h:outputLink></li>
-                        </ul>
-                    </div>
-                </ui:insert>
+    </div>
+    <div class="navigation">
+        <div class="wrapper">
+            <div class="topmenu">
+                <a name="topmenu"></a>
+                <h2 class="unsichtbar">Top-Navigation</h2>
+                <ul>
+                    <li><h:outputLink value="/">Startseite</h:outputLink></li>
+                    <li><h:outputLink value="/login.html">Login-Bereich</h:outputLink></li>
+                    <li><a href="/bookworm/search.xhtml">Onlinekatalog</a></li>
+                    <li><h:outputLink value="hoererblistaausleihe.xhtml">Meine Downloads</h:outputLink></li>
+                    <li><a href="/catalog/wishlist.xhtml">Merkliste</a></li>
+                     <li><h:outputLink value="hoererdaten.xhtml">Meine Daten</h:outputLink></li>
+                    <li><h:outputLink value="hoererbuchausleihe.xhtml">Ausleihe</h:outputLink></li>
+                    <li><h:outputLink value="hoererbestellkarte.xhtml">Bestellkarte</h:outputLink></li>
+                    <li><h:outputLink value="hoererbucharchiv.xhtml">Archiv</h:outputLink></li>
+                </ul>
             </div>
         </div>
-        <!-- end header -->
-        <div class="clr"></div>
-        <div id="contentarea">
-            <div id="main">
-                <div class="maincontent">
-                    <h2 class="unsichtbar">
-                        <a name="content"></a>
-                        Inhalt
-                    </h2>
+    </div>
+
+    <div class="content">
+        <div class="wrapper">
+            <div class="main">
+                <a name="content"></a>
+                <h2 class="unsichtbar">Inhalt</h2>
+                <div class="blog">
+
+                        <ui:insert name="container"/>
+
                 </div>
-                <ui:insert name="container"/>
             </div>
         </div>
     </div>
+    <div id="footer">
+        <div class="wrapper">
+            <h1 class="unsichtbar"> Fusszeile </h1>
+                <div style="text-align: right;">
+                    <span style="float: left;">
+                        <a accesskey="1" href="#top">zum Seitenanfang</a>
+                    </span>
+                    <span style="float: right;">
+                        © 2016 Westdeutsche Blindenhörbücherei e.V. |
+                        <a href="https://www.wbh-online.de/impressum.html" title="Impressum">Impressum</a>
+                    </span>
+                </div>
+        </div>
+    </div>
+
 </h:body>
 </html>

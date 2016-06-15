@@ -50,11 +50,11 @@
                 <h2 class="unsichtbar">Top-Navigation</h2>
                 <ul class="nav menu">
                     <li><a href="/">Startseite</a></li>
+                    <li><a href="https://www.wbh-online.de/login.html">Login-Bereich</a></li>
                     <li><a href="/bookworm/search.xhtml">Onlinekatalog</a></li>
+                    <li><a href="/customer/hoererblistaausleihe.xhtml">Meine Downloads</a></li>
+                    <li><a href="/catalog/wishlist.xhtml">Merkliste</a></li>
                     <li><a href="/bestellkarte.html">Bestellkarte</a></li>
-                    <li><a href="/download.html">Download</a></li>
-                    <li><a href="/kontakt.html">Kontakt</a></li>
-                    <li><a href="/bhb-stiftung.html">BHB-Stiftung</a></li>
                 </ul>
             </div>
         </div>
@@ -117,19 +117,19 @@
                                             Merkliste
                                         </f:facet>
                                         <h:commandLink rendered="#{!postalBasketBean.isInBasket(book)}"
-                                                       styleClass="basket-order-link" action="#{postalBasketBean.add(book)}" value="Per Post bestellen"/>
+                                                       styleClass="basket-order-link post" action="#{postalBasketBean.add(book)}" value="Per Post bestellen"/>
                                         <h:commandLink rendered="#{postalBasketBean.isInBasket(book)}"
                                                        styleClass="basket-remove-link" action="#{postalBasketBean.remove(book)}" value="Nicht mehr per Post bestellen"/>
 
                                         <h:commandLink rendered="#{searchBean.hasHoerernummer() and digitalBasketBean.canBeOrderedAsDownload(book)}"
-                                                       styleClass="basket-order-link" action="#{digitalBasketBean.add(book)}" value="Per Download bestellen"/>
+                                                       styleClass="basket-order-link download" action="#{digitalBasketBean.add(book)}" value="Download"/>
                                         <h:commandLink rendered="#{searchBean.hasHoerernummer() and digitalBasketBean.canBeRemovedFromBasket(book)}"
-                                                       styleClass="basket-remove-link" action="#{digitalBasketBean.remove(book)}" value="Nicht mehr als Download bestellen"/>
+                                                       styleClass="basket-remove-link clr" action="#{digitalBasketBean.remove(book)}" value="Aus Warenkorb löschen"/>
 
                                         <h:commandLink rendered="#{searchBean.hasHoerernummer() and !wishlistBean.isInWishlist(book)}"
-                                                       styleClass="basket-order-link" action="#{wishlistBean.add(book)}" value="In die Merkliste"/>
+                                                       styleClass="basket-order-link wishlist" action="#{wishlistBean.add(book)}" value="Merken"/>
                                         <h:commandLink rendered="#{searchBean.hasHoerernummer() and wishlistBean.isInWishlist(book)}"
-                                                       styleClass="basket-remove-link" action="#{wishlistBean.remove(book)}" value="Von der Merkliste entfernen"/>
+                                                       styleClass="basket-remove-link clr" action="#{wishlistBean.remove(book)}" value="Aus Merkliste löschen"/>
                                     </h:column>
                                     <f:facet name="footer">
                                         <h:panelGroup>

@@ -54,11 +54,16 @@
                 <h2 class="unsichtbar">Top-Navigation</h2>
                 <ul class="nav menu">
                     <li><a href="/">Startseite</a></li>
+                    <li><a href="https://www.wbh-online.de/login.html">Login-Bereich</a></li>
                     <li><a href="/bookworm/search.xhtml">Onlinekatalog</a></li>
+                    <li><a href="/customer/hoererblistaausleihe.xhtml">Meine Downloads</a></li>
+                    <li><a href="/catalog/wishlist.xhtml">Merkliste</a></li>
                     <li><a href="/bestellkarte.html">Bestellkarte</a></li>
-                    <li><a href="/download.html">Meine Downloads</a></li>
+<!--                     <li><a href="/download.html">Download</a></li>
                     <li><a href="/kontakt.html">Kontakt</a></li>
                     <li><a href="/bhb-stiftung.html">BHB-Stiftung</a></li>
+ -->
+
                 </ul>
             </div>
         </div>
@@ -70,19 +75,18 @@
                 <h2 class="unsichtbar">Inhalt</h2>
                 <div class="blog">
                     <div class="leading">
-                        <h2 class="contentheading">Ihre Merkliste - Onlinekatalog</h2>
+                        <h2 class="contentheading">Merkliste</h2>
                         <bookworm:navigation/>
                         <div class="download-header">
-                            <h3>Merkliste für den Download</h3>
-                            <h:form styleClass="Wishlist">
-                                <p class="line15 baskettext">
-                                    <h:outputText rendered="#{wishlistBean.itemCount == 0}"
+                            <h3><h:outputText rendered="#{wishlistBean.itemCount == 0}"
                                                   value="Ihre Merkliste ist leer."/>
                                     <h:outputText rendered="#{wishlistBean.itemCount == 1}"
                                                   value="Ihre Merkliste enthält 1 Hörbuch."/>
                                     <h:outputText rendered="#{wishlistBean.itemCount > 1}"
                                                   value="Ihre Merkliste enthält #{wishlistBean.itemCount} Hörbücher."/>
-                                </p>
+                            </h3>
+                            <p></p>
+                            <h:form styleClass="Wishlist">
                                 <h:dataTable id="bookwormBasketTable"
                                              rendered="#{wishlistBean.itemCount > 0}"
                                              styleClass="tab basket-table"
@@ -119,13 +123,16 @@
                                             Merkliste
                                         </f:facet>
                                         <h:commandLink rendered="#{!postalBasketBean.isInBasket(book)}"
+                                                        styleClass="basket-order-link post"
                                                        action="#{wishlistBean.moveToPostalBasketBean(book)}"
                                                        value="Per Post bestellen"/>
                                         <h:commandLink rendered="#{digitalBasketBean.canBeOrderedAsDownload(book) and !digitalBasketBean.isInBasket(book)}"
+                                                       styleClass="basket-order-link download"
                                                        action="#{wishlistBean.moveToDigitalBasketBean(book)}"
-                                                       value="Per Download bestellen"/>
+                                                       value="Download"/>
                                         <h:commandLink action="#{wishlistBean.remove(book)}"
-                                                       value="Aus Merkliste entfernen"/>
+                                                    styleClass="basket-order-link list wishlist"
+                                                       value="Löschen"/>
                                     </h:column>
                                 </h:dataTable>
                             </h:form>

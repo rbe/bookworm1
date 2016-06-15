@@ -49,11 +49,11 @@
                 <h2 class="unsichtbar">Top-Navigation</h2>
                 <ul class="nav menu">
                     <li><a href="/">Startseite</a></li>
+                    <li><a href="https://www.wbh-online.de/login.html">Login-Bereich</a></li>
                     <li><a href="/bookworm/search.xhtml">Onlinekatalog</a></li>
+                    <li><a href="/customer/hoererblistaausleihe.xhtml">Meine Downloads</a></li>
+                    <li><a href="/catalog/wishlist.xhtml">Merkliste</a></li>
                     <li><a href="/bestellkarte.html">Bestellkarte</a></li>
-                    <li><a href="/download.html">Meine Downloads</a></li>
-                    <li><a href="/kontakt.html">Kontakt</a></li>
-                    <li><a href="/bhb-stiftung.html">BHB-Stiftung</a></li>
                 </ul>
             </div>
         </div>
@@ -65,15 +65,15 @@
                 <h2 class="unsichtbar">Inhalt</h2>
                 <div class="blog">
                     <div class="leading">
-                        <h2 class="contentheading">Bestellung Ihrer Merkliste - Onlinekatalog</h2>
+                        <h2 class="contentheading">Bestellung Ihres Warenkorb - Onlinekatalog</h2>
 <bookworm:navigation/>
 
                             <div class="download-header">
-                                <h3>Merkliste für den Download</h3>
+                                <h3>Auswahltitel für den Download</h3>
                                 <bookworm:basket-table bean="#{digitalBasketBean}" readonly="false"/>
                             </div>
                             <div class="post-header">
-                                <h3>Merkliste für die Bestellung per Post</h3>
+                                <h3>Auswahltitel für die Bestellung per Post</h3>
                                 <bookworm:basket-table bean="#{postalBasketBean}" readonly="false"/>
                             </div>
                             <h:form>
