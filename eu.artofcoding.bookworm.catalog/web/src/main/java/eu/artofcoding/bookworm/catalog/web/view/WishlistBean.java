@@ -8,6 +8,7 @@
 
 package eu.artofcoding.bookworm.catalog.web.view;
 
+import eu.artofcoding.bookworm.catalog.web.persistence.BookDAO;
 import eu.artofcoding.bookworm.catalog.web.persistence.WishlistDAO;
 import eu.artofcoding.bookworm.common.persistence.basket.Wishlist;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
@@ -37,6 +38,11 @@ public class WishlistBean implements Serializable {
     private BasketBean digitalBasketBean;
 
     @Inject
+    private BookDAO bookDAO;
+
+    private Book selectedBook;
+
+    @Inject
     private WishlistDAO wishlistDAO;
 
     private Wishlist wishlist;
@@ -59,6 +65,7 @@ public class WishlistBean implements Serializable {
     public String add(final Book book) {
         wishlist.getBooks().add(book);
         wishlist = wishlistDAO.update(wishlist);
+        postConstruct();
         return null;
     }
 
@@ -97,6 +104,16 @@ public class WishlistBean implements Serializable {
 
     public boolean isInWishlist(final Book book) {
         return wishlist.getBooks().stream().anyMatch(b -> b.getTitelnummer().equals(book.getTitelnummer()));
+    }
+
+    public String showDetail(final Book book) {
+        // selectedBook = bookDAO.findById(book.getId());
+        selectedBook = book;
+        return "wishlist-bookdetail";
+    }
+
+    public Book getSelectedBook() {
+        return selectedBook;
     }
 
 }
