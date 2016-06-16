@@ -18,7 +18,6 @@ import eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen;
 import eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm;
 import eu.artofcoding.bookworm.common.persistence.hoerer.BestellkarteArchivDAO;
 import eu.artofcoding.bookworm.common.persistence.hoerer.BestellkarteDAO;
-import eu.artofcoding.bookworm.common.persistence.basket.BlistaOrderDAO;
 import eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstammDAO;
 import eu.artofcoding.bookworm.common.persistence.qualifier.HoererCount;
 import eu.artofcoding.bookworm.common.persistence.qualifier.HoererValue;
