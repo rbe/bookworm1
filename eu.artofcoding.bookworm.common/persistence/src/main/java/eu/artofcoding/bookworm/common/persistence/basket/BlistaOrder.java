@@ -12,15 +12,15 @@ import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -74,8 +74,10 @@ public class BlistaOrder implements GenericEntity, Serializable {
     @JoinTable
     private List<Book> books = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    private Map<AghNummer, Abrufkennwort> aghAbrufkennwortMap = new HashMap<>();
+    @ElementCollection
+    @MapKeyColumn(name="name")
+    @Column(name="value")
+    private Map<String, String> aghAbrufkennwortMap = new HashMap<>();
 
     @PrePersist
     void prePersist() {
@@ -152,16 +154,17 @@ public class BlistaOrder implements GenericEntity, Serializable {
         this.books = books;
     }
 
-    public Map<AghNummer, Abrufkennwort> getAghAbrufkennwortMap() {
+    public Map<String, String> getAghAbrufkennwortMap() {
         return aghAbrufkennwortMap;
     }
 
-    public void setAghAbrufkennwortMap(final Map<AghNummer, Abrufkennwort> aghAbrufkennwortMap) {
+    public void setAghAbrufkennwortMap(final Map<String, String> aghAbrufkennwortMap) {
         this.aghAbrufkennwortMap = aghAbrufkennwortMap;
     }
 
     public void abrufkennwort(final String aghNummer, final String abrufkenntwort) {
-        aghAbrufkennwortMap.put(new AghNummer(aghNummer), new Abrufkennwort(abrufkenntwort));
+        //aghAbrufkennwortMap.put(new AghNummer(aghNummer), new Abrufkennwort(abrufkenntwort));
+        aghAbrufkennwortMap.put(aghNummer, abrufkenntwort);
     }
 
 }

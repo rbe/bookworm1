@@ -105,14 +105,10 @@ public class OrderBean implements Serializable {
                 blistaOrder.abrufkennwort(book.getAghNummer(), "");
             }
         }
-        try {
-            blistaOrderDAO.create(blistaOrder);
-            emailService.sendMail(orderDetails, digitalBasketBean.getBasket(), "catalog/digitalOrderReceipt.html");
-            orderedDigitalBasket = digitalBasketBean.getBasket();
-            digitalBasketBean.wasOrdered();
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "", e);
-        }
+        blistaOrderDAO.create(blistaOrder);
+        emailService.sendMail(orderDetails, digitalBasketBean.getBasket(), "catalog/digitalOrderReceipt.html");
+        orderedDigitalBasket = digitalBasketBean.getBasket();
+        digitalBasketBean.wasOrdered();
     }
 
     public int getItemCount() {

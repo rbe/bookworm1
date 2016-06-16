@@ -9,8 +9,6 @@
 package eu.artofcoding.bookworm.catalog.web.persistence;
 
 import eu.artofcoding.beetlejuice.persistence.GenericDAO;
-import eu.artofcoding.bookworm.common.persistence.basket.Abrufkennwort;
-import eu.artofcoding.bookworm.common.persistence.basket.AghNummer;
 import eu.artofcoding.bookworm.common.persistence.basket.BlistaOrder;
 
 import javax.annotation.PostConstruct;
@@ -18,7 +16,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
-import java.util.Map;
 
 @Stateless
 public class BlistaOrderDAO extends GenericDAO<BlistaOrder> implements Serializable {
@@ -36,6 +33,7 @@ public class BlistaOrderDAO extends GenericDAO<BlistaOrder> implements Serializa
         //((EntityManagerImpl) em).getBroker().setAllowReferenceToSiblingContext(true);
     }
 
+    /*
     @Override
     public BlistaOrder create(final BlistaOrder entity) {
         final Map<AghNummer, Abrufkennwort> aghAbrufkennwortMap = entity.getAghAbrufkennwortMap();
@@ -45,5 +43,6 @@ public class BlistaOrderDAO extends GenericDAO<BlistaOrder> implements Serializa
         }
         return super.create(entity);
     }
+    */
 
 }
