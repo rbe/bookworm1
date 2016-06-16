@@ -21,7 +21,7 @@
 
                 <label>Startdatum:</label><h:inputText class="searchdate" value="#{hoererBucharchiv.searchDate}"/><br />
                 <label>Suchtitel:</label><h:inputText class="searchtitle" value="#{hoererBucharchiv.searchTitle}"/>
-                <h:commandButton actionListener="#{hoererBucharchiv}" value="Suchen" styleClass="searchbutton">
+                <h:commandButton actionListener="#{hoererBucharchiv.search}" value="Suchen" styleClass="searchbutton">
                     <f:ajax execute="@form" render="@all"/>
                 </h:commandButton>
             </div>
