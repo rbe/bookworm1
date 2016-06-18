@@ -47,13 +47,7 @@
                     </f:facet>
                     <h:outputText styleClass="basket-column-content" value="#{book.titel}"/>
                 </h:column>
-                <h:column headerClass="basket-column-header" rendered="#{!cc.attrs.readonly}">
-                    <f:facet name="header">
-                        Details
-                    </f:facet>
-                    <h:commandLink action="#{searchBean.showDetail(book)}" value="Detail"/>
-                </h:column>
-                <h:column headerClass="basket-column-header" rendered="#{!cc.attrs.readonly}">
+               <h:column headerClass="basket-column-header" rendered="#{!cc.attrs.readonly}">
                     <f:facet name="header">
                         Merkliste
                     </f:facet>
