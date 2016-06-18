@@ -87,7 +87,7 @@ public class HoererBlistaAusleihe extends AbstractHoererBean {
     public boolean isDownloadable(final BlistaOrder blistaOrder, final Book book) {
         final BookOrderStatus bookOrderStatus = getBookOrderStatus(blistaOrder, book);
         if (null != bookOrderStatus) {
-            return bookOrderStatus.isBezugsfaehig();
+            return bookOrderStatus.isBezugsfaehig() && bookOrderStatus.getDownloadCount() > 0;
         } else {
             return false;
         }
