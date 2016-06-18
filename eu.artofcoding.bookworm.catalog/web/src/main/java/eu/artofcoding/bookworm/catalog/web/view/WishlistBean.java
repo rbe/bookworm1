@@ -40,8 +40,6 @@ public class WishlistBean implements Serializable {
     @Inject
     private BookDAO bookDAO;
 
-    private Book selectedBook;
-
     @Inject
     private WishlistDAO wishlistDAO;
 
@@ -104,16 +102,6 @@ public class WishlistBean implements Serializable {
 
     public boolean isInWishlist(final Book book) {
         return wishlist.getBooks().stream().anyMatch(b -> b.getTitelnummer().equals(book.getTitelnummer()));
-    }
-
-    public String showDetail(final Book book) {
-        // selectedBook = bookDAO.findById(book.getId());
-        selectedBook = book;
-        return "wishlist-bookdetail";
-    }
-
-    public Book getSelectedBook() {
-        return selectedBook;
     }
 
 }

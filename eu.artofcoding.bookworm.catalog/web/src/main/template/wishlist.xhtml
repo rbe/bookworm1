@@ -112,18 +112,12 @@
                                         </f:facet>
                                         <h:outputText styleClass="basket-column-content" value="#{book.titel}"/>
                                     </h:column>
-                                    <h:column headerClass="basket-column-header">
-                                        <f:facet name="header">
-                                            Details
-                                        </f:facet>
-                                        <h:commandLink action="#{wishlistBean.showDetail(book)}" value="Detail"/>
-                                    </h:column>
-                                    <h:column headerClass="basket-column-header">
+                                   <h:column headerClass="basket-column-header">
                                         <f:facet name="header">
                                             Merkliste
                                         </f:facet>
                                         <h:commandLink rendered="#{!postalBasketBean.isInBasket(book)}"
-                                                        styleClass="basket-order-link post"
+                                                       styleClass="basket-order-link post"
                                                        action="#{wishlistBean.moveToPostalBasketBean(book)}"
                                                        value="Per Post bestellen"/>
                                         <h:commandLink rendered="#{digitalBasketBean.canBeOrderedAsDownload(book) and !digitalBasketBean.isInBasket(book)}"
@@ -131,7 +125,7 @@
                                                        action="#{wishlistBean.moveToDigitalBasketBean(book)}"
                                                        value="Download"/>
                                         <h:commandLink action="#{wishlistBean.remove(book)}"
-                                                    styleClass="basket-order-link list wishlist"
+                                                       styleClass="basket-order-link list wishlist"
                                                        value="Löschen"/>
                                     </h:column>
                                 </h:dataTable>
