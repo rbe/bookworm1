@@ -33,16 +33,4 @@ public class BlistaOrderDAO extends GenericDAO<BlistaOrder> implements Serializa
         //((EntityManagerImpl) em).getBroker().setAllowReferenceToSiblingContext(true);
     }
 
-    /*
-    @Override
-    public BlistaOrder create(final BlistaOrder entity) {
-        final Map<AghNummer, Abrufkennwort> aghAbrufkennwortMap = entity.getAghAbrufkennwortMap();
-        for (AghNummer key : aghAbrufkennwortMap.keySet()) {
-            em.persist(key);
-            em.persist(aghAbrufkennwortMap.get(key));
-        }
-        return super.create(entity);
-    }
-    */
-
 }
