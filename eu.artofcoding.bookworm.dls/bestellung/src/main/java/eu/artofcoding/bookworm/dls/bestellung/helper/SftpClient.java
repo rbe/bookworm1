@@ -66,7 +66,9 @@ public class SftpClient {
     }
 
     private void disconnect() {
-        session.disconnect();
+        if (null != session) {
+            session.disconnect();
+        }
     }
 
     public <R> R with(final Function<ChannelSftpDelegate<R>, Void> fun) {
