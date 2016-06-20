@@ -66,7 +66,8 @@ class AvailableBooks {
             lock.tryLock();
             LOGGER.info("Refreshing available books from " + blistaConfiguration.getBlistaDlsCatalogUrl());
             boolean success = false;
-            while (!success) {
+            int counter = 0;
+            while (!success && counter < 3) {
                 try {
                     final List<String> contentFromZip = getFileContentFromZip("/iso.txt");
                     if (null != contentFromZip && contentFromZip.size() > 1000) {
@@ -80,6 +81,7 @@ class AvailableBooks {
                 } catch (IOException e) {
                     LOGGER.error("Exception while refreshing available books", e);
                 }
+                counter++;
             }
         } finally {
             lock.unlock();
@@ -88,20 +90,22 @@ class AvailableBooks {
 
     private List<String> getFileContentFromZip(final String filePath) throws IOException {
         final Path download = downloadUsingNIO(blistaConfiguration.getBlistaDlsCatalogUrl());
+        List<String> strings = null;
         try (FileSystem zipFileSystem = FileSystems.newFileSystem(download, null)) {
             final Path path = zipFileSystem.getPath(filePath);
-            final List<String> strings = Files.readAllLines(path);
+            strings = Files.readAllLines(path);
             Collections.sort(strings);
-            return strings;
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
             download.toFile().delete();
         }
+        return strings;
     }
 
     private Path downloadUsingNIO(final String urlStr) throws IOException {
         final Path tempFile = Files.createTempFile("blista", ".zip");
+        tempFile.toFile().deleteOnExit();
         final URL url = new URL(urlStr);
         final ReadableByteChannel rbc = Channels.newChannel(url.openStream());
         final ByteBuffer byteBuffer = ByteBuffer.allocate(1440);
