@@ -62,6 +62,7 @@ public class EmailService implements Serializable {
             recipients.add(orderDetails.getEmail());
             try {
                 final String mailFrom = new String(session.getProperty("mail.from").getBytes("ISO-8859-1"), "UTF-8");
+                recipients.add(mailFrom);
                 // Send email
                 session.getProperties().setProperty("mail.mime.charset", "UTF8");
                 postman.setSession(session);
