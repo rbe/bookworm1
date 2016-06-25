@@ -20,8 +20,12 @@ class BilletStatusService {
     String invoke(final String userId, final String aghNummer) {
         MDC.put("userId", userId);
         MDC.put("aghNummer", aghNummer);
-        final BilletSender.ServerStatus serverStatus = billetSender.serverStatus(userId, aghNummer);
-        return serverStatus.name();
+        try {
+            final BilletSender.ServerStatus serverStatus = billetSender.serverStatus(userId, aghNummer);
+            return serverStatus.name();
+        } finally {
+            MDC.clear();
+        }
     }
 
 }

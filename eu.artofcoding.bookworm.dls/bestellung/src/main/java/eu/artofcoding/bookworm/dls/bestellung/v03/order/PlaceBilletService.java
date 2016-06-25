@@ -20,9 +20,13 @@ class PlaceBilletService {
     BookOrder invoke(final String userId, final String aghNummer) {
         MDC.put("userId", userId);
         MDC.put("aghNummer", aghNummer);
-        final String abrufkennwort = billetSender.sendToServer(userId, aghNummer);
-        final BilletSender.ServerStatus serverStatus = billetSender.serverStatus(userId, aghNummer);
-        return new BookOrder(abrufkennwort, null != serverStatus ? serverStatus.name() : BilletSender.ServerStatus.NEW.name());
+        try {
+            final String abrufkennwort = billetSender.sendToServer(userId, aghNummer);
+            final BilletSender.ServerStatus serverStatus = billetSender.serverStatus(userId, aghNummer);
+            return new BookOrder(abrufkennwort, null != serverStatus ? serverStatus.name() : BilletSender.ServerStatus.NEW.name());
+        } finally {
+            MDC.clear();
+        }
     }
 
 }
