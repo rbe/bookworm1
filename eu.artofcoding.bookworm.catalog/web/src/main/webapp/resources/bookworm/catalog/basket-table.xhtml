@@ -16,9 +16,9 @@
     <cc:implementation>
         <h:form styleClass="#{cc.attrs.bean.name}">
             <p class="line15 baskettext">
-                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.itemCount == 0}" value="Ihre Merkliste ist leer."/>
-                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.itemCount == 1}" value="Ihre Merkliste enthält 1 Hörbuch."/>
-                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.itemCount > 1}" value="Ihre Merkliste enthält #{cc.attrs.bean.itemCount} Hörbücher."/>
+                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.itemCount == 0}" value="Ihr Warenkorb ist leer."/>
+                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.itemCount == 1}" value="Ihr Warenkorb enthält 1 Hörbuch."/>
+                <h:outputText rendered="#{!cc.attrs.readonly and cc.attrs.bean.itemCount > 1}" value="Ihr Warenkorb enthält #{cc.attrs.bean.itemCount} Hörbücher."/>
                 <!-- readonly -->
                 <h:outputText rendered="#{cc.attrs.readonly}" value="Sie haben #{cc.attrs.bean.itemCount} Titel bestellt."/>
             </p>
@@ -49,10 +49,12 @@
                 </h:column>
                <h:column headerClass="basket-column-header" rendered="#{!cc.attrs.readonly}">
                     <f:facet name="header">
-                        Merkliste
+                        Warenkorb
                     </f:facet>
-                    <h:commandLink rendered="#{!cc.attrs.bean.isInBasket(book)}" action="#{cc.attrs.bean.add(book)}" value="Bestellen"/>
-                    <h:commandLink rendered="#{cc.attrs.bean.isInBasket(book)}" action="#{cc.attrs.bean.remove(book)}" value="Aus Merkliste entfernen"/>
+                    <h:commandLink rendered="#{!cc.attrs.bean.isInBasket(book)}"
+                                   action="#{cc.attrs.bean.add(book)}" value="Bestellen"/>
+                    <h:commandLink rendered="#{cc.attrs.bean.isInBasket(book)}"
+                                   action="#{cc.attrs.bean.remove(book)}" value="Aus Warenkorb entfernen"/>
                 </h:column>
             </h:dataTable>
         </h:form>

@@ -31,22 +31,22 @@
     zum digitalen Download erhalten:
 </p>
 <p>
+<table cellpadding="10" cellspacing="1" border="1" width="90%">
+    <tbody>
+    <tr>
+        <th align="left" style="background: #771a04; color:#fff;">Titelnummer</th>
+        <th align="left" style="background: #771a04; color:#fff;">Autor</th>
+        <th align="left" style="background: #771a04; color:#fff;">Titel</th>
+    </tr>
     <#list basket.books as b>
-        <table cellpadding="10" cellspacing="1" border="1" width="90%">
-            <tbody>
-            <tr>
-                <th align="left" style="background: #771a04; color:#fff;">Titelnummer</th>
-                <th align="left" style="background: #771a04; color:#fff;">Autor</th>
-                <th align="left" style="background: #771a04; color:#fff;">Titel</th>
-            </tr>
-            <tr>
-                <td valign="top" width="15%">${b.titelnummer}</td>
-                <td valign="top" width="30%">${b.autor}</td>
-                <td valign="top" width="55%">${b.titel}</td>
-            </tr>
-            </tbody>
-        </table>
+        <tr>
+            <td valign="top" width="15%">${b.titelnummer}</td>
+            <td valign="top" width="30%">${b.autor}</td>
+            <td valign="top" width="55%">${b.titel}</td>
+        </tr>
     </#list>
+    </tbody>
+</table>
 </p>
 <p>Ihre ausgewählten Hörbücher stehen Ihnen in Kürze im internen Nutzerbereich unter "Downloads" zur Verfügung.</p>
 <#if orderdetails.bemerkung?length gt 0>

@@ -165,8 +165,13 @@
                                     </h:selectBooleanCheckbox>
 
                                     <h:outputLabel value=" "/>
-                                    <h:commandButton value="Bestellen" action="#{orderBean.placeOrder}"
-                                                     styleClass="basketsubmit" required="true"/>
+                                    <h:commandButton value="Bestellen"
+                                                     onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);"
+                                                     action="#{orderBean.placeOrder}"
+                                                     styleClass="basketsubmit" required="true">
+                                        <f:ajax execute="@form" render="orderSubmitMessage"/>
+                                    </h:commandButton>
+                                    <h:outputLabel id="orderSubmitMessage" value="#{orderBean.orderSubmitMessage}"/>
 
                                 </h:panelGrid>
                             </h:form>

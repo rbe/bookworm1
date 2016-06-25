@@ -28,6 +28,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -71,6 +73,8 @@ public class OrderBean implements Serializable {
 
     private OrderDetails orderDetails = new OrderDetails();
 
+    private String orderSubmitMessage;
+
     @PostConstruct
     private void postConstruct() {
         if (HoerernummerFilter.hasHoerernummer()) {
@@ -85,7 +89,7 @@ public class OrderBean implements Serializable {
     }
 
     private void postalDelivery() {
-        emailService.sendMail(orderDetails, postalBasketBean.getBasket(), "catalog/postalOrderReceipt.html");
+        emailService.sendMail(orderDetails, (PostalBasketBean) postalBasketBean);
         orderedPostalBasket = postalBasketBean.getBasket();
         postalBasketBean.wasOrdered();
     }
@@ -106,13 +110,29 @@ public class OrderBean implements Serializable {
             }
         }
         blistaOrderDAO.create(blistaOrder);
-        emailService.sendMail(orderDetails, digitalBasketBean.getBasket(), "catalog/digitalOrderReceipt.html");
+        emailService.sendMail(orderDetails, (DigitalBasketBean) digitalBasketBean);
         orderedDigitalBasket = digitalBasketBean.getBasket();
         digitalBasketBean.wasOrdered();
     }
 
     public int getItemCount() {
         return postalBasketBean.getItemCount() + digitalBasketBean.getItemCount();
+    }
+
+    public boolean isDigitalOrderPossible() {
+        final Map<String, Object> map = new HashMap<String, Object>() {{
+            put("hoerernummer", hoererstamm.getHoerernummer());
+        }};
+        return blistaOrderDAO.countNamedQuery("BlistaOrder.countBooksByHoerernummer", map) < 10;
+    }
+
+    public boolean isMaxDownloadOrdersReached() {
+        return digitalBasketBean.getItemCount() == 5;
+    }
+
+    public boolean isDisplayDownloadAction(final Book book) {
+        final DigitalBasketBean d = (DigitalBasketBean) digitalBasketBean;
+        return isDigitalOrderPossible() && !isMaxDownloadOrdersReached() && !d.isInBasket(book) && d.canBeOrderedAsDownload(book);
     }
 
     public Basket getOrderedPostalBasket() {
@@ -124,6 +144,7 @@ public class OrderBean implements Serializable {
     }
 
     public String placeOrder() {
+        orderSubmitMessage = "Ihre Bestellung wird bearbeitet!";
         orderedPostalBasket = null;
         final boolean wantPostalDelivery = !postalBasketBean.isEmpty();
         if (wantPostalDelivery) {
@@ -144,6 +165,7 @@ public class OrderBean implements Serializable {
                 return "basket-error";
             }
         }
+        orderSubmitMessage = null;
         return "basket-thankyou";
     }
 
@@ -155,6 +177,10 @@ public class OrderBean implements Serializable {
     public boolean displayEmptyBasketLink() {
         String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
         return !viewId.startsWith("/basket") && (postalBasketBean.isEmpty() && digitalBasketBean.isEmpty());
+    }
+
+    public String getOrderSubmitMessage() {
+        return orderSubmitMessage;
     }
 
 }

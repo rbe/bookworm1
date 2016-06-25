@@ -30,7 +30,6 @@ public class BlistaOrderDAO extends GenericDAO<BlistaOrder> implements Serializa
     @PostConstruct
     private void postConstruct() {
         setEntityManager(em);
-        //((EntityManagerImpl) em).getBroker().setAllowReferenceToSiblingContext(true);
     }
 
 }

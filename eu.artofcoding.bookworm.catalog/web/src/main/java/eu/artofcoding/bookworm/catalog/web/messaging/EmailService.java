@@ -4,6 +4,8 @@ import eu.artofcoding.beetlejuice.email.Postman;
 import eu.artofcoding.beetlejuice.email.cdi.QPostman;
 import eu.artofcoding.beetlejuice.template.TemplateProcessor;
 import eu.artofcoding.bookworm.catalog.web.persistence.OrderDetails;
+import eu.artofcoding.bookworm.catalog.web.view.DigitalBasketBean;
+import eu.artofcoding.bookworm.catalog.web.view.PostalBasketBean;
 import eu.artofcoding.bookworm.common.persistence.basket.Basket;
 import freemarker.template.ObjectWrapper;
 import freemarker.template.SimpleHash;
@@ -39,8 +41,6 @@ public class EmailService implements Serializable {
     @Resource(name = "bookwormMail")
     private transient Session session;
 
-    private String mailSubject = "Ihre Bestellung bei der WBH";
-
     @PostConstruct
     private void initialize() {
         ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
@@ -48,7 +48,7 @@ public class EmailService implements Serializable {
         templateProcessor.getConfiguration().setObjectWrapper(ObjectWrapper.BEANS_WRAPPER);
     }
 
-    public void sendMail(final OrderDetails orderDetails, final Basket basket, final String template) {
+    private void sendMail(final OrderDetails orderDetails, final Basket basket, final String subject, final String template) {
         // Data model for template
         final SimpleHash root = new SimpleHash();
         root.put("orderdetails", orderDetails);
@@ -66,13 +66,22 @@ public class EmailService implements Serializable {
                 // Send email
                 session.getProperties().setProperty("mail.mime.charset", "UTF8");
                 postman.setSession(session);
-                postman.sendHtmlMail(mailFrom, recipients, mailSubject, body);
+                postman.sendHtmlMail(mailFrom, recipients, subject, body);
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e);
             }
         } catch (TemplateException | MessagingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void sendMail(final OrderDetails orderDetails, final DigitalBasketBean basketBean) {
+        sendMail(orderDetails, basketBean.getBasket(), "Ihre Download-Bestellung bei der WBH", "catalog/digitalOrderReceipt.html");
+    }
+
+
+    public void sendMail(final OrderDetails orderDetails, final PostalBasketBean basketBean) {
+        sendMail(orderDetails, basketBean.getBasket(), "Ihre CD-Bestellung bei der WBH", "catalog/postalOrderReceipt.html");
     }
 
 }

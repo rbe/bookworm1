@@ -38,6 +38,8 @@ import java.util.Map;
 @NamedQueries({
         @NamedQuery(name = "BlistaOrder.countByHoerernummer",
                 query = "SELECT COUNT(o) FROM BlistaOrder o WHERE o.hoerernummer = :hoerernummer"),
+        @NamedQuery(name = "BlistaOrder.countBooksByHoerernummer",
+                query = "SELECT COUNT(b) FROM BlistaOrder o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer"),
         @NamedQuery(name = "BlistaOrder.findByHoerernummerOrderByAusleihdatum",
                 query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer ORDER BY o.ausleihdatum DESC"),
         @NamedQuery(name = "BlistaOrder.findByHoerernummerAndTitelOrderByAusleihdatum",
@@ -84,6 +86,7 @@ public class BlistaOrder implements GenericEntity, Serializable {
         ausleihdatum = new Date();
     }
 
+    /*
     private String normalizeUserId(final String hoerernummer, final String userId) {
         final StringBuilder builder = new StringBuilder();
         builder.append(hoerernummer);
@@ -94,6 +97,7 @@ public class BlistaOrder implements GenericEntity, Serializable {
                 .toString();
         return u.length() > 30 ? u.substring(1, 30) : u;
     }
+    */
 
     public Long getId() {
         return id;
@@ -117,6 +121,7 @@ public class BlistaOrder implements GenericEntity, Serializable {
 
     public void setHoerernummer(final String hoerernummer) {
         this.hoerernummer = hoerernummer;
+        this.userId = hoerernummer;
     }
 
     public String getUserId() {
@@ -124,7 +129,9 @@ public class BlistaOrder implements GenericEntity, Serializable {
     }
 
     public void setUserId(final String userId) {
-        this.userId = normalizeUserId(hoerernummer, userId);
+        // See setHoerernummer(String)
+        //this.userId = normalizeUserId(hoerernummer, userId);
+        //this.userId = userId;
     }
 
     public String getEmail() {
