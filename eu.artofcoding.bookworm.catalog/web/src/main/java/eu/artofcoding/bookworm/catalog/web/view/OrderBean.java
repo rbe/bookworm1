@@ -120,10 +120,14 @@ public class OrderBean implements Serializable {
     }
 
     public boolean isDigitalOrderPossible() {
-        final Map<String, Object> map = new HashMap<String, Object>() {{
-            put("hoerernummer", hoererstamm.getHoerernummer());
-        }};
-        return blistaOrderDAO.countNamedQuery("BlistaOrder.countBooksByHoerernummer", map) < 10;
+        if (HoerernummerFilter.hasHoerernummer()) {
+            final Map<String, Object> map = new HashMap<String, Object>() {{
+                put("hoerernummer", hoererstamm.getHoerernummer());
+            }};
+            return blistaOrderDAO.countNamedQuery("BlistaOrder.countBooksByHoerernummer", map) < 10;
+        } else {
+            return false;
+        }
     }
 
     public boolean isMaxDownloadOrdersReached() {
