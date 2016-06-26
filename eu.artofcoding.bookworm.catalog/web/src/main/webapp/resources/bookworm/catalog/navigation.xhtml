@@ -27,7 +27,7 @@
             <h:panelGroup rendered="#{orderBean.displayEmptyBasketLink()}" layout="block" styleClass="basket-count">
                 Warenkorb (0)
             </h:panelGroup>
-            <h:panelGroup rendered="#{!orderBean.digitalOrderPossible}" layout="block" styleClass="basket-count">
+            <h:panelGroup rendered="#{orderBean.maxDownloadPerOrderReached}" layout="block" styleClass="basket-count">
                 Sie haben Ihr Limit für die Bestellung von Downloads erreicht!
             </h:panelGroup>
         </h:form>

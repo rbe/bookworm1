@@ -3,7 +3,6 @@
 <html xmlns="https://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:o="http://omnifaces.org/ui"
       xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm/catalog">
 <h:head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
@@ -120,19 +119,40 @@
                                             Merkliste
                                         </f:facet>
                                         <h:commandLink rendered="#{!postalBasketBean.isInBasket(book)}"
-                                                       styleClass="basket-order-link post" action="#{postalBasketBean.add(book)}" value="CD bestellen"/>
+                                                       styleClass="basket-order-link post"
+                                                       action="#{postalBasketBean.add(book)}" value="CD bestellen">
+                                            <f:ajax execute="@form" render="@all"/>
+                                        </h:commandLink>
                                         <h:commandLink rendered="#{postalBasketBean.isInBasket(book)}"
-                                                       styleClass="basket-remove-link" action="#{postalBasketBean.remove(book)}" value="CD Bestellung löschen"/>
+                                                       styleClass="basket-remove-link"
+                                                       action="#{postalBasketBean.remove(book)}"
+                                                       value="CD Bestellung löschen">
+                                            <f:ajax execute="@form" render="@all"/>
+                                        </h:commandLink>
 
                                         <h:commandLink rendered="#{searchBean.hasHoerernummer() and orderBean.isDisplayDownloadAction(book)}"
-                                                       styleClass="basket-order-link download" action="#{digitalBasketBean.add(book)}" value="Download"/>
+                                                       styleClass="basket-order-link download"
+                                                       action="#{digitalBasketBean.add(book)}" value="Download">
+                                            <f:ajax execute="@form" render="@all"/>
+                                        </h:commandLink>
                                         <h:commandLink rendered="#{searchBean.hasHoerernummer() and digitalBasketBean.canBeRemovedFromBasket(book)}"
-                                                       styleClass="basket-remove-link clr" action="#{digitalBasketBean.remove(book)}" value="Aus Warenkorb löschen"/>
+                                                       styleClass="basket-remove-link clr"
+                                                       action="#{digitalBasketBean.remove(book)}"
+                                                       value="Aus Warenkorb löschen">
+                                            <f:ajax execute="@form" render="@all"/>
+                                        </h:commandLink>
 
                                         <h:commandLink rendered="#{searchBean.hasHoerernummer() and !wishlistBean.isInWishlist(book)}"
-                                                       styleClass="basket-order-link wishlist" action="#{wishlistBean.add(book)}" value="Merken"/>
+                                                       styleClass="basket-order-link wishlist"
+                                                       action="#{wishlistBean.add(book)}" value="Merken">
+                                            <f:ajax execute="@form" render="@all"/>
+                                        </h:commandLink>
                                         <h:commandLink rendered="#{searchBean.hasHoerernummer() and wishlistBean.isInWishlist(book)}"
-                                                       styleClass="basket-remove-link clr" action="#{wishlistBean.remove(book)}" value="Aus Merkliste löschen"/>
+                                                       styleClass="basket-remove-link clr"
+                                                       action="#{wishlistBean.remove(book)}"
+                                                       value="Aus Merkliste löschen">
+                                            <f:ajax execute="@form" render="@all"/>
+                                        </h:commandLink>
                                     </h:column>
                                     <f:facet name="footer">
                                         <h:panelGroup>

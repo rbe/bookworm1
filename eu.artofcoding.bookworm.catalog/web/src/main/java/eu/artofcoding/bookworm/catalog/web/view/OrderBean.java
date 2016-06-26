@@ -130,13 +130,13 @@ public class OrderBean implements Serializable {
         }
     }
 
-    public boolean isMaxDownloadOrdersReached() {
-        return digitalBasketBean.getItemCount() == 5;
+    public boolean isMaxDownloadPerOrderReached() {
+        return !isDigitalOrderPossible() || digitalBasketBean.getItemCount() == 5;
     }
 
     public boolean isDisplayDownloadAction(final Book book) {
         final DigitalBasketBean d = (DigitalBasketBean) digitalBasketBean;
-        return isDigitalOrderPossible() && !isMaxDownloadOrdersReached() && !d.isInBasket(book) && d.canBeOrderedAsDownload(book);
+        return isDigitalOrderPossible() && !isMaxDownloadPerOrderReached() && !d.isInBasket(book) && d.canBeOrderedAsDownload(book);
     }
 
     public Basket getOrderedPostalBasket() {
