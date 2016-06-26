@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AbstractXmlRowProcessor<T extends GenericEntity> implements XmlRowProcessor<T> {
@@ -91,7 +92,7 @@ public class AbstractXmlRowProcessor<T extends GenericEntity> implements XmlRowP
                 T validatedAndMergedEntity = validateAndMerge(entity);
                 mergedEntities.add(validatedAndMergedEntity);
             } catch (Exception e) {
-                LOGGER.severe("Cannot validate and merge " + entity.toString());
+                LOGGER.log(Level.SEVERE, "Cannot validate and merge " + entity.toString(), e);
             }
         }
         return mergedEntities;
