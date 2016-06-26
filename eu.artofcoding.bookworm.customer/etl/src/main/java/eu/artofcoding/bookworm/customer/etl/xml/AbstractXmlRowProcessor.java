@@ -90,7 +90,7 @@ public class AbstractXmlRowProcessor<T extends GenericEntity> implements XmlRowP
             try {
                 T validatedAndMergedEntity = validateAndMerge(entity);
                 mergedEntities.add(validatedAndMergedEntity);
-            } catch (ConstraintViolationException e) {
+            } catch (Exception e) {
                 LOGGER.severe("Cannot validate and merge " + entity.toString());
             }
         }
