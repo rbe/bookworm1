@@ -131,7 +131,7 @@ public class OrderBean implements Serializable {
     }
 
     public boolean isMaxDownloadPerOrderReached() {
-        return !isDigitalOrderPossible() || digitalBasketBean.getItemCount() == 5;
+        return digitalBasketBean.getItemCount() == 5;
     }
 
     public boolean isDisplayDownloadAction(final Book book) {
