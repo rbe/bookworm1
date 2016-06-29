@@ -271,7 +271,11 @@ public class SearchBean implements Serializable {
     }
 
     public Book getSelectedBook() {
-        return paginateableSearch.getSelectedEntity();
+        if (null != paginateableSearch) {
+            return paginateableSearch.getSelectedEntity();
+        } else {
+            return null;
+        }
     }
 
     public String showDetail(final Book book) {

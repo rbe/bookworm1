@@ -77,11 +77,21 @@ public class OrderBean implements Serializable {
 
     @PostConstruct
     private void postConstruct() {
-        if (HoerernummerFilter.hasHoerernummer()) {
-            orderDetails.setName(String.format("%s %s", hoererstamm.getVorname(), hoererstamm.getNachname()));
-            orderDetails.setHoerernummer(hoererstamm.getHoerernummer());
-            orderDetails.setEmail(hoererKennzeichen.getEmail());
+        if (HoerernummerFilter.hasHoerernummer() && null != hoererstamm) {
+            if (notEmpty(hoererstamm.getVorname()) && notEmpty(hoererstamm.getNachname())) {
+                orderDetails.setName(String.format("%s %s", hoererstamm.getVorname(), hoererstamm.getNachname()));
+            }
+            if (notEmpty(hoererstamm.getHoerernummer())) {
+                orderDetails.setHoerernummer(hoererstamm.getHoerernummer());
+            }
+            if (notEmpty(hoererKennzeichen.getEmail())) {
+                orderDetails.setEmail(hoererKennzeichen.getEmail());
+            }
         }
+    }
+
+    private boolean notEmpty(final String str) {
+        return null != str && !str.trim().isEmpty();
     }
 
     public OrderDetails getOrderDetails() {
@@ -174,13 +184,13 @@ public class OrderBean implements Serializable {
     }
 
     public boolean displayBasketLink() {
-        String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-        return !viewId.startsWith("/basket") && (!postalBasketBean.isEmpty() || !digitalBasketBean.isEmpty());
+        final String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+        return (null != viewId && !viewId.startsWith("/basket")) && (!postalBasketBean.isEmpty() || !digitalBasketBean.isEmpty());
     }
 
     public boolean displayEmptyBasketLink() {
-        String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-        return !viewId.startsWith("/basket") && (postalBasketBean.isEmpty() && digitalBasketBean.isEmpty());
+        final String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+        return (null != viewId && !viewId.startsWith("/basket")) && (postalBasketBean.isEmpty() && digitalBasketBean.isEmpty());
     }
 
     public String getOrderSubmitMessage() {
