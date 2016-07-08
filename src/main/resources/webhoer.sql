@@ -23,7 +23,8 @@ DROP EVENT webhoer_csv;
 DELIMITER $$
 
 CREATE EVENT webhoer_csv
-  ON SCHEDULE EVERY 18 DAY_HOUR
+  ON SCHEDULE AT '2016-01-01 00:01:00' + INTERVAL 1 DAY
+  ON COMPLETION PRESERVE
 DO BEGIN
   SET @filepath = CONCAT('/home/wbh/apache/sites/wbh-online.de/www/app/download/webhoer-', DATE_FORMAT(NOW(), '%Y%m%d'), '.csv');
   SET @sql = CONCAT("SELECT CONCAT(
