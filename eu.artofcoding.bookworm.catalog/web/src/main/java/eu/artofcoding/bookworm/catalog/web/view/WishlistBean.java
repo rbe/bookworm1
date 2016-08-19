@@ -10,6 +10,7 @@ package eu.artofcoding.bookworm.catalog.web.view;
 
 import eu.artofcoding.bookworm.catalog.web.persistence.BookDAO;
 import eu.artofcoding.bookworm.catalog.web.persistence.WishlistDAO;
+import eu.artofcoding.bookworm.catalog.web.session.HoererSession;
 import eu.artofcoding.bookworm.common.persistence.basket.Wishlist;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 
@@ -23,11 +24,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import static eu.artofcoding.bookworm.catalog.web.persistence.HoerernummerFilter.getHoerernummer;
-
 @Named
 @SessionScoped
 public class WishlistBean implements Serializable {
+
+    @Inject
+    private HoererSession hoererSession;
 
     @Inject
     @PostalOrder
@@ -47,7 +49,7 @@ public class WishlistBean implements Serializable {
 
     @PostConstruct
     private void postConstruct() {
-        final String hoerernummer = getHoerernummer();
+        final String hoerernummer = hoererSession.getHoerernummer();
         final Map<String, Object> p = new HashMap<String, Object>() {{
             put("hoerernummer", hoerernummer);
         }};

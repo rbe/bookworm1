@@ -46,9 +46,7 @@ public class DigitalBasketBean extends AbstractBasketBean {
     public boolean canBeOrderedAsDownload(final Book book) {
         final boolean inBasket = basket.isInBasket(book);
         final boolean bookAvailable = cachedBookAvailable(book);
-        final boolean b = !inBasket && bookAvailable;
-//        LOGGER.info(book.getAghNummer() + "/" + book.getTitel() + " --> " + b);
-        return b;
+        return !inBasket && bookAvailable;
     }
 
     public boolean canBeRemovedFromBasket(final Book book) {

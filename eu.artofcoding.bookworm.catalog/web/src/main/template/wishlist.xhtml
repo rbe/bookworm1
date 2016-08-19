@@ -56,7 +56,7 @@
                     <li><a href="/bookworm/search.xhtml">Onlinekatalog</a></li>
                     <li><a href="/customer/hoererblistaausleihe.xhtml">Downloads</a></li>
                     <li><a href="/catalog/wishlist.xhtml">Merkliste</a></li>
-                    <li><a href="/customer/hoererdaten.xhtml">Meine Daten</a></li>
+                    <li><a href="/customer/hoererdaten.xhtml">Hörerdaten</a></li>
                     <li><a href="/customer/hoererbuchausleihe.xhtml">Ausleihe</a></li>
                     <li><a href="/customer/hoererbestellkarte.xhtml">Bestellkarte</a></li>
                     <li><a href="/customer/hoererbucharchiv.xhtml">Archiv</a></li>
@@ -81,6 +81,7 @@
                                     <h:outputText rendered="#{wishlistBean.itemCount > 1}"
                                                   value="Ihre Merkliste enthält #{wishlistBean.itemCount} Hörbücher."/>
                             </h3>
+                        </div>
                             <p></p>
                             <h:form styleClass="Wishlist">
                                 <h:dataTable id="bookwormBasketTable"
@@ -115,7 +116,7 @@
                                         <h:commandLink rendered="#{!postalBasketBean.isInBasket(book)}"
                                                        styleClass="basket-order-link post"
                                                        action="#{wishlistBean.moveToPostalBasketBean(book)}"
-                                                       value="Per Post bestellen"/>
+                                                       value="CD bestellen"/>
                                         <h:commandLink rendered="#{digitalBasketBean.canBeOrderedAsDownload(book) and !digitalBasketBean.isInBasket(book)}"
                                                        styleClass="basket-order-link download"
                                                        action="#{wishlistBean.moveToDigitalBasketBean(book)}"
@@ -126,14 +127,11 @@
                                     </h:column>
                                 </h:dataTable>
                             </h:form>
-                        </div>
+
                     </div>
                     <div class="noticetext">
                         <h3>Hinweise zur Merkliste</h3>
-                        In der Merkliste erhalten Sie eine Übersicht Ihrer vorgemerkten Bestellungen, unterteilt in
-                        "Downloads" und "Bestellungen per Post".
-                        Geben Sie für eine Bestellung Ihre Daten und Ihre Hörernummer in die entsprechenden Felder ein
-                        und klicken Sie auf Bestellen.
+                        In der Merkliste sind alle Hörbücher aufgeführt, die Sie sich vorgemerkt haben. Hier haben Sie dann die Möglichkeit, die Titel als CD oder für den Download zu bestellen und Sie können natürlich auch Hörbücher wieder aus der Liste löschen.
                     </div>
                 </div>
             </div>

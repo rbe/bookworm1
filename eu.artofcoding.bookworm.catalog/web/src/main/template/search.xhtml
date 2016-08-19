@@ -27,11 +27,26 @@
             <span class="unsichtbar">
                 <a name="top"></a>
                 <a accesskey="2" href="#content">zum Inhalt springen</a><br/>
-                <a accesskey="3" href="#topmenu">zur Top-Navigation springen</a>
+                <a accesskey="3" href="#topmenu">zur Top-Navigation springen</a><br/>
+                <a href="#mainmenu" accesskey="4">zum Hauptmenü springen</a><br />
+                <!-- <a accesskey="5" href="#logout">vom System sofort Abmelden</a> -->
             </span>
-            <div class="logo">
-                <h2 class="unsichtbar">WBH Logo</h2>
-                <a title="Link zur Startseite" href="https://www.wbh-online.de"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="/templates/wbh/images/logo_wbh.gif"/></a>
+            <div id="logoandfontsize">
+                <div class="logo">
+                    <h2 class="unsichtbar">WBH Logo</h2>
+                    <a title="Link zur Startseite" href="https://www.wbh-online.de"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="/templates/wbh/images/logo_wbh.gif"/></a>
+                </div>
+                <!-- <div class="userlogout">
+                    <a name="logout"></a>
+                    <h2 class="unsichtbar">Abmelden/Logout</h2>
+                    <div class="module logout">
+                        <ul class="nav menu">
+                            <li class="item-264">
+                                <a href="/Categories/abmelden.html">Abmelden</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -48,12 +63,16 @@
                 <a name="topmenu"></a>
                 <h2 class="unsichtbar">Top-Navigation</h2>
                 <ul class="nav menu">
-                    <li><a href="/">Startseite</a></li>
+                    <li>
+                        <a name="mainmenu"></a>
+                        <h2 class="unsichtbar">zurück zum Hauptmenu</h2>
+                        <a href="/">Startseite</a>
+                    </li>
                     <li><a href="/login.html">Login</a></li>
                     <li><a href="/bookworm/search.xhtml">Onlinekatalog</a></li>
                     <li><a href="/customer/hoererblistaausleihe.xhtml">Downloads</a></li>
                     <li><a href="/catalog/wishlist.xhtml">Merkliste</a></li>
-                    <li><a href="/customer/hoererdaten.xhtml">Meine Daten</a></li>
+                    <li><a href="/customer/hoererdaten.xhtml">Hörerdaten</a></li>
                     <li><a href="/customer/hoererbuchausleihe.xhtml">Ausleihe</a></li>
                     <li><a href="/customer/hoererbestellkarte.xhtml">Bestellkarte</a></li>
                     <li><a href="/customer/hoererbucharchiv.xhtml">Archiv</a></li>
@@ -74,7 +93,7 @@
                     </div>
                     <div class="noticetext">
                         <h3>Hinweise für bessere Suchergebnisse</h3>
-                        Die Suche findet alle Einträge die Ihren Suchbegriff enthalten - auch als Wortbestandteil.<br />Eine Suche nach »test« findet also auch »späteste«.
+                        <p>Eine Suche findet alle Einträge die Ihren Suchbegriff enthalten - auch als Wortbestandteil.<br />Eine Suche nach »test« findet also auch »späteste«.</p>
                     </div>
                 </div>
             </div>

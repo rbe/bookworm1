@@ -1,6 +1,5 @@
-package eu.artofcoding.bookworm.catalog.web.persistence;
+package eu.artofcoding.bookworm.catalog.web.session;
 
-import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -15,32 +14,22 @@ import java.io.IOException;
 @WebFilter(filterName = "HoerernummerFilter", urlPatterns = "/*")
 public class HoerernummerFilter implements Filter {
 
+    private static final String HNR_KEY = "hnr";
+
     public void destroy() {
     }
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         final HttpSession session = ((HttpServletRequest) req).getSession();
-        final Object sessionHnr = session.getAttribute("hnr");
+        final Object sessionHnr = session.getAttribute(HNR_KEY);
         if (null == sessionHnr) {
-            final String hnr = req.getParameter("hnr");
-            session.setAttribute("hnr", hnr);
+            final String hnr = req.getParameter(HNR_KEY);
+            session.setAttribute(HNR_KEY, hnr);
         }
         chain.doFilter(req, resp);
     }
 
     public void init(FilterConfig config) throws ServletException {
     }
-
-    public static boolean hasHoerernummer() {
-        final HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        final String hoerernummer = (String) req.getSession().getAttribute("hnr");
-        return null != hoerernummer && !hoerernummer.isEmpty();
-    }
-
-    public static String getHoerernummer() {
-        final HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        return (String) req.getSession().getAttribute("hnr");
-    }
-
 
 }

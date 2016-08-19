@@ -18,8 +18,12 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +49,7 @@ public class HoererBlistaAusleihe extends AbstractHoererBean {
 
     public boolean hasBlistaOrders() {
         if (null == blistaOrders) {
-            search(null);
+            getBlistaOrders();
         }
         return null != blistaOrders && blistaOrders.size() > 0;
     }
@@ -53,25 +57,29 @@ public class HoererBlistaAusleihe extends AbstractHoererBean {
     public List<BlistaOrder> getBlistaOrders() {
         if (null == blistaOrders) {
             search(null);
+            filterBlistaOrders();
         }
         return blistaOrders;
     }
 
-    /*
-    private BlistaOrder getBlistaOrder(final Long blistaOrderId) {
-        final List<BlistaOrder> blistaOrders = this.blistaOrders.stream()
-                .filter(o -> o.getId().equals(blistaOrderId))
-                .collect(Collectors.toList());
-        return blistaOrders.get(0);
+    private void filterBlistaOrders() {
+        Iterator<BlistaOrder> blistaOrderIterator = blistaOrders.iterator();
+        while (blistaOrderIterator.hasNext()) {
+            final BlistaOrder blistaOrder = blistaOrderIterator.next();
+            Iterator<Book> bookIterator = blistaOrder.getBooks().iterator();
+            while (bookIterator.hasNext()) {
+                final Book book = bookIterator.next();
+                final BookOrderStatus bookOrderStatus = getBookOrderStatus(blistaOrder, book);
+                final ChronoLocalDateTime<?> tenDaysBefore = ChronoLocalDateTime.from(LocalDateTime.now().minus(10, ChronoUnit.DAYS));
+                if (bookOrderStatus.getRueckgabedatum().isBefore(tenDaysBefore)) {
+                    bookIterator.remove();
+                }
+            }
+            if (blistaOrder.getBooks().isEmpty()) {
+                blistaOrderIterator.remove();
+            }
+        }
     }
-
-    private Book getBook(final Long bookId, final BlistaOrder blistaOrder) {
-        final List<Book> books = blistaOrder
-                .getBooks().stream().filter(b -> b.getId().equals(bookId))
-                .collect(Collectors.toList());
-        return books.get(0);
-    }
-    */
 
     private BookOrderStatus getBookOrderStatus(final BlistaOrder blistaOrder, final Book book) {
         final String key = String.format("%s-%s", blistaOrder.getId(), book.getId());
@@ -97,7 +105,26 @@ public class HoererBlistaAusleihe extends AbstractHoererBean {
     public String getStatusText(final BlistaOrder blistaOrder, final Book book) {
         final BookOrderStatus bookOrderStatus = getBookOrderStatus(blistaOrder, book);
         if (null != bookOrderStatus) {
-            return String.format("%s: %s", bookOrderStatus.getAusleihstatus(), bookOrderStatus.getDlsDescription());
+            String status = "";
+            switch (bookOrderStatus.getAusleihstatus()) {
+                /*
+                case 1:
+                    status = "1: Noch nicht bearbeitet";
+                    break;
+                case 2:
+                    status = "2: In Arbeit";
+                    break;
+                case 3:
+                    status = "3: Buch steht zum Download bereit";
+                    break;
+                */
+                case 4: // Korrektur des blista Services (DlsDescription)
+                    status = "4: Downloadzeitraum abgelaufen";
+                    break;
+                default:
+                    status = String.format("%s: %s", bookOrderStatus.getAusleihstatus(), bookOrderStatus.getDlsDescription());
+            }
+            return status;
         } else {
             return "Leider kein Status verfügbar";
         }

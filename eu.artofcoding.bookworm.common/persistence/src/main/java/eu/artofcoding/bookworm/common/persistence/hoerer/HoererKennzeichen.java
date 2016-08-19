@@ -27,7 +27,9 @@ import javax.validation.constraints.Size;
 @Entity
 @EntityListeners({CryptorEntityListener.class})
 @NamedQueries({
-        @NamedQuery(name = "HoererKennzeichen.findByHoerernummer", query = "SELECT o FROM HoererKennzeichen o WHERE o.hoerernummer = :hoerernummer")
+        @NamedQuery(name = "HoererKennzeichen.findByHoerernummer",
+                query = "SELECT o FROM HoererKennzeichen o" +
+                        " WHERE o.hoerernummer = :hoerernummer")
 })
 public class HoererKennzeichen implements GenericEntity {
 

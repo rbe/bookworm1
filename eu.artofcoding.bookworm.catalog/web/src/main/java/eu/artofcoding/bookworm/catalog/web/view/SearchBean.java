@@ -13,7 +13,7 @@ import eu.artofcoding.beetlejuice.api.persistence.QueryParameter;
 import eu.artofcoding.beetlejuice.api.persistence.QueryVariant;
 import eu.artofcoding.beetlejuice.persistence.PaginateableSearch;
 import eu.artofcoding.bookworm.catalog.web.persistence.BookDAO;
-import eu.artofcoding.bookworm.catalog.web.persistence.HoerernummerFilter;
+import eu.artofcoding.bookworm.catalog.web.session.HoererSession;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 import eu.artofcoding.bookworm.common.persistence.book.Sachgebiet;
 
@@ -41,6 +41,9 @@ import static eu.artofcoding.beetlejuice.api.BeetlejuiceConstant.SPACE;
 public class SearchBean implements Serializable {
 
     private static final Logger LOGGER = Logger.getLogger(SearchBean.class.getName());
+
+    @Inject
+    private HoererSession hoererSession;
 
     @Inject
     private BookDAO bookDAO;
@@ -115,7 +118,7 @@ public class SearchBean implements Serializable {
     }
 
     public boolean hasHoerernummer() {
-        return HoerernummerFilter.hasHoerernummer();
+        return hoererSession.hasHoerernummer();
     }
 
     /**

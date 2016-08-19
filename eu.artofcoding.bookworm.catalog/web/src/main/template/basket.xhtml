@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="https://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm/catalog">
+      xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm/catalog" xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <meta name="robots" content="index, follow"/>
-    <meta name="keywords" content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
+    <meta name="keywords"
+          content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
     <meta name="HandheldFriendly" content="True"/>
     <meta name="MobileOptimized" content="320"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
+    <meta name="description"
+          content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
     <meta name="generator" content="WBH - Westfälische Blindenhörbücherei - Münster"/>
     <title>Ihre Auswahl - Westdeutsche Blindenhörbücherei Münster</title>
     <link href="/templates/oneweb/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
     <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/position.css"/>
     <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/style.css"/>
-    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/bookworm.css"/>    
+    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/bookworm.css"/>
     <link type="text/css" rel="stylesheet" href="/app/search.css"/>
 </h:head>
 <h:body>
@@ -31,7 +34,9 @@
             </span>
             <div class="logo">
                 <h2 class="unsichtbar">WBH Logo</h2>
-                <a title="Link zur Startseite" href="https://www.wbh-online.de"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="/templates/wbh/images/logo_wbh.gif"/></a>
+                <a title="Link zur Startseite" href="https://www.wbh-online.de"><img width="150" height="47" border="0"
+                                                                                     alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster"
+                                                                                     src="/templates/wbh/images/logo_wbh.gif"/></a>
             </div>
         </div>
     </div>
@@ -41,26 +46,47 @@
             <img src="/images/stories/header-start_1.jpg" alt="Westdeutsche Blindenhörbücherei e.V."/>
         </div>
     </div>
-    
+
     <div class="navigation">
         <div class="wrapper">
             <div class="topmenu">
                 <a name="topmenu"></a>
                 <h2 class="unsichtbar">Top-Navigation</h2>
-                <ul class="nav menu">
-                    <li><a href="/">Startseite</a></li>
-                    <li><a href="/login.html">Login</a></li>
-                    <li><a href="/bookworm/search.xhtml">Onlinekatalog</a></li>
-                    <li><a href="/customer/hoererblistaausleihe.xhtml">Downloads</a></li>
-                    <li><a href="/catalog/wishlist.xhtml">Merkliste</a></li>
-                    <li><a href="/customer/hoererdaten.xhtml">Meine Daten</a></li>
-                    <li><a href="/customer/hoererbuchausleihe.xhtml">Ausleihe</a></li>
-                    <li><a href="/customer/hoererbestellkarte.xhtml">Bestellkarte</a></li>
-                    <li><a href="/customer/hoererbucharchiv.xhtml">Archiv</a></li>
-                </ul>
+                <h:form>
+                    <ul class="nav menu">
+                        <li><a href="/">Startseite</a></li>
+                        <c:if test="#{!hoererSession.hasHoerernummer()}">
+                            <li><h:outputLink value="/login.html">Login</h:outputLink></li>
+                        </c:if>
+                        <c:if test="#{hoererSession.hasHoerernummer()}">
+                            <li><h:commandLink action="#{hoererSession.logout}">Logout</h:commandLink></li>
+                        </c:if>
+                        <c:if test="#{hoererSession.hasHoerernummer()}">
+                            <li><h:outputLink value="search.xhtml">Onlinekatalog</h:outputLink></li>
+                        </c:if>
+                        <c:if test="#{hoererSession.hasHoerernummer()}">
+                            <li><h:outputLink value="/customer/hoererblistaausleihe.xhtml">Downloads</h:outputLink></li>
+                        </c:if>
+                        <c:if test="#{hoererSession.hasHoerernummer()}">
+                            <li><h:outputLink value="/catalog/wishlist.xhtml">Merkliste</h:outputLink></li>
+                        </c:if>
+                        <c:if test="#{hoererSession.hasHoerernummer()}">
+                            <li><h:outputLink value="/customer/hoererdaten.xhtml">Hörerdaten</h:outputLink></li>
+                        </c:if>
+                        <c:if test="#{hoererSession.hasHoerernummer()}">
+                            <li><h:outputLink value="/customer/hoererbuchausleihe.xhtml">Ausleihe</h:outputLink></li>
+                        </c:if>
+                        <c:if test="#{hoererSession.hasHoerernummer()}">
+                            <li><h:outputLink value="/customer/hoererbestellkarte.xhtml">Bestellkarte</h:outputLink></li>
+                        </c:if>
+                        <c:if test="#{hoererSession.hasHoerernummer()}">
+                            <li><h:outputLink value="/customer/hoererbucharchiv.xhtml">Archiv</h:outputLink></li>
+                        </c:if>
+                    </ul>
+                </h:form>
             </div>
         </div>
-    </div>        
+    </div>
     <div class="content">
         <div class="wrapper">
             <div class="main">
@@ -69,127 +95,126 @@
                 <div class="blog">
                     <div class="leading">
                         <h2 class="contentheading">Bestellung Ihres Warenkorb - Onlinekatalog</h2>
-<bookworm:navigation/>
+                        <bookworm:navigation/>
 
-                            <div class="download-header">
-                                <h3>Auswahltitel für den Download</h3>
-                                <bookworm:basket-table bean="#{digitalBasketBean}" readonly="false"/>
-                            </div>
-                            <div class="post-header">
-                                <h3>Auswahltitel für die Bestellung per Post</h3>
-                                <bookworm:basket-table bean="#{postalBasketBean}" readonly="false"/>
-                            </div>
-                            <h:form>
-                                <h:panelGrid rendered="#{orderBean.itemCount > 0}"
-                                             columns="2"
-                                             styleClass="basket-member"
-                                             columnClasses="basket-order-column1,basket-order-column2"
-                                             rowClasses="basket-order-row1,basket-order-row2">
+                        <div class="download-header">
+                            <h3>Auswahltitel für den Download</h3>
+                            <bookworm:basket-table bean="#{digitalBasketBean}" readonly="false"/>
+                        </div>
+                        <div class="post-header">
+                            <h3>Auswahltitel für die Bestellung per CD</h3>
+                            <bookworm:basket-table bean="#{postalBasketBean}" readonly="false"/>
+                        </div>
+                        <h:form>
+                            <h:panelGrid rendered="#{orderBean.itemCount > 0}"
+                                         columns="2"
+                                         styleClass="basket-member"
+                                         columnClasses="basket-order-column1,basket-order-column2"
+                                         rowClasses="basket-order-row1,basket-order-row2">
 
-                                    <h:panelGroup>
-                                        <div class="basketerror">
-                                            <h:message for="name"/>
-                                        </div>
-                                        <h:outputLabel for="name" value="Name"/>
-                                    </h:panelGroup>
-                                    <h:inputText id="name"
-                                                 value="#{orderBean.orderDetails.name}" styleClass="input_hoerername"
-                                                 required="true" requiredMessage="Bitte geben Sie Ihren Namen ein"
-                                                 validatorMessage="Bitte geben Sie mehr als 3 Zeichen ein">
-                                        <f:validateLength minimum="3"/>
-                                    </h:inputText>
+                                <h:panelGroup>
+                                    <div class="basketerror">
+                                        <h:message for="name"/>
+                                    </div>
+                                    <h:outputLabel for="name" value="Name"/>
+                                </h:panelGroup>
+                                <h:inputText id="name"
+                                             value="#{orderBean.orderDetails.name}" styleClass="input_hoerername"
+                                             required="true" requiredMessage="Bitte geben Sie Ihren Namen ein"
+                                             validatorMessage="Bitte geben Sie mehr als 3 Zeichen ein">
+                                    <f:validateLength minimum="3"/>
+                                </h:inputText>
 
-                                    <h:panelGroup>
-                                        <div class="basketerror">
-                                            <h:message for="hoerernummer"/>
-                                        </div>
-                                        <h:outputLabel for="hoerernummer" value="Hörernummer"/>
-                                    </h:panelGroup>
-                                    <h:inputText id="hoerernummer"
-                                                 value="#{orderBean.orderDetails.hoerernummer}"
-                                                 styleClass="input_hoerernummer"
-                                                 required="true" requiredMessage="Bitte geben Sie Ihre Hörernummer ein"
-                                                 validatorMessage="Bitte geben Sie mehr als 2 Zeichen ein">
-                                        <f:validateLength minimum="2"/>
-                                    </h:inputText>
+                                <h:panelGroup>
+                                    <div class="basketerror">
+                                        <h:message for="hoerernummer"/>
+                                    </div>
+                                    <h:outputLabel for="hoerernummer" value="Hörernummer"/>
+                                </h:panelGroup>
+                                <h:inputText id="hoerernummer"
+                                             value="#{orderBean.orderDetails.hoerernummer}"
+                                             styleClass="input_hoerernummer"
+                                             required="true" requiredMessage="Bitte geben Sie Ihre Hörernummer ein"
+                                             validatorMessage="Bitte geben Sie mehr als 2 Zeichen ein">
+                                    <f:validateLength minimum="2"/>
+                                </h:inputText>
 
-                                    <h:panelGroup>
-                                        <div class="basketerror">
-                                            <h:message for="email"/>
-                                        </div>
-                                        <h:outputLabel for="email" value="Email"/>
-                                    </h:panelGroup>
-                                    <h:inputText id="email"
-                                                 value="#{orderBean.orderDetails.email}" styleClass="input_hoereremail"
-                                                 required="true"
-                                                 requiredMessage="Bitte geben Sie Ihre Email-Adresse ein"
+                                <h:panelGroup>
+                                    <div class="basketerror">
+                                        <h:message for="email"/>
+                                    </div>
+                                    <h:outputLabel for="email" value="Email"/>
+                                </h:panelGroup>
+                                <h:inputText id="email"
+                                             value="#{orderBean.orderDetails.email}" styleClass="input_hoereremail"
+                                             required="true"
+                                             requiredMessage="Bitte geben Sie Ihre Email-Adresse ein"
+                                             validatorMessage="Bitte geben Sie mehr als 5 Zeichen ein">
+                                    <f:validateLength minimum="5"/>
+                                </h:inputText>
+
+                                <h:panelGroup>
+                                    <div class="basketerror">
+                                        <h:message for="bemerkung"/>
+                                    </div>
+                                    <h:outputLabel for="bemerkung" value="Bemerkung"/>
+                                </h:panelGroup>
+                                <h:inputTextarea id="bemerkung"
+                                                 value="#{orderBean.orderDetails.bemerkung}"
+                                                 styleClass="input_bemerkung"
+                                                 rows="5" cols="35"
+                                                 required="false"
                                                  validatorMessage="Bitte geben Sie mehr als 5 Zeichen ein">
-                                        <f:validateLength minimum="5"/>
-                                    </h:inputText>
+                                    <f:validateLength minimum="5"/>
+                                </h:inputTextarea>
 
-                                    <h:panelGroup>
-                                        <div class="basketerror">
-                                            <h:message for="bemerkung"/>
-                                        </div>
-                                        <h:outputLabel for="bemerkung" value="Bemerkung"/>
-                                    </h:panelGroup>
-                                    <h:inputTextarea id="bemerkung"
-                                                     value="#{orderBean.orderDetails.bemerkung}"
-                                                     styleClass="input_bemerkung"
-                                                     rows="5" cols="35"
-                                                     required="false"
-                                                     validatorMessage="Bitte geben Sie mehr als 5 Zeichen ein">
-                                        <f:validateLength minimum="5"/>
-                                    </h:inputTextarea>
+                                <h:panelGroup>
+                                    <div class="basketerror">
+                                        <h:message for="bestellkarteMischen"/>
+                                    </div>
+                                    <h:outputLabel for="bestellkarteMischen" value="Bestellkarte mischen?"/>
+                                </h:panelGroup>
+                                <h:selectBooleanCheckbox id="bestellkarteMischen"
+                                                         value="#{orderBean.orderDetails.bestellkarteMischen}"
+                                                         styleClass="input_bestellkarteMischen"
+                                                         required="false">
+                                </h:selectBooleanCheckbox>
 
-                                    <h:panelGroup>
-                                        <div class="basketerror">
-                                            <h:message for="bestellkarteMischen"/>
-                                        </div>
-                                        <h:outputLabel for="bestellkarteMischen" value="Bestellkarte mischen?"/>
-                                    </h:panelGroup>
-                                    <h:selectBooleanCheckbox id="bestellkarteMischen"
-                                                             value="#{orderBean.orderDetails.bestellkarteMischen}"
-                                                             styleClass="input_bestellkarteMischen"
-                                                             required="false">
-                                    </h:selectBooleanCheckbox>
+                                <h:panelGroup>
+                                    <div class="basketerror">
+                                        <h:message for="alteBestellkarteLoeschen"/>
+                                    </div>
+                                    <h:outputLabel for="alteBestellkarteLoeschen"
+                                                   value="Alte Bestellkarte l&ouml;schen?"/>
+                                </h:panelGroup>
+                                <h:selectBooleanCheckbox id="alteBestellkarteLoeschen"
+                                                         value="#{orderBean.orderDetails.alteBestellkarteLoeschen}"
+                                                         styleClass="input_alteBestellkarteLoeschen"
+                                                         required="false">
+                                </h:selectBooleanCheckbox>
 
-                                    <h:panelGroup>
-                                        <div class="basketerror">
-                                            <h:message for="alteBestellkarteLoeschen"/>
-                                        </div>
-                                        <h:outputLabel for="alteBestellkarteLoeschen"
-                                                       value="Alte Bestellkarte l&ouml;schen?"/>
-                                    </h:panelGroup>
-                                    <h:selectBooleanCheckbox id="alteBestellkarteLoeschen"
-                                                             value="#{orderBean.orderDetails.alteBestellkarteLoeschen}"
-                                                             styleClass="input_alteBestellkarteLoeschen"
-                                                             required="false">
-                                    </h:selectBooleanCheckbox>
+                                <h:outputLabel value=" "/>
+                                <h:commandButton value="Bestellen"
+                                                 onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);"
+                                                 action="#{orderBean.placeOrder}"
+                                                 styleClass="basketsubmit" required="true">
+                                    <f:ajax execute="@form" render="orderSubmitMessage"/>
+                                </h:commandButton>
+                                <h:outputLabel id="orderSubmitMessage" value="#{orderBean.orderSubmitMessage}"/>
 
-                                    <h:outputLabel value=" "/>
-                                    <h:commandButton value="Bestellen"
-                                                     onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);"
-                                                     action="#{orderBean.placeOrder}"
-                                                     styleClass="basketsubmit" required="true">
-                                        <f:ajax execute="@form" render="orderSubmitMessage"/>
-                                    </h:commandButton>
-                                    <h:outputLabel id="orderSubmitMessage" value="#{orderBean.orderSubmitMessage}"/>
-
-                                </h:panelGrid>
-                            </h:form>
+                            </h:panelGrid>
+                        </h:form>
                     </div>
                     <div class="noticetext">
-                        <h3>Hinweise zur Merkliste</h3>
-                        In der Merkliste erhalten Sie eine Übersicht Ihrer vorgemerkten Bestellungen, unterteilt in "Downloads" und "Bestellungen per Post".
-                        Geben Sie für eine  Bestellung Ihre Daten und Ihre Hörernummer in die entsprechenden Felder ein und klicken Sie auf Bestellen.
+                        <h3>Hinweise zum Warenkorb</h3>
+                        Im Warenkorb erhalten Sie eine Übersicht Ihrer Bestellungen, unterteilt in "Downloads" und "Bestellungen per CD". Geben Sie für eine Bestellung Ihre Daten und Ihre Hörernummer in die entsprechenden Felder ein und klicken Sie auf Bestellen.
 
-                        <p>Mit Ihrer Bestellung wird eine Hörbuchdatei inkl. Wasserzeichen generiert. Informationen zum Bearbeitungsstatus und einen Link für den Download erhalten Sie unter "Meine Downloads".</p>
+                        <p>Mit Ihrer Bestellung wird eine Hörbuchdatei inkl. Wasserzeichen generiert. Informationen zum Bearbeitungsstatus und einen Link für den Download erhalten Sie unter "Downloads".</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
     <div id="footer">
         <div class="wrapper">
             <bookworm:footer/>

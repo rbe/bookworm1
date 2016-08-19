@@ -27,10 +27,13 @@
             <h:panelGroup rendered="#{orderBean.displayEmptyBasketLink()}" layout="block" styleClass="basket-count">
                 Warenkorb (0)
             </h:panelGroup>
-            <h:panelGroup rendered="#{orderBean.maxDownloadPerOrderReached}" layout="block" styleClass="basket-count">
-                Sie haben Ihr Limit für die Bestellung von Downloads erreicht!
+            <h:panelGroup rendered="#{orderBean.maxDownloadPerDayReached}" layout="block" styleClass="basket-count">
+                Sie haben Ihr Limit für die Bestellung von Downloads für heute erreicht!
             </h:panelGroup>
-        </h:form>
+            <h:panelGroup rendered="#{orderBean.maxDownloadPerMonthReached}" layout="block" styleClass="basket-count">
+                Sie haben Ihr Limit für die Bestellung von Downloads für diesen Monat erreicht!
+            </h:panelGroup>
+         </h:form>
     </div>
 </cc:implementation>
 

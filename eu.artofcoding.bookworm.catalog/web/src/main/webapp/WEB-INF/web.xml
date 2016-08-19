@@ -46,7 +46,7 @@
     </filter-mapping>
     <filter>
         <filter-name>Hoerernummer Filter</filter-name>
-        <filter-class>eu.artofcoding.bookworm.catalog.web.persistence.HoerernummerFilter</filter-class>
+        <filter-class>eu.artofcoding.bookworm.catalog.web.session.HoerernummerFilter</filter-class>
     </filter>
     <!--
         Servlets
@@ -65,7 +65,8 @@
         Session
     -->
     <session-config>
-        <session-timeout>${container.session.timeout}</session-timeout>
+        <!--<session-tmeout>${container.session.timeout}</session-timeout>-->
+        <session-timeout>60</session-timeout>
         <cookie-config>
             <name>SESSIONID</name>
         </cookie-config>

@@ -46,43 +46,36 @@ public class Hoererstamm implements GenericEntity {
     private String hoerernummer;
 
     @Basic
-    @Column(nullable = false)
-    @Size(min = 1, max = 15)
+    @Column
     private String anrede;
 
     @Basic
-    @Column(nullable = false)
-    //@Size(min = 1, max = 20)
+    @Column
     @TransparentCrypt
     private String vorname;
 
     @Basic
-    @Column(nullable = false)
-    //@Size(min = 1, max = 30)
+    @Column
     @TransparentCrypt
     private String nachname;
 
     @Basic
     @Column
-    //@Size(min = 1, max = 30)
     @TransparentCrypt
     private String name2;
 
     @Basic
-    @Column(nullable = false)
-    //@Size(min = 1, max = 30)
+    @Column
     @TransparentCrypt
     private String strasse;
 
     @Basic
-    @Column(nullable = false)
-    //@Size(min = 1, max = 9)
+    @Column
     @TransparentCrypt
     private String plz;
 
     @Basic
-    @Column(nullable = false)
-    ////@Size(min = 1, max = 20)
+    @Column
     @TransparentCrypt
     private String ort;
 
@@ -112,26 +105,22 @@ public class Hoererstamm implements GenericEntity {
     private Date urlaubBis;
 
     @Basic
-    @Column(nullable = true)
-    //@Size(min = 1, max = 30)
+    @Column
     @TransparentCrypt
     private String urlaubName2;
 
     @Basic
-    @Column(nullable = true)
-    ///@Size(min = 1, max = 30)
+    @Column
     @TransparentCrypt
     private String urlaubStrasse;
 
     @Basic
-    @Column(nullable = true)
-    //@Size(min = 1, max = 9)
+    @Column
     @TransparentCrypt
     private String urlaubPlz;
 
     @Basic
-    @Column(nullable = true)
-    //@Size(min = 1, max = 20)
+    @Column
     @TransparentCrypt
     private String urlaubOrt;
 
@@ -147,7 +136,6 @@ public class Hoererstamm implements GenericEntity {
 
     @Basic
     @Column
-    //@Size(min = 1, max = 20)
     @TransparentCrypt
     private String telefonnummer;
 

@@ -39,13 +39,11 @@ public class Belastung implements GenericEntity {
 
     @Basic
     @Column
-    //@NotNull
     @Temporal(TemporalType.DATE)
     private Date datum;
 
     @Basic
     @Column
-    //@NotNull
     private String boxnummer;
 
     @OneToOne

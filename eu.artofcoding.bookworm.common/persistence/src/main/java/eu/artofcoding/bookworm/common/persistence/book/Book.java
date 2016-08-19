@@ -25,16 +25,24 @@ import java.util.List;
 @Entity
 @NamedQueries({
         //@NamedQuery(name = "findByStichwort", query = "SELECT o FROM Book o WHERE o.autor LIKE :autor OR o.titel LIKE :titel OR o.untertitel LIKE :untertitel OR o.titelnummer = :titelnummer"),
-        @NamedQuery(name = "Book.findByTitelnummer", query = "SELECT o FROM Book o WHERE o.titelnummer = :titelnummer"),
-        @NamedQuery(name = "findByAutor", query = "SELECT o FROM Book o WHERE o.autor LIKE :autor"),
-        @NamedQuery(name = "findByTitel", query = "SELECT o FROM Book o WHERE o.titel LIKE :titel"),
-        @NamedQuery(name = "findByDatum", query = "SELECT o FROM Book o WHERE o.einstelldatum >= :einstelldatum")
+        @NamedQuery(name = "Book.findByTitelnummer",
+                query = "SELECT o FROM Book o" +
+                        " WHERE o.titelnummer = :titelnummer"),
+        @NamedQuery(name = "findByAutor",
+                query = "SELECT o FROM Book o" +
+                        " WHERE o.autor LIKE :autor"),
+        @NamedQuery(name = "findByTitel",
+                query = "SELECT o FROM Book o" +
+                        " WHERE o.titel LIKE :titel"),
+        @NamedQuery(name = "findByDatum",
+                query = "SELECT o FROM Book o" +
+                        " WHERE o.einstelldatum >= :einstelldatum")
 })
 public class Book implements GenericEntity {
 
-	private static final long serialVersionUID = 1L;
+    public static final List<Sachgebiet> SACHGEBIET_ENTITY = new ArrayList<>();
 
-	public static final List<Sachgebiet> SACHGEBIET_ENTITY = new ArrayList<>();
+    private static final long serialVersionUID = 1L;
 
     static {
         SACHGEBIET_ENTITY.add(new Sachgebiet("A", "Klassiker der Weltliteratur"));

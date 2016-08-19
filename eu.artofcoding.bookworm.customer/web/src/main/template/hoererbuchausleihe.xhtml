@@ -17,7 +17,7 @@
 
         <h:form>
             <div class="searchrow">
-                <h3>Suchen Sie innerhalb Ihres Archivs</h3>
+                <h3>Suchen Sie innerhalb Ihrer aktuell auf CD ausgeliehenen Bücher</h3>
                 <h:inputText class="searchtitle" value="#{hoererBuchausleihe.searchTitle}"/>
                 <h:commandButton actionListener="#{hoererBuchausleihe.search}" value="Suchen" styleClass="searchbutton">
                     <f:ajax execute="@form" render="@all"/>
@@ -74,7 +74,7 @@
     </div>
     <div class="noticetext">
         <h3>Hinweise</h3>
-        Hier kann ein Hinweistext stehen..
+        Titel auf SD-Karte und USB-Stick, wie auch Titel die im Download heruntergeladen wurden sind hier nicht aufgeführt, können aber im Archiv eingesehen werden!
     </div>
 
 </ui:define>

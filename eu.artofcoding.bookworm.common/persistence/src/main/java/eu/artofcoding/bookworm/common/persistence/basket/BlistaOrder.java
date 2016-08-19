@@ -21,6 +21,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -35,17 +37,37 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
+@NamedNativeQueries(
+        @NamedNativeQuery(name = "BlistaOrder.countBooksPerMonthByHoerernummer",
+                query = "SELECT COUNT(*) FROM BlistaOrder o" +
+                        " INNER JOIN BlistaOrder_Book bob ON o.id = bob.blistaorder_id" +
+                        " INNER JOIN Book b ON bob.books_titelnummer = b.titelnummer" +
+                        " WHERE o.hoerernummer = ?1" +
+                        " AND MONTH(?2) = MONTH(CURRENT_DATE)" +
+                        " AND YEAR(?3) = YEAR(CURRENT_DATE)")
+)
 @NamedQueries({
         @NamedQuery(name = "BlistaOrder.countByHoerernummer",
                 query = "SELECT COUNT(o) FROM BlistaOrder o WHERE o.hoerernummer = :hoerernummer"),
-        @NamedQuery(name = "BlistaOrder.countBooksByHoerernummer",
-                query = "SELECT COUNT(b) FROM BlistaOrder o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer"),
+        @NamedQuery(name = "BlistaOrder.countBooksPerDayByHoerernummer",
+                query = "SELECT COUNT(b) FROM BlistaOrder o INNER JOIN o.books b" +
+                        " WHERE o.hoerernummer = :hoerernummer" +
+                        " AND o.ausleihdatum = CURRENT_DATE"),
         @NamedQuery(name = "BlistaOrder.findByHoerernummerOrderByAusleihdatum",
-                query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer ORDER BY o.ausleihdatum DESC"),
+                query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b" +
+                        " WHERE o.hoerernummer = :hoerernummer" +
+                        " ORDER BY o.ausleihdatum DESC"),
         @NamedQuery(name = "BlistaOrder.findByHoerernummerAndTitelOrderByAusleihdatum",
-                query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer AND b.titel LIKE :titel ORDER BY o.ausleihdatum DESC"),
+                query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b" +
+                        " WHERE o.hoerernummer = :hoerernummer" +
+                        " AND b.titel LIKE :titel" +
+                        " ORDER BY o.ausleihdatum DESC"),
         @NamedQuery(name = "BlistaOrder.findByHoerernummerAndTitelAndAusleihdatumOrderByAusleihdatum",
-                query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b WHERE o.hoerernummer = :hoerernummer AND b.titel LIKE :titel AND o.ausleihdatum >= :datum ORDER BY o.ausleihdatum DESC")
+                query = "SELECT DISTINCT(o) FROM BlistaOrder o INNER JOIN o.books b" +
+                        " WHERE o.hoerernummer = :hoerernummer" +
+                        " AND b.titel LIKE :titel" +
+                        " AND o.ausleihdatum >= :datum" +
+                        " ORDER BY o.ausleihdatum DESC")
 })
 public class BlistaOrder implements GenericEntity, Serializable {
 
@@ -130,8 +152,6 @@ public class BlistaOrder implements GenericEntity, Serializable {
 
     public void setUserId(final String userId) {
         // See setHoerernummer(String)
-        //this.userId = normalizeUserId(hoerernummer, userId);
-        //this.userId = userId;
     }
 
     public String getEmail() {
@@ -170,7 +190,6 @@ public class BlistaOrder implements GenericEntity, Serializable {
     }
 
     public void abrufkennwort(final String aghNummer, final String abrufkenntwort) {
-        //aghAbrufkennwortMap.put(new AghNummer(aghNummer), new Abrufkennwort(abrufkenntwort));
         aghAbrufkennwortMap.put(aghNummer, abrufkenntwort);
     }
 

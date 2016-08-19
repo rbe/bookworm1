@@ -3,13 +3,13 @@ package eu.artofcoding.bookworm.dls.bestellung.v03.book;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class BookAvailability {
+class BookAvailability {
 
     private String aghNummer;
 
     private boolean available;
 
-    public BookAvailability(final String aghNummer, final boolean available) {
+    BookAvailability(final String aghNummer, final boolean available) {
         this.aghNummer = aghNummer;
         this.available = available;
     }

@@ -59,6 +59,12 @@
             <artifactId>javaee-api</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.openjpa</groupId>
+            <artifactId>openjpa</artifactId>
+            <version>${version.org.apache.openjpa}</version>
+            <scope>provided</scope>
+        </dependency>
         <!-- JavaServer Faces -->
         <dependency>
             <groupId>javax.faces</groupId>

@@ -53,7 +53,7 @@
                     <li><a href="/bookworm/search.xhtml">Onlinekatalog</a></li>
                     <li><a href="/customer/hoererblistaausleihe.xhtml">Downloads</a></li>
                     <li><a href="/catalog/wishlist.xhtml">Merkliste</a></li>
-                    <li><a href="/customer/hoererdaten.xhtml">Meine Daten</a></li>
+                    <li><a href="/customer/hoererdaten.xhtml">Hörerdaten</a></li>
                     <li><a href="/customer/hoererbuchausleihe.xhtml">Ausleihe</a></li>
                     <li><a href="/customer/hoererbestellkarte.xhtml">Bestellkarte</a></li>
                     <li><a href="/customer/hoererbucharchiv.xhtml">Archiv</a></li>
@@ -73,17 +73,18 @@
                             <h:outputText styleClass="line15 baskettext" value="Ihre Bestellung wurde erfolgreich &uuml;bermittelt!"/>
                         </div>
                         <div class="download-header">
-                            <h3>Digitale Bestellung</h3>
+                            <h3>Download</h3>
                             <bookworm:ordered-basket-table basket="#{orderBean.orderedDigitalBasket}" basketType="DigitalBasketBean"/>
                         </div>
                         <div class="post-header">
-                            <h3>Postalische Bestellung</h3>
+                            <h3>Bestellung auf CD</h3>
                             <bookworm:ordered-basket-table basket="#{orderBean.orderedPostalBasket}" basketType="PostalBasketBean"/>
                         </div>
                     </div>
                     <div class="noticetext">
-                        <h3>Platz für Hinweistext</h3>
-                        Hier kann eine Erklärung stehen.....
+                        <h3>Hinweise zu Ihrer Bestellung</h3>
+                        Ihre Bestellung wurde aufgenommen.
+                        <p>Bestellungen auf CD erhalten Sie auf dem gewohntem Versandweg. Download Bestellungen stehen Ihnen in Kürze unter "Downloads" zum herunterladen bereit.</p>
                     </div>
                 </div>
             </div>

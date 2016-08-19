@@ -9,11 +9,13 @@
 package eu.artofcoding.bookworm.catalog.web.view;
 
 import eu.artofcoding.bookworm.catalog.web.messaging.EmailService;
+import eu.artofcoding.bookworm.catalog.web.persistence.BlistaConfigurationDAO;
 import eu.artofcoding.bookworm.catalog.web.persistence.BlistaOrderDAO;
 import eu.artofcoding.bookworm.catalog.web.persistence.BookDAO;
-import eu.artofcoding.bookworm.catalog.web.persistence.HoerernummerFilter;
 import eu.artofcoding.bookworm.catalog.web.persistence.OrderDetails;
+import eu.artofcoding.bookworm.catalog.web.session.HoererSession;
 import eu.artofcoding.bookworm.common.persistence.basket.Basket;
+import eu.artofcoding.bookworm.common.persistence.basket.BlistaConfiguration;
 import eu.artofcoding.bookworm.common.persistence.basket.BlistaOrder;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 import eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen;
@@ -24,11 +26,15 @@ import eu.artofcoding.bookworm.dls.bestellung.restclient.v03.BookOrder;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Instance;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,12 +46,18 @@ public class OrderBean implements Serializable {
     private static final Logger LOGGER = Logger.getLogger(OrderBean.class.getName());
 
     @Inject
-    @HoererValue
-    private Hoererstamm hoererstamm;
+    private HoererSession hoererSession;
+
+    @Inject
+    private BlistaConfigurationDAO blistaConfigurationDAO;
 
     @Inject
     @HoererValue
-    private HoererKennzeichen hoererKennzeichen;
+    private Instance<Hoererstamm> hoererstamm;
+
+    @Inject
+    @HoererValue
+    private Instance<HoererKennzeichen> hoererKennzeichen;
 
     @Inject
     private BookDAO bookDAO;
@@ -67,6 +79,11 @@ public class OrderBean implements Serializable {
     @Inject
     private BlistaRestClient blistaRestClient;
 
+    @Inject
+    private WishlistBean wishlistBean;
+
+    private BlistaConfiguration blistaConfiguration;
+
     private Basket orderedPostalBasket;
 
     private Basket orderedDigitalBasket;
@@ -75,16 +92,40 @@ public class OrderBean implements Serializable {
 
     private String orderSubmitMessage;
 
+    private Boolean dailyLimitReached;
+
+    private Boolean monthlyLimitReached;
+
+    /*
+    @AroundInvoke
+    private Object aroundInvoke(final InvocationContext ctx) {
+        if (null == blistaConfiguration || null == hoererstamm || null == hoererKennzeichen) {
+            postConstruct();
+        }
+        try {
+            return ctx.proceed();
+        } catch (Exception e) {
+            LOGGER.warning("Error calling ctx.proceed in " + this);
+            return null;
+        }
+    }
+    */
+
     @PostConstruct
     private void postConstruct() {
-        if (HoerernummerFilter.hasHoerernummer() && null != hoererstamm) {
-            if (notEmpty(hoererstamm.getVorname()) && notEmpty(hoererstamm.getNachname())) {
-                orderDetails.setName(String.format("%s %s", hoererstamm.getVorname(), hoererstamm.getNachname()));
+        blistaConfiguration = blistaConfigurationDAO.findById(1L);
+        if (hoererSession.hasHoerernummer()) {
+            Hoererstamm hoererstamm = this.hoererstamm.get();
+            if (null != hoererstamm) {
+                if (notEmpty(hoererstamm.getVorname()) && notEmpty(hoererstamm.getNachname())) {
+                    orderDetails.setName(String.format("%s %s", hoererstamm.getVorname(), hoererstamm.getNachname()));
+                }
+                if (notEmpty(hoererstamm.getHoerernummer())) {
+                    orderDetails.setHoerernummer(hoererstamm.getHoerernummer());
+                }
             }
-            if (notEmpty(hoererstamm.getHoerernummer())) {
-                orderDetails.setHoerernummer(hoererstamm.getHoerernummer());
-            }
-            if (notEmpty(hoererKennzeichen.getEmail())) {
+            HoererKennzeichen hoererKennzeichen = this.hoererKennzeichen.get();
+            if (null != hoererKennzeichen && notEmpty(hoererKennzeichen.getEmail())) {
                 orderDetails.setEmail(hoererKennzeichen.getEmail());
             }
         }
@@ -109,52 +150,29 @@ public class OrderBean implements Serializable {
         blistaOrder.setHoerernummer(orderDetails.getHoerernummer());
         blistaOrder.setUserId(orderDetails.getName());
         blistaOrder.setEmail(orderDetails.getEmail());
+        int counter = 0;
         for (Book book : digitalBasketBean.getBasket().getBooks()) {
-            blistaOrder.getBooks().add(book);
-            try {
-                final BookOrder bookOrder = blistaRestClient.placeBillet(blistaOrder.getUserId(), book.getAghNummer());
-                blistaOrder.abrufkennwort(book.getAghNummer(), bookOrder.getAbrufkennwort());
-            } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "", e);
-                blistaOrder.abrufkennwort(book.getAghNummer(), "");
+            if (counter < blistaConfiguration.getMaxDownloadsPerDay()) {
+                blistaOrder.getBooks().add(book);
+                try {
+                    final BookOrder bookOrder = blistaRestClient.placeBillet(blistaOrder.getUserId(), book.getAghNummer());
+                    blistaOrder.abrufkennwort(book.getAghNummer(), bookOrder.getAbrufkennwort());
+                } catch (Exception e) {
+                    LOGGER.log(Level.SEVERE, "", e);
+                    blistaOrder.abrufkennwort(book.getAghNummer(), "");
+                }
+                counter++;
+            } else {
+                wishlistBean.add(book);
+                digitalBasketBean.remove(book);
             }
         }
         blistaOrderDAO.create(blistaOrder);
         emailService.sendMail(orderDetails, (DigitalBasketBean) digitalBasketBean);
         orderedDigitalBasket = digitalBasketBean.getBasket();
         digitalBasketBean.wasOrdered();
-    }
-
-    public int getItemCount() {
-        return postalBasketBean.getItemCount() + digitalBasketBean.getItemCount();
-    }
-
-    public boolean isDigitalOrderPossible() {
-        if (HoerernummerFilter.hasHoerernummer()) {
-            final Map<String, Object> map = new HashMap<String, Object>() {{
-                put("hoerernummer", hoererstamm.getHoerernummer());
-            }};
-            return blistaOrderDAO.countNamedQuery("BlistaOrder.countBooksByHoerernummer", map) < 10;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isMaxDownloadPerOrderReached() {
-        return digitalBasketBean.getItemCount() == 5;
-    }
-
-    public boolean isDisplayDownloadAction(final Book book) {
-        final DigitalBasketBean d = (DigitalBasketBean) digitalBasketBean;
-        return isDigitalOrderPossible() && !isMaxDownloadPerOrderReached() && !d.isInBasket(book) && d.canBeOrderedAsDownload(book);
-    }
-
-    public Basket getOrderedPostalBasket() {
-        return orderedPostalBasket;
-    }
-
-    public Basket getOrderedDigitalBasket() {
-        return orderedDigitalBasket;
+        monthlyLimitReached = null;
+        dailyLimitReached = null;
     }
 
     public String placeOrder() {
@@ -181,6 +199,48 @@ public class OrderBean implements Serializable {
         }
         orderSubmitMessage = null;
         return "basket-thankyou";
+    }
+
+    public int getItemCount() {
+        return postalBasketBean.getItemCount() + digitalBasketBean.getItemCount();
+    }
+
+    public boolean isMaxDownloadPerMonthReached() {
+        if (null == monthlyLimitReached && hoererSession.hasHoerernummer()) {
+            final LocalDate localDate = LocalDate.now();
+            final List<Object> list = Arrays.asList(hoererSession.getHoerernummer(), localDate.getMonthValue(), localDate.getYear());
+            final int i = blistaOrderDAO.countNamedNativeQuery("BlistaOrder.countBooksPerMonthByHoerernummer", list);
+            monthlyLimitReached = i >= blistaConfiguration.getMaxDownloadsPerMonth();
+        } else {
+            monthlyLimitReached = false;
+        }
+        return monthlyLimitReached;
+    }
+
+    public boolean isMaxDownloadPerDayReached() {
+        if (null == dailyLimitReached && hoererSession.hasHoerernummer()) {
+            final Map<String, Object> map = new HashMap<String, Object>() {{
+                put("hoerernummer", hoererSession.getHoerernummer());
+            }};
+            final int i = blistaOrderDAO.countNamedQuery("BlistaOrder.countBooksPerDayByHoerernummer", map);
+            dailyLimitReached = i >= blistaConfiguration.getMaxDownloadsPerDay();
+        } else {
+            dailyLimitReached = false;
+        }
+        return dailyLimitReached;
+    }
+
+    public boolean canBeDownloadedAction(final Book book) {
+        final DigitalBasketBean d = (DigitalBasketBean) digitalBasketBean;
+        return !isMaxDownloadPerDayReached() && !isMaxDownloadPerMonthReached() && d.canBeOrderedAsDownload(book);
+    }
+
+    public Basket getOrderedPostalBasket() {
+        return orderedPostalBasket;
+    }
+
+    public Basket getOrderedDigitalBasket() {
+        return orderedDigitalBasket;
     }
 
     public boolean displayBasketLink() {
