@@ -154,7 +154,8 @@ public class Hoererdaten extends AbstractHoererBean {
     }
 
     public Date getRueckbuchungsdatum() {
-        return getHoererBuchstamm().getRueckbuchungsdatum();
+        final HoererBuchstamm hoererBuchstamm = getHoererBuchstamm();
+        return null != hoererBuchstamm ? hoererBuchstamm.getRueckbuchungsdatum() : null;
     }
 
 }
