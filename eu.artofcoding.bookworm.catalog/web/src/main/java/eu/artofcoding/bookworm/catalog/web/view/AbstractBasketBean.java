@@ -5,11 +5,8 @@ import eu.artofcoding.bookworm.common.persistence.book.Book;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class AbstractBasketBean implements BasketBean {
-
-    protected static final Logger LOGGER = Logger.getLogger(AbstractBasketBean.class.getName());
 
     protected Basket basket = new Basket();
 

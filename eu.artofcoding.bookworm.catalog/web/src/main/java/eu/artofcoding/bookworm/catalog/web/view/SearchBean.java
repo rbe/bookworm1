@@ -51,7 +51,7 @@ public class SearchBean implements Serializable {
     /**
      * Maximum count of search results, > will redirect to page too-many-results.xhtml.
      */
-    private Integer maxSearchResults = 125;
+    private Integer maxSearchResults = 0;
 
     private String stichwort;
 
@@ -154,10 +154,10 @@ public class SearchBean implements Serializable {
     }
 
     private List<QueryParameter> buildQueryParameter(Object input, String[] fields, String connector, boolean checkLength, boolean isNotNull) {
-        List<QueryParameter> queryParameters = new ArrayList<>();
+        final List<QueryParameter> queryParameters = new ArrayList<>();
         if (input instanceof String) {
             // Split search term by space
-            String str = (String) input;
+            final String str = (String) input;
             String[] terms = str.toLowerCase().split(SPACE);
             if (checkLength) {
                 // Cleanup: each term must have a length of at least 3
@@ -166,7 +166,7 @@ public class SearchBean implements Serializable {
             if (terms.length > 0) {
                 // Build list of QueryParameters
                 for (String f : fields) {
-                    QueryParameter q = new QueryParameter(f, terms, LIKE, connector);
+                    final QueryParameter q = new QueryParameter(f, terms, LIKE, connector);
                     queryParameters.add(q);
                     if (isNotNull) {
                         q.setAddIsNotNull(true);
@@ -174,10 +174,10 @@ public class SearchBean implements Serializable {
                 }
             }
         } else if (input instanceof Date) {
-            Date[] date = {(Date) input};
+            final Date[] date = {(Date) input};
             // Build list of QueryParameters
             for (String f : fields) {
-                QueryParameter q = new QueryParameter(f, date, GREATER_EQUAL, connector);
+                final QueryParameter q = new QueryParameter(f, date, GREATER_EQUAL, connector);
                 queryParameters.add(q);
             }
         }
@@ -186,7 +186,6 @@ public class SearchBean implements Serializable {
 
     /**
      * BOOKWORM-1 Variante 1 oder 2?
-     *
      * @return String Navigation case.
      */
     public String search() {
@@ -206,20 +205,17 @@ public class SearchBean implements Serializable {
 
     /**
      * BOOKWORM-1 Variante 1.
-     *
      * @return String Navigation case.
      */
-    public String search1() {
+    private String search1() {
         List<QueryParameter> queryParameters;
         if (null != stichwort && stichwort.length() > 0) {
-            String[] fields1 = {"sachgebiet", "autor", "titel", "untertitel", "erlaeuterung", "suchwoerter", "titelnummer"};
+            final String[] fields1 = {"sachgebiet", "autor", "titel", "untertitel", "erlaeuterung", "suchwoerter", "titelnummer"};
             queryParameters = buildQueryParameter(stichwort, fields1, OR, true, false);
             if (queryParameters.size() > 0) {
-                //bookDAO.setEntityManager(entityManager);
                 paginateableSearch = new PaginateableSearch<>(bookDAO);
-                // Execute search
                 setSearchTerm(stichwort);
-                QueryConfiguration queryConfiguration = new QueryConfiguration();
+                final QueryConfiguration queryConfiguration = new QueryConfiguration();
                 queryConfiguration.setQueryVariant(QueryVariant.VARIANT_2);
                 queryConfiguration.setQueryParameters(queryParameters);
                 queryConfiguration.setTableName("Book");
@@ -233,11 +229,10 @@ public class SearchBean implements Serializable {
 
     /**
      * BOOKWORM-1 Variante 2.
-     *
      * @return String Navigation case.
      */
-    public String search2() {
-        List<QueryParameter> queryParameters = new ArrayList<>();
+    private String search2() {
+        final List<QueryParameter> queryParameters = new ArrayList<>();
         if (null != sachgebiet && sachgebiet.length() > 0) {
             queryParameters.addAll(buildQueryParameter(sachgebiet, new String[]{"sachgebiet"}, OR, false, false));
         }
@@ -248,9 +243,9 @@ public class SearchBean implements Serializable {
             queryParameters.addAll(buildQueryParameter(titel, new String[]{"titel"}, AND, true, false));
         }
         if (null != datum && datum.length() > 0) {
-            SimpleDateFormat sdfGer = new SimpleDateFormat("dd.MM.yyyy");
+            final SimpleDateFormat sdfGer = new SimpleDateFormat("dd.MM.yyyy");
             try {
-                Date _datum = sdfGer.parse(datum);
+                final Date _datum = sdfGer.parse(datum);
                 queryParameters.addAll(buildQueryParameter(_datum, new String[]{"einstelldatum"}, OR, true, false));
             } catch (ParseException e) {
                 // ignore
@@ -260,7 +255,7 @@ public class SearchBean implements Serializable {
             paginateableSearch = new PaginateableSearch<>(bookDAO);
             // Execute search
             setSearchTerm(sachgebiet, autor, titel, datum);
-            QueryConfiguration queryConfiguration = new QueryConfiguration();
+            final QueryConfiguration queryConfiguration = new QueryConfiguration();
             queryConfiguration.setQueryVariant(QueryVariant.VARIANT_1);
             queryConfiguration.setQueryParameters(queryParameters);
             paginateableSearch.executeSearch(queryConfiguration, AND, new String[]{"o.autor", "o.titel"});

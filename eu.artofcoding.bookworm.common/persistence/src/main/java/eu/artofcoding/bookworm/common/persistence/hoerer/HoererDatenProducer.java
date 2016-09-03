@@ -8,11 +8,6 @@
 
 package eu.artofcoding.bookworm.common.persistence.hoerer;
 
-import eu.artofcoding.bookworm.common.persistence.hoerer.Bestellkarte;
-import eu.artofcoding.bookworm.common.persistence.hoerer.BestellkarteArchiv;
-import eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstamm;
-import eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen;
-import eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm;
 import eu.artofcoding.bookworm.common.persistence.qualifier.HoererCount;
 import eu.artofcoding.bookworm.common.persistence.qualifier.HoererValue;
 import eu.artofcoding.bookworm.common.persistence.qualifier.Hoerernummer;
@@ -30,11 +25,11 @@ public final class HoererDatenProducer {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Inject
-    @Hoerernummer
-    private String hoerernummer;
+    private final String hoerernummer;
 
-    private HoererDatenProducer() {
+    @Inject
+    private HoererDatenProducer(final @Hoerernummer String hoerernummer) {
+        this.hoerernummer = hoerernummer;
     }
 
     @Produces

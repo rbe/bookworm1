@@ -1,6 +1,8 @@
 package eu.artofcoding.bookworm.catalog.web.persistence;
 
-public final class OrderDetails {
+import java.io.Serializable;
+
+public final class OrderDetails implements Serializable {
 
     private String name;
 
@@ -14,6 +16,9 @@ public final class OrderDetails {
 
     private Boolean alteBestellkarteLoeschen;
 
+    /**
+     * Provide default constructor.
+     */
     public OrderDetails() {
     }
 

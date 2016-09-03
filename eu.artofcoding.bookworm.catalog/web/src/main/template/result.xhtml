@@ -130,24 +130,24 @@
                                             <f:ajax execute="@form" render="@all"/>
                                         </h:commandLink>
 
-                                        <h:commandLink rendered="#{searchBean.hasHoerernummer() and orderBean.canBeDownloadedAction(book)}"
+                                        <h:commandLink rendered="#{orderBean.canBeDownloadedAction(book)}"
                                                        styleClass="basket-order-link download"
                                                        action="#{digitalBasketBean.add(book)}" value="Download">
                                             <f:ajax execute="@form" render="@all"/>
                                         </h:commandLink>
-                                        <h:commandLink rendered="#{searchBean.hasHoerernummer() and digitalBasketBean.canBeRemovedFromBasket(book)}"
+                                        <h:commandLink rendered="#{digitalBasketBean.canBeRemovedFromBasket(book)}"
                                                        styleClass="basket-remove-link clr"
                                                        action="#{digitalBasketBean.remove(book)}"
                                                        value="Aus Warenkorb löschen">
                                             <f:ajax execute="@form" render="@all"/>
                                         </h:commandLink>
 
-                                        <h:commandLink rendered="#{searchBean.hasHoerernummer() and !wishlistBean.isInWishlist(book)}"
+                                        <h:commandLink rendered="#{wishlistBean.canBePutToWishlist() and !wishlistBean.isInWishlist(book)}"
                                                        styleClass="basket-order-link wishlist"
                                                        action="#{wishlistBean.add(book)}" value="Merken">
                                             <f:ajax execute="@form" render="@all"/>
                                         </h:commandLink>
-                                        <h:commandLink rendered="#{searchBean.hasHoerernummer() and wishlistBean.isInWishlist(book)}"
+                                        <h:commandLink rendered="#{wishlistBean.canBePutToWishlist() and wishlistBean.isInWishlist(book)}"
                                                        styleClass="basket-remove-link clr"
                                                        action="#{wishlistBean.remove(book)}"
                                                        value="Aus Merkliste löschen">

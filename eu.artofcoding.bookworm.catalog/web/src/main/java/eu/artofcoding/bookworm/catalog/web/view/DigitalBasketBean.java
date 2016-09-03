@@ -8,8 +8,11 @@
 
 package eu.artofcoding.bookworm.catalog.web.view;
 
+import eu.artofcoding.bookworm.catalog.web.session.HoererSession;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 import eu.artofcoding.bookworm.dls.bestellung.restclient.v03.BlistaRestClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -22,7 +25,12 @@ import java.util.Map;
 @SessionScoped
 public class DigitalBasketBean extends AbstractBasketBean {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DigitalBasketBean.class);
+
     private final Map<String, Boolean> availableAsDownloadMap = new HashMap<>();
+
+    @Inject
+    private HoererSession hoererSession;
 
     @Inject
     private BlistaRestClient blistaRestClient;
@@ -33,7 +41,8 @@ public class DigitalBasketBean extends AbstractBasketBean {
                 final boolean bookAvailable = blistaRestClient.bookAvailable(book.getAghNummer());
                 availableAsDownloadMap.put(book.getAghNummer(), bookAvailable);
             } catch (Exception e) {
-                // ignored, service not available
+                // ignored, service not available at this time
+                LOGGER.warn("Cannot talk to bookworm.dls");
             }
         }
         if (availableAsDownloadMap.containsKey(book.getAghNummer())) {
@@ -46,13 +55,13 @@ public class DigitalBasketBean extends AbstractBasketBean {
     public boolean canBeOrderedAsDownload(final Book book) {
         final boolean inBasket = basket.isInBasket(book);
         final boolean bookAvailable = cachedBookAvailable(book);
-        return !inBasket && bookAvailable;
+        return hoererSession.hasHoerernummer() && !inBasket && bookAvailable;
     }
 
     public boolean canBeRemovedFromBasket(final Book book) {
         final boolean inBasket = basket.isInBasket(book);
         final boolean bookAvailable = cachedBookAvailable(book);
-        return inBasket && bookAvailable;
+        return hoererSession.hasHoerernummer() && inBasket && bookAvailable;
     }
 
 }

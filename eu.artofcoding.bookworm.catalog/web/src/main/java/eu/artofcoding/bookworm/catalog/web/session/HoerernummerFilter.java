@@ -16,9 +16,12 @@ public class HoerernummerFilter implements Filter {
 
     private static final String HNR_KEY = "hnr";
 
+    @Override
     public void destroy() {
+        /* Do nothing */
     }
 
+    @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         final HttpSession session = ((HttpServletRequest) req).getSession();
         final Object sessionHnr = session.getAttribute(HNR_KEY);
@@ -29,7 +32,9 @@ public class HoerernummerFilter implements Filter {
         chain.doFilter(req, resp);
     }
 
+    @Override
     public void init(FilterConfig config) throws ServletException {
+        /* Do nothing */
     }
 
 }

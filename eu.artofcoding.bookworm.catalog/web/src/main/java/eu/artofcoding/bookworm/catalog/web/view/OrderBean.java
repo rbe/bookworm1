@@ -53,11 +53,11 @@ public class OrderBean implements Serializable {
 
     @Inject
     @HoererValue
-    private Instance<Hoererstamm> hoererstamm;
+    private transient Instance<Hoererstamm> hoererstamm;
 
     @Inject
     @HoererValue
-    private Instance<HoererKennzeichen> hoererKennzeichen;
+    private transient Instance<HoererKennzeichen> hoererKennzeichen;
 
     @Inject
     private BookDAO bookDAO;
@@ -95,21 +95,6 @@ public class OrderBean implements Serializable {
     private Boolean dailyLimitReached;
 
     private Boolean monthlyLimitReached;
-
-    /*
-    @AroundInvoke
-    private Object aroundInvoke(final InvocationContext ctx) {
-        if (null == blistaConfiguration || null == hoererstamm || null == hoererKennzeichen) {
-            postConstruct();
-        }
-        try {
-            return ctx.proceed();
-        } catch (Exception e) {
-            LOGGER.warning("Error calling ctx.proceed in " + this);
-            return null;
-        }
-    }
-    */
 
     @PostConstruct
     private void postConstruct() {
@@ -232,7 +217,7 @@ public class OrderBean implements Serializable {
 
     public boolean canBeDownloadedAction(final Book book) {
         final DigitalBasketBean d = (DigitalBasketBean) digitalBasketBean;
-        return !isMaxDownloadPerDayReached() && !isMaxDownloadPerMonthReached() && d.canBeOrderedAsDownload(book);
+        return hoererSession.hasHoerernummer() && !isMaxDownloadPerDayReached() && !isMaxDownloadPerMonthReached() && d.canBeOrderedAsDownload(book);
     }
 
     public Basket getOrderedPostalBasket() {

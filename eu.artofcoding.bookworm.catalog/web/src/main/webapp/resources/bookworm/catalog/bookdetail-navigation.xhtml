@@ -11,17 +11,17 @@
     <div class="itemtobasket">
         <h:commandLink rendered="#{!postalBasketBean.isInBasket(searchBean.selectedBook)}"
                        styleClass="basket-order-link" action="#{postalBasketBean.add(searchBean.selectedBook)}"
-                       value="Per Post bestellen"/>
+                       value="CD bestellen"/>
         <h:commandLink rendered="#{postalBasketBean.isInBasket(searchBean.selectedBook)}"
                        styleClass="basket-remove-link" action="#{postalBasketBean.remove(searchBean.selectedBook)}"
-                       value="Nicht mehr per Post bestellen"/>
+                       value="CD Bestellung löschen"/>
 
         <h:commandLink rendered="#{digitalBasketBean.canBeOrderedAsDownload(searchBean.selectedBook)}"
                        styleClass="basket-order-link" action="#{digitalBasketBean.add(searchBean.selectedBook)}"
-                       value="Per Download bestellen"/>
+                       value="Download bestellen"/>
         <h:commandLink rendered="#{digitalBasketBean.canBeRemovedFromBasket(searchBean.selectedBook)}"
                        styleClass="basket-remove-link" action="#{digitalBasketBean.remove(searchBean.selectedBook)}"
-                       value="Nicht mehr als Download bestellen"/>
+                       value="Download löschen"/>
    </div>
     <div class="nextdetail">
         <h:commandLink action="#{searchBean.previousBook}" value="vorheriger Titel"/>

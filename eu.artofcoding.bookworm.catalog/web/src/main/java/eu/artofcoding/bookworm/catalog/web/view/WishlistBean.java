@@ -102,8 +102,13 @@ public class WishlistBean implements Serializable {
         return wishlist.getBooks();
     }
 
+    public boolean canBePutToWishlist() {
+        return hoererSession.hasHoerernummer();
+    }
+
     public boolean isInWishlist(final Book book) {
-        return wishlist.getBooks().stream().anyMatch(b -> b.getTitelnummer().equals(book.getTitelnummer()));
+        return wishlist.getBooks().stream().
+                anyMatch(b -> b.getTitelnummer().equals(book.getTitelnummer()));
     }
 
 }
