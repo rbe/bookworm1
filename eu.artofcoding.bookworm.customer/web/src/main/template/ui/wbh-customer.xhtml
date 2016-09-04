@@ -36,6 +36,11 @@
                 <h2 class="unsichtbar">WBH Logo</h2>
                 <a title="Link zur Startseite" href="https://www.wbh-online.de"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="/templates/wbh/images/logo_wbh.gif"/></a>
             </div>
+            <h:form>
+                <h:commandLink action="#{hoererSession.logout}">
+                    <div class="logout">Ausloggen</div>
+                </h:commandLink>
+            </h:form>
         </div>
     </div>
     <div class="slider" aria-hidden="true">
@@ -49,17 +54,18 @@
             <div class="topmenu">
                 <a name="topmenu"></a>
                 <h2 class="unsichtbar">Top-Navigation</h2>
-                <ul>
-                    <li><h:outputLink value="/">Startseite</h:outputLink></li>
-                    <li><h:outputLink value="/login.html">Login</h:outputLink></li>
-                    <li><a href="/bookworm/search.xhtml">Onlinekatalog</a></li>
-                    <li><h:outputLink value="hoererblistaausleihe.xhtml">Downloads</h:outputLink></li>
-                    <li><a href="/catalog/wishlist.xhtml">Merkliste</a></li>
-                     <li><h:outputLink value="hoererdaten.xhtml">Hörerdaten</h:outputLink></li>
-                    <li><h:outputLink value="hoererbuchausleihe.xhtml">Ausleihe</h:outputLink></li>
-                    <li><h:outputLink value="hoererbestellkarte.xhtml">Bestellkarte</h:outputLink></li>
-                    <li><h:outputLink value="hoererbucharchiv.xhtml">Archiv</h:outputLink></li>
-                </ul>
+                <h:form>
+                    <ul>
+                        <li><h:outputLink value="/">Startseite</h:outputLink></li>
+                        <li><a href="/catalog/search.xhtml">Onlinekatalog</a></li>
+                        <li><h:outputLink value="hoererblistaausleihe.xhtml">Downloads</h:outputLink></li>
+                        <li><a href="/catalog/wishlist.xhtml">Merkliste</a></li>
+                        <li><h:outputLink value="hoererdaten.xhtml">Hörerdaten</h:outputLink></li>
+                        <li><h:outputLink value="hoererbuchausleihe.xhtml">Ausleihe</h:outputLink></li>
+                        <li><h:outputLink value="hoererbestellkarte.xhtml">Bestellkarte</h:outputLink></li>
+                        <li><h:outputLink value="hoererbucharchiv.xhtml">Archiv</h:outputLink></li>
+                    </ul>
+                </h:form>
             </div>
         </div>
     </div>

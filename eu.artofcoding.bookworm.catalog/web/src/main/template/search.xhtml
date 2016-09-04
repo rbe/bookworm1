@@ -3,7 +3,7 @@
       xmlns="https://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:o="http://omnifaces.org/ui"
-      xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm/catalog">
+      xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm/catalog" xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <meta name="robots" content="index, follow"/>
@@ -62,21 +62,36 @@
             <div class="topmenu">
                 <a name="topmenu"></a>
                 <h2 class="unsichtbar">Top-Navigation</h2>
-                <ul class="nav menu">
-                    <li>
-                        <a name="mainmenu"></a>
-                        <h2 class="unsichtbar">zurück zum Hauptmenu</h2>
-                        <a href="/">Startseite</a>
-                    </li>
-                    <li><a href="/login.html">Login</a></li>
-                    <li><a href="/bookworm/search.xhtml">Onlinekatalog</a></li>
-                    <li><a href="/customer/hoererblistaausleihe.xhtml">Downloads</a></li>
-                    <li><a href="/catalog/wishlist.xhtml">Merkliste</a></li>
-                    <li><a href="/customer/hoererdaten.xhtml">Hörerdaten</a></li>
-                    <li><a href="/customer/hoererbuchausleihe.xhtml">Ausleihe</a></li>
-                    <li><a href="/customer/hoererbestellkarte.xhtml">Bestellkarte</a></li>
-                    <li><a href="/customer/hoererbucharchiv.xhtml">Archiv</a></li>
-                </ul>
+                <h:form>
+                    <ul class="nav menu">
+                        <li><a href="/">Startseite</a></li>
+                        <c:if test="#{!hoererSession.hasHoerernummer()}">
+                            <li><h:outputLink value="/login.html">Login</h:outputLink></li>
+                        </c:if>
+                        <c:if test="#{hoererSession.hasHoerernummer()}">
+                            <li><h:commandLink action="#{hoererSession.logout}">Logout</h:commandLink></li>
+                        </c:if>
+                        <li><h:outputLink value="search.xhtml">Onlinekatalog</h:outputLink></li>
+                        <c:if test="#{hoererSession.hasHoerernummer()}">
+                            <li><h:outputLink value="/customer/hoererblistaausleihe.xhtml">Downloads</h:outputLink></li>
+                        </c:if>
+                        <c:if test="#{hoererSession.hasHoerernummer()}">
+                            <li><h:outputLink value="/catalog/wishlist.xhtml">Merkliste</h:outputLink></li>
+                        </c:if>
+                        <c:if test="#{hoererSession.hasHoerernummer()}">
+                            <li><h:outputLink value="/customer/hoererdaten.xhtml">Hörerdaten</h:outputLink></li>
+                        </c:if>
+                        <c:if test="#{hoererSession.hasHoerernummer()}">
+                            <li><h:outputLink value="/customer/hoererbuchausleihe.xhtml">Ausleihe</h:outputLink></li>
+                        </c:if>
+                        <c:if test="#{hoererSession.hasHoerernummer()}">
+                            <li><h:outputLink value="/customer/hoererbestellkarte.xhtml">Bestellkarte</h:outputLink></li>
+                        </c:if>
+                        <c:if test="#{hoererSession.hasHoerernummer()}">
+                            <li><h:outputLink value="/customer/hoererbucharchiv.xhtml">Archiv</h:outputLink></li>
+                        </c:if>
+                    </ul>
+                </h:form>
             </div>
         </div>
     </div>        

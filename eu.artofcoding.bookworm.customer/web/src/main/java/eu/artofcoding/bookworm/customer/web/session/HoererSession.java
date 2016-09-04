@@ -13,26 +13,30 @@ import eu.artofcoding.bookworm.common.persistence.book.Book;
 import eu.artofcoding.bookworm.common.persistence.hoerer.Belastung;
 import eu.artofcoding.bookworm.common.persistence.hoerer.Bestellkarte;
 import eu.artofcoding.bookworm.common.persistence.hoerer.BestellkarteArchiv;
-import eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstamm;
-import eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen;
-import eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm;
 import eu.artofcoding.bookworm.common.persistence.hoerer.BestellkarteArchivDAO;
 import eu.artofcoding.bookworm.common.persistence.hoerer.BestellkarteDAO;
+import eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstamm;
 import eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstammDAO;
 import eu.artofcoding.bookworm.common.persistence.hoerer.HoererCount;
+import eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen;
 import eu.artofcoding.bookworm.common.persistence.hoerer.HoererValue;
 import eu.artofcoding.bookworm.common.persistence.hoerer.Hoerernummer;
+import eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm;
 import eu.artofcoding.bookworm.customer.web.persistence.BlistaOrderDAO;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Named
 @SessionScoped
 public class HoererSession implements Serializable {
 
@@ -150,6 +154,12 @@ public class HoererSession implements Serializable {
 
     public List<BlistaOrder> findBlistaOrderByTitleOrDatum(final String titel, final Date datum) {
         return blistaOrderDAO.findByTitleOrDatum(hoerernummer, titel, datum);
+    }
+
+    public String logout() {
+        final HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        req.getSession().invalidate();
+        return "/login.html";
     }
 
 }

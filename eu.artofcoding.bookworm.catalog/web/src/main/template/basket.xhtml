@@ -61,9 +61,7 @@
                         <c:if test="#{hoererSession.hasHoerernummer()}">
                             <li><h:commandLink action="#{hoererSession.logout}">Logout</h:commandLink></li>
                         </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="search.xhtml">Onlinekatalog</h:outputLink></li>
-                        </c:if>
+                        <li><h:outputLink value="search.xhtml">Onlinekatalog</h:outputLink></li>
                         <c:if test="#{hoererSession.hasHoerernummer()}">
                             <li><h:outputLink value="/customer/hoererblistaausleihe.xhtml">Downloads</h:outputLink></li>
                         </c:if>
