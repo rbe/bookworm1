@@ -6,13 +6,12 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.catalog.web.view;
+package eu.artofcoding.bookworm.catalog.web.persistence;
 
 import eu.artofcoding.beetlejuice.api.persistence.QueryConfiguration;
 import eu.artofcoding.beetlejuice.api.persistence.QueryParameter;
 import eu.artofcoding.beetlejuice.api.persistence.QueryVariant;
 import eu.artofcoding.beetlejuice.persistence.PaginateableSearch;
-import eu.artofcoding.bookworm.catalog.web.persistence.BookDAO;
 import eu.artofcoding.bookworm.catalog.web.session.HoererSession;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 import eu.artofcoding.bookworm.common.persistence.book.Sachgebiet;

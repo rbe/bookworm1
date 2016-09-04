@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.common.persistence.qualifier;
+package eu.artofcoding.bookworm.common.persistence.hoerer;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.ElementType;

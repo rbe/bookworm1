@@ -20,7 +20,7 @@ import eu.artofcoding.bookworm.common.persistence.basket.BlistaOrder;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
 import eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen;
 import eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm;
-import eu.artofcoding.bookworm.common.persistence.qualifier.HoererValue;
+import eu.artofcoding.bookworm.common.persistence.hoerer.HoererValue;
 import eu.artofcoding.bookworm.dls.bestellung.restclient.v03.BlistaRestClient;
 import eu.artofcoding.bookworm.dls.bestellung.restclient.v03.BookOrder;
 

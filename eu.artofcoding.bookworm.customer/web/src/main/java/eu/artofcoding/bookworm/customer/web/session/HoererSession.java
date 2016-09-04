@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.customer.web.view;
+package eu.artofcoding.bookworm.customer.web.session;
 
 import eu.artofcoding.bookworm.common.persistence.basket.BlistaOrder;
 import eu.artofcoding.bookworm.common.persistence.book.Book;
@@ -19,9 +19,10 @@ import eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm;
 import eu.artofcoding.bookworm.common.persistence.hoerer.BestellkarteArchivDAO;
 import eu.artofcoding.bookworm.common.persistence.hoerer.BestellkarteDAO;
 import eu.artofcoding.bookworm.common.persistence.hoerer.HoererBuchstammDAO;
-import eu.artofcoding.bookworm.common.persistence.qualifier.HoererCount;
-import eu.artofcoding.bookworm.common.persistence.qualifier.HoererValue;
-import eu.artofcoding.bookworm.common.persistence.qualifier.Hoerernummer;
+import eu.artofcoding.bookworm.common.persistence.hoerer.HoererCount;
+import eu.artofcoding.bookworm.common.persistence.hoerer.HoererValue;
+import eu.artofcoding.bookworm.common.persistence.hoerer.Hoerernummer;
+import eu.artofcoding.bookworm.customer.web.persistence.BlistaOrderDAO;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;

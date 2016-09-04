@@ -8,6 +8,8 @@
 
 package eu.artofcoding.bookworm.customer.web.view;
 
+import eu.artofcoding.bookworm.customer.web.session.HoererSession;
+
 import javax.inject.Inject;
 
 public class AbstractHoererBean {

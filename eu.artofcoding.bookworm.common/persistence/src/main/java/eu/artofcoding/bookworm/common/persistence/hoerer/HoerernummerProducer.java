@@ -8,8 +8,6 @@
 
 package eu.artofcoding.bookworm.common.persistence.hoerer;
 
-import eu.artofcoding.bookworm.common.persistence.qualifier.Hoerernummer;
-
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;

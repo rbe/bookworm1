@@ -23,7 +23,7 @@ public class HoererSession implements Serializable {
 
     public String logout() {
         final HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        req.getSession().removeAttribute("hnr");
+        req.getSession().invalidate();
         return "/login.html";
     }
 

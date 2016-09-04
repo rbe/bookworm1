@@ -8,10 +8,6 @@
 
 package eu.artofcoding.bookworm.common.persistence.hoerer;
 
-import eu.artofcoding.bookworm.common.persistence.qualifier.HoererCount;
-import eu.artofcoding.bookworm.common.persistence.qualifier.HoererValue;
-import eu.artofcoding.bookworm.common.persistence.qualifier.Hoerernummer;
-
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;

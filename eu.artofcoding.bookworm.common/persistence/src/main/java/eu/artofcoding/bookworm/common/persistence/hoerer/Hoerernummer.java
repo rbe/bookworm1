@@ -6,7 +6,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package eu.artofcoding.bookworm.common.persistence.qualifier;
+package eu.artofcoding.bookworm.common.persistence.hoerer;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.ElementType;
@@ -14,8 +14,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Qualifier
-public @interface HoererValue {
+public @interface Hoerernummer {
 }
