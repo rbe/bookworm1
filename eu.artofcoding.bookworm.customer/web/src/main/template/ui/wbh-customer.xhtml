@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html lang="de"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -7,11 +7,13 @@
 <h:head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <meta name="robots" content="index, follow"/>
-    <meta name="keywords" content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
+    <meta name="keywords"
+          content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
     <meta name="HandheldFriendly" content="True"/>
     <meta name="MobileOptimized" content="320"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
+    <meta name="description"
+          content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
     <meta name="generator" content="WBH - Westfälische Blindenhörbücherei - Münster"/>
     <title>Hörerdaten - Westdeutsche Blindenhörbücherei Münster</title>
     <link href="/templates/oneweb/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
@@ -23,32 +25,65 @@
     <o:conditionalComment if="lte IE 9">
         <link href="js/html5shiv.js" rel="stylesheet" type="text/css"/>
     </o:conditionalComment>
+    <h:outputScript library="js" name="jquery-3.1.1.min.js"/>
 </h:head>
 <h:body>
     <div class="header">
         <div class="wrapper">
-            <span class="unsichtbar">
-                <a name="top"></a>
-                <a accesskey="2" href="#content">zum Inhalt springen</a><br/>
-                <a accesskey="3" href="#topmenu">zur Top-Navigation springen</a>
-            </span>
-            <div class="logo">
-                <h2 class="unsichtbar">WBH Logo</h2>
-                <a title="Link zur Startseite" href="https://www.wbh-online.de"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="/templates/wbh/images/logo_wbh.gif"/></a>
-            </div>
-            <h:form>
-                <h:commandLink action="#{hoererSession.logout}">
-                    <div class="logout">Ausloggen</div>
-                </h:commandLink>
-            </h:form>
+            <header role="banner" class="content">
+                <span class="unsichtbar">
+                    <a name="top"></a>
+                    <a href="#content" accesskey="2">zum Inhalt springen</a><br/>
+                    <a href="#topmenu" accesskey="3">zur Top-Navigation springen</a><br/>
+                    <a href="#mainmenu" accesskey="4">zum Hauptmenü springen</a><br/>
+                    <a href="#logout" accesskey="5">Abmelden/Ausloggen</a>
+                </span>
+                <div id="logoandfontsize">
+                    <div class="logo">
+                        <h2 class="unsichtbar">WBH Logo</h2>
+                        <a title="Link zur Startseite" href="https://www.wbh-online.de"><img width="150" height="47"
+                                                                                             border="0"
+                                                                                             alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster"
+                                                                                             src="/templates/wbh/images/logo_wbh.gif"/></a>
+                    </div>
+                    <a name="logout"></a>
+                    <h2 class="unsichtbar">Abmelden/Logout</h2>
+                    <div class="logout button btn btn-primary">Ausloggen</div>
+                    <script language="JavaScript" type="text/javascript">
+                        //<![CDATA[
+                        $(document).ready(function ($) {
+                            $("div.logout").click(function () {
+                                $.when($.get("/catalog/logout", function (data) {
+                                            console.log("Catalog logout was performed.");
+                                        }),
+                                        $.get("/customer/logout", function (data) {
+                                            console.log("Customer logout was performed.");
+                                        }),
+                                        $.get("/index.php?option=com_comprofiler&task=logout", function (data) {
+                                            console.log("Joomla logout was performed.");
+                                        }))
+                                        .then(function () {
+                                            console.log("redirect");
+                                            //window.location.replace("/");
+                                        }, function () {
+                                            console.log("error");
+                                            //window.location.replace("/");
+                                        });
+                            });
+                        });
+                        //]]>
+                    </script>
+                </div>
+            </header>
         </div>
     </div>
-    <div class="slider" aria-hidden="true">
+    <div class="slider">
         <div class="wrapper">
             <h2 class="unsichtbar">WBH Grafikbanner</h2>
-            <img src="/images/stories/header-start_1.jpg" alt="Westdeutsche Blindenhörbücherei e.V."/>
+            <img src="/images/stories/header-start_1.jpg" alt="Grafik Westdeutsche Blindenhörbücherei e.V., Münster"/>
         </div>
     </div>
+
     <div class="navigation">
         <div class="wrapper">
             <div class="topmenu">
@@ -57,9 +92,9 @@
                 <h:form>
                     <ul>
                         <li><h:outputLink value="/">Startseite</h:outputLink></li>
-                        <li><a href="/catalog/search.xhtml">Onlinekatalog</a></li>
+                        <li><a href="/catalog/search.xhtml?hnr=${hoererSession.hoerernummer}">Onlinekatalog</a></li>
                         <li><h:outputLink value="hoererblistaausleihe.xhtml">Downloads</h:outputLink></li>
-                        <li><a href="/catalog/wishlist.xhtml">Merkliste</a></li>
+                        <li><a href="/catalog/wishlist.xhtml?hnr=${hoererSession.hoerernummer}">Merkliste</a></li>
                         <li><h:outputLink value="hoererdaten.xhtml">Hörerdaten</h:outputLink></li>
                         <li><h:outputLink value="hoererbuchausleihe.xhtml">Ausleihe</h:outputLink></li>
                         <li><h:outputLink value="hoererbestellkarte.xhtml">Bestellkarte</h:outputLink></li>
@@ -77,7 +112,7 @@
                 <h2 class="unsichtbar">Inhalt</h2>
                 <div class="blog">
 
-                        <ui:insert name="container"/>
+                    <ui:insert name="container"/>
 
                 </div>
             </div>
@@ -86,15 +121,15 @@
     <div id="footer">
         <div class="wrapper">
             <h1 class="unsichtbar"> Fusszeile </h1>
-                <div style="text-align: right;">
+            <div style="text-align: right;">
                     <span style="float: left;">
                         <a accesskey="1" href="#top">zum Seitenanfang</a>
                     </span>
-                    <span style="float: right;">
+                <span style="float: right;">
                         © 2016 Westdeutsche Blindenhörbücherei e.V. |
                         <a href="https://www.wbh-online.de/impressum.html" title="Impressum">Impressum</a>
-                    </span>
-                </div>
+                </span>
+            </div>
         </div>
     </div>
 
