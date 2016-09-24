@@ -63,7 +63,7 @@ public final class XmlRowParser {
                 final int eventWithinRow = reader.next();
                 final boolean startElement = XMLStreamConstants.START_ELEMENT == eventWithinRow;
                 final boolean endElement = XMLStreamConstants.END_ELEMENT == eventWithinRow;
-                final boolean endOfRow = endElement && reader.getLocalName().equals("row");
+                final boolean endOfRow = endElement && "row".equals(reader.getLocalName());
                 final boolean hasData = XMLStreamConstants.CHARACTERS == eventWithinRow && reader.getText().trim().length() > 0;
                 if (startElement) {
                     localName = reader.getLocalName();
@@ -85,7 +85,7 @@ public final class XmlRowParser {
         try {
             while (reader.hasNext()) {
                 final int event = reader.next();
-                final boolean startOfRow = XMLStreamConstants.START_ELEMENT == event && reader.getLocalName().equals("row");
+                final boolean startOfRow = XMLStreamConstants.START_ELEMENT == event && "row".equals(reader.getLocalName());
                 if (startOfRow) {
                     final XmlRow xmlRow = convertToXmlRow(reader);
                     try {

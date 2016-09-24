@@ -33,6 +33,8 @@ public class HoekzstpXmlRowProcessor extends AbstractXmlRowProcessor<HoererKennz
                 case "HOKZ12":
                     hoererKennzeichen.setEmail(tagContent);
                     break;
+                default:
+                    break;
             }
         }
         return hoererKennzeichen;

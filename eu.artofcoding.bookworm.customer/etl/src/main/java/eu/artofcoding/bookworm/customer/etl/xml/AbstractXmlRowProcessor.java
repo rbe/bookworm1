@@ -11,7 +11,6 @@ package eu.artofcoding.bookworm.customer.etl.xml;
 import eu.artofcoding.beetlejuice.api.persistence.GenericEntity;
 import eu.artofcoding.bookworm.common.etl.xml.XmlRow;
 import eu.artofcoding.bookworm.common.etl.xml.XmlRowProcessor;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -63,11 +62,10 @@ public class AbstractXmlRowProcessor<T extends GenericEntity> implements XmlRowP
     }
 
     @Override
-    @Transactional
     public T validateAndMerge(final T entity) {
         try {
             final Set<ConstraintViolation<T>> violations = validate(entity);
-            if (violations.size() == 0) {
+            if (violations.isEmpty()) {
                 final T mergedEntity = entityManager.merge(entity);
                 entityManager.flush();
                 return mergedEntity;
@@ -84,7 +82,6 @@ public class AbstractXmlRowProcessor<T extends GenericEntity> implements XmlRowP
     }
 
     @Override
-    @Transactional
     public List<T> validateAndMerge(final List<T> entities) {
         final List<T> mergedEntities = new ArrayList<>();
         for (T entity : entities) {

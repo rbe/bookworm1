@@ -27,6 +27,7 @@ public class HoererImportProcessor implements CamelFileProcessor {
     }
 
     @Transactional
+    @Override
     public List<GenericEntity> importFile(final String body) throws Exception {
         // Check state
         if (null == xmlRowProcessor) {
@@ -34,8 +35,7 @@ public class HoererImportProcessor implements CamelFileProcessor {
         }
         // Insert data
         final XMLStreamReader reader = XmlStreamHelper.makeXMLStreamReaderFromResource(body);
-        final List<GenericEntity> genericEntities = new XmlRowParser(xmlRowProcessor).xmlRowsToEntities(reader);
-        return genericEntities;
+        return new XmlRowParser(xmlRowProcessor).xmlRowsToEntities(reader);
     }
 
 }

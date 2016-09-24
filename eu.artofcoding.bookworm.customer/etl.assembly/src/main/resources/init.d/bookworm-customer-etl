@@ -29,7 +29,7 @@ case "$1" in
         if [ -f ${ATOMIKOS_PROPERTIES} ]; then
             ATOMIKOS_OPTS="-Dcom.atomikos.icatch.file=${ATOMIKOS_PROPERTIES}"
         fi
-        OPENJPA_OPTS="-D'openjpa.ManagedRuntime=invocation(TransactionManagerMethod=com.atomikos.icatch.jta.TransactionManagerImp.getTransactionManager)'"
+        #OPENJPA_OPTS="-D'openjpa.ManagedRuntime=invocation(TransactionManagerMethod=com.atomikos.icatch.jta.TransactionManagerImp.getTransactionManager)'"
         JAVA_OPTS="-Xms512m -Xmx512m ${ATOMIKOS_OPTS} ${OPENJPA_OPTS}"
         JAR=${assembly.for.artifactId}-${project.version}.jar
         LOGFILE="/var/log/${assembly.for.artifactId}.log"

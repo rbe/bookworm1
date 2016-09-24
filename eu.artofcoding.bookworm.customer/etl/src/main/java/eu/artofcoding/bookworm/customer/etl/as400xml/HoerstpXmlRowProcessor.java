@@ -40,11 +40,6 @@ public class HoerstpXmlRowProcessor extends AbstractXmlRowProcessor<Hoererstamm>
                 case "HOESTR":
                     hoererstamm.setStrasse(tagContent);
                     break;
-/* HOEKZSTP.HOELAN
-                case "HOEPLL":
-                    hoererstamm.setLand(tagContent);
-                    break;
-*/
                 case "HOEPLZ":
                     hoererstamm.setPlz(tagContent);
                     break;
@@ -63,11 +58,6 @@ public class HoerstpXmlRowProcessor extends AbstractXmlRowProcessor<Hoererstamm>
                 case "HOUNPB":
                     hoererstamm.setUrlaubAdresszusatz(tagContent);
                     break;
-/* HOEKZSTP.HOELA2
-                case "HOUPLL":
-                    hoererstamm.setUrlaubLand(tagContent);
-                    break;
-*/
                 case "HOUPLZ":
                     hoererstamm.setUrlaubPlz(tagContent);
                     break;
@@ -91,6 +81,8 @@ public class HoerstpXmlRowProcessor extends AbstractXmlRowProcessor<Hoererstamm>
                     break;
                 case "HOETEL":
                     hoererstamm.setTelefonnummer(tagContent);
+                    break;
+                default:
                     break;
             }
         }

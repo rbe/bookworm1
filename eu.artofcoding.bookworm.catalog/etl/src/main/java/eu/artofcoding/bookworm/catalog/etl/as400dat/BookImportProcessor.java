@@ -18,9 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.io.IOException;
 import java.util.List;
 
-@Transactional
 public class BookImportProcessor implements CamelFileProcessor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BookImportProcessor.class);
@@ -32,6 +32,8 @@ public class BookImportProcessor implements CamelFileProcessor {
 
     private int bookCount = 0;
 
+    private boolean mergeOccured;
+
     public void setBookFileParser(final BookFileParser bookFileParser) {
         this.bookFileParser = bookFileParser;
     }
@@ -42,37 +44,58 @@ public class BookImportProcessor implements CamelFileProcessor {
             if (null != b) {
                 LOGGER.debug("Merging {} with {}", b, book);
                 em.merge(book);
+                mergeOccured = true;
             } else {
                 LOGGER.info("Inserting {}", book);
                 em.persist(book);
             }
-            LOGGER.debug("Processed book #{}", bookCount);
+            if (LOGGER.isDebugEnabled() && bookCount % 1000 == 0) {
+                LOGGER.debug("Processed book #{}", bookCount);
+            }
             bookCount++;
         } catch (Exception e) {
             LOGGER.error("", e);
         }
     }
 
-    public List<GenericEntity> importFile(final String body) throws Exception {
-        // Check state
-        if (null == bookFileParser || null == em) {
-            throw new IllegalStateException("No file parser or no entity manager");
-        }
-        // Merge or insert data
-        final List<GenericEntity> genericEntities = bookFileParser.parse(body);
-        for (GenericEntity genericEntity : genericEntities) {
-            final Book book = (Book) genericEntity;
-            bookToDb(book);
-        }
-        // Delete all books in database but not in import list
+    /**
+     * Delete all books in database but not in import list.
+     */
+    private void removeBooks(final List<GenericEntity> genericEntities) {
+        LOGGER.info("Looking for books to remove");
         final TypedQuery<Book> query = em.createQuery("SELECT b FROM Book b", Book.class);
         final List<Book> resultList = query.getResultList();
         for (Book book : resultList) {
             final boolean anyMatch = genericEntities.parallelStream().anyMatch(b -> ((Book) b).getTitelnummer().equals(book.getTitelnummer()));
             if (!anyMatch) {
-                LOGGER.info("Deleting Book{titelnummer={}}", book.getTitelnummer());
+                LOGGER.info("Removing Book{titelnummer={}}", book.getTitelnummer());
                 em.remove(book);
             }
+        }
+    }
+
+    /**
+     * Merge or insert data.
+     */
+    private List<GenericEntity> mergeOrInsertBooks(final String body) throws IOException {
+        final List<GenericEntity> genericEntities = bookFileParser.parse(body);
+        for (GenericEntity genericEntity : genericEntities) {
+            final Book book = (Book) genericEntity;
+            bookToDb(book);
+        }
+        LOGGER.info("Merged/inserted {} books", genericEntities.size());
+        return genericEntities;
+    }
+
+    @Transactional
+    public List<GenericEntity> importFile(final String body) throws Exception {
+        // Check state
+        if (null == bookFileParser || null == em) {
+            throw new IllegalStateException("No file parser or no entity manager");
+        }
+        final List<GenericEntity> genericEntities = mergeOrInsertBooks(body);
+        if (mergeOccured) {
+            removeBooks(genericEntities);
         }
         return genericEntities;
     }

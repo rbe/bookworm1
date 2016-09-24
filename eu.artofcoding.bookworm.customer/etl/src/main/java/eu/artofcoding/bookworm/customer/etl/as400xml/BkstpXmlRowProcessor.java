@@ -21,6 +21,27 @@ import java.util.Date;
 
 public class BkstpXmlRowProcessor extends AbstractXmlRowProcessor<Bestellkarte> {
 
+    private void parseBkpdat(final Bestellkarte bestellkarte, final String tagContent) {
+        final Date datumStand = ParserHelper.parseIsoDate(tagContent);
+        if (null != datumStand) {
+            bestellkarte.setDatumStand(datumStand);
+        }
+    }
+
+    private void parseBkp(final Query findBookByTitelnummer, final Bestellkarte bestellkarte, final XmlData xmlData, final String tagContent) {
+        final boolean startsWithBKP = xmlData.getTagName().startsWith("BKP");
+        if (startsWithBKP) {
+            if (!"0".equals(tagContent)) {
+                try {
+                    final Book book = (Book) findBookByTitelnummer.setParameter("titelnummer", tagContent).getSingleResult();
+                    bestellkarte.addBook(book);
+                } catch (NoResultException e) {
+                    // ignore
+                }
+            }
+        }
+    }
+
     @Override
     public Bestellkarte xmlRowToEntity(final XmlRow xmlRow) {
         final Query findBookByTitelnummer = entityManager.createNamedQuery("Book.findByTitelnummer");
@@ -32,28 +53,10 @@ public class BkstpXmlRowProcessor extends AbstractXmlRowProcessor<Bestellkarte> 
                     bestellkarte.setHoerernummer(tagContent);
                     break;
                 case "BKPDAT":
-                    final Date datumStand = ParserHelper.parseIsoDate(tagContent);
-                    if (null != datumStand) {
-                        bestellkarte.setDatumStand(datumStand);
-                    }
+                    parseBkpdat(bestellkarte, tagContent);
                     break;
                 default:
-                    final boolean startsWithBKP = xmlData.getTagName().startsWith("BKP");
-                    if (startsWithBKP) {
-                        /*
-                        final String[] bkpSplit = xmlData.getTagName().split("BKP");
-                        final int index = Integer.parseInt(bkpSplit[1]) - 1;
-                        */
-                        if (!tagContent.equals("0")) {
-                            try {
-                                final Book book = (Book) findBookByTitelnummer.setParameter("titelnummer", tagContent).getSingleResult();
-                                bestellkarte.addBook(book);
-                            } catch (NoResultException e) {
-                                //LOGGER.warning(String.format("Book titelnummer=%s not found for XmlRow %s", tagContent, xmlRow));
-                                // ignore
-                            }
-                        }
-                    }
+                    parseBkp(findBookByTitelnummer, bestellkarte, xmlData, tagContent);
                     break;
             }
         }

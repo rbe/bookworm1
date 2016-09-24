@@ -39,18 +39,6 @@ public class HoebstpXmlRowProcessor extends AbstractXmlRowProcessor<HoererBuchst
                 case "BUMGI":
                     hoererBuchstamm.setMengenindex(ParserHelper.parseInteger(tagContent));
                     break;
-                case "BUSGB":
-                    /*
-                    final boolean hasValue = null != tagContent && !tagContent.isEmpty();
-                    if (hasValue) {
-                        final Set<Sachgebiet> sachgebiete = new TreeSet<>();
-                        for (char c : tagContent.toCharArray()) {
-                            sachgebiete.add(null);
-                        }
-                        hoererBuchstamm.setSachgebiet(sachgebiete);
-                    }
-                    */
-                    break;
                 case "BURKZ":
                     hoererBuchstamm.setRueckbuchungskz(ParserHelper.parseInteger(tagContent));
                     break;
@@ -69,7 +57,7 @@ public class HoebstpXmlRowProcessor extends AbstractXmlRowProcessor<HoererBuchst
                     //                   ^^^ Boxnummer (immer die letzten drei)
                     if (isBUBEL) {
                         final String[] bubel = xmlData.getTagName().split("BUBEL");
-                        final int index = Integer.valueOf(bubel[1]);
+                        final int index = Integer.parseInt(bubel[1]);
                         final int stellenBoxnummer = 3;
                         final String titelnummer = tagContent.substring(0, tagContent.length() - stellenBoxnummer);
                         final String boxnummer = tagContent.substring(tagContent.length() - stellenBoxnummer);

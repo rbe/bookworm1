@@ -23,9 +23,18 @@ public class BkrxstpXmlRowProcessor extends AbstractXmlRowProcessor<Bestellkarte
 
     private static final Logger LOGGER = Logger.getLogger(BkrxstpXmlRowProcessor.class.toString());
 
+    private void parseBextit(final BestellkarteArchiv bestellkarteArchiv, final String tagContent) {
+        final TypedQuery<Book> findBookByTitelnummer = entityManager.createNamedQuery("Book.findByTitelnummer", Book.class);
+        final List<Book> books = findBookByTitelnummer.setParameter("titelnummer", tagContent).getResultList();
+        if (null != books && books.size() == 1) {
+            bestellkarteArchiv.setBuch(books.get(0));
+        } else {
+            LOGGER.warning("Book " + tagContent + " not found");
+        }
+    }
+
     @Override
     public BestellkarteArchiv xmlRowToEntity(final XmlRow xmlRow) {
-        final TypedQuery<Book> findBookByTitelnummer = entityManager.createNamedQuery("Book.findByTitelnummer", Book.class);
         final BestellkarteArchiv bestellkarteArchiv = new BestellkarteArchiv();
         for (final XmlData xmlData : xmlRow.getXmlDatas()) {
             final String tagContent = xmlData.getTagContent();
@@ -34,18 +43,15 @@ public class BkrxstpXmlRowProcessor extends AbstractXmlRowProcessor<Bestellkarte
                     bestellkarteArchiv.setHoerernummer(tagContent);
                     break;
                 case "BEXTIT":
-                    final List<Book> books = findBookByTitelnummer.setParameter("titelnummer", tagContent).getResultList();
-                    if (null != books && books.size() == 1) {
-                        bestellkarteArchiv.setBuch(books.get(0));
-                    } else {
-                        LOGGER.warning("Book " + tagContent + " not found");
-                    }
+                    parseBextit(bestellkarteArchiv, tagContent);
                     break;
                 case "BEXDAT":
                     bestellkarteArchiv.setAusleihdatum(ParserHelper.parseIsoDate(tagContent));
                     break;
                 case "BEXKZ":
                     bestellkarteArchiv.setKennzeichen(tagContent);
+                    break;
+                default:
                     break;
             }
         }

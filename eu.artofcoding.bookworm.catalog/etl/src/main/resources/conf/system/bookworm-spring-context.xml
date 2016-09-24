@@ -22,21 +22,21 @@
         </property>
     </bean>
     <!-- Persistence -->
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-          depends-on="atomikosTransactionManager">
-        <property name="persistenceUnitName" value="bookwormPU"/>
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="bookwormBooksPU"/>
         <property name="dataSource" ref="bookwormDatasource"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter">
                 <property name="showSql" value="false"/>
                 <property name="generateDdl" value="true"/>
+                <!--<property name="databasePlatform" value="MySQL"/>-->
             </bean>
         </property>
     </bean>
-    <!-- Transaction -->
-    <!-- Optional: add a log administrator
-    <bean id="localLogAdministrator" class="com.atomikos.icatch.admin.imp.LocalLogAdministrator"/>
-    -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    <!-- Transaction
     <bean id="userTransactionService"
           class="com.atomikos.icatch.config.UserTransactionServiceImp"
           init-method="init" destroy-method="shutdownForce">
@@ -47,18 +47,10 @@
                 </prop>
             </props>
         </constructor-arg>
-        <!--
-        <property name="initialLogAdministrators">
-            <list>
-                <ref bean="localLogAdministrator"/>
-            </list>
-        </property>
-        -->
     </bean>
     <bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
           init-method="init" destroy-method="close"
           depends-on="userTransactionService">
-        <!-- IMPORTANT: disable startup because the userTransactionService above does this -->
         <property name="startupTransactionService" value="false"/>
         <property name="forceShutdown" value="false"/>
     </bean>
@@ -71,11 +63,7 @@
         <property name="transactionManager" ref="atomikosTransactionManager"/>
         <property name="userTransaction" ref="atomikosUserTransaction"/>
     </bean>
-    <!--
-    <bean id="transactionManager2" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>
     -->
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <tx:annotation-driven transaction-manager="transactionManager"/>
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 </beans>
