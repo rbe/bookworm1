@@ -44,10 +44,6 @@
         <filter-name>Encoding Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
-    <filter>
-        <filter-name>Hoerernummer Filter</filter-name>
-        <filter-class>eu.artofcoding.bookworm.catalog.web.session.HoerernummerFilter</filter-class>
-    </filter>
     <!--
         Servlets
     -->

@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "HoerernummerFilter", urlPatterns = "/*")
-public class HoerernummerFilter implements Filter {
+@WebFilter(filterName = "HoererSessionFilter", urlPatterns = "/*")
+public class HoererSessionFilter implements Filter {
 
     private static final String HNR_KEY = "hnr";
 
@@ -23,13 +23,18 @@ public class HoerernummerFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+        final HttpServletRequest request = (HttpServletRequest) req;
         final HttpSession session = ((HttpServletRequest) req).getSession();
-        final Object sessionHnr = session.getAttribute(HNR_KEY);
-        if (null == sessionHnr) {
-            final String hnr = req.getParameter(HNR_KEY);
-            session.setAttribute(HNR_KEY, hnr);
+        if (request.getRequestURI().endsWith("logout")) {
+            session.invalidate();
+        } else {
+            final Object sessionHnr = session.getAttribute(HNR_KEY);
+            if (null == sessionHnr) {
+                final String hnr = req.getParameter(HNR_KEY);
+                session.setAttribute(HNR_KEY, hnr);
+            }
+            chain.doFilter(req, resp);
         }
-        chain.doFilter(req, resp);
     }
 
     @Override

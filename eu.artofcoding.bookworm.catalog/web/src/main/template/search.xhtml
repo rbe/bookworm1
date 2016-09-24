@@ -1,124 +1,23 @@
-<!DOCTYPE html>
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;">
+]>
 <html lang="de"
-      xmlns="https://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:o="http://omnifaces.org/ui"
-      xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm/catalog" xmlns:c="http://java.sun.com/jsp/jstl/core">
-<h:head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <meta name="robots" content="index, follow"/>
-    <meta name="keywords" content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
-    <meta name="HandheldFriendly" content="True"/>
-    <meta name="MobileOptimized" content="320"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
-    <meta name="generator" content="WBH - Westfälische Blindenhörbücherei - Münster"/>
-    <title>Katalogsuche - Westdeutsche Blindenhörbücherei Münster</title>
-    <link href="/templates/oneweb/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/position.css"/>
-    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/style.css"/>
-    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/bookworm.css"/>    
-    <link type="text/css" rel="stylesheet" href="/app/search.css"/>
-</h:head>
-<h:body>
-
-    <div class="header">
-        <div class="wrapper">
-            <span class="unsichtbar">
-                <a name="top"></a>
-                <a accesskey="2" href="#content">zum Inhalt springen</a><br/>
-                <a accesskey="3" href="#topmenu">zur Top-Navigation springen</a><br/>
-                <a href="#mainmenu" accesskey="4">zum Hauptmenü springen</a><br />
-                <!-- <a accesskey="5" href="#logout">vom System sofort Abmelden</a> -->
-            </span>
-            <div id="logoandfontsize">
-                <div class="logo">
-                    <h2 class="unsichtbar">WBH Logo</h2>
-                    <a title="Link zur Startseite" href="https://www.wbh-online.de"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="/templates/wbh/images/logo_wbh.gif"/></a>
-                </div>
-                <!-- <div class="userlogout">
-                    <a name="logout"></a>
-                    <h2 class="unsichtbar">Abmelden/Logout</h2>
-                    <div class="module logout">
-                        <ul class="nav menu">
-                            <li class="item-264">
-                                <a href="/Categories/abmelden.html">Abmelden</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
-            </div>
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm/catalog">
+<ui:composition template="ui/wbh-catalog.xhtml">
+    <ui:define name="container">
+        <div class="leading">
+            <h2 class="contentheading">Onlinekatalog Suche</h2>
+            <bookworm:navigation/>
+            <bookworm:search-form/>
         </div>
-    </div>
-    <div class="slider" aria-hidden="true">
-        <div class="wrapper">
-            <h2 class="unsichtbar">WBH Grafikbanner</h2>
-            <img src="/images/stories/header-start_1.jpg" alt="Westdeutsche Blindenhörbücherei e.V."/>
+        <div class="noticetext">
+            <h3>Hinweise für bessere Suchergebnisse</h3>
+            <p>
+                Eine Suche findet alle Einträge die Ihren Suchbegriff enthalten - auch als Wortbestandteil.<br/>Eine Suche nach »test« findet also auch »späteste«.
+            </p>
         </div>
-    </div>
-    
-    <div class="navigation">
-        <div class="wrapper">
-            <div class="topmenu">
-                <a name="topmenu"></a>
-                <h2 class="unsichtbar">Top-Navigation</h2>
-                <h:form>
-                    <ul class="nav menu">
-                        <li><a href="/">Startseite</a></li>
-                        <c:if test="#{!hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/login.html">Login</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:commandLink action="#{hoererSession.logout}">Logout</h:commandLink></li>
-                        </c:if>
-                        <li><h:outputLink value="search.xhtml">Onlinekatalog</h:outputLink></li>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/customer/hoererblistaausleihe.xhtml">Downloads</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/catalog/wishlist.xhtml">Merkliste</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/customer/hoererdaten.xhtml">Hörerdaten</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/customer/hoererbuchausleihe.xhtml">Ausleihe</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/customer/hoererbestellkarte.xhtml">Bestellkarte</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/customer/hoererbucharchiv.xhtml">Archiv</h:outputLink></li>
-                        </c:if>
-                    </ul>
-                </h:form>
-            </div>
-        </div>
-    </div>        
-    <div class="content">
-        <div class="wrapper">
-            <div class="main">
-                <a name="content"></a>
-                <h2 class="unsichtbar">Inhalt</h2>
-                <div class="blog">
-                    <div class="leading">
-                        <h2 class="contentheading">Onlinekatalog Suche</h2>
-                        <bookworm:navigation/>
-                        <bookworm:search-form/>
-                    </div>
-                    <div class="noticetext">
-                        <h3>Hinweise für bessere Suchergebnisse</h3>
-                        <p>Eine Suche findet alle Einträge die Ihren Suchbegriff enthalten - auch als Wortbestandteil.<br />Eine Suche nach »test« findet also auch »späteste«.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>    
-    <div id="footer">
-        <div class="wrapper">
-            <bookworm:footer/>
-        </div>
-    </div>
-
-</h:body>
+    </ui:define>
+</ui:composition>
 </html>

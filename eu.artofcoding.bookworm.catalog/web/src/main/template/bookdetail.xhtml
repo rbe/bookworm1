@@ -1,211 +1,125 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="https://www.w3.org/1999/xhtml"
+<!DOCTYPE html>
+<html lang="de"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:o="http://omnifaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:of="http://omnifaces.org/functions"
-      xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm/catalog" xmlns:c="http://java.sun.com/jsp/jstl/core">
-<h:head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <meta name="robots" content="index, follow"/>
-    <meta name="keywords" content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
-    <meta name="HandheldFriendly" content="True"/>
-    <meta name="MobileOptimized" content="320"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
-    <meta name="generator" content="WBH - Westfälische Blindenhörbücherei - Münster"/>
-    <title>Katalogsuche DETAILS - Westdeutsche Blindenhörbücherei Münster</title>
-    <link href="/templates/oneweb/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/position.css"/>
-    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/style.css"/>
-    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/bookworm.css"/>    
-    <link type="text/css" rel="stylesheet" href="/app/search.css"/>
-</h:head>
-<h:body>
-
-    <div class="header">
-        <div class="wrapper">
-            <span class="unsichtbar">
-                <a name="top"></a>
-                <a accesskey="2" href="#content">zum Inhalt springen</a><br/>
-                <a accesskey="3" href="#topmenu">zur Top-Navigation springen</a>
-            </span>
-            <div class="logo">
-                <h2 class="unsichtbar">WBH Logo</h2>
-                <a title="Link zur Startseite" href="https://www.wbh-online.de"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="/templates/wbh/images/logo_wbh.gif"/></a>
-            </div>
-        </div>
-    </div>
-    <div class="slider" aria-hidden="true">
-        <div class="wrapper">
-            <h2 class="unsichtbar">WBH Grafikbanner</h2>
-            <img src="/images/stories/header-start_1.jpg" alt="Westdeutsche Blindenhörbücherei e.V."/>
-        </div>
-    </div>
-    
-    <div class="navigation">
-        <div class="wrapper">
-            <div class="topmenu">
-                <a name="topmenu"></a>
-                <h2 class="unsichtbar">Top-Navigation</h2>
-                <h:form>
-                    <ul class="nav menu">
-                        <li><a href="/">Startseite</a></li>
-                        <c:if test="#{!hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/login.html">Login</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:commandLink action="#{hoererSession.logout}">Logout</h:commandLink></li>
-                        </c:if>
-                        <li><h:outputLink value="search.xhtml">Onlinekatalog</h:outputLink></li>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/customer/hoererblistaausleihe.xhtml">Downloads</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/catalog/wishlist.xhtml">Merkliste</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/customer/hoererdaten.xhtml">Hörerdaten</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/customer/hoererbuchausleihe.xhtml">Ausleihe</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/customer/hoererbestellkarte.xhtml">Bestellkarte</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/customer/hoererbucharchiv.xhtml">Archiv</h:outputLink></li>
-                        </c:if>
-                    </ul>
-                </h:form>
-            </div>
-        </div>
-    </div>        
-    <div class="content">
-        <div class="wrapper">
-            <div class="main">
-                <a name="content"></a>
-                <h2 class="unsichtbar">Inhalt</h2>
-                <div class="blog">
-                    <div class="leading">
-                        <h2 class="contentheading">Detailinformationen - Onlinekatalog Suche</h2>
-                        <bookworm:navigation/>
-                            <h:form rendered="#{searchBean.selectedBook != null}">
-                                <div class="detailpagination">
-                                    <div class="catalogtitle">
-                                        <h:outputText value="#{searchBean.selectedBook.titel}"/>
-                                    </div>
-                                    <bookworm:bookdetail-navigation/>
-                                </div>
-                                <table class="detailtable" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td class="detaillabel" valign="top" width="200">Sachgebiet</td>
-                                        <td class="detailvalue" valign="top" width="600">
-                                            <h:outputText value="#{searchBean.selectedBook.sachgebiet}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detaillabel" valign="top">Titelnummer</td>
-                                        <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{searchBean.selectedBook.titelnummer}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detaillabel" valign="top">Einstelldatum</td>
-                                        <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{of:formatDate(searchBean.selectedBook.einstelldatum, 'dd.MM.yyyy')}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detaillabel" valign="top">Autor</td>
-                                        <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{searchBean.selectedBook.autor}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detaillabel" valign="top">Titel</td>
-                                        <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{searchBean.selectedBook.titel}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detaillabel" valign="top">Untertitel</td>
-                                        <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{searchBean.selectedBook.untertitel}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detaillabel" valign="top">Erläuterungen</td>
-                                        <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{searchBean.selectedBook.erlaeuterung}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detaillabel" valign="top">Produktionsjahr</td>
-                                        <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{searchBean.selectedBook.prodJahr}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detaillabel" valign="top">Produktionsort</td>
-                                        <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{searchBean.selectedBook.prodOrt}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detaillabel" valign="top">Spieldauer</td>
-                                        <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{searchBean.selectedBook.spieldauer}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detaillabel" valign="top">Anzahl CD</td>
-                                        <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{searchBean.selectedBook.anzahlCD}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detaillabel" valign="top">Sprecher</td>
-                                        <td class="detailvalue" valign="top">
-                                            <h:outputText rendered="#{searchBean.selectedBook.sprecher1 != null}" value="#{searchBean.selectedBook.sprecher1}"/>
-                                            <h:outputText rendered="#{searchBean.selectedBook.sprecher2 != null}" value="#{searchBean.selectedBook.sprecher2}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detaillabel" valign="top">Erscheinungsjahr</td>
-                                        <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{searchBean.selectedBook.druckjahr}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detaillabel" valign="top">Verlag</td>
-                                        <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{searchBean.selectedBook.verlag}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detaillabel" valign="top">Verlagsort</td>
-                                        <td class="detailvalue" valign="top">
-                                            <h:outputText value="#{searchBean.selectedBook.verlagsort}"/>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <bookworm:bookdetail-navigation/>
-                            </h:form>
+      xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm/catalog">
+<ui:composition template="ui/wbh-catalog.xhtml">
+    <ui:define name="container">
+        <div class="leading">
+            <h2 class="contentheading">Detailinformationen - Onlinekatalog Suche</h2>
+            <bookworm:navigation/>
+            <h:form rendered="#{searchBean.selectedBook != null}">
+                <div class="detailpagination">
+                    <div class="catalogtitle">
+                        <h:outputText value="#{searchBean.selectedBook.titel}"/>
                     </div>
-                    <div class="noticetext">
-                        <h3>Hinweise für bessere Suchergebnisse</h3>
-                        Die Suche findet alle Einträge die Ihren Suchbegriff enthalten - auch als Wortbestandteil.<br />Eine Suche nach »test« findet also auch »späteste«.
-                    </div>
+                    <bookworm:bookdetail-navigation/>
                 </div>
-            </div>
+                <table class="detailtable" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="detaillabel" valign="top" width="200">Sachgebiet</td>
+                        <td class="detailvalue" valign="top" width="600">
+                            <h:outputText value="#{searchBean.selectedBook.sachgebiet}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="detaillabel" valign="top">Titelnummer</td>
+                        <td class="detailvalue" valign="top">
+                            <h:outputText value="#{searchBean.selectedBook.titelnummer}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="detaillabel" valign="top">Einstelldatum</td>
+                        <td class="detailvalue" valign="top">
+                            <h:outputText
+                                    value="#{of:formatDate(searchBean.selectedBook.einstelldatum, 'dd.MM.yyyy')}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="detaillabel" valign="top">Autor</td>
+                        <td class="detailvalue" valign="top">
+                            <h:outputText value="#{searchBean.selectedBook.autor}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="detaillabel" valign="top">Titel</td>
+                        <td class="detailvalue" valign="top">
+                            <h:outputText value="#{searchBean.selectedBook.titel}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="detaillabel" valign="top">Untertitel</td>
+                        <td class="detailvalue" valign="top">
+                            <h:outputText value="#{searchBean.selectedBook.untertitel}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="detaillabel" valign="top">Erläuterungen</td>
+                        <td class="detailvalue" valign="top">
+                            <h:outputText value="#{searchBean.selectedBook.erlaeuterung}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="detaillabel" valign="top">Produktionsjahr</td>
+                        <td class="detailvalue" valign="top">
+                            <h:outputText value="#{searchBean.selectedBook.prodJahr}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="detaillabel" valign="top">Produktionsort</td>
+                        <td class="detailvalue" valign="top">
+                            <h:outputText value="#{searchBean.selectedBook.prodOrt}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="detaillabel" valign="top">Spieldauer</td>
+                        <td class="detailvalue" valign="top">
+                            <h:outputText value="#{searchBean.selectedBook.spieldauer}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="detaillabel" valign="top">Anzahl CD</td>
+                        <td class="detailvalue" valign="top">
+                            <h:outputText value="#{searchBean.selectedBook.anzahlCD}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="detaillabel" valign="top">Sprecher</td>
+                        <td class="detailvalue" valign="top">
+                            <h:outputText rendered="#{searchBean.selectedBook.sprecher1 != null}"
+                                          value="#{searchBean.selectedBook.sprecher1}"/>
+                            <h:outputText rendered="#{searchBean.selectedBook.sprecher2 != null}"
+                                          value="#{searchBean.selectedBook.sprecher2}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="detaillabel" valign="top">Erscheinungsjahr</td>
+                        <td class="detailvalue" valign="top">
+                            <h:outputText value="#{searchBean.selectedBook.druckjahr}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="detaillabel" valign="top">Verlag</td>
+                        <td class="detailvalue" valign="top">
+                            <h:outputText value="#{searchBean.selectedBook.verlag}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="detaillabel" valign="top">Verlagsort</td>
+                        <td class="detailvalue" valign="top">
+                            <h:outputText value="#{searchBean.selectedBook.verlagsort}"/>
+                        </td>
+                    </tr>
+                </table>
+                <bookworm:bookdetail-navigation/>
+            </h:form>
         </div>
-    </div>    
-    <div id="footer">
-        <div class="wrapper">
-            <bookworm:footer/>
+        <div class="noticetext">
+            <h3>Hinweise für bessere Suchergebnisse</h3>
+            Die Suche findet alle Einträge die Ihren Suchbegriff enthalten - auch als Wortbestandteil.<br/>Eine Suche nach »test« findet also auch »späteste«.
         </div>
-    </div>
-
-</h:body>
+    </ui:define>
+</ui:composition>
 </html>

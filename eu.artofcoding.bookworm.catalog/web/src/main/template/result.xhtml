@@ -1,204 +1,126 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="https://www.w3.org/1999/xhtml"
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;">
+    <!ENTITY copy "&#169;">
+]>
+<html lang="de"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm/catalog" xmlns:c="http://java.sun.com/jsp/jstl/core">
-<h:head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <meta name="robots" content="index, follow"/>
-    <meta name="keywords" content="WBH,Westdeutsche,Blindenhörbücherei,Bücherei,Blinde,Münster,Brailleschrift,Sehbehinderung,sehbehindert;DAISY;DAISY-Hörbuch;DAISY-Hörbücher;DAISY(MP3)-Hörbücher"/>
-    <meta name="HandheldFriendly" content="True"/>
-    <meta name="MobileOptimized" content="320"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content="WBH - Westdeutsche Blindenhörbücherei Münster - Hörbücherei für Sehbehinderte und Blinde"/>
-    <meta name="generator" content="WBH - Westfälische Blindenhörbücherei - Münster"/>
-    <title>Suchergebnisse der Katalogsuche - Westdeutsche Blindenhörbücherei Münster</title>
-    <link href="/templates/oneweb/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/position.css"/>
-    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/style.css"/>
-    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/bookworm.css"/>    
-    <link type="text/css" rel="stylesheet" href="/app/search.css"/>
-</h:head>
-<h:body>
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:bookworm="http://java.sun.com/jsf/composite/bookworm/catalog">
+<ui:composition template="ui/wbh-catalog.xhtml">
+    <ui:define name="container">
+        <div class="leading">
+            <h2 class="contentheading">Ihre Suchergebnisse</h2>
+            <bookworm:navigation/>
+            <h:form rendered="#{searchBean.paginateableSearch.totalRowCount > 0}">
+                <p class="line15 resulttext">
+                    Ihre Suche nach
+                    <span class="suchbegriff">
+                        <h:outputText value="#{searchBean.paginateableSearch.searchTerm}"/>
+                    </span>
+                    ergab
+                    <span class="suchtreffer">
+                        <h:outputText rendered="#{searchBean.paginateableSearch.totalRowCount > 0}"
+                                      value="#{searchBean.paginateableSearch.totalRowCount}"/>
+                        <h:outputText rendered="#{searchBean.paginateableSearch.totalRowCount == 0}"
+                                      value="keine"/>
+                    </span>
+                    Treffer
+                </p>
+                <h:dataTable id="bookwormSearchResultTable"
+                             styleClass="tab result-table"
+                             columnClasses="result-column1,result-column2,result-column3,result-column4,result-column5"
+                             rowClasses="result-row1,result-row2"
+                             cellpadding="0" cellspacing="0"
+                             value="#{searchBean.paginateableSearch.currentPage}" var="book"
+                             offset="#{searchBean.paginateableSearch.offset}"
+                             rows="#{searchBean.paginateableSearch.pageSize}">
+                    <h:column headerClass="result-column-header">
+                        <f:facet name="header">
+                            Titelnummer
+                        </f:facet>
+                        <h:outputText styleClass="result-column-content" value="#{book.titelnummer}"/>
+                    </h:column>
+                    <h:column headerClass="result-column-header">
+                        <f:facet name="header">
+                            Autor
+                        </f:facet>
+                        <h:outputText styleClass="result-column-content" value="#{book.autor}"/>
+                    </h:column>
+                    <h:column headerClass="result-column-header">
+                        <f:facet name="header">
+                            Titel
+                        </f:facet>
+                        <h:outputText styleClass="result-column-content" value="#{book.titel}"/>
+                    </h:column>
+                    <h:column headerClass="result-column-header">
+                        <f:facet name="header">
+                            Details
+                        </f:facet>
+                        <h:commandLink action="#{searchBean.showDetail(book)}" value="Detail"/>
+                    </h:column>
+                    <h:column headerClass="result-column-header">
+                        <f:facet name="header">
+                            Aktion
+                        </f:facet>
+                        <h:commandLink rendered="#{!postalBasketBean.isInBasket(book)}"
+                                       styleClass="basket-order-link post"
+                                       action="#{postalBasketBean.add(book)}" value="CD bestellen">
+                            <f:ajax execute="@form" render="@all"/>
+                        </h:commandLink>
+                        <h:commandLink rendered="#{postalBasketBean.isInBasket(book)}"
+                                       styleClass="basket-remove-link"
+                                       action="#{postalBasketBean.remove(book)}"
+                                       value="CD Bestellung löschen">
+                            <f:ajax execute="@form" render="@all"/>
+                        </h:commandLink>
 
-    <div class="header">
-        <div class="wrapper">
-            <span class="unsichtbar">
-                <a name="top"></a>
-                <a accesskey="2" href="#content">zum Inhalt springen</a><br/>
-                <a accesskey="3" href="#topmenu">zur Top-Navigation springen</a>
-            </span>
-            <div class="logo">
-                <h2 class="unsichtbar">WBH Logo</h2>
-                <a title="Link zur Startseite" href="https://www.wbh-online.de"><img width="150" height="47" border="0" alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster" src="/templates/wbh/images/logo_wbh.gif"/></a>
-            </div>
-        </div>
-    </div>
-    <div class="slider" aria-hidden="true">
-        <div class="wrapper">
-            <h2 class="unsichtbar">WBH Grafikbanner</h2>
-            <img src="/images/stories/header-start_1.jpg" alt="Westdeutsche Blindenhörbücherei e.V."/>
-        </div>
-    </div>
-    
-    <div class="navigation">
-        <div class="wrapper">
-            <div class="topmenu">
-                <a name="topmenu"></a>
-                <h2 class="unsichtbar">Top-Navigation</h2>
-                <h:form>
-                    <ul class="nav menu">
-                        <li><a href="/">Startseite</a></li>
-                        <c:if test="#{!hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/login.html">Login</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:commandLink action="#{hoererSession.logout}">Logout</h:commandLink></li>
-                        </c:if>
-                        <li><h:outputLink value="search.xhtml">Onlinekatalog</h:outputLink></li>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/customer/hoererblistaausleihe.xhtml">Downloads</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/catalog/wishlist.xhtml">Merkliste</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/customer/hoererdaten.xhtml">Hörerdaten</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/customer/hoererbuchausleihe.xhtml">Ausleihe</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/customer/hoererbestellkarte.xhtml">Bestellkarte</h:outputLink></li>
-                        </c:if>
-                        <c:if test="#{hoererSession.hasHoerernummer()}">
-                            <li><h:outputLink value="/customer/hoererbucharchiv.xhtml">Archiv</h:outputLink></li>
-                        </c:if>
-                    </ul>
-                </h:form>
-            </div>
-        </div>
-    </div>        
-    <div class="content">
-        <div class="wrapper">
-            <div class="main">
-                <a name="content"></a>
-                <h2 class="unsichtbar">Inhalt</h2>
-                <div class="blog">
-                    <div class="leading">
-                        <h2 class="contentheading">Ihre Suchergebnisse</h2>
-                        <bookworm:navigation/>
-                            <h:form rendered="#{searchBean.paginateableSearch.totalRowCount > 0}">
-                                <p class="line15 resulttext">
-                                    Ihre Suche nach
-                                    <span class="suchbegriff">
-                                        <h:outputText value="#{searchBean.paginateableSearch.searchTerm}"/>
-                                    </span>
-                                    ergab
-                                    <span class="suchtreffer">
-                                        <h:outputText rendered="#{searchBean.paginateableSearch.totalRowCount > 0}" value="#{searchBean.paginateableSearch.totalRowCount}"/>
-                                        <h:outputText rendered="#{searchBean.paginateableSearch.totalRowCount == 0}" value="keine"/>
-                                    </span>
-                                    Treffer
-                                </p>
-                                <h:dataTable id="bookwormSearchResultTable"
-                                             styleClass="tab result-table"
-                                             columnClasses="result-column1,result-column2,result-column3,result-column4,result-column5"
-                                             rowClasses="result-row1,result-row2"
-                                             cellpadding="0" cellspacing="0"
-                                             value="#{searchBean.paginateableSearch.currentPage}" var="book"
-                                             offset="#{searchBean.paginateableSearch.offset}" rows="#{searchBean.paginateableSearch.pageSize}">
-                                    <h:column headerClass="result-column-header">
-                                        <f:facet name="header">
-                                            Titelnummer
-                                        </f:facet>
-                                        <h:outputText styleClass="result-column-content" value="#{book.titelnummer}"/>
-                                    </h:column>
-                                    <h:column headerClass="result-column-header">
-                                        <f:facet name="header">
-                                            Autor
-                                        </f:facet>
-                                        <h:outputText styleClass="result-column-content" value="#{book.autor}"/>
-                                    </h:column>
-                                    <h:column headerClass="result-column-header">
-                                        <f:facet name="header">
-                                            Titel
-                                        </f:facet>
-                                        <h:outputText styleClass="result-column-content" value="#{book.titel}"/>
-                                    </h:column>
-                                    <h:column headerClass="result-column-header">
-                                        <f:facet name="header">
-                                            Details
-                                        </f:facet>
-                                        <h:commandLink action="#{searchBean.showDetail(book)}" value="Detail"/>
-                                    </h:column>
-                                    <h:column headerClass="result-column-header">
-                                        <f:facet name="header">
-                                            Aktion
-                                        </f:facet>
-                                        <h:commandLink rendered="#{!postalBasketBean.isInBasket(book)}"
-                                                       styleClass="basket-order-link post"
-                                                       action="#{postalBasketBean.add(book)}" value="CD bestellen">
-                                            <f:ajax execute="@form" render="@all"/>
-                                        </h:commandLink>
-                                        <h:commandLink rendered="#{postalBasketBean.isInBasket(book)}"
-                                                       styleClass="basket-remove-link"
-                                                       action="#{postalBasketBean.remove(book)}"
-                                                       value="CD Bestellung löschen">
-                                            <f:ajax execute="@form" render="@all"/>
-                                        </h:commandLink>
+                        <h:commandLink rendered="#{orderBean.canBeDownloadedAction(book)}"
+                                       styleClass="basket-order-link download"
+                                       action="#{digitalBasketBean.add(book)}" value="Download">
+                            <f:ajax execute="@form" render="@all"/>
+                        </h:commandLink>
+                        <h:commandLink rendered="#{digitalBasketBean.canBeRemovedFromBasket(book)}"
+                                       styleClass="basket-remove-link clr"
+                                       action="#{digitalBasketBean.remove(book)}"
+                                       value="Aus Warenkorb löschen">
+                            <f:ajax execute="@form" render="@all"/>
+                        </h:commandLink>
 
-                                        <h:commandLink rendered="#{orderBean.canBeDownloadedAction(book)}"
-                                                       styleClass="basket-order-link download"
-                                                       action="#{digitalBasketBean.add(book)}" value="Download">
-                                            <f:ajax execute="@form" render="@all"/>
-                                        </h:commandLink>
-                                        <h:commandLink rendered="#{digitalBasketBean.canBeRemovedFromBasket(book)}"
-                                                       styleClass="basket-remove-link clr"
-                                                       action="#{digitalBasketBean.remove(book)}"
-                                                       value="Aus Warenkorb löschen">
-                                            <f:ajax execute="@form" render="@all"/>
-                                        </h:commandLink>
+                        <h:commandLink
+                                rendered="#{wishlistBean.canBePutToWishlist() and !wishlistBean.isInWishlist(book)}"
+                                styleClass="basket-order-link wishlist"
+                                action="#{wishlistBean.add(book)}" value="Merken">
+                            <f:ajax execute="@form" render="@all"/>
+                        </h:commandLink>
+                        <h:commandLink
+                                rendered="#{wishlistBean.canBePutToWishlist() and wishlistBean.isInWishlist(book)}"
+                                styleClass="basket-remove-link clr"
+                                action="#{wishlistBean.remove(book)}"
+                                value="Aus Merkliste löschen">
+                            <f:ajax execute="@form" render="@all"/>
+                        </h:commandLink>
+                    </h:column>
+                    <f:facet name="footer">
+                        <h:panelGroup>
+                            <h:commandButton value="Zurück" action="#{searchBean.previousPage}"
+                                             disabled="#{!searchBean.previousButtonEnabled}"/>
+                            &nbsp;Seite
+                            <h:outputText value="#{searchBean.paginateableSearch.currentPageIndex + 1}"/> von
+                            <h:outputText value="#{searchBean.paginateableSearch.pageCount}"/>&nbsp;
+                            <h:commandButton value="Weiter" action="#{searchBean.nextPage}"
+                                             disabled="#{!searchBean.nextButtonEnabled}"/>
+                        </h:panelGroup>
+                    </f:facet>
+                </h:dataTable>
 
-                                        <h:commandLink rendered="#{wishlistBean.canBePutToWishlist() and !wishlistBean.isInWishlist(book)}"
-                                                       styleClass="basket-order-link wishlist"
-                                                       action="#{wishlistBean.add(book)}" value="Merken">
-                                            <f:ajax execute="@form" render="@all"/>
-                                        </h:commandLink>
-                                        <h:commandLink rendered="#{wishlistBean.canBePutToWishlist() and wishlistBean.isInWishlist(book)}"
-                                                       styleClass="basket-remove-link clr"
-                                                       action="#{wishlistBean.remove(book)}"
-                                                       value="Aus Merkliste löschen">
-                                            <f:ajax execute="@form" render="@all"/>
-                                        </h:commandLink>
-                                    </h:column>
-                                    <f:facet name="footer">
-                                        <h:panelGroup>
-                                            <h:commandButton value="Zurück" action="#{searchBean.previousPage}" disabled="#{!searchBean.previousButtonEnabled}"/>
-                                            &nbsp;Seite
-                                            <h:outputText value="#{searchBean.paginateableSearch.currentPageIndex + 1}"/> von
-                                            <h:outputText value="#{searchBean.paginateableSearch.pageCount}"/>&nbsp;
-                                            <h:commandButton value="Weiter" action="#{searchBean.nextPage}" disabled="#{!searchBean.nextButtonEnabled}"/>
-                                        </h:panelGroup>
-                                    </f:facet>
-                                </h:dataTable>
-                                
-                            </h:form>
-                    </div>
-                    <div class="noticetext">
-                        <h3>Hinweise für bessere Suchergebnisse</h3>
-                        Die Suche findet alle Einträge die Ihren Suchbegriff enthalten - auch als Wortbestandteil.<br />Eine Suche nach »test« findet also auch »späteste«.
-                    </div>
-                </div>
-            </div>
+            </h:form>
         </div>
-    </div>    
-    <div id="footer">
-        <div class="wrapper">
-            <bookworm:footer/>
+        <div class="noticetext">
+            <h3>Hinweise für bessere Suchergebnisse</h3>
+            Die Suche findet alle Einträge die Ihren Suchbegriff enthalten - auch als Wortbestandteil.<br/>Eine Suche nach »test« findet also auch »späteste«.
         </div>
-    </div>
-
-</h:body>
+    </ui:define>
+</ui:composition>
 </html>
