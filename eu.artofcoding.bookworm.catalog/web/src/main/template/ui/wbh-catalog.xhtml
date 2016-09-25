@@ -22,10 +22,10 @@
     <meta name="generator" content="WBH - Westfälische Blindenhörbücherei - Münster"/>
     <title>Hörerdaten - Westdeutsche Blindenhörbücherei Münster</title>
     <link href="templates/oneweb/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-    <link type="text/css" rel="stylesheet" href="templates/oneweb/css/position.css"/>
-    <link type="text/css" rel="stylesheet" href="templates/oneweb/css/style.css"/>
-    <link type="text/css" rel="stylesheet" href="templates/oneweb/css/bookworm.css"/>
-    <link type="text/css" rel="stylesheet" href="app/search.css"/>
+    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/position.css"/>
+    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="/templates/oneweb/css/bookworm.css"/>
+    <link type="text/css" rel="stylesheet" href="/app/search.css"/>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <o:conditionalComment if="lte IE 9">
         <link href="js/html5shiv.js" rel="stylesheet" type="text/css"/>
@@ -49,7 +49,7 @@
                         <a title="Link zur Startseite" href="https://www.wbh-online.de"><img width="150" height="47"
                                                                                              border="0"
                                                                                              alt="Logo der Westdeutschen Blindenhörbücherei e.V. - Münster"
-                                                                                             src="templates/wbh/images/logo_wbh.gif"/></a>
+                                                                                             src="/templates/wbh/images/logo_wbh.gif"/></a>
                     </div>
                     <a name="logout"></a>
                     <h2 class="unsichtbar">Abmelden/Logout</h2>
@@ -69,10 +69,10 @@
                                         }))
                                         .then(function () {
                                             console.log("redirect");
-                                            //window.location.replace("/");
+                                            window.location.replace("/");
                                         }, function () {
                                             console.log("error");
-                                            //window.location.replace("/");
+                                            window.location.replace("/");
                                         });
                             });
                         });
@@ -85,7 +85,7 @@
     <div class="slider">
         <div class="wrapper">
             <h2 class="unsichtbar">WBH Grafikbanner</h2>
-            <img src="images/stories/header-start_1.jpg" alt="Grafik Westdeutsche Blindenhörbücherei e.V., Münster"/>
+            <img src="/images/stories/header-start_1.jpg" alt="Grafik Westdeutsche Blindenhörbücherei e.V., Münster"/>
         </div>
     </div>
 
