@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+    <persistence-unit name="bookwormPU" transaction-type="JTA">
+        <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+        <!--<jta-data-source>bookwormDatasource</jta-data-source>-->
+        <!--<non-jta-data-source>bookwormDatasourceNonJta</non-jta-data-source>-->
+        <class>eu.artofcoding.bookworm.common.persistence.basket.Basket</class>
+        <class>eu.artofcoding.bookworm.common.persistence.basket.BlistaConfiguration</class>
+        <class>eu.artofcoding.bookworm.common.persistence.basket.BlistaOrder</class>
+        <class>eu.artofcoding.bookworm.common.persistence.basket.Wishlist</class>
+        <class>eu.artofcoding.bookworm.common.persistence.book.Book</class>
+        <class>eu.artofcoding.bookworm.common.persistence.book.Sachgebiet</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="openjpa.Multithreaded" value="true"/>
+            <!--<property name="openjpa.Compatibility=CheckDatabaseForCascadePersistToDetachedEntity=" value="true"/>-->
+            <property name="openjpa.Log" value="DefaultLevel=WARN, Runtime=INFO, Tool=INFO"/>
+            <!--property name="openjpa.Log" value="DefaultLevel=ERROR, Enhance=INFO, MetaData=INFO, Runtime=INFO, Query=INFO, DataCache=INFO, Tool=INFO, SQL=INFO"/-->
+            <!--<property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>-->
+            <property name="openjpa.ConnectionFactoryProperties" value="PrettyPrint=true, PrettyPrintLineLength=80"/>
+            <property name="openjpa.jdbc.DBDictionary" value="mysql"/>
+            <property name="openjpa.InitializeEagerly" value="true"/>
+            <!--property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true, schemaAction='dropDB,createDB,add')"/-->
+            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=false)"/>
+            <property name="openjpa.jdbc.SchemaFactory" value="native(ForeignKeys=false)"/>
+            <property name="openjpa.jdbc.MappingDefaults" value="ForeignKeyDeleteAction=restrict, JoinForeignKeyDeleteAction=restrict"/>
+            <property name="openjpa.DynamicEnhancementAgent" value="false"/>
+            <property name="openjpa.DetachState" value="loaded(DetachedStateField=true)"/>
+            <property name="openjpa.Compatibility" value="IgnoreDetachedStateFieldForProxySerialization=true"/>
+            <property name="openjpa.TransactionMode" value="local"/>
+            <!--<property name="openjpa.ManagedRuntime" value="invocation(TransactionManagerMethod=com.atomikos.icatch.jta.TransactionManagerImp.getTransactionManager)")-->
+            <!--<property name="openjpa.ManagedRuntime" value="jndi(TransactionManagerName=java:comp/TransactionManager)"/>-->
+        </properties>
+    </persistence-unit>
+</persistence>
