@@ -28,8 +28,9 @@ public class HoererSessionFilter implements Filter {
         if (request.getRequestURI().endsWith("logout")) {
             session.invalidate();
         } else {
-            final Object sessionHnr = session.getAttribute(HNR_KEY);
-            if (null == sessionHnr) {
+            final String sessionHnr = (String) session.getAttribute(HNR_KEY);
+            final boolean sessionHasNoHnr = null == sessionHnr || sessionHnr.isEmpty();
+            if (sessionHasNoHnr) {
                 final String hnr = req.getParameter(HNR_KEY);
                 session.setAttribute(HNR_KEY, hnr);
             }
