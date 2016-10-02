@@ -93,7 +93,7 @@ public class AbstractXmlRowProcessor<T extends GenericEntity> implements XmlRowP
                 LOGGER.log(Level.SEVERE, "Cannot validate and merge " + entity.toString(), e);
             }
             if (i % 1000 == 0) {
-                LOGGER.info("Processed " + i + " books");
+                LOGGER.info("Processed " + i + " entities");
             }
         }
         return mergedEntities;
