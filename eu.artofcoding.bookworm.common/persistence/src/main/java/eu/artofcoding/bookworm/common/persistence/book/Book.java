@@ -24,7 +24,9 @@ import java.util.List;
 
 @Entity
 @NamedQueries({
-        //@NamedQuery(name = "findByStichwort", query = "SELECT o FROM Book o WHERE o.autor LIKE :autor OR o.titel LIKE :titel OR o.untertitel LIKE :untertitel OR o.titelnummer = :titelnummer"),
+        @NamedQuery(name = "Book.countByTitelnummer",
+                query = "SELECT COUNT(o) FROM Book o" +
+                        " WHERE o.titelnummer = :titelnummer"),
         @NamedQuery(name = "Book.findByTitelnummer",
                 query = "SELECT o FROM Book o" +
                         " WHERE o.titelnummer = :titelnummer"),
@@ -86,73 +88,72 @@ public class Book implements GenericEntity {
     private String titelnummer; // 6 0 (nummerisch)
 
     @Basic
-    @Column
-    private String autor; // 79
+    @Column(length = 79)
+    private String autor;
 
     @Basic
-    @Column
-    private String titel; // 120
+    @Column(length = 120)
+    private String titel;
 
     @Basic
-    @Column
-    private String untertitel; // 120
+    @Column(length = 120)
+    private String untertitel;
 
     @Basic
     @Column(length = 400)
-    private String erlaeuterung; // 400
+    private String erlaeuterung;
 
     @Basic
-    @Column
-    private String verlagsort; // 20
+    @Column(length = 20)
+    private String verlagsort;
 
     @Basic
-    @Column
-    private String verlag; // 30
+    @Column(length = 30)
+    private String verlag;
 
     @Basic
-    @Column
-    private String druckjahr; // 40
+    @Column(length = 40)
+    private String druckjahr;
 
     @Basic
-    @Column
-    private String sprecher1; // 150
+    @Column(length = 150)
+    private String sprecher1;
 
     @Basic
-    @Column
-    private String sprecher2; // 250
+    @Column(length = 250)
+    private String sprecher2;
 
     @Basic
     @Column
     private String spieldauer; // 52 Stunde, Minuten
 
     @Basic
-    @Column
-    private String prodOrt; // 20
+    @Column(length = 20)
+    private String prodOrt;
+
+    @Basic
+    @Column(length = 40)
+    private String prodJahr;
+
+    @Basic
+    @Column(length = 80)
+    private String suchwoerter;
+
+    @Basic
+    @Column(length = 20)
+    private String anzahlCD;
+
+    @Basic
+    @Column(length = 40)
+    private String titelfamilie;
 
     @Basic
     @Column
-    private String prodJahr; // 40
+    private Date einstelldatum;
 
     @Basic
-    @Column
-    private String suchwoerter; // 80
-
-    @Basic
-    @Column
-    private String anzahlCD; // 20
-
-    @Basic
-    @Column
-    private String titelfamilie; // 40 wird nicht gebraucht
-
-    @Basic
-    @Column
-    private
-    Date einstelldatum; // .80
-
-    @Basic
-    @Column
-    private String aghNummer; // 15 Stellen
+    @Column(length = 15)
+    private String aghNummer;
 
     @PrePersist
     private void prePersist() {
@@ -274,7 +275,7 @@ public class Book implements GenericEntity {
         String _spieldauer = null;
         if (null != spieldauer) {
             String[] parts = spieldauer.split(",");
-            if (!parts[1].equals("00")) {
+            if (!"00".equals(parts[1])) {
                 _spieldauer = String.format("%s Stunden %s Minuten", parts[0], parts[1]);
             } else {
                 _spieldauer = String.format("%s Stunden", parts[0]);

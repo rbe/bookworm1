@@ -23,6 +23,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -56,7 +57,7 @@ public class BestellkarteArchiv implements GenericEntity {
     private Long version;
 
     @Basic
-    @Column
+    @Size(min = 1, max = 5)
     private String hoerernummer;
 
     @OneToOne
