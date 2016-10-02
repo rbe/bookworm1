@@ -13,6 +13,7 @@
         <class>eu.artofcoding.bookworm.common.persistence.hoerer.Belastung</class>
         <class>eu.artofcoding.bookworm.common.persistence.hoerer.Bestellkarte</class>
         <class>eu.artofcoding.bookworm.common.persistence.hoerer.BestellkarteArchiv</class>
+        <class>eu.artofcoding.bookworm.common.persistence.basket.BlistaOrder</class>
         <class>eu.artofcoding.bookworm.common.persistence.book.Book</class>
         <class>eu.artofcoding.bookworm.common.persistence.book.Sachgebiet</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>

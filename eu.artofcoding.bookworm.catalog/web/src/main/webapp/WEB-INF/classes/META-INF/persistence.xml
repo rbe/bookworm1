@@ -13,6 +13,8 @@
         <class>eu.artofcoding.bookworm.common.persistence.basket.Wishlist</class>
         <class>eu.artofcoding.bookworm.common.persistence.book.Book</class>
         <class>eu.artofcoding.bookworm.common.persistence.book.Sachgebiet</class>
+        <class>eu.artofcoding.bookworm.common.persistence.hoerer.Hoererstamm</class>
+        <class>eu.artofcoding.bookworm.common.persistence.hoerer.HoererKennzeichen</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="openjpa.Multithreaded" value="true"/>
