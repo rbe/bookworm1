@@ -84,12 +84,16 @@ public class AbstractXmlRowProcessor<T extends GenericEntity> implements XmlRowP
     @Override
     public List<T> validateAndMerge(final List<T> entities) {
         final List<T> mergedEntities = new ArrayList<>();
-        for (T entity : entities) {
+        for (int i = 0; i < entities.size(); i++) {
+            final T entity = entities.get(i);
             try {
-                T validatedAndMergedEntity = validateAndMerge(entity);
+                final T validatedAndMergedEntity = validateAndMerge(entity);
                 mergedEntities.add(validatedAndMergedEntity);
             } catch (Exception e) {
                 LOGGER.log(Level.SEVERE, "Cannot validate and merge " + entity.toString(), e);
+            }
+            if (i % 1000 == 0) {
+                LOGGER.info("Processed " + i + " books");
             }
         }
         return mergedEntities;

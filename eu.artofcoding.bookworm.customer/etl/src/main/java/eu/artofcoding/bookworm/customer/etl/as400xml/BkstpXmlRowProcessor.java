@@ -16,7 +16,7 @@ import eu.artofcoding.bookworm.common.persistence.hoerer.Bestellkarte;
 import eu.artofcoding.bookworm.customer.etl.xml.AbstractXmlRowProcessor;
 
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.Date;
 
 public class BkstpXmlRowProcessor extends AbstractXmlRowProcessor<Bestellkarte> {
@@ -28,23 +28,21 @@ public class BkstpXmlRowProcessor extends AbstractXmlRowProcessor<Bestellkarte> 
         }
     }
 
-    private void parseBkp(final Query findBookByTitelnummer, final Bestellkarte bestellkarte, final XmlData xmlData, final String tagContent) {
+    private void parseBkp(final Bestellkarte bestellkarte, final XmlData xmlData, final String tagContent) {
+        final TypedQuery<Book> findBookByTitelnummer = entityManager.createNamedQuery("Book.findByTitelnummer", Book.class);
         final boolean startsWithBKP = xmlData.getTagName().startsWith("BKP");
-        if (startsWithBKP) {
-            if (!"0".equals(tagContent)) {
-                try {
-                    final Book book = (Book) findBookByTitelnummer.setParameter("titelnummer", tagContent).getSingleResult();
-                    bestellkarte.addBook(book);
-                } catch (NoResultException e) {
-                    // ignore
-                }
+        if (startsWithBKP && !"0".equals(tagContent)) {
+            try {
+                final Book book = findBookByTitelnummer.setParameter("titelnummer", tagContent).getSingleResult();
+                bestellkarte.addBook(book);
+            } catch (NoResultException e) {
+                // ignore
             }
         }
     }
 
     @Override
     public Bestellkarte xmlRowToEntity(final XmlRow xmlRow) {
-        final Query findBookByTitelnummer = entityManager.createNamedQuery("Book.findByTitelnummer");
         final Bestellkarte bestellkarte = new Bestellkarte();
         for (final XmlData xmlData : xmlRow.getXmlDatas()) {
             final String tagContent = xmlData.getTagContent();
@@ -56,7 +54,7 @@ public class BkstpXmlRowProcessor extends AbstractXmlRowProcessor<Bestellkarte> 
                     parseBkpdat(bestellkarte, tagContent);
                     break;
                 default:
-                    parseBkp(findBookByTitelnummer, bestellkarte, xmlData, tagContent);
+                    parseBkp(bestellkarte, xmlData, tagContent);
                     break;
             }
         }
