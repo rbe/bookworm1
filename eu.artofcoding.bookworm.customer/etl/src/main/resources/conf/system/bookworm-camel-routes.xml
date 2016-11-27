@@ -21,7 +21,7 @@
         <jmxAgent id="agent" disabled="true"/>
         <route id="fetchFromFtp" autoStartup="true">
             <from uri="{{customer.ftp.url}}&amp;{{customer.ftp.cron}}"/>
-            <log message="Fetched from FTP server, name=${file:name}, size=${file:size}, CamelBatchIndex/Size (header) = ${header.CamelBatchIndex}/${header.CamelBatchSize}"/>
+            <log message="Fetched name=${file:name}, size=${file:size}, CamelBatchIndex/Size (header) = ${header.CamelBatchIndex}/${header.CamelBatchSize}"/>
             <convertBodyTo type="java.lang.String"/>
             <choice>
                 <when>
