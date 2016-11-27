@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Stateless
 public class BlistaConfigurationDAO extends GenericDAO<BlistaConfiguration> implements Serializable {
 
-    @PersistenceContext
+    @PersistenceContext(name = "bookwormPU")
     private EntityManager em;
 
     public BlistaConfigurationDAO() {

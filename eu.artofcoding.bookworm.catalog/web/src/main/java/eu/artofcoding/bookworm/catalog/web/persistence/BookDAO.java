@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Named
 public class BookDAO extends GenericDAO<Book> implements Serializable {
 
-    @PersistenceContext
+    @PersistenceContext(name = "bookwormPU")
     private EntityManager em;
 
     public BookDAO() {
