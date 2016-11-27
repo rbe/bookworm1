@@ -189,8 +189,8 @@ public class BlistaOrder implements GenericEntity, Serializable {
         this.aghAbrufkennwortMap = aghAbrufkennwortMap;
     }
 
-    public void abrufkennwort(final String aghNummer, final String abrufkenntwort) {
-        aghAbrufkennwortMap.put(aghNummer, abrufkenntwort);
+    public void abrufkennwort(final String aghNummer, final String abrufkennwort) {
+        aghAbrufkennwortMap.put(aghNummer, abrufkennwort);
     }
 
 }
