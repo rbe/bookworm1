@@ -114,7 +114,7 @@ function proxyRequestToApp()
         $requestUri = $_SERVER['REQUEST_URI'];
         if (strpos($requestUri, "customer") > 0) {
             sendHttpRedirectIfNoUser() or $approxy->perform($customizeUriDelegate);
-        } else {
+        } else if (strpos($requestUri, "catalog") > 0) {
             $approxy->perform($customizeUriDelegate);
         }
     } else {
