@@ -34,6 +34,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -136,8 +137,10 @@ public class OrderBean implements Serializable {
         blistaOrder.setUserId(orderDetails.getName());
         blistaOrder.setEmail(orderDetails.getEmail());
         int counter = 0;
-        for (Book book : digitalBasketBean.getBasket().getBooks()) {
-            if (counter < blistaConfiguration.getMaxDownloadsPerDay()) {
+        for (Iterator<Book> iterator = digitalBasketBean.getBasket().getBooks().iterator(); iterator.hasNext(); ) {
+            final Book book = iterator.next();
+            final boolean canDownloadToday = counter < blistaConfiguration.getMaxDownloadsPerDay();
+            if (canDownloadToday) {
                 blistaOrder.getBooks().add(book);
                 try {
                     final BookOrder bookOrder = blistaRestClient.placeBillet(blistaOrder.getUserId(), book.getAghNummer());
