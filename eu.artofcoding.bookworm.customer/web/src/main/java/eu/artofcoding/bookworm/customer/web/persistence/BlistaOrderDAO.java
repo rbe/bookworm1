@@ -24,7 +24,7 @@ import java.util.List;
 @Stateless
 public class BlistaOrderDAO extends GenericDAO<BlistaOrder> implements Serializable {
 
-    @PersistenceContext
+    @PersistenceContext(name = "bookwormPU")
     private EntityManager em;
 
     public BlistaOrderDAO() {
