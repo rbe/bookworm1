@@ -17,16 +17,10 @@ CREATE OR REPLACE VIEW v_webhoer AS
     INNER JOIN HoererBuchstamm hbs ON hbs.hoerernummer = bo.hoerernummer
 ;
 
-
-DROP EVENT webhoer_csv;
-
+DROP PROCEDURE IF EXISTS webhoer_csv_export;
 DELIMITER $$
-
-CREATE EVENT webhoer_csv
-  ON SCHEDULE
-    EVERY 1 DAY
-    STARTS '2016-07-11 00:01:00' + INTERVAL 1 DAY
-DO BEGIN
+CREATE PROCEDURE webhoer_csv_export()
+BEGIN
   SET @filepath = CONCAT('/home/wbh/apache/sites/wbh-online.de/www/app/download/webhoer-', DATE_FORMAT(NOW(), '%Y%m%d'), '.csv');
   SET @sql = CONCAT("SELECT CONCAT(
         LPAD(hoenr, 5, ' ')
@@ -47,5 +41,15 @@ DO BEGIN
   EXECUTE stmt;
   DEALLOCATE PREPARE stmt;
 END $$
+DELIMITER ;
 
+DROP EVENT webhoer_csv;
+DELIMITER $$
+CREATE EVENT webhoer_csv
+  ON SCHEDULE
+    EVERY 1 DAY
+    STARTS '2016-07-11 00:01:00' + INTERVAL 1 DAY
+DO BEGIN
+  CALL webhoer_csv_export();
+END $$
 DELIMITER ;
