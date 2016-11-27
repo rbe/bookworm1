@@ -69,8 +69,7 @@
         Session
     -->
     <session-config>
-        <!--<session-tmeout>${container.session.timeout}</session-timeout>-->
-        <session-timeout>60</session-timeout>
+        <session-timeout>${container.session.timeout}</session-timeout>
         <cookie-config>
             <name>SESSIONID</name>
         </cookie-config>
