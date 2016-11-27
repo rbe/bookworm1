@@ -42,7 +42,7 @@ public class DigitalBasketBean extends AbstractBasketBean {
                 availableAsDownloadMap.put(book.getAghNummer(), bookAvailable);
             } catch (Exception e) {
                 // ignored, service not available at this time
-                LOGGER.warn("Cannot talk to bookworm.dls");
+                LOGGER.debug("Cannot talk to bookworm.dls");
             }
         }
         if (availableAsDownloadMap.containsKey(book.getAghNummer())) {
