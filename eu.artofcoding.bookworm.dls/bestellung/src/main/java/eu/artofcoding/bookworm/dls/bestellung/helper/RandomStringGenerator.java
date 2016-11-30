@@ -12,7 +12,7 @@ public final class RandomStringGenerator {
     }
 
     public static String next() {
-        return new BigInteger(130, random).toString(32);
+        return new BigInteger(128, random).toString(32);
     }
 
 }
