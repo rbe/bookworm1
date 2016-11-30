@@ -23,8 +23,7 @@ class BilletSender {
 
     private static final JAXBContext JAXB_CONTEXT;
 
-    @Autowired
-    private BilletFactory billetFactory;
+    private final BilletFactory billetFactory;
 
     static {
         try {
@@ -37,8 +36,9 @@ class BilletSender {
     private final SftpClient sftpClient;
 
     @Autowired
-    BilletSender(final SftpClient sftpClient) {
+    BilletSender(final SftpClient sftpClient, final BilletFactory billetFactory) {
         this.sftpClient = sftpClient;
+        this.billetFactory = billetFactory;
     }
 
     String marshal(final Billet billet) {
