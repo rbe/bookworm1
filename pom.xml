@@ -292,7 +292,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <!--<module>eu.artofcoding.bookworm.catalog</module>-->
+                <module>eu.artofcoding.bookworm.catalog</module>
             </modules>
         </profile>
         <profile>
@@ -301,7 +301,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <!--<module>eu.artofcoding.bookworm.customer</module>-->
+                <module>eu.artofcoding.bookworm.customer</module>
             </modules>
         </profile>
         <profile>
@@ -310,7 +310,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <!--<module>eu.artofcoding.bookworm.dls</module>-->
+                <module>eu.artofcoding.bookworm.dls</module>
             </modules>
         </profile>
         <profile>
