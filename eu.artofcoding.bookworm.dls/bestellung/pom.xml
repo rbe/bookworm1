@@ -111,9 +111,6 @@
     </build>
     <profiles>
         <profile>
-            <id>bookworm.dls</id>
-        </profile>
-        <profile>
             <id>bookworm.delivery</id>
             <build>
                 <plugins>

@@ -103,9 +103,6 @@
     </build>
     <profiles>
         <profile>
-            <id>bookworm.catalog</id>
-        </profile>
-        <profile>
             <id>bookworm.delivery</id>
             <build>
                 <plugins>
