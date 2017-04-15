@@ -1,9 +1,10 @@
 /*
- * Bookworm
+ * eu.artofcoding.bookworm
  *
- * Copyright (C) 2011-2015 art of coding UG, http://www.art-of-coding.eu
+ * Copyright (C) 2011-2017 art of coding UG, http://www.art-of-coding.eu
  * Alle Rechte vorbehalten. Nutzung unterliegt Lizenzbedingungen.
  * All rights reserved. Use is subject to license terms.
+ *
  */
 
 package eu.artofcoding.bookworm.catalog.web.persistence;
@@ -21,7 +22,7 @@ import java.io.Serializable;
 public class BlistaOrderDAO extends GenericDAO<BlistaOrder> implements Serializable {
 
     @PersistenceContext(name = "bookwormPU")
-    private EntityManager em;
+    private transient EntityManager em;
 
     public BlistaOrderDAO() {
         super(BlistaOrder.class);

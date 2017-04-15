@@ -9,12 +9,12 @@ public class BookAvailability {
 
     private boolean available;
 
+    public BookAvailability() {
+    }
+
     public BookAvailability(final String aghNummer, final boolean available) {
         this.aghNummer = aghNummer;
         this.available = available;
-    }
-
-    public BookAvailability() {
     }
 
     public String getAghNummer() {

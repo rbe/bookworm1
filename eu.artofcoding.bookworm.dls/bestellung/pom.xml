@@ -14,11 +14,11 @@
         <!-- Bookworm -->
         <dependency>
             <groupId>eu.artofcoding.bookworm</groupId>
-            <artifactId>eu.artofcoding.bookworm.common.helper</artifactId>
+            <artifactId>eu.artofcoding.bookworm.common.template</artifactId>
         </dependency>
         <dependency>
             <groupId>eu.artofcoding.bookworm</groupId>
-            <artifactId>eu.artofcoding.bookworm.common.template</artifactId>
+            <artifactId>eu.artofcoding.bookworm.common.jetty</artifactId>
         </dependency>
         <dependency>
             <groupId>eu.artofcoding.bookworm</groupId>
@@ -44,7 +44,7 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
@@ -59,7 +59,7 @@
         <dependency>
             <groupId>com.jcraft</groupId>
             <artifactId>jsch</artifactId>
-            <version>0.1.53</version>
+            <version>0.1.54</version>
         </dependency>
         <!-- Spring -->
         <dependency>
@@ -83,32 +83,6 @@
             <version>${version.org.springframework}</version>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <!--<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-jar</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <archive>
-                                <manifest>
-                                    <addClasspath>true</addClasspath>
-                                    <classpathPrefix>lib/</classpathPrefix>
-                                    <mainClass>eu.artofcoding.bookworm.dls.bestellung.application.EmbeddedJetty</mainClass>
-                                </manifest>
-                            </archive>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
-        </plugins>
-    </build>
     <profiles>
         <profile>
             <id>bookworm.delivery</id>

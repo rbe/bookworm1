@@ -17,6 +17,7 @@
         <module>crypt</module>
         <module>web</module>
         <module>spring</module>
+        <module>jetty</module>
         <module>template</module>
     </modules>
 </project>

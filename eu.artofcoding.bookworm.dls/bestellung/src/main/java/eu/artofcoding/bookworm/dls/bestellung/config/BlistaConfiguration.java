@@ -30,18 +30,6 @@ public class BlistaConfiguration {
     @Value("${blista.dls.rest.uri}")
     private String dlsRestUri;
 
-    @Value("${blista.dlscatalog.rest.scheme}")
-    private String dlsCatalogRestScheme;
-
-    @Value("${blista.dlscatalog.rest.host}")
-    private String dlsCatalogRestHost;
-
-    @Value("${blista.dlscatalog.rest.port}")
-    private int dlsCatalogRestPort;
-
-    @Value("${blista.dlscatalog.rest.uri}")
-    private String dlsCatalogRestUri;
-
     @Value("${blista.dls.rest.bibliothek}")
     private String bibliothek;
 
@@ -62,10 +50,6 @@ public class BlistaConfiguration {
 
     public int getSftpPort() {
         return sftpPort;
-    }
-
-    public String getBlistaDlsCatalogUrl() {
-        return String.format("%s://%s:%s%s", dlsCatalogRestScheme, dlsCatalogRestHost, dlsCatalogRestPort, dlsCatalogRestUri);
     }
 
     public String getBlistaDlsUrl() {

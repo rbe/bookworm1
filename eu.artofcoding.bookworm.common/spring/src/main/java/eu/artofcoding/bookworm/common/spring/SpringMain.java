@@ -21,7 +21,8 @@ public final class SpringMain {
 
     private static final CountDownLatch LATCH = new CountDownLatch(1);
 
-    public static void startSpringContext(final String[] filesystemContextLocations, final Function<ApplicationContext, Void> custom) throws Exception {
+    public static void startSpringContext(final String[] filesystemContextLocations,
+                                          final Function<ApplicationContext, Void> custom) throws Exception {
         final String bookwormHome = getAppHomeOrExit();
         final FileSystemXmlApplicationContext applicationContext =
                 new FileSystemXmlApplicationContext(filesystemContextLocations);
@@ -37,9 +38,12 @@ public final class SpringMain {
         }
     }
 
-    public static void startSpringContext(final Function<ApplicationContext, Void> custom) throws Exception {
+    public static void startSpringContext(final Class<?> appConfig,
+                                          final Function<ApplicationContext, Void> custom) throws Exception {
         final AnnotationConfigApplicationContext applicationContext =
                 new AnnotationConfigApplicationContext();
+        applicationContext.register(appConfig);
+        applicationContext.refresh();
         // Run custom code
         custom.apply(applicationContext);
         // Await countdown LATCH... it's intended to wait forever

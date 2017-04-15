@@ -23,7 +23,7 @@
             <!--property name="openjpa.Log" value="DefaultLevel=ERROR, Enhance=INFO, MetaData=INFO, Runtime=INFO, Query=INFO, DataCache=INFO, Tool=INFO, SQL=INFO"/-->
             <!--<property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>-->
             <property name="openjpa.ConnectionFactoryProperties" value="PrettyPrint=true, PrettyPrintLineLength=80"/>
-            <property name="openjpa.jdbc.DBDictionary" value="mysql"/>
+            <property name="openjpa.jdbc.DBDictionary" value="org.apache.openjpa.jdbc.sql.MySQLDictionary"/>
             <property name="openjpa.InitializeEagerly" value="true"/>
             <!--property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true, schemaAction='dropDB,createDB,add')"/-->
             <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=false)"/>
