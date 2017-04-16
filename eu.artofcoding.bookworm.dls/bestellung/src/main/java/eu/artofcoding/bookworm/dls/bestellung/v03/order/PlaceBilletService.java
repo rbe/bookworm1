@@ -23,7 +23,10 @@ class PlaceBilletService {
         try {
             final String abrufkennwort = billetSender.sendToServer(userId, aghNummer);
             final BilletSender.ServerStatus serverStatus = billetSender.serverStatus(userId, aghNummer);
-            return new BookOrder(abrufkennwort, null != serverStatus ? serverStatus.name() : BilletSender.ServerStatus.NEW.name());
+            return new BookOrder(abrufkennwort, serverStatus.name());
+        } catch (Exception e) {
+            LOGGER.error("Konnte Bestellung nicht aufgeben", e);
+            return null;
         } finally {
             MDC.clear();
         }
