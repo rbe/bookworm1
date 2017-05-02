@@ -15,9 +15,14 @@ target/
 # oXygen XML Editor #
 *.xpr
 
-# JRebel #
-rebel.xml
+# structure101 #
+s101plugin.properties
 
+# bookworm
 thirdparty/
 temp/
 */web/src/main/php/approxy/vendor/
+eu.artofcoding.bookworm.catalog/web/src/main/webapp/templates
+eu.artofcoding.bookworm.catalog/web/src/main/webapp/images
+eu.artofcoding.bookworm.catalog/web/src/main/webapp/app
+eu.artofcoding.bookworm.catalog/etl/catalog-temp
