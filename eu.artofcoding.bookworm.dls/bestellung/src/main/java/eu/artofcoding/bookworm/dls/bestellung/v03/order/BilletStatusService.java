@@ -23,6 +23,8 @@ class BilletStatusService {
         try {
             final BilletSender.ServerStatus serverStatus = billetSender.serverStatus(userId, aghNummer);
             return serverStatus.name();
+        } catch (Exception e) {
+            return "UNKNOWN";
         } finally {
             MDC.clear();
         }
