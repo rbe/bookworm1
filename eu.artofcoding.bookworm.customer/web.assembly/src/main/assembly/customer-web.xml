@@ -17,16 +17,19 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>${project.build.directory}/site</directory>
-            <outputDirectory>${assembly.root}/docs</outputDirectory>
-        </fileSet>
-        <fileSet>
             <directory>${project.build.outputDirectory}/init.d</directory>
             <outputDirectory>${assembly.root}/init.d</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>${project.build.directory}/apache-tomee-dist-unzip/apache-tomee</directory>
             <outputDirectory>${assembly.root}/apache-tomee</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}</directory>
+            <outputDirectory>${assembly.root}</outputDirectory>
+            <includes>
+                <include>webapp.war</include>
+            </includes>
         </fileSet>
     </fileSets>
 </assembly>

@@ -39,9 +39,9 @@
         <version.org.jasypt>1.9.2</version.org.jasypt>
         <version.org.apache.openjpa>2.4.1</version.org.apache.openjpa>
         <version.com.atomikos>4.0.2</version.com.atomikos>
-        <tomee.version>7.0.1</tomee.version>
+        <tomee.version>7.0.2</tomee.version>
         <tomee.classifier>plume</tomee.classifier>
-        <tomee-maven-plugin.version>7.0.1</tomee-maven-plugin.version>
+        <tomee-maven-plugin.version>7.0.2</tomee-maven-plugin.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -264,6 +264,7 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <!-- maven-dependency-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -287,57 +288,50 @@
     </build>
     <profiles>
         <profile>
-            <id>bookworm.catalog</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <modules>
-                <module>eu.artofcoding.bookworm.catalog</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>bookworm.customer</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <modules>
-                <module>eu.artofcoding.bookworm.customer</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>bookworm.dls</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <modules>
-                <module>eu.artofcoding.bookworm.dls</module>
-            </modules>
-        </profile>
-        <profile>
             <id>bookworm.development</id>
         </profile>
         <profile>
             <id>bookworm.production</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>bookworm.delivery</id>
         </profile>
         <profile>
             <id>bookworm.integrationtest</id>
-            <properties>
-                <skipTests>false</skipTests>
-                <maven.skip.tests>false</maven.skip.tests>
-            </properties>
+        </profile>
+        <profile>
+            <id>bookworm.delivery</id>
+            <modules>
+                <module>assembly</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>bookworm.documentation</id>
+            <modules>
+                <module>documentation</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>bookworm.licensereport</id>
+            <build>
+                <plugins>
+                    <!-- license-maven-plugin -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>license-maven-plugin</artifactId>
+                        <version>1.10</version>
+                        <executions>
+                            <execution>
+                                <id>download-licenses</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>download-licenses</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>sonar</id>
-            <modules>
-                <module>eu.artofcoding.bookworm.catalog</module>
-                <module>eu.artofcoding.bookworm.customer</module>
-            </modules>
             <properties>
                 <sonar.host.url>http://localhost:9000/sonar</sonar.host.url>
                 <sonar.language>java</sonar.language>

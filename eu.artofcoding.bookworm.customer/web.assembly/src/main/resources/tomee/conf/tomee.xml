@@ -7,10 +7,10 @@
         capacity = 1000
         frequency = 60
         passivator = org.apache.openejb.core.stateful.SimplePassivater
-        timeOut = ${container.session.timeout}
+        timeOut = 15 minutes
     </Container>
     <Resource id="bookwormDatasource" type="javax.sql.DataSource">
-        JdbcDriver = com.mysql.cj.jdbc.Driver
+        JdbcDriver = com.mysql.jdbc.Driver
         JdbcUrl = jdbc:mysql://localhost:3306/bookworm?useSSL=false&amp;serverTimezone=CET&amp;nullNamePatternMatchesAll=true
         UserName = bookworm
         Password = bookworm

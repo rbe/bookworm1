@@ -12,8 +12,16 @@
     <packaging>jar</packaging>
     <properties>
         <assembly.root>${project.artifactId}-${project.version}</assembly.root>
+        <assembly.war>eu.artofcoding.bookworm.customer.web</assembly.war>
     </properties>
     <dependencies>
+        <!-- Bookworm -->
+        <dependency>
+            <groupId>eu.artofcoding.bookworm</groupId>
+            <artifactId>${assembly.war}</artifactId>
+            <version>LOCALBUILD</version>
+            <type>war</type>
+        </dependency>
         <!-- Third Party -->
         <dependency>
             <groupId>org.apache.tomee</groupId>
@@ -39,15 +47,7 @@
                 <filtering>true</filtering>
                 <targetPath>init.d</targetPath>
             </resource>
-            <resource>
-                <directory>src/main/resources/tomee</directory>
-                <filtering>true</filtering>
-                <targetPath>tomee-resources</targetPath>
-            </resource>
         </resources>
-        <filters>
-            <filter>${project.basedir}/../web/src/main/filter/${webapp.filter}.properties</filter>
-        </filters>
         <plugins>
             <!-- maven-jar-plugin -->
             <plugin>
@@ -70,57 +70,75 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- maven-antrun-plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>mkdir-tomee</id>
-                        <phase>generate-test-resources</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <mkdir dir="${project.build.directory}/apache-tomee-dist"/>
-                            </target>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>unzip-tomee-dist</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <unzip src="${project.build.directory}/apache-tomee-dist/${project.artifactId}-${project.version}.zip"
-                                       dest="${project.build.directory}/apache-tomee-dist-unzip"/>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
     <profiles>
         <profile>
-            <id>bookworm.development</id>
-            <properties>
-                <webapp.filter>development</webapp.filter>
-            </properties>
-        </profile>
-        <profile>
-            <id>bookworm.production</id>
-            <properties>
-                <webapp.filter>production</webapp.filter>
-            </properties>
-        </profile>
-        <profile>
             <id>bookworm.delivery</id>
             <build>
                 <plugins>
+                    <!-- maven-dependency-plugin -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>unpack-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <includeArtifactIds>${assembly.war}</includeArtifactIds>
+                                    <outputDirectory>${project.build.directory}/${assembly.war}</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- maven-antrun-plugin -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>mkdir-tomee</id>
+                                <phase>generate-test-resources</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <mkdir dir="${project.build.directory}/apache-tomee-dist"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>unzip-tomee-dist</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <unzip src="${project.build.directory}/apache-tomee-dist/${project.artifactId}-${project.version}.zip"
+                                               dest="${project.build.directory}/apache-tomee-dist-unzip"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>zip-war</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <zip basedir="${project.build.directory}/${assembly.war}"
+                                             destfile="${project.build.directory}/webapp.war"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <!-- tomee-maven-plugin -->
                     <plugin>
                         <groupId>org.apache.tomee.maven</groupId>
@@ -146,15 +164,15 @@
                                     <goal>build</goal>
                                 </goals>
                                 <configuration>
-                                    <config>${project.build.outputDirectory}/tomee-resources/conf</config>
+                                    <config>${project.basedir}/src/main/resources/tomee/conf</config>
                                     <libs>
                                         <lib>mysql:mysql-connector-java:${version.com.mysql.connector-java}:jar</lib>
                                     </libs>
-                                    <webapps>
+                                    <!--<webapps>
                                         <webapp>
                                             eu.artofcoding.bookworm:eu.artofcoding.bookworm.customer.web:${project.version}:war
                                         </webapp>
-                                    </webapps>
+                                    </webapps>-->
                                     <zipFile>
                                         ${project.build.directory}/apache-tomee-dist/${project.build.finalName}.zip
                                     </zipFile>
@@ -259,17 +277,16 @@
                                     <goal>build</goal>
                                 </goals>
                                 <configuration>
-                                    <config>${project.build.outputDirectory}/tomee-resources/conf</config>
+                                    <config>${project.basedir}/src/main/resources/tomee/conf</config>
                                     <libs>
                                         <lib>mysql:mysql-connector-java:${version.com.mysql.connector-java}:jar</lib>
                                     </libs>
-                                    <webapps>
+                                    <!--<webapps>
                                         <webapp>
                                             eu.artofcoding.bookworm:eu.artofcoding.bookworm.customer.web:${project.version}:war
                                         </webapp>
-                                    </webapps>
-                                    <zipFile>${project.build.directory}/apache-tomee-dist/${project.build.finalName}.zip
-                                    </zipFile>
+                                    </webapps>-->
+                                    <zipFile>${project.build.directory}/apache-tomee-dist/${project.build.finalName}.zip</zipFile>
                                 </configuration>
                             </execution>
                             <execution>

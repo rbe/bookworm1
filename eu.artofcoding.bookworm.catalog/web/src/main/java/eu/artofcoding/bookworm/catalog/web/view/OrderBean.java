@@ -141,15 +141,19 @@ public class OrderBean implements Serializable {
             final Book book = iterator.next();
             final boolean canDownloadToday = counter < blistaConfiguration.getMaxDownloadsPerDay();
             if (canDownloadToday) {
-                blistaOrder.getBooks().add(book);
                 try {
-                    final BookOrder bookOrder = blistaRestClient.placeBillet(blistaOrder.getUserId(), book.getAghNummer());
-                    blistaOrder.abrufkennwort(book.getAghNummer(), bookOrder.getAbrufkennwort());
+                    final String aghNummer = book.getAghNummer();
+                    final BookOrder bookOrder = blistaRestClient.placeBillet(blistaOrder.getUserId(), aghNummer);
+                    final String abrufkennwort = bookOrder.getAbrufkennwort();
+                    blistaOrder.abrufkennwort(aghNummer, abrufkennwort);
+                    blistaOrder.getBooks().add(book);
+                    counter++;
                 } catch (Exception e) {
                     LOGGER.log(Level.SEVERE, "", e);
-                    blistaOrder.abrufkennwort(book.getAghNummer(), "");
+                    // TODO Bestellung wiederholen
+                    wishlistBean.add(book);
+                    digitalBasketBean.remove(book);
                 }
-                counter++;
             } else {
                 wishlistBean.add(book);
                 digitalBasketBean.remove(book);

@@ -76,12 +76,12 @@ public class EmailService implements Serializable {
     }
 
     public void sendMail(final OrderDetails orderDetails, final DigitalBasketBean basketBean) {
-        sendMail(orderDetails, basketBean.getBasket(), "Ihre Download-Bestellung bei der WBH", "catalog/digitalOrderReceipt.html");
+        sendMail(orderDetails, basketBean.getBasket(), "Ihre Download-Bestellung bei der WBH", "catalog/digitalOrderReceipt.ftl");
     }
 
 
     public void sendMail(final OrderDetails orderDetails, final PostalBasketBean basketBean) {
-        sendMail(orderDetails, basketBean.getBasket(), "Ihre CD-Bestellung bei der WBH", "catalog/postalOrderReceipt.html");
+        sendMail(orderDetails, basketBean.getBasket(), "Ihre CD-Bestellung bei der WBH", "catalog/postalOrderReceipt.ftl");
     }
 
 }

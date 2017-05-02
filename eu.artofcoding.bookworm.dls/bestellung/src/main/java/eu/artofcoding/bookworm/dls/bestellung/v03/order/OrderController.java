@@ -28,13 +28,18 @@ public class OrderController {
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<BookOrder> placeBillet(@PathVariable("userId") String userId, @PathVariable("aghNummer") String aghNummer) {
         final BookOrder bestellung = placeBilletService.invoke(userId, aghNummer);
-        return new ResponseEntity<>(bestellung, HttpStatus.OK);
+        if (null != bestellung) {
+            return new ResponseEntity<>(bestellung, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value = "/billet/status/{userId}/{aghNummer}", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<String> billetStatus(@PathVariable("userId") String userId, @PathVariable("aghNummer") String aghNummer) {
-        return new ResponseEntity<>(billetStatusService.invoke(userId, aghNummer), HttpStatus.OK);
+        final String status = billetStatusService.invoke(userId, aghNummer);
+        return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
 }
