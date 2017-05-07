@@ -52,8 +52,11 @@
                                                                                              src="/templates/wbh/images/logo_wbh.gif"/></a>
                     </div>
                     <a name="logout"></a>
-                    <h2 class="unsichtbar">Abmelden/Logout</h2>
-                    <div class="logout button btn btn-primary">Ausloggen</div>
+                    <ui:fragment rendered="#{null != hoererSession.hoerernummer}">
+                        <h2 class="unsichtbar">Abmelden/Logout</h2>
+                    </ui:fragment>
+                    <h:panelGroup rendered="#{null != hoererSession.hoerernummer}"
+                                  layout="block" styleClass="logout button btn btn-primary">Ausloggen</h:panelGroup>
                     <script language="JavaScript" type="text/javascript">
                         //<![CDATA[
                         $(document).ready(function ($) {
