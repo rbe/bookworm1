@@ -60,6 +60,8 @@ public class SearchBean implements Serializable {
 
     private String titel;
 
+    private String sprecher;
+
     private String datum;
 
     private PaginateableSearch<Book> paginateableSearch;
@@ -102,6 +104,14 @@ public class SearchBean implements Serializable {
 
     public void setTitel(String titel) {
         this.titel = titel;
+    }
+
+    public Object getSprecher() {
+        return sprecher;
+    }
+
+    public void setSprecher(final String sprecher) {
+        this.sprecher = sprecher;
     }
 
     public String getDatum() {
@@ -240,6 +250,9 @@ public class SearchBean implements Serializable {
         }
         if (null != titel && titel.length() > 0) {
             queryParameters.addAll(buildQueryParameter(titel, new String[]{"titel"}, AND, true, false));
+        }
+        if (null != sprecher && sprecher.length() > 0) {
+            queryParameters.addAll(buildQueryParameter(sprecher, new String[]{"sprecher1"/*, "sprecher2"*/}, AND, true, false));
         }
         if (null != datum && datum.length() > 0) {
             final SimpleDateFormat sdfGer = new SimpleDateFormat("dd.MM.yyyy");
