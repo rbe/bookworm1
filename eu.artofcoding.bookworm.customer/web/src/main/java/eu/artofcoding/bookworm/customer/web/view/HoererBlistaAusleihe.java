@@ -70,11 +70,15 @@ public class HoererBlistaAusleihe extends AbstractHoererBean {
             while (bookIterator.hasNext()) {
                 final Book book = bookIterator.next();
                 final BookOrderStatus bookOrderStatus = getBookOrderStatus(blistaOrder, book);
-                final ChronoLocalDateTime<?> tenDaysBefore = ChronoLocalDateTime.from(LocalDateTime.now().minus(10, ChronoUnit.DAYS));
-                final boolean isTenDaysBefore =
-                        null != bookOrderStatus.getRueckgabedatum() &&
-                                bookOrderStatus.getRueckgabedatum().isBefore(tenDaysBefore);
-                if (isTenDaysBefore) {
+                if (null != bookOrderStatus) {
+                    final ChronoLocalDateTime<?> tenDaysBefore = ChronoLocalDateTime.from(LocalDateTime.now().minus(10, ChronoUnit.DAYS));
+                    final boolean isTenDaysBefore =
+                                    null != bookOrderStatus.getRueckgabedatum() &&
+                                    bookOrderStatus.getRueckgabedatum().isBefore(tenDaysBefore);
+                    if (isTenDaysBefore) {
+                        bookIterator.remove();
+                    }
+                } else {
                     bookIterator.remove();
                 }
             }
