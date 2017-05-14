@@ -52,10 +52,10 @@
                                                                                              src="/templates/wbh/images/logo_wbh.gif"/></a>
                     </div>
                     <a name="logout"></a>
-                    <ui:fragment rendered="#{null != hoererSession.hoerernummer}">
+                    <ui:fragment rendered="#{null != hoererSession.hoerernummer and hoererSession.hoerernummer.length() >= 1}">
                         <h2 class="unsichtbar">Abmelden/Logout</h2>
                     </ui:fragment>
-                    <h:panelGroup rendered="#{null != hoererSession.hoerernummer}"
+                    <h:panelGroup rendered="#{null != hoererSession.hoerernummer and hoererSession.hoerernummer.length() >= 1}"
                                   layout="block" styleClass="logout button btn btn-primary">Ausloggen</h:panelGroup>
                     <script language="JavaScript" type="text/javascript">
                         //<![CDATA[
