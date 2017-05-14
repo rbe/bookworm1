@@ -36,7 +36,9 @@
                         <h:outputLabel for="name" value="Name"/>
                     </h:panelGroup>
                     <h:inputText id="name"
-                                 value="#{orderBean.orderDetails.name}" styleClass="input_hoerername"
+                                 value="#{orderBean.orderDetails.name}"
+                                 styleClass="input_hoerername"
+                                 readonly="#{null != orderBean.orderDetails.name}"
                                  required="true" requiredMessage="Bitte geben Sie Ihren Namen ein"
                                  validatorMessage="Bitte geben Sie mehr als 3 Zeichen ein">
                         <f:validateLength minimum="3"/>
@@ -51,7 +53,7 @@
                     <h:inputText id="hoerernummer"
                                  value="#{orderBean.orderDetails.hoerernummer}"
                                  styleClass="input_hoerernummer"
-                                 readonly="#{null != orderBean.orderDetails.email}"
+                                 readonly="#{null != orderBean.orderDetails.hoerernummer}"
                                  required="true"
                                  requiredMessage="Bitte geben Sie Ihre Hörernummer ein"
                                  validatorMessage="Bitte geben Sie mehr als 2 Zeichen ein">
