@@ -19,11 +19,11 @@
                                action="#{searchBean.resetStateAndGotoSearchPage}">Suchen</h:commandLink>
             </div>
             <!-- Merkliste -->
-            <h:commandLink rendered="#{orderBean.displayBasketLink()}" action="basket.xhtml">
-                <div class="basket-count">
+            <h:panelGroup rendered="#{orderBean.displayBasketLink()}" layout="block" styleClass="basket-count">
+                <h:outputLink value="basket.xhtml">
                     <h:outputText value="Warenkorb (#{orderBean.itemCount})"/>
-                </div>
-            </h:commandLink>
+                </h:outputLink>
+            </h:panelGroup>
             <h:panelGroup rendered="#{orderBean.displayEmptyBasketLink()}" layout="block" styleClass="basket-count">
                 Warenkorb (0)
             </h:panelGroup>
