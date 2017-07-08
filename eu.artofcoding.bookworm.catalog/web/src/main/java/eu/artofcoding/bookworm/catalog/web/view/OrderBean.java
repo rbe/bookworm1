@@ -1,10 +1,9 @@
 /*
- * eu.artofcoding.bookworm
+ * Bookworm
  *
- * Copyright (C) 2011-2017 art of coding UG, http://www.art-of-coding.eu
+ * Copyright (C) 2011-2015 art of coding UG, http://www.art-of-coding.eu
  * Alle Rechte vorbehalten. Nutzung unterliegt Lizenzbedingungen.
  * All rights reserved. Use is subject to license terms.
- *
  */
 
 package eu.artofcoding.bookworm.catalog.web.view;
@@ -142,15 +141,17 @@ public class OrderBean implements Serializable {
             final Book book = iterator.next();
             final boolean canDownloadToday = counter < blistaConfiguration.getMaxDownloadsPerDay();
             if (canDownloadToday) {
-                blistaOrder.getBooks().add(book);
                 try {
                     final BookOrder bookOrder = blistaRestClient.placeBillet(blistaOrder.getUserId(), book.getAghNummer());
                     blistaOrder.abrufkennwort(book.getAghNummer(), bookOrder.getAbrufkennwort());
+                    blistaOrder.getBooks().add(book);
+                    counter++;
                 } catch (Exception e) {
                     LOGGER.log(Level.SEVERE, "", e);
-                    blistaOrder.abrufkennwort(book.getAghNummer(), "");
+                    // TODO Bestellung wiederholen
+                    wishlistBean.add(book);
+                    digitalBasketBean.remove(book);
                 }
-                counter++;
             } else {
                 wishlistBean.add(book);
                 digitalBasketBean.remove(book);
