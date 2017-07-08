@@ -89,9 +89,14 @@ public class HoererBlistaAusleihe extends AbstractHoererBean {
         if (bookOrderStatuses.containsKey(key)) {
             return bookOrderStatuses.get(key);
         } else {
-            final BookOrderStatus bookOrderStatus = blistaRestClient.bookStatus(blistaOrder.getUserId(), book.getAghNummer());
-            bookOrderStatuses.put(key, bookOrderStatus);
-            return bookOrderStatus;
+            try {
+                final BookOrderStatus bookOrderStatus =
+                        blistaRestClient.bookStatus(blistaOrder.getUserId(), book.getAghNummer());
+                bookOrderStatuses.put(key, bookOrderStatus);
+                return bookOrderStatus;
+            } catch (Exception e) {
+                return null;
+            }
         }
     }
 
