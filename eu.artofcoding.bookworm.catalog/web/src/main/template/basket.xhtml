@@ -36,8 +36,10 @@
                         <h:outputLabel for="name" value="Name"/>
                     </h:panelGroup>
                     <h:inputText id="name"
-                                 value="#{orderBean.orderDetails.name}" styleClass="input_hoerername"
-                                 required="true" requiredMessage="Bitte geben Sie Ihren Namen ein"
+                                 value="#{orderBean.orderDetails.name}"
+                                 styleClass="input_hoerername"
+                                 required="true"
+                                 requiredMessage="Bitte geben Sie Ihren Namen ein"
                                  validatorMessage="Bitte geben Sie mehr als 3 Zeichen ein">
                         <f:validateLength minimum="3"/>
                     </h:inputText>
@@ -65,7 +67,8 @@
                         <h:outputLabel for="email" value="Email"/>
                     </h:panelGroup>
                     <h:inputText id="email"
-                                 value="#{orderBean.orderDetails.email}" styleClass="input_hoereremail"
+                                 value="#{orderBean.orderDetails.email}"
+                                 styleClass="input_hoereremail"
                                  readonly="#{null != orderBean.orderDetails.email}"
                                  required="true"
                                  requiredMessage="Bitte geben Sie Ihre Email-Adresse ein"
@@ -117,7 +120,8 @@
                     <h:commandButton value="Bestellen"
                                      onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);"
                                      action="#{orderBean.placeOrder}"
-                                     styleClass="basketsubmit" required="true">
+                                     styleClass="basketsubmit"
+                                     required="true">
                         <f:ajax execute="@form" render="orderSubmitMessage"/>
                     </h:commandButton>
                     <h:outputLabel id="orderSubmitMessage" value="#{orderBean.orderSubmitMessage}"/>
