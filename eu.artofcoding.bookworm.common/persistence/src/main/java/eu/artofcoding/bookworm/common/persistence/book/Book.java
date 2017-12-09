@@ -71,6 +71,7 @@ public class Book implements GenericEntity {
         SACHGEBIET_ENTITY.add(new Sachgebiet("V", "Blindenwesen"));
         SACHGEBIET_ENTITY.add(new Sachgebiet("W", "Hörspiele – Dramen"));
         SACHGEBIET_ENTITY.add(new Sachgebiet("X", "Stimme des Autors"));
+        SACHGEBIET_ENTITY.add(new Sachgebiet("Z", "Bücher in leichter/einfacher Sprache"));
     }
 
     @Basic
