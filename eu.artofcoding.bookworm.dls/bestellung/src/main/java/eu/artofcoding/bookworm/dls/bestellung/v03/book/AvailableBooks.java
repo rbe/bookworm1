@@ -16,6 +16,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -26,6 +27,7 @@ import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -89,8 +91,8 @@ class AvailableBooks {
     }
 
     private List<String> getFileContentFromZip(final String filePath) throws IOException {
-        final Path download = downloadUsingNIO(blistaConfiguration.getBlistaDlsCatalogUrl());
-        List<String> strings = null;
+        final Path download = downloadUsingHttpURLConnection(blistaConfiguration.getBlistaDlsCatalogUrl());
+        List<String> strings;
         try (FileSystem zipFileSystem = FileSystems.newFileSystem(download, null)) {
             final Path path = zipFileSystem.getPath(filePath);
             strings = Files.readAllLines(path);
@@ -103,7 +105,7 @@ class AvailableBooks {
         return strings;
     }
 
-    private Path downloadUsingNIO(final String urlStr) throws IOException {
+    private static Path downloadUsingNIO(final String urlStr) throws IOException {
         final Path tempFile = Files.createTempFile("blista", ".zip");
         tempFile.toFile().deleteOnExit();
         final URL url = new URL(urlStr);
@@ -117,6 +119,18 @@ class AvailableBooks {
         }
         rbc.close();
         fileChannel.close();
+        return tempFile;
+    }
+
+    private static Path downloadUsingHttpURLConnection(final String urlStr) throws IOException {
+        final URL url = new URL(urlStr);
+        final HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
+        urlConnection.setInstanceFollowRedirects(true);
+        urlConnection.connect();
+        final Path tempFile = Files.createTempFile("blista", ".zip");
+        tempFile.toFile().deleteOnExit();
+        Files.copy(urlConnection.getInputStream(), tempFile, StandardCopyOption.REPLACE_EXISTING);
+        urlConnection.disconnect();
         return tempFile;
     }
 
