@@ -144,21 +144,28 @@ public class OrderBean implements Serializable {
                 try {
                     final String aghNummer = book.getAghNummer();
                     final BookOrder bookOrder = blistaRestClient.placeBillet(blistaOrder.getUserId(), aghNummer);
-                    final String abrufkennwort = bookOrder.getAbrufkennwort();
-                    blistaOrder.abrufkennwort(aghNummer, abrufkennwort);
-                    blistaOrder.getBooks().add(book);
+                    if (null != bookOrder) {
+                        final String abrufkennwort = bookOrder.getAbrufkennwort();
+                        if (null != abrufkennwort) {
+                            blistaOrder.abrufkennwort(aghNummer, abrufkennwort);
+                            blistaOrder.getBooks().add(book);
+                        } else {
+                            wishlistBean.add(book);
+                        }
+                    } else {
+                        wishlistBean.add(book);
+                    }
                     counter++;
                 } catch (Exception e) {
                     LOGGER.log(Level.SEVERE, "", e);
-                    // TODO Bestellung wiederholen
                     wishlistBean.add(book);
-                    digitalBasketBean.remove(book);
                 }
             } else {
                 wishlistBean.add(book);
-                digitalBasketBean.remove(book);
             }
         }
+        // remove any book on wishlist from digitalBasket
+        wishlistBean.getBooks().forEach(wb -> digitalBasketBean.getBasket().getBooks().remove(wb));
         blistaOrderDAO.create(blistaOrder);
         emailService.sendMail(orderDetails, (DigitalBasketBean) digitalBasketBean);
         orderedDigitalBasket = digitalBasketBean.getBasket();

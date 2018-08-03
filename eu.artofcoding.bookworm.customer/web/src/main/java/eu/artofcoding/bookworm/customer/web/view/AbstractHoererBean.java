@@ -26,11 +26,11 @@ public class AbstractHoererBean {
     }
 
     public String getVorname() {
-        return hoererSession.getVorname();
+        return null != hoererSession.getVorname() ? hoererSession.getVorname() : "";
     }
 
     public String getNachname() {
-        return hoererSession.getNachname();
+        return null != hoererSession.getNachname() ? hoererSession.getNachname() : "";
     }
 
     public String getSearchTitle() {
