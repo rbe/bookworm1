@@ -164,10 +164,10 @@ public class OrderBean implements Serializable {
                 wishlistBean.add(book);
             }
         }
-        // remove any book on wishlist from digitalBasket
-        wishlistBean.getBooks().forEach(wb -> digitalBasketBean.getBasket().getBooks().remove(wb));
         blistaOrderDAO.create(blistaOrder);
         emailService.sendMail(orderDetails, (DigitalBasketBean) digitalBasketBean);
+        // remove any book on wishlist from digitalBasket
+        wishlistBean.getBooks().forEach(wb -> digitalBasketBean.getBasket().getBooks().remove(wb));
         orderedDigitalBasket = digitalBasketBean.getBasket();
         digitalBasketBean.wasOrdered();
         monthlyLimitReached = null;
