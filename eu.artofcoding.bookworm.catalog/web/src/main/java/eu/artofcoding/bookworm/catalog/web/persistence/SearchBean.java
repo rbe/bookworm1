@@ -263,7 +263,7 @@ public class SearchBean implements Serializable {
                 // ignore
             }
         }
-        if (queryParameters.size() > 0) {
+        if (!queryParameters.isEmpty()) {
             paginateableSearch = new PaginateableSearch<>(bookDAO);
             // Execute search
             setSearchTerm(sachgebiet, autor, titel, datum);
@@ -297,6 +297,9 @@ public class SearchBean implements Serializable {
 
     private String determineNextPage() {
         String nextPage = "improve-search-term.xhtml";
+        if (null == paginateableSearch) {
+            return nextPage;
+        }
         if (maxSearchResults > 0 && paginateableSearch.getTotalRowCount() > maxSearchResults) {
             nextPage = "too-many-results.xhtml";
         } else if (paginateableSearch.getTotalRowCount() > 0) {
